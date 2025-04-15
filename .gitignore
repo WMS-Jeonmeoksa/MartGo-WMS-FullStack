@@ -48,3 +48,6 @@ yarn-error.log*
 ### Build tools ###
 target/
 build/
+
+### Gradle 설정파일 ###
+.gradle/
