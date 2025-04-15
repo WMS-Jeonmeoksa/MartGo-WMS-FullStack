@@ -24,8 +24,8 @@ https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframe
 
          <property name="formatters">
              <set>
-                 <bean class="com.ssg.springtodoservice.controller.formatters.LocalDateFormatter"/>
-                 <bean class="com.ssg.springtodoservice.controller.formatters.CheckboxFormatter"/>
+                 <bean class="com.ssg.martgowmsfullstack.controller.formatters.LocalDateFormatter"/>
+                 <bean class="com.ssg.martgowmsfullstack.controller.formatters.CheckboxFormatter"/>
              </set>
          </property>
 
