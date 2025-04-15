@@ -23,6 +23,7 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+    testImplementation 'javax.servlet:javax.servlet-api:4.0.1'
     implementation group: 'org.springframework', name: 'spring-core', version: '5.3.27'
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.27'
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.StockMapper">
+
+    <select id="checkUserStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
+        SELECT * FROM stock WHERE user_id = #{user_id}
+    </select>
+
+    <select id="checkAdminUserStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
+        SELECT stock_num, count, total_price, stock.user_id, product_id, sector_id, stock.warehouse_id
+        FROM stock
+        JOIN user ON user.user_id = stock.user_id
+        JOIN admin ON user.admin_id = admin.admin_id
+        WHERE stock.user_id = user.user_id AND user.admin_id = #{admin_id}
+    </select>
+
+    <select id="checkGeneralStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
+        SELECT stock_num, count, total_price, stock.user_id, product_id, sector_id, stock.warehouse_id
+        FROM stock
+        JOIN warehouse ON stock.warehouse_id = warehouse.warehouse_id
+        JOIN admin ON admin.admin_id = #{admin_id}
+        WHERE warehouse.warehouse_id = admin.warehouse_id
+    </select>
+
+</mapper>
