@@ -2,9 +2,11 @@ package com.ssg.martgowmsfullstack.service;
 
 import com.ssg.martgowmsfullstack.dto.StockDTO;
 import com.ssg.martgowmsfullstack.dto.StockHistoryDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface StockService {
     // 회원이 입고한 재고 목록 확인
     List<StockDTO> getUserStock(String user_id);
