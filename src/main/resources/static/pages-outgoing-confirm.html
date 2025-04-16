@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/incoming_1.css">
+    <link rel="stylesheet" href="/css/outgoing_3.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,6 @@
     <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
     <link href="/css/app.css" rel="stylesheet">
-    <link rel="stylesheet" href="incoming_1.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -45,9 +44,14 @@
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/pages-incoming.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/pages-outgoing.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -322,104 +326,66 @@
                 </ul>
             </div>
         </nav>
-
-        <div class="incoming-container">
+        <div class="outgoing-container">
             <div class="header">
-                <h1 class="incoming-h1">입고 신청</h1>
+                <h1 class="outgoing-h1">출고 신청</h1>
             </div>
-
             <div class="steps-container">
                 <div class="progress-bar">
                     <div class="step active">1
-                        <div class="step-label">제품 선택</div>
+                        <div class="step-label">재고 선택</div>
                     </div>
-                    <div class="step">2
+                    <div class="step active">2
                         <div class="step-label">세부 정보 입력</div>
                     </div>
-                    <div class="step">3
+                    <div class="step active">3
                         <div class="step-label">신청 내역 확인</div>
                     </div>
                 </div>
             </div>
 
-            <div class="section-header">
-                <h3 class="incoming-h3">제품목록</h3>
+            <div class="outgoing-summary-box">
+                <table class="outgoing-summary-table">
+                    <tr><th>재고번호</th><td id="stockId">-</td></tr>
+                    <tr><th>제품 ID</th><td id="productId">-</td></tr>
+                    <tr><th>출고 수량</th><td id="quantity">-</td></tr>
+                    <tr><th>출고 희망일</th><td id="outgoingDate">-</td></tr>
+                    <tr><th>신청 상태</th><td>대기중</td></tr>
+                </table>
             </div>
 
-            <table class="incoming_table">
-                <thead>
-                <tr>
-                    <th>제품 ID</th>
-                    <th>제품명</th>
-                    <th>카테고리</th>
-                    <th>높이(cm)</th>
-                    <th>면적(㎡)</th>
-                    <th>가격(원)</th>
-                    <th>제조사</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr onclick="selectProduct(this, 'PRD001')">
-                    <td>PRD001</td>
-                    <td>냉장고</td>
-                    <td>가전</td>
-                    <td>180</td>
-                    <td>1.2</td>
-                    <td>500,000</td>
-                    <td>삼성</td>
-                </tr>
-                <tr onclick="selectProduct(this, 'PRD002')">
-                    <td>PRD002</td>
-                    <td>세탁기</td>
-                    <td>가전</td>
-                    <td>150</td>
-                    <td>1.0</td>
-                    <td>450,000</td>
-                    <td>LG</td>
-                </tr>
-                <tr onclick="selectProduct(this, 'PRD003')">
-                    <td>PRD003</td>
-                    <td>에어컨</td>
-                    <td>가전</td>
-                    <td>200</td>
-                    <td>1.5</td>
-                    <td>600,000</td>
-                    <td>위니아</td>
-                </tr>
-                </tbody>
-            </table>
-
             <div class="button-group-full">
-                <button class="incoming_btn btn-back" onclick="history.back()">
+                <button class="outgoing_btn btn-back" onclick="history.back()">
                     <i class="fas fa-arrow-left"></i> 이전
                 </button>
-                <button class="incoming_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
-                    다음 <i class="fas fa-arrow-right"></i>
+                <button class="outgoing_btn btn-next" id="nextBtn" onclick="submitApplication()">
+                    출고 신청
                 </button>
             </div>
         </div>
 
-
         <script>
-            let selectedProductId = null;
+            const stockId = sessionStorage.getItem("selectedStockId") || "-";
+            const productId = sessionStorage.getItem("selectedProductId") || "-";
+            const quantity = sessionStorage.getItem("outgoingQuantity") || "-";
+            const date = sessionStorage.getItem("outgoingDate") || "-";
 
-            function selectProduct(row, productId) {
-                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
-                row.classList.add('selected');
-                selectedProductId = productId;
-                sessionStorage.setItem('selectedProductId', productId);
-                document.getElementById('nextBtn').disabled = false;
-            }
+            document.getElementById("stockId").textContent = stockId;
+            document.getElementById("productId").textContent = productId;
+            document.getElementById("quantity").textContent = quantity + " 개";
+            document.getElementById("outgoingDate").textContent = date;
 
-            function goToNext() {
-                if (selectedProductId) {
-                    window.location.href = 'pages-incoming-quantity.html';
-                }
+            function submitApplication() {
+                alert("출고 신청이 완료되었습니다. 관리자의 승인을 기다려주세요.");
+                // 실제 서버로 전송하는 로직이 들어가는 위치
+                window.location.href = "index.html";
             }
         </script>
 
+
+
         <!-- JS -->
-        <script src="js/app.js"></script>
+        <script src="/js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -459,7 +425,7 @@
     </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="/js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
