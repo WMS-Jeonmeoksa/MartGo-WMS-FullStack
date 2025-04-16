@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.RentMapper">
+
+    <select id="getAllWarehouses" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        CALL GetAllWarehouses()
+    </select>
+
+    <select id="getAllSectors" parameterType="int" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        CALL GetAllSectors(#{warehouseId})
+    </select>
+
+    <select id="getCostInfo" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        CALL GetCostInfoSector(#{warehouseId}, #{sectorId})
+    </select>
+
+    <select id="getRentPrice" resultType="int">
+        CALL GetCostInfo(#{warehouseId}, #{sectorId}, #{month})
+    </select>
+
+    <insert id="saveDb" parameterType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        CALL InsertRentHistory(
+                #{sectorId},
+                #{warehouseId},
+                #{rentStartDate},
+                #{rentEndDate},
+                #{rentPrice},
+                #{userId}
+             )
+    </insert>
+
+    <select id="getHoldRentHistory" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        CALL GetHoldRentHistory()
+    </select>
+
+    <update id="updateUserAdminId">
+        CALL updateUserAdminid()
+    </update>
+
+    <update id="updateAdminId">
+        CALL UpdateAdminId(#{rentNum}, #{adminId})
+    </update>
+
+    <select id="getInProgressRentHistory" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        CALL GetInProgressRentHistory(#{adminId})
+    </select>
+
+    <update id="completedRentStatus">
+        CALL CompletedRentStatus(#{rentNum}, #{adminId})
+    </update>
+
+    <select id="getMonthlyPerformance" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        CALL GetMonthlyPerformance(#{adminId})
+    </select>
+
+</mapper>
