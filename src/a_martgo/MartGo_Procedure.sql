@@ -42,7 +42,7 @@ DELIMITER ;
 drop procedure if exists GetCostInfo;
 delimiter //
 create procedure GetCostInfo(IN p_warehouse_id int, IN p_sector_id varchar(10),
-                             IN p_period varchar(10))
+                             IN p_period int)
 BEGIN
     SELECT price FROM cost_info
     WHERE warehouse_id = p_warehouse_id
