@@ -14,8 +14,8 @@ public interface RentMapper {
     List<RentHistoryDTO> getCostInfo(@Param("warehouseId") int warehouseId,
                                      @Param("sectorId") String sectorId);
     int getRentPrice(@Param("warehouseId") int warehouseId,
-                     @Param("sectorName") String sectorName,
-                     @Param("month") int monthWithUnit); // "1개월", "3개월" 형태
+                     @Param("sectorId") String sectorId,
+                     @Param("month") int month);
     void saveDb(RentHistoryDTO rentHistory);
     List<RentHistoryDTO> getHoldRentHistory();
     void updateUserAdminId();

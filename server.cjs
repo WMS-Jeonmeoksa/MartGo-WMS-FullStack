@@ -6,8 +6,7 @@ const PORT = 3000;
 
 const server = http.createServer((req, res) => {
     const fileName = req.url === '/' ? 'index.html' : req.url;
-    const filePath = path.join(__dirname, 'static', fileName);  // 항상 static 폴더 기준
-
+    const filePath = path.join(__dirname, 'src/main/resources/static', fileName);  // 항상 static 폴더 기준
     const ext = path.extname(filePath);
     let contentType = 'text/html';
     switch (ext) {
