@@ -1,5 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 	<meta charset="utf-8">
@@ -13,11 +16,11 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 	<title>warehouse rent</title>
-
-	<link href="css/app.css" rel="stylesheet">
-	<link href="css/sector.css" rel="stylesheet">
-
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/app.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/warehouse.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -296,142 +299,193 @@
 		</nav>
 
 		<div class="container">
-			<h1>창고 임대 신청</h1>
+			<div id="rvWrapper">
+				<div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
+				<div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
+			</div>
+			<div id="mapWrapper">
+				<div id="map1" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
+				<div id="roadviewControl" onclick="setRoadviewRoad()"></div>
+			</div>
+			<div class="header">
+				<h1>창고 임대 신청</h1>
+			</div>
 
-			<div class="progress-bar">
-				<div class="step active">
-					1
-					<div class="step-label">창고 선택</div>
-				</div>
-				<div class="step active">
-					2
-					<div class="step-label">섹터 선택</div>
-				</div>
-				<div class="step">
-					3
-					<div class="step-label">가격/기간 선택</div>
-				</div>
-				<div class="step">
-					4
-					<div class="step-label">신청 완료</div>
+			<div class="steps-container">
+				<div class="progress-bar">
+					<div class="step active">1<div class="step-label">창고 선택</div></div>
+					<div class="step">2<div class="step-label">섹터 선택</div></div>
+					<div class="step">3<div class="step-label">가격/기간 선택</div></div>
+					<div class="step">4<div class="step-label">신청 완료</div></div>
 				</div>
 			</div>
 
 			<div class="section-header">
-				<h3><i class="fas fa-th-large"></i> 선택한 창고 정보</h3>
-			</div>
-			<div class="summary-box">
-				<div><strong>창고 ID:</strong> <span id="selected-warehouse-id">-</span></div>
-				<div><strong>창고 이름:</strong> <span id="selected-warehouse-name">-</span></div>
+				<h3><i class="fas fa-warehouse"></i> 창고 목록</h3>
 			</div>
 
-			<div class="section-header">
-				<h3><i class="fas fa-layer-group"></i> 섹터 목록</h3>
-			</div>
-			<table id="sector-table">
-				<thead>
-				<tr>
-					<th>섹터 ID</th>
-					<th>이름</th>
-					<th>크기 (㎡)</th>
-					<th>특징</th>
-					<th>상태</th>
-				</tr>
-				</thead>
-				<tbody>
-				<!-- 동적 로딩 -->
-				</tbody>
-			</table>
+			<div id="map" style="width:100%;height:550px; margin-top: 20px;"></div>
 
-			<div class="button-group">
-				<button class="btn btn-back" id="prev-btn"><i class="fas fa-arrow-left"></i> 이전</button>
-				<button class="btn btn-next" id="next-btn" disabled>다음 <i class="fas fa-arrow-right"></i></button>
+			<div class="button-group-full">
+				<button class="btn btn-back" onclick="history.back()">
+					<i class="fas fa-arrow-left"></i> 이전
+				</button>
+				<button class="btn btn-next" id="nextBtn" disabled>
+					다음 <i class="fas fa-arrow-right"></i>
+				</button>
 			</div>
-		</div>
 
+			<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=f0fadb18408cdb55d9431eca1e67b1b7&libraries=services"></script>
 		<script>
-			const sectorData = {
-				'WH001': [
-					{ id: 'S001', name: 'A 구역', size: 500, features: '일반 보관', status: '사용 가능' },
-					{ id: 'S002', name: 'B 구역', size: 800, features: '냉장 보관', status: '사용 가능' },
-					{ id: 'S003', name: 'C 구역', size: 300, features: '고가품 보관', status: '사용 가능' }
-				],
-				'WH002': [
-					{ id: 'S004', name: 'A 구역', size: 1500, features: '대형 화물', status: '사용 가능' },
-					{ id: 'S005', name: 'B 구역', size: 1200, features: '표준 보관', status: '사용 가능' }
-				],
-				'WH003': [
-					{ id: 'S006', name: 'A 구역', size: 700, features: '보안 강화', status: '사용 가능' },
-					{ id: 'S007', name: 'B 구역', size: 500, features: '일반 보관', status: '사용 가능' },
-					{ id: 'S008', name: 'C 구역', size: 300, features: '소형 물품', status: '사용 가능' }
-				],
-				'WH004': [
-					{ id: 'S009', name: 'A 구역', size: 900, features: '자동화 시스템', status: '사용 가능' },
-					{ id: 'S010', name: 'B 구역', size: 800, features: '냉동 보관', status: '사용 가능' },
-					{ id: 'S011', name: 'C 구역', size: 600, features: '위험물 보관', status: '사용 가능' },
-					{ id: 'S012', name: 'D 구역', size: 1000, features: '대형 물품', status: '사용 가능' }
-				]
+			const mapContainer = document.getElementById('map');
+			const mapOption = {
+				center: new kakao.maps.LatLng(36.5, 127.8),
+				level: 13
 			};
+			const map = new kakao.maps.Map(mapContainer, mapOption);
 
-			window.addEventListener('load', function () {
-				const warehouseId = sessionStorage.getItem('selectedWarehouseId');
-				const warehouseName = sessionStorage.getItem('selectedWarehouseName') || '-';
+			const markerImageSrc = 'https://cdn-icons-png.flaticon.com/512/2776/2776067.png';
 
-				if (!warehouseId) {
-					alert('창고를 먼저 선택해주세요.');
-					location.href = 'warehouse.html';
-					return;
+			const normalImage = new kakao.maps.MarkerImage(
+					markerImageSrc,
+					new kakao.maps.Size(40, 42),
+					{ offset: new kakao.maps.Point(20, 42) }
+			);
+
+			const largeImage = new kakao.maps.MarkerImage(
+					markerImageSrc,
+					new kakao.maps.Size(50, 55),
+					{ offset: new kakao.maps.Point(25, 55) }
+			);
+
+			const positions = [
+				{
+					id: 'WH001',
+					name: '이천 창고',
+					location: '경기도 이천시 부발읍 경충대로 2091',
+					ratio: '60%',
+					area: '500㎡',
+					status: '사용가능',
+					latlng: new kakao.maps.LatLng(37.279518, 127.442226)
+				},
+				{
+					id: 'WH002',
+					name: '안성 창고',
+					location: '경기도 안성시 공도읍 진사길 33',
+					ratio: '55%',
+					area: '420㎡',
+					status: '사용가능',
+					latlng: new kakao.maps.LatLng(37.008317, 127.271993)
+				},
+				{
+					id: 'WH003',
+					name: '부산 창고',
+					location: '부산광역시 강서구 유통단지1로 50',
+					ratio: '70%',
+					area: '600㎡',
+					status: '사용불가',
+					latlng: new kakao.maps.LatLng(35.179554, 129.075642)
 				}
+			];
 
-				document.getElementById('selected-warehouse-id').textContent = warehouseId;
-				document.getElementById('selected-warehouse-name').textContent = warehouseName;
-				loadSectors(warehouseId);
-			});
+			let selectedMarker = null;
+			let selectedWarehouseId = null;
+			let selectedWarehouseName = null;
 
-			function loadSectors(warehouseId) {
-				const sectors = sectorData[warehouseId] || [];
-				const tbody = document.querySelector('#sector-table tbody');
-				tbody.innerHTML = '';
+			for (let i = 0; i < positions.length; i++) {
+				const data = positions[i];
 
-				if (sectors.length === 0) {
-					tbody.innerHTML = `<tr><td colspan="5">사용 가능한 섹터가 없습니다.</td></tr>`;
-					return;
-				}
+				const marker = new kakao.maps.Marker({
+					map: map,
+					position: data.latlng,
+					image: normalImage,
+					title: data.name
+				});
 
-				sectors.forEach(sector => {
-					const row = document.createElement('tr');
-					row.innerHTML = `
-          <td>${sector.id}</td>
-          <td>${sector.name}</td>
-          <td>${sector.size.toLocaleString()}</td>
-          <td>${sector.features}</td>
-          <td>${sector.status}</td>
-        `;
-					row.onclick = function () {
-						selectSector(sector.id, sector.name, this);
-					};
-					tbody.appendChild(row);
+				const content = `
+        <div class="custom-overlay">
+          <div class="title"><i class="fas fa-warehouse"></i> ${data.name}</div>
+          <div><i class="fas fa-map-marker-alt"></i> <strong>위치:</strong> ${data.location}</div>
+          <div><i class="fas fa-compress-arrows-alt"></i> <strong>용적률:</strong> ${data.ratio}</div>
+          <div><i class="fas fa-ruler-combined"></i> <strong>면적:</strong> ${data.area}</div>
+          <div><i class="fas fa-info-circle"></i> <strong>상태:</strong>
+            <span class="${data.status == '사용가능' ? 'status-available' : 'status-unavailable'}">${data.status}</span>
+          </div>
+        </div>
+      `;
+
+				const infowindow = new kakao.maps.InfoWindow({ content });
+
+				kakao.maps.event.addListener(marker, 'mouseover', () => infowindow.open(map, marker));
+				kakao.maps.event.addListener(marker, 'mouseout', () => infowindow.close());
+
+				kakao.maps.event.addListener(marker, 'click', () => {
+					if (selectedMarker) {
+						selectedMarker.setImage(normalImage);
+					}
+
+					marker.setImage(largeImage);
+					selectedMarker = marker;
+					selectedWarehouseId = data.id;
+					selectedWarehouseName = data.name;
+
+					// 저장
+					sessionStorage.setItem('selectedWarehouseId', selectedWarehouseId);
+					sessionStorage.setItem('selectedWarehouseName', selectedWarehouseName);
+
+					// 다음 버튼 활성화
+					document.getElementById('nextBtn').disabled = false;
 				});
 			}
 
-			function selectSector(sectorId, sectorName, row) {
-				document.querySelectorAll('#sector-table tbody tr').forEach(tr => tr.classList.remove('selected'));
-				row.classList.add('selected');
-
-				sessionStorage.setItem('selectedSectorId', sectorId);
-				sessionStorage.setItem('selectedSectorName', sectorName);
-
-				document.getElementById('next-btn').disabled = false;
-			}
-
-			document.getElementById('next-btn').addEventListener('click', () => {
-				window.location.href = 'pages-period.html';
+			document.getElementById('nextBtn').addEventListener('click', () => {
+				if (selectedWarehouseId) {
+					window.location.href = '/pages-sector.html';
+				} else {
+					alert('창고를 선택해주세요.');
+				}
 			});
+			// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+			var mapTypeControl = new kakao.maps.MapTypeControl();
 
-			document.getElementById('prev-btn').addEventListener('click', () => {
-				window.location.href = 'pages-warehouse.html';
-			});
+			// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+			// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+			map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+			var zoomControl = new kakao.maps.ZoomControl();
+			map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 		</script>
+		<footer class="footer">
+			<div class="container-fluid">
+				<div class="row text-muted">
+					<div class="col-6 text-start">
+						<p class="mb-0">
+							<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
+						</p>
+					</div>
+					<div class="col-6 text-end">
+						<ul class="list-inline">
+							<li class="list-inline-item">
+								<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+							</li>
+							<li class="list-inline-item">
+								<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+							</li>
+							<li class="list-inline-item">
+								<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+							</li>
+							<li class="list-inline-item">
+								<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>
+
 <script src="js/app.js"></script>
 
 <script>
@@ -657,5 +711,4 @@
 </script>
 
 </body>
-
 </html>

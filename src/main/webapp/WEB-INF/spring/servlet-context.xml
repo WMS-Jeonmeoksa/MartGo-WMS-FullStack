@@ -10,9 +10,8 @@ https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframe
     <mvc:annotation-driven/>
     <mvc:annotation-driven conversion-service="conversionService"/>
 
-
-    <mvc:resources mapping="/resources/**" location="classpath:/static/">
-    </mvc:resources>
+    <mvc:resources mapping="/resources/**" location="/resources/">
+ </mvc:resources>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
