@@ -1,11 +1,4 @@
-DROP USER IF EXISTS 'martgo'@'localhost';
-CREATE USER 'martgo'@'localhost' IDENTIFIED BY 'martgo1234';
-GRANT ALL PRIVILEGES ON martgodb.* TO 'martgo'@'localhost';
 
-DROP DATABASE IF EXISTS martgodb;
-CREATE DATABASE martgodb;
-SET GLOBAL log_bin_trust_function_creators = 1;
-use martgodb;
 
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS admin;
