@@ -18,17 +18,21 @@ public class StockHistoryController {
     @Autowired
     StockService stockService;
 
-    @GetMapping("/general/stock_history")
+    @GetMapping("/general")
     public String generalStockHistory(@RequestParam("admin_id") String admin_id, Model model) {
-        List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(admin_id);
+        String cleanAdminId = admin_id.trim().replace("\"", "");
+        List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
         model.addAttribute("stockHistoryList", stockHistoryList);
-        return "stock/general_stock_history";
+        model.addAttribute("admin_id", cleanAdminId);
+        return "pages-stockhistory-general";
     }
 
-    @GetMapping("/admin/stock_history")
+    @GetMapping("/admin")
     public String adminStockHistory(@RequestParam("admin_id") String admin_id, Model model) {
-        List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(admin_id);
+        String cleanAdminId = admin_id.trim().replace("\"", "");
+        List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
         model.addAttribute("stockHistoryList", stockHistoryList);
-        return "stock/admin_stock_history";
+        model.addAttribute("admin_id", cleanAdminId);
+        return "pages-stockhistory-admin";
     }
 }
