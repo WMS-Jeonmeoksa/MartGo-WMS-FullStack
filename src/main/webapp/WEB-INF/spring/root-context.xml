@@ -10,7 +10,7 @@
 
     <context:component-scan base-package="com.ssg.martgowmsfullstack.service">
     </context:component-scan>
-<!--    <mybatis:scan base-package="com.ssg.martgowmsfullstack.mapper"/>-->
+    <mybatis:scan base-package="com.ssg.martgowmsfullstack.mapper"/>
 
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
