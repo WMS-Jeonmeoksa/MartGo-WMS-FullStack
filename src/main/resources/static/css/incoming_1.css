@@ -135,12 +135,32 @@ tr.selected {
     background-color: #dcfce7;
 }
 
-/* 버튼 스타일 */
-.btn-next {
+/* 버튼 영역 */
+.btn-group {
+    display: flex;
+    justify-content: space-between;
     margin-top: 40px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+}
+
+/* 취소 버튼 */
+.btn-cancel {
+    padding: 14px 28px;
+    background-color: #e5e7eb;
+    color: #374151;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: #d1d5db;
+}
+
+/* 다음 버튼 */
+.btn-next {
     padding: 14px 28px;
     background-color: #22c55e;
     color: white;
