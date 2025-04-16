@@ -20,7 +20,7 @@ body {
 }
 
 /* 제목 */
-.incoming-h1 {
+.outgoing-h1 {
     color: #1e3a8a;
     font-size: 32px;
     margin: 0;
@@ -33,7 +33,7 @@ body {
 }
 
 /* 전체 내용 감싸는 박스 */
-.incoming-container {
+.outgoing-container {
     width: 100%;
     max-width: 93.75rem;
     margin: 2.5rem auto;
@@ -75,7 +75,6 @@ body {
     z-index: 1;
     transition: width 0.4s ease;
 }
-
 
 /* 각 단계 점 */
 .step {
@@ -122,38 +121,40 @@ body {
     align-items: center;
     margin: 0 20px auto;
 }
-.incoming-h3 {
+
+.outgoing-h3 {
     color: #1e3a8a;
     font-size: 20px;
     display: flex;
     align-items: center;
 }
+
 /* 테이블 스타일 */
-.incoming_table {
+.outgoing_table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-.incoming_table th,
-.incoming_table td {
+.outgoing_table th,
+.outgoing_table td {
     padding: 14px;
     border-bottom: 1px solid #e5e7eb;
     text-align: center;
 }
 
-.incoming_table th {
+.outgoing_table th {
     background-color: #f1f5f9;
     color: #1e3a8a;
     font-weight: 600;
 }
 
-.incoming_table tr:hover {
+.outgoing_table tr:hover {
     background-color: #f0f9ff;
     cursor: pointer;
 }
 
-.incoming_table tr.selected {
+.outgoing_table tr.selected {
     background-color: #dcfce7;
 }
 
@@ -164,7 +165,7 @@ body {
     margin-top: 30px;
 }
 
-.incoming_btn {
+.outgoing_btn {
     padding: 14px 28px;
     border: none;
     border-radius: 8px;

@@ -36,7 +36,7 @@
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
         <property name="configuration">
             <bean class="org.apache.ibatis.session.Configuration">
-                <property name="mapUnderscoreToCamelCase" value="true"/>
+<!--                <property name="mapUnderscoreToCamelCase" value="true"/>-->
             </bean>
         </property>
     </bean>

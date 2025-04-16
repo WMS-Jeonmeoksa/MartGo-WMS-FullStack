@@ -1,7 +1,6 @@
 package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.dto.StockDTO;
-import com.ssg.martgowmsfullstack.dto.StockHistoryDTO;
 import com.ssg.martgowmsfullstack.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,25 +18,34 @@ public class StockController {
     @Autowired
     StockService stockService;
 
-    @GetMapping("/user/stock")
+    @GetMapping("/user")
     public String userStock(@RequestParam("user_id") String user_id, Model model) {
-        List<StockDTO> stockList = stockService.getUserStock(user_id);
+        String cleanUserId = user_id.trim().replace("\"", "");
+        System.out.println("user_id = " + cleanUserId);
+
+        List<StockDTO> stockList = stockService.getUserStock(cleanUserId);
         model.addAttribute("stockList", stockList);
-        return "stock/user_stock"; // → /WEB-INF/views/stock/user_stock.jsp
+        model.addAttribute("user_id", cleanUserId);
+        return "pages-stock-user";
     }
 
-    @GetMapping("/admin/stock")
+
+    @GetMapping("/admin")
     public String adminStock(@RequestParam("admin_id") String admin_id, Model model) {
-        List<StockDTO> stockList = stockService.getAdminUserStock(admin_id);
+        String cleanAdminId = admin_id.trim().replace("\"", "");
+        List<StockDTO> stockList = stockService.getAdminUserStock(cleanAdminId);
         model.addAttribute("stockList", stockList);
-        return "stock/admin_stock";
+        model.addAttribute("admin_id", cleanAdminId);
+        return "pages-stock-admin";
     }
 
-    @GetMapping("/general/stock")
+    @GetMapping("/general")
     public String generalStock(@RequestParam("admin_id") String admin_id, Model model) {
-        List<StockDTO> stockList = stockService.getUserStock(admin_id);
+        String cleanAdminId = admin_id.trim().replace("\"", "");
+        List<StockDTO> stockList = stockService.getGeneralStock(cleanAdminId);
         model.addAttribute("stockList", stockList);
-        return "stock/general_stock";
+        model.addAttribute("admin_id", cleanAdminId);
+        return "pages-stock-general";
     }
 
 }
