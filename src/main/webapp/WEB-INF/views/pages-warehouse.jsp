@@ -1,5 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 	<meta charset="utf-8">
@@ -11,16 +14,15 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 	<title>warehouse rent</title>
-
-	<link href="css/app.css" rel="stylesheet">
-	<link href="css/last.css" rel="stylesheet">
-
+	<link href="/css/app.css" rel="stylesheet">
+	<script src="/js/app.js"></script>
+	<link rel="stylesheet" href="/css/warehouse.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -42,7 +44,7 @@
 					</a>
 				</li>
 				<li class="sidebar-item active">
-					<a class="sidebar-link" href="pages-warehouse.jsp">
+					<a class="sidebar-link" href="pages-warehouse.html">
 						<i class="align-middle" data-feather="rent"></i> <span class="align-middle">Warehouse Rent</span>
 					</a>
 				</li>
@@ -298,320 +300,400 @@
 		</nav>
 
 		<div class="container">
-			<h1>창고 임대 신청</h1>
-			<div class="progress-bar">
-				<div class="step active">
-					1
-					<div class="step-label">창고 선택</div>
-				</div>
-				<div class="step active">
-					2
-					<div class="step-label">섹터 선택</div>
-				</div>
-				<div class="step active">
-					3
-					<div class="step-label">가격/기간 선택</div>
-				</div>
-				<div class="step active">
-					4
-					<div class="step-label">신청 완료</div>
+			<div id="rvWrapper">
+				<div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
+				<div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
+			</div>
+			<div id="mapWrapper">
+				<div id="map1" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
+				<div id="roadviewControl" onclick="setRoadviewRoad()"></div>
+			</div>
+			<div class="header">
+				<h1>창고 임대 신청</h1>
+			</div>
+
+			<div class="steps-container">
+				<div class="progress-bar">
+					<div class="step active">1<div class="step-label">창고 선택</div></div>
+					<div class="step">2<div class="step-label">섹터 선택</div></div>
+					<div class="step">3<div class="step-label">가격/기간 선택</div></div>
+					<div class="step">4<div class="step-label">신청 완료</div></div>
 				</div>
 			</div>
 
-			<h2>임대 신청 확인</h2>
-			<p>아래 정보를 확인하신 후 임대 신청 버튼을 클릭해주세요.</p>
-
-			<div class="summary-box">
-				<table class="summary-table">
-					<tr><th>창고</th><td>A-101 (서울 강남구 테헤란로)</td></tr>
-					<tr><th>섹터</th><td>S-201 (50㎡, 냉장 보관 가능)</td></tr>
-					<tr><th>기간</th><td>6개월</td></tr>
-					<tr><th>시작일</th><td>2025-04-01</td></tr>
-					<tr><th>종료일</th><td>2025-09-30</td></tr>
-					<tr><th>월 임대료</th><td>400,000원</td></tr>
-					<tr><th>총 임대료</th><td>2,400,000원</td></tr>
-				</table>
+			<div class="section-header">
+				<h3><i class="fas fa-warehouse"></i> 창고 목록</h3>
 			</div>
 
-			<h2>이용약관</h2>
-			<div class="terms-box">
-				<p>제1조 (목적) 본 약관은 창고 임대 서비스를 제공하는 회사와 이용 고객 간의 권리와 의무를 규정함을 목적으로 합니다.</p>
-				<p>제2조 (정의) "임대인"은 서비스를 제공하는 자, "임차인"은 사용하는 자를 말합니다.</p>
-				<p>제3조 (지불) 임대료는 매월 선불이며 지연 시 연체료가 발생할 수 있습니다.</p>
-				<p>제4조 (이용) 임차인은 계약 목적에 맞게 공간을 사용해야 합니다.</p>
-			</div>
+			<div id="map" style="width:100%;height:550px; margin-top: 20px;"></div>
 
-			<div class="checkbox-container">
-				<input type="checkbox" id="termsAgree" onchange="checkSubmitState()">
-				<label for="termsAgree">이용약관에 동의합니다.</label>
-			</div>
-			<div class="checkbox-container">
-				<input type="checkbox" id="infoAgree" onchange="checkSubmitState()">
-				<label for="infoAgree">입력 정보가 정확함을 확인했습니다.</label>
-			</div>
-			<div class="button-group">
-				<button class="btn btn-back" onclick="goToPreviousPage()">
+			<div class="button-group-full">
+				<button class="btn btn-back" onclick="history.back()">
 					<i class="fas fa-arrow-left"></i> 이전
 				</button>
-				<button class="btn btn-submit" id="submitBtn" disabled onclick="submitApplication()">
-					임대 신청
+				<button class="btn btn-next" id="nextBtn" disabled>
+					다음 <i class="fas fa-arrow-right"></i>
 				</button>
 			</div>
 
-		</div>
+			<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=f0fadb18408cdb55d9431eca1e67b1b7&libraries=services"></script>
+			<script>
+				const mapContainer = document.getElementById('map');
+				const mapOption = {
+					center: new kakao.maps.LatLng(36.5, 127.8),
+					level: 13
+				};
+				const map = new kakao.maps.Map(mapContainer, mapOption);
 
-		<div class="modal-overlay" id="confirmationModal">
-			<div class="modal">
-				<h2>임대 신청 완료</h2>
-				<p>신청이 정상적으로 접수되었습니다.<br>관리자가 확인 후 승인 절차가 진행됩니다.</p>
-				<button class="modal-btn" onclick="goToMainPage()">확인</button>
-			</div>
-		</div>
+				const markerImageSrc = 'https://cdn-icons-png.flaticon.com/512/2776/2776067.png';
 
-		<script>
-			function checkSubmitState() {
-				const terms = document.getElementById('termsAgree').checked;
-				const info = document.getElementById('infoAgree').checked;
-				document.getElementById('submitBtn').disabled = !(terms && info);
-			}
+				const normalImage = new kakao.maps.MarkerImage(
+						markerImageSrc,
+						new kakao.maps.Size(40, 42),
+						{ offset: new kakao.maps.Point(20, 42) }
+				);
 
-			function goToPreviousPage() {
-				window.location.href = 'pages-period.html';
-			}
+				const largeImage = new kakao.maps.MarkerImage(
+						markerImageSrc,
+						new kakao.maps.Size(50, 55),
+						{ offset: new kakao.maps.Point(25, 55) }
+				);
 
-			function submitApplication() {
-				document.getElementById('confirmationModal').style.display = 'flex';
-			}
-
-			function goToMainPage() {
-				window.location.href = 'index.html';
-				alert('메인 페이지로 이동합니다.');
-			}
-		</script>
-		<script src="js/app.js"></script>
-
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-				var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-				gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-				gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-				// Line chart
-				new Chart(document.getElementById("chartjs-dashboard-line"), {
-					type: "line",
-					data: {
-						labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-						datasets: [{
-							label: "Sales ($)",
-							fill: true,
-							backgroundColor: gradient,
-							borderColor: window.theme.primary,
-							data: [
-								2115,
-								1562,
-								1584,
-								1892,
-								1587,
-								1923,
-								2566,
-								2448,
-								2805,
-								3438,
-								2917,
-								3327
-							]
-						}]
-					},
-					options: {
-						maintainAspectRatio: false,
-						legend: {
-							display: false
-						},
-						tooltips: {
-							intersect: false
-						},
-						hover: {
-							intersect: true
-						},
-						plugins: {
-							filler: {
-								propagate: false
-							}
-						},
-						scales: {
-							xAxes: [{
-								reverse: true,
-								gridLines: {
-									color: "rgba(0,0,0,0.0)"
-								}
-							}],
-							yAxes: [{
-								ticks: {
-									stepSize: 1000
-								},
-								display: true,
-								borderDash: [3, 3],
-								gridLines: {
-									color: "rgba(0,0,0,0.0)"
-								}
-							}]
-						}
-					}
-				});
-			});
-		</script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				// Pie chart
-				new Chart(document.getElementById("chartjs-dashboard-pie"), {
-					type: "pie",
-					data: {
-						labels: ["Chrome", "Firefox", "IE"],
-						datasets: [{
-							data: [4306, 3801, 1689],
-							backgroundColor: [
-								window.theme.primary,
-								window.theme.warning,
-								window.theme.danger
-							],
-							borderWidth: 5
-						}]
-					},
-					options: {
-						responsive: !window.MSInputMethodContext,
-						maintainAspectRatio: false,
-						legend: {
-							display: false
-						},
-						cutoutPercentage: 75
-					}
-				});
-			});
-		</script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				// Bar chart
-				new Chart(document.getElementById("chartjs-dashboard-bar"), {
-					type: "bar",
-					data: {
-						labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-						datasets: [{
-							label: "This year",
-							backgroundColor: window.theme.primary,
-							borderColor: window.theme.primary,
-							hoverBackgroundColor: window.theme.primary,
-							hoverBorderColor: window.theme.primary,
-							data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-							barPercentage: .75,
-							categoryPercentage: .5
-						}]
-					},
-					options: {
-						maintainAspectRatio: false,
-						legend: {
-							display: false
-						},
-						scales: {
-							yAxes: [{
-								gridLines: {
-									display: false
-								},
-								stacked: false,
-								ticks: {
-									stepSize: 20
-								}
-							}],
-							xAxes: [{
-								stacked: false,
-								gridLines: {
-									color: "transparent"
-								}
-							}]
-						}
-					}
-				});
-			});
-		</script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				var markers = [{
-					coords: [31.230391, 121.473701],
-					name: "Shanghai"
-				},
+				const positions = [
+					<c:forEach var="warehouse" items="${warehouses}" varStatus="status">
 					{
-						coords: [28.704060, 77.102493],
-						name: "Delhi"
-					},
-					{
-						coords: [6.524379, 3.379206],
-						name: "Lagos"
-					},
-					{
-						coords: [35.689487, 139.691711],
-						name: "Tokyo"
-					},
-					{
-						coords: [23.129110, 113.264381],
-						name: "Guangzhou"
-					},
-					{
-						coords: [40.7127837, -74.0059413],
-						name: "New York"
-					},
-					{
-						coords: [34.052235, -118.243683],
-						name: "Los Angeles"
-					},
-					{
-						coords: [41.878113, -87.629799],
-						name: "Chicago"
-					},
-					{
-						coords: [51.507351, -0.127758],
-						name: "London"
-					},
-					{
-						coords: [40.416775, -3.703790],
-						name: "Madrid "
-					}
+						id: '${warehouse.id}',
+						name: '${warehouse.name}',
+						location: '${warehouse.location}',
+						ratio: '${warehouse.ratio}',
+						area: '${warehouse.area}',
+						status: '${warehouse.status}'
+					}<c:if test="${!status.last}">,</c:if>
+					</c:forEach>
 				];
-				var map = new jsVectorMap({
-					map: "world",
-					selector: "#world_map",
-					zoomButtons: true,
-					markers: markers,
-					markerStyle: {
-						initial: {
-							r: 9,
-							strokeWidth: 7,
-							stokeOpacity: .4,
-							fill: window.theme.primary
-						},
-						hover: {
-							fill: window.theme.primary,
-							stroke: window.theme.primary
+
+
+				let selectedMarker = null;
+				let selectedWarehouseId = null;
+				let selectedWarehouseName = null;
+
+				for (let i = 0; i < positions.length; i++) {
+					const data = positions[i];
+
+					const marker = new kakao.maps.Marker({
+						map: map,
+						position: data.latlng,
+						image: normalImage,
+						title: data.name
+					});
+
+					const content = `
+                <div class="custom-overlay">
+                    <div class="title"><i class="fas fa-warehouse"></i> ${data.name}</div>
+                    <div><i class="fas fa-map-marker-alt"></i> <strong>위치:</strong> ${data.location}</div>
+                    <div><i class="fas fa-compress-arrows-alt"></i> <strong>용적률:</strong> ${data.ratio}</div>
+                    <div><i class="fas fa-ruler-combined"></i> <strong>면적:</strong> ${data.area}</div>
+                    <div><i class="fas fa-info-circle"></i> <strong>상태:</strong>
+                        <span class="${data.status == '사용가능' ? 'status-available' : 'status-unavailable'}">${data.status}</span>
+                    </div>
+                </div>
+            `;
+
+					const infowindow = new kakao.maps.InfoWindow({ content });
+
+					kakao.maps.event.addListener(marker, 'mouseover', () => infowindow.open(map, marker));
+					kakao.maps.event.addListener(marker, 'mouseout', () => infowindow.close());
+
+					kakao.maps.event.addListener(marker, 'click', () => {
+						if (selectedMarker) {
+							selectedMarker.setImage(normalImage);
+						}
+
+						marker.setImage(largeImage);
+						selectedMarker = marker;
+						selectedWarehouseId = data.id;
+						selectedWarehouseName = data.name;
+
+						// 저장
+						sessionStorage.setItem('selectedWarehouseId', selectedWarehouseId);
+						sessionStorage.setItem('selectedWarehouseName', selectedWarehouseName);
+
+						// 다음 버튼 활성화
+						document.getElementById('nextBtn').disabled = false;
+					});
+				}
+
+				document.getElementById('nextBtn').addEventListener('click', () => {
+					if (selectedWarehouseId) {
+						window.location.href = '/pages-sector.html';
+					} else {
+						alert('창고를 선택해주세요.');
+					}
+				});
+
+				// 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+				var mapTypeControl = new kakao.maps.MapTypeControl();
+				map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+				// 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
+				var zoomControl = new kakao.maps.ZoomControl();
+				map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+			</script>
+		</div>
+
+		<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
+							</p>
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="js/app.js"></script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+			var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+			gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+			gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+			// Line chart
+			new Chart(document.getElementById("chartjs-dashboard-line"), {
+				type: "line",
+				data: {
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					datasets: [{
+						label: "Sales ($)",
+						fill: true,
+						backgroundColor: gradient,
+						borderColor: window.theme.primary,
+						data: [
+							2115,
+							1562,
+							1584,
+							1892,
+							1587,
+							1923,
+							2566,
+							2448,
+							2805,
+							3438,
+							2917,
+							3327
+						]
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					tooltips: {
+						intersect: false
+					},
+					hover: {
+						intersect: true
+					},
+					plugins: {
+						filler: {
+							propagate: false
 						}
 					},
-					zoomOnScroll: false
-				});
-				window.addEventListener("resize", () => {
-					map.updateSize();
-				});
+					scales: {
+						xAxes: [{
+							reverse: true,
+							gridLines: {
+								color: "rgba(0,0,0,0.0)"
+							}
+						}],
+						yAxes: [{
+							ticks: {
+								stepSize: 1000
+							},
+							display: true,
+							borderDash: [3, 3],
+							gridLines: {
+								color: "rgba(0,0,0,0.0)"
+							}
+						}]
+					}
+				}
 			});
-		</script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-				var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-				document.getElementById("datetimepicker-dashboard").flatpickr({
-					inline: true,
-					prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-					nextArrow: "<span title=\"Next month\">&raquo;</span>",
-					defaultDate: defaultDate
-				});
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Pie chart
+			new Chart(document.getElementById("chartjs-dashboard-pie"), {
+				type: "pie",
+				data: {
+					labels: ["Chrome", "Firefox", "IE"],
+					datasets: [{
+						data: [4306, 3801, 1689],
+						backgroundColor: [
+							window.theme.primary,
+							window.theme.warning,
+							window.theme.danger
+						],
+						borderWidth: 5
+					}]
+				},
+				options: {
+					responsive: !window.MSInputMethodContext,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					cutoutPercentage: 75
+				}
 			});
-		</script>
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Bar chart
+			new Chart(document.getElementById("chartjs-dashboard-bar"), {
+				type: "bar",
+				data: {
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					datasets: [{
+						label: "This year",
+						backgroundColor: window.theme.primary,
+						borderColor: window.theme.primary,
+						hoverBackgroundColor: window.theme.primary,
+						hoverBorderColor: window.theme.primary,
+						data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+						barPercentage: .75,
+						categoryPercentage: .5
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					scales: {
+						yAxes: [{
+							gridLines: {
+								display: false
+							},
+							stacked: false,
+							ticks: {
+								stepSize: 20
+							}
+						}],
+						xAxes: [{
+							stacked: false,
+							gridLines: {
+								color: "transparent"
+							}
+						}]
+					}
+				}
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var markers = [{
+				coords: [31.230391, 121.473701],
+				name: "Shanghai"
+			},
+				{
+					coords: [28.704060, 77.102493],
+					name: "Delhi"
+				},
+				{
+					coords: [6.524379, 3.379206],
+					name: "Lagos"
+				},
+				{
+					coords: [35.689487, 139.691711],
+					name: "Tokyo"
+				},
+				{
+					coords: [23.129110, 113.264381],
+					name: "Guangzhou"
+				},
+				{
+					coords: [40.7127837, -74.0059413],
+					name: "New York"
+				},
+				{
+					coords: [34.052235, -118.243683],
+					name: "Los Angeles"
+				},
+				{
+					coords: [41.878113, -87.629799],
+					name: "Chicago"
+				},
+				{
+					coords: [51.507351, -0.127758],
+					name: "London"
+				},
+				{
+					coords: [40.416775, -3.703790],
+					name: "Madrid "
+				}
+			];
+			var map = new jsVectorMap({
+				map: "world",
+				selector: "#world_map",
+				zoomButtons: true,
+				markers: markers,
+				markerStyle: {
+					initial: {
+						r: 9,
+						strokeWidth: 7,
+						stokeOpacity: .4,
+						fill: window.theme.primary
+					},
+					hover: {
+						fill: window.theme.primary,
+						stroke: window.theme.primary
+					}
+				},
+				zoomOnScroll: false
+			});
+			window.addEventListener("resize", () => {
+				map.updateSize();
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+			var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+			document.getElementById("datetimepicker-dashboard").flatpickr({
+				inline: true,
+				prevArrow: "<span title=\"Previous month\">&laquo;</span>",
+				nextArrow: "<span title=\"Next month\">&raquo;</span>",
+				defaultDate: defaultDate
+			});
+		});
+	</script>
 
 </body>
-
 </html>
