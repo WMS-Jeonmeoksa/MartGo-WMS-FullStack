@@ -101,3 +101,17 @@ body {
 .btn-next:hover:not(:disabled) {
     background-color: #16a34a;
 }
+#categorySelect, #categoryInput {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#categorySelect:focus, #categoryInput:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+    outline: none;
+}

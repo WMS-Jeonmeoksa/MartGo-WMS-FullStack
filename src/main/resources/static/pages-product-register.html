@@ -342,9 +342,20 @@
                 <input type="text" id="productName" placeholder="예: 비스포크 냉장고">
             </div>
 
+            <!-- ✅ 카테고리 콤보박스 + 직접입력 -->
             <div class="product-form-group">
-                <label for="category">카테고리</label>
-                <input type="text" id="category" placeholder="예: 냉장고">
+                <label for="categorySelect">카테고리</label>
+                <select id="categorySelect" onchange="handleCategoryChange()">
+                    <option value="">선택하세요</option>
+                    <option value="냉장고">냉장고</option>
+                    <option value="TV">TV</option>
+                    <option value="세탁기">세탁기</option>
+                    <option value="건조기">건조기</option>
+                    <option value="에어컨">에어컨</option>
+                    <option value="청소기">청소기</option>
+                    <option value="direct">직접입력</option>
+                </select>
+                <input type="text" id="categoryInput" placeholder="카테고리를 입력하세요" style="display:none; margin-top: 8px;">
             </div>
 
             <div class="product-form-group">
@@ -382,36 +393,47 @@
                 window.history.back();
             }
 
+            function handleCategoryChange() {
+                const select = document.getElementById("categorySelect");
+                const input = document.getElementById("categoryInput");
+                if (select.value === "direct") {
+                    input.style.display = "block";
+                } else {
+                    input.style.display = "none";
+                    input.value = "";
+                }
+            }
+
+            function getCategoryValue() {
+                const select = document.getElementById("categorySelect");
+                const input = document.getElementById("categoryInput");
+                return select.value === "direct" ? input.value.trim() : select.value;
+            }
+
             function submitProduct() {
                 const productData = {
                     id: document.getElementById("productId").value.trim(),
                     name: document.getElementById("productName").value.trim(),
-                    category: document.getElementById("category").value.trim(),
+                    category: getCategoryValue(),
                     height: document.getElementById("height").value.trim(),
                     area: document.getElementById("area").value.trim(),
                     price: document.getElementById("price").value.trim(),
                     manufacturer: document.getElementById("manufacturer").value.trim()
                 };
 
-                // 모든 값 입력 확인
                 if (Object.values(productData).some(value => value === "")) {
                     alert("모든 필드를 입력해주세요.");
                     return;
                 }
 
-                // 확인창 띄우기
                 const confirmResult = confirm("등록하시겠습니까?");
-                if (!confirmResult) {
-                    return; // 사용자가 취소를 누르면 함수 종료
-                }
+                if (!confirmResult) return;
 
-                // 값 저장
                 sessionStorage.setItem("productData", JSON.stringify(productData));
-
-                // 다음 페이지로 이동
                 window.location.href = "pages-product-confirm.html";
             }
         </script>
+
 
         <!-- JS -->
         <script src="js/app.js"></script>
