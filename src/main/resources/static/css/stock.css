@@ -1,0 +1,66 @@
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  display: flex;
+}
+.sidebar {
+  width: 240px;
+  background-color: #1e3a8a;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+}
+.sidebar ul li a.active {
+  font-weight: bold;
+}
+.container {
+  flex: 1;
+  padding: 40px;
+}
+h1 {
+  font-size: 28px;
+  color: #1e3a8a;
+  margin-bottom: 30px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+.data-table th {
+  background-color: #f1f5f9;
+  color: #1e3a8a;
+}
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.btn {
+  padding: 10px 20px;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
