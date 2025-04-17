@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface RentController {
      String applyRentWarehouse(Model model);
-     String applyRentSec(int wareHouse);
+     String applyRentSec( @RequestParam("warehouseId") int warehouseId,
+                           @RequestParam(value = "warehouseName", required = false) String warehouseName,
+                           Model model);
      String applyRentCostInfo(int wareHouse, String sectorName);
      String applyRent(  @ModelAttribute RentHistoryDTO rentHistory,
                         @RequestParam("month") int month,

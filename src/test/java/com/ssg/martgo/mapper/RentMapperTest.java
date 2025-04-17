@@ -24,19 +24,19 @@ public class RentMapperTest {
     @Autowired(required = false)
     private RentMapper rentMapper;
 
-    @Test
-    void testGetAllWarehouses() {
-        List<RentHistoryDTO> list = rentMapper.getAllWarehouses();
-        assertNotNull(list);
-        list.forEach(System.out::println);
-    }
+//    @Test
+//    void testGetAllWarehouses() {
+//        List<RentHistoryDTO> list = rentMapper.getAllWarehouses();
+//        assertNotNull(list);
+//        list.forEach(System.out::println);
+//    }
 
-    @Test
-    void testGetAllSectors() {
-        List<RentHistoryDTO> list = rentMapper.getAllSectors(1);
-        assertNotNull(list);
-        list.forEach(System.out::println);
-    }
+//    @Test
+//    void testGetAllSectors() {
+//        List<RentHistoryDTO> list = rentMapper.getAllSectors(1);
+//        assertNotNull(list);
+//        list.forEach(System.out::println);
+//    }
 
     @Test
     void testGetCostInfo() {

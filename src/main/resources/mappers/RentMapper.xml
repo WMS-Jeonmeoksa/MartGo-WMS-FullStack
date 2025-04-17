@@ -5,11 +5,11 @@
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.RentMapper">
 
-    <select id="getAllWarehouses" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+    <select id="getAllWarehouses" resultType="map">
         CALL GetAllWarehouses()
     </select>
 
-    <select id="getAllSectors" parameterType="int" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+    <select id="getAllSectors" parameterType="int" resultType="map">
         CALL GetAllSectors(#{warehouseId})
     </select>
 
