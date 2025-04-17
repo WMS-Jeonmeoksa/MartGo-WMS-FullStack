@@ -25,7 +25,7 @@ public class ProductMapperTest {
     @Test
     public void testInsertProduct() {
         ProductVO productVO = ProductVO.builder()
-                .productId("test01")
+                .productId("test04")
                 .productName("제품테스트")
                 .category("건조기")
                 .height(30)
