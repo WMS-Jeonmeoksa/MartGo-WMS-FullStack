@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.OutgoingMapper">
+
+    <!-- 재고 목록 조회 -->
+    <select id="getStockByUserId" parameterType="string" resultType="model.dto.StockDTO">
+        SELECT * FROM stock WHERE user_id = #{userId}
+    </select>
+
+    <!-- 출고 요청 등록 -->
+    <insert id="insertOutgoing" parameterType="model.dto.OutgoingDTO">
+        INSERT INTO outgoing (count, outgoing_date, status, user_id, stock_num)
+        VALUES (#{count}, #{outgoingDate}, #{status}, #{userId}, #{stockNum})
+    </insert>
+
+    <!-- 출고 상태별 목록 조회 (창고관리자용) -->
+    <select id="getOutgoingByStatus" parameterType="map" resultType="model.dto.OutgoingDTO">
+        SELECT o.*
+        FROM outgoing o
+                 JOIN user u ON o.user_id = u.user_id
+        WHERE u.admin_id = #{adminId} AND o.status = #{status}
+    </select>
+
+    <!-- 출고 상태별 목록 조회 (총관리자용) -->
+    <select id="getOutgoingByStatusNext" parameterType="map" resultType="model.dto.OutgoingDTO">
+        SELECT o.*
+        FROM outgoing o
+                 JOIN user u ON o.user_id = u.user_id
+                 JOIN admin a ON u.admin_id = a.admin_id
+        WHERE u.admin_id IN (
+            SELECT admin_id
+            FROM admin
+            WHERE warehouse_id = (
+                SELECT warehouse_id FROM admin WHERE admin_id = #{adminId}
+            )
+              AND role = '창고관리자'
+        )
+          AND status = #{status}
+    </select>
+
+    <!-- 출고 상태 업데이트 -->
+    <update id="updateOutgoingStatus">
+        UPDATE outgoing
+        SET status = #{status}
+        WHERE outgoing_num = #{outgoingNum}
+    </update>
+
+    <!-- 출고 번호로 관리자 ID 조회 (창고관리자용) -->
+    <select id="getAdminIdByOutgoingNum" parameterType="int" resultType="string">
+        SELECT u.admin_id
+        FROM outgoing o
+                 JOIN user u ON o.user_id = u.user_id
+        WHERE o.outgoing_num = #{outgoingNum}
+    </select>
+
+    <!-- 출고 번호로 관리자 ID 조회 (총관리자용) -->
+    <select id="getAdminIdByOutgoingNumNext" parameterType="int" resultType="string">
+        SELECT a.admin_id
+        FROM admin a
+        WHERE a.role = '총관리자'
+          AND a.warehouse_id = (
+            SELECT ad.warehouse_id
+            FROM admin ad
+                     JOIN user u ON ad.admin_id = u.admin_id
+                     JOIN outgoing o ON u.user_id = o.user_id
+            WHERE o.outgoing_num = #{outgoingNum}
+        )
+    </select>
+
+    <!-- 출고 건수 조회 (관리자 역할에 따라 다름) -->
+    <select id="getOutgoingCountByAdminId" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM outgoing o
+                 JOIN user u ON o.user_id = u.user_id
+                 JOIN admin a ON u.admin_id = a.admin_id
+        WHERE u.admin_id = #{adminId}
+          AND IF(a.role = '총관리자', o.status = '완료', o.status IN ('진행중', '완료'))
+    </select>
+
+</mapper>

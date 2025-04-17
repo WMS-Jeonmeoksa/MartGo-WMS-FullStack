@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.IncomingMapper">
+
+    <!-- 입고 등록 -->
+    <insert id="insertIncoming" parameterType="IncomingDTO">
+        INSERT INTO incoming (count, incoming_date, status, product_id, user_id)
+        VALUES (#{count}, #{incomingDate}, '대기', #{productId}, #{userId})
+    </insert>
+
+    <!-- 관리자 권한 조회 -->
+    <select id="getAdminRoleById" parameterType="string" resultType="string">
+        SELECT role FROM admin WHERE admin_id = #{adminId}
+    </select>
+
+    <!-- 특정 상태의 입고 목록 (자신이 담당한 회원 기준) -->
+    <select id="getIncomingByStatus" parameterType="map" resultType="IncomingDTO">
+        SELECT i.*
+        FROM incoming i
+                 JOIN user u ON i.user_id = u.user_id
+        WHERE u.admin_id = #{adminId} AND i.status = #{status}
+    </select>
+
+    <!-- 특정 상태의 입고 목록 (같은 창고의 다른 관리자 포함) -->
+    <select id="getIncomingByStatusNext" parameterType="map" resultType="IncomingDTO">
+        SELECT i.*
+        FROM incoming i
+                 JOIN user u ON i.user_id = u.user_id
+                 JOIN admin a ON u.admin_id = a.admin_id
+        WHERE u.admin_id IN (
+            SELECT admin_id FROM admin
+            WHERE warehouse_id = (
+                SELECT warehouse_id FROM admin WHERE admin_id = #{adminId}
+            )
+              AND role = '창고관리자'
+        )
+          AND i.status = #{status}
+    </select>
+
+    <!-- 입고 상태 업데이트 -->
+    <update id="updateIncomingStatus" parameterType="map">
+        UPDATE incoming SET status = #{status} WHERE incoming_num = #{incomingNum}
+    </update>
+
+    <!-- 입고번호로 관리자 ID 조회 -->
+    <select id="getAdminIdByIncomingNum" parameterType="int" resultType="string">
+        SELECT u.admin_id
+        FROM incoming i
+                 JOIN user u ON i.user_id = u.user_id
+        WHERE i.incoming_num = #{incomingNum}
+    </select>
+
+    <!-- 입고번호로 총관리자 ID 조회 -->
+    <select id="getAdminIdByIncomingNumNext" parameterType="int" resultType="string">
+        SELECT a.admin_id
+        FROM admin a
+        WHERE a.role = '총관리자'
+          AND a.warehouse_id = (
+            SELECT ad.warehouse_id
+            FROM admin ad
+                     JOIN user u ON ad.admin_id = u.admin_id
+                     JOIN incoming i ON u.user_id = i.user_id
+            WHERE i.incoming_num = #{incomingNum}
+        )
+    </select>
+
+    <!-- 입고 건수 조회 -->
+    <select id="getIncomingCountByAdminId" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM incoming i
+                 JOIN user u ON i.user_id = u.user_id
+                 JOIN admin a ON u.admin_id = a.admin_id
+        WHERE u.admin_id = #{adminId}
+          AND IF(a.role = '총관리자', i.status = '완료', i.status IN ('진행중', '완료'))
+    </select>
+
+</mapper>
