@@ -1,7 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/outgoing_2.css">
+    <link rel="stylesheet" href="/css/product_2.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,8 +54,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-outgoing.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
+                    <a class="sidebar-link" href="/pages-product-register.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -327,98 +331,68 @@
             </div>
         </nav>
 
-        <div class="outgoing-container">
+        <div class="product-result-container">
             <div class="header">
-                <h1 class="outgoing-h1">출고 신청</h1>
+                <h1 class="product-result-h1">제품 등록 결과</h1>
             </div>
 
-            <div class="steps-container">
-                <div class="progress-bar">
-                    <div class="step active">1
-                        <div class="step-label">재고 선택</div>
-                    </div>
-                    <div class="step active">2
-                        <div class="step-label">세부 정보 입력</div>
-                    </div>
-                    <div class="step">3
-                        <div class="step-label">신청 내역 확인</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="selected-product">
-                <strong>선택한 재고:</strong>
-                <span id="selectedStockText">-</span> /
-                <strong>제품 ID:</strong>
-                <span id="selectedProductText">-</span>
-            </div>
-
-            <div class="outgoing-form-group">
-                <label for="quantity">출고 수량</label>
-                <input type="number" id="quantity" placeholder="출고할 수량을 입력하세요" min="1">
-            </div>
-
-            <div class="outgoing-form-group">
-                <label for="outgoingDate">출고 희망일</label>
-                <input type="date" id="outgoingDate" min="">
+            <div class="product-result-box">
+                <table class="product-result-table">
+                    <thead>
+                    <tr>
+                        <th>제품 ID</th>
+                        <th>제품명</th>
+                        <th>카테고리</th>
+                        <th>높이(cm)</th>
+                        <th>면적(㎡)</th>
+                        <th>가격(원)</th>
+                        <th>제조사</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:choose>
+                        <c:when test="${not empty product}">
+                            <tr>
+                                <td>${product.productId}</td>
+                                <td>${product.productName}</td>
+                                <td>${product.category}</td>
+                                <td>${product.height}</td>
+                                <td>${product.width}</td>
+                                <td><fmt:formatNumber value="${product.price}" type="number" groupingUsed="true"/></td>
+                                <td>${product.manufacturer}</td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>
+                        </c:otherwise>
+                    </c:choose>
+                    </tbody>
+                </table>
             </div>
 
             <div class="button-group-full">
-                <button class="outgoing_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 이전
+                <button class="product_btn btn-back" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> 추가 등록하기
                 </button>
-                <button class="outgoing_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
-                    다음 <i class="fas fa-arrow-right"></i>
+                <button class="product_btn btn-next" onclick="goToMain()">
+                    메인으로 <i class="fas fa-home"></i>
                 </button>
             </div>
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // 선택된 재고 정보 출력
-                const selectedStockId = sessionStorage.getItem("selectedStockId");
-                const selectedProductId = sessionStorage.getItem("selectedProductId");
-
-                document.getElementById("selectedStockText").textContent = selectedStockId || "-";
-                document.getElementById("selectedProductText").textContent = selectedProductId || "-";
-
-                // 날짜의 최소값을 오늘로 설정
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById("outgoingDate").setAttribute("min", today);
-
-                // input 값 입력 시 다음 버튼 활성화
-                const quantityInput = document.getElementById("quantity");
-                const dateInput = document.getElementById("outgoingDate");
-                const nextBtn = document.getElementById("nextBtn");
-
-                function validateInputs() {
-                    const quantity = quantityInput.value.trim();
-                    const date = dateInput.value.trim();
-                    nextBtn.disabled = !(quantity && date && parseInt(quantity) > 0);
-                }
-
-                quantityInput.addEventListener("input", validateInputs);
-                dateInput.addEventListener("input", validateInputs);
-            });
-
             function goBack() {
-                window.location.href = "pages-outgoing.html"
+                window.location.href = "${pageContext.request.contextPath}/product/register";
             }
 
-            function goToNext() {
-                const quantity = document.getElementById("quantity").value;
-                const date = document.getElementById("outgoingDate").value;
-
-                sessionStorage.setItem("outgoingQuantity", quantity);
-                sessionStorage.setItem("outgoingDate", date);
-
-                window.location.href = "pages-outgoing-confirm.html";
+            function goToMain() {
+                window.location.href = "${pageContext.request.contextPath}/index.jsp";
             }
         </script>
 
 
         <!-- JS -->
-        <script src="/js/app.js"></script>
+        <script src="js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -458,7 +432,7 @@
     </div>
 </div>
 
-<script src="/js/app.js"></script>
+<script src="js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
