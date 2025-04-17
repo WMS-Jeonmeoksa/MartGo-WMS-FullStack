@@ -374,9 +374,8 @@
                 <c:forEach var="sec" items="${sectors}" varStatus="loop">
                     <tr onclick="selectSector('${sec.sector_id}','${sec.name}', this)">
                         <td>${sec.sector_id}</td>
-                        <td>${sec.name}</td>
-                        <td>${sec.size}</td>
-                        <td>${sec.features}</td>
+                        <td>${sec.FAR}</td>
+                        <td>${sec.height} * ${sec.width}</td>
                         <td>${sec.status}</td>
                     </tr>
                 </c:forEach>
