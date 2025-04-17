@@ -5,11 +5,11 @@
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.StockMapper">
 
-    <select id="checkUserStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
+    <select id="checkUserStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.domain.StockVO">
         SELECT * FROM stock WHERE user_id = #{user_id}
     </select>
 
-    <select id="checkAdminUserStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
+    <select id="checkAdminUserStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.domain.StockVO">
         SELECT stock_num, count, total_price, stock.user_id, product_id, sector_id, stock.warehouse_id
         FROM stock
         JOIN user ON user.user_id = stock.user_id
@@ -17,7 +17,7 @@
         WHERE stock.user_id = user.user_id AND user.admin_id = #{admin_id}
     </select>
 
-    <select id="checkGeneralStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
+    <select id="checkGeneralStock" parameterType="String" resultType="com.ssg.martgowmsfullstack.domain.StockVO">
         SELECT stock_num, count, total_price, stock.user_id, product_id, sector_id, stock.warehouse_id
         FROM stock
         JOIN warehouse ON stock.warehouse_id = warehouse.warehouse_id
