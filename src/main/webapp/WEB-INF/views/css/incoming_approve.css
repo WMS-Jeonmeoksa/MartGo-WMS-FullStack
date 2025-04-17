@@ -12,60 +12,69 @@ body {
     line-height: 1.6;
 }
 
-/* 전체 박스 */
-.incoming-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 30px 40px;
-    background-color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    min-height: 60vh;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 40px 70px 40px;
 }
 
 /* 제목 */
 .incoming-h1 {
     color: #1e3a8a;
     font-size: 32px;
-    margin-bottom: 40px;
-    text-align: center;
+    margin: 0;
+    padding-bottom: 0;
+    border: none;
 }
 
-/* 섹션 제목 */
+.steps-container {
+    margin-bottom: 50px;
+}
+
+/* 전체 내용 감싸는 박스 */
+.incoming-container {
+    width: 100%;
+    max-width: 93.75rem;
+    margin: 2.5rem auto;
+    padding: 1.875rem 3.125rem;
+    background-color: #fff;
+    box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.1);
+    min-height: 80vh;
+    border-radius: 0.75rem;
+}
+
 .section-header {
-    margin-bottom: 20px;
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px auto;
 }
-
 .incoming-h3 {
+    color: #1e3a8a;
     font-size: 20px;
-    color: #374151;
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
-
 /* 테이블 스타일 */
 .incoming_table {
     width: 100%;
-    table-layout: auto; /* 콘텐츠에 따라 컬럼 넓이 조정 */
     border-collapse: collapse;
-    margin: 30px 0;
+    margin-top: 10px;
+    margin-bottom: 100px;
 }
 
 .incoming_table th,
 .incoming_table td {
-    padding: 16px 20px; /* 좌우 패딩 넓게 */
-    text-align: center;
+    padding: 14px;
     border-bottom: 1px solid #e5e7eb;
-    font-size: 15px;
-    word-break: keep-all;
+    text-align: center;
 }
 
 .incoming_table th {
     background-color: #f1f5f9;
     color: #1e3a8a;
     font-weight: 600;
-    font-size: 15px;
-    white-space: nowrap;
 }
 
 .incoming_table tr:hover {
@@ -77,35 +86,38 @@ body {
     background-color: #dcfce7;
 }
 
-/* 버튼 그룹 */
+/* 버튼 영역 */
 .button-group-full {
     display: flex;
     justify-content: space-between;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
-/* 버튼 공통 */
 .incoming_btn {
     padding: 14px 28px;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
 }
 
-/* 이전 버튼 */
+.btn i {
+    margin: 10px 10px;
+}
+
 .btn-back {
-    background-color: #e5e7eb;
-    color: #374151;
+    background-color: #f3f4f6;
+    color: #4b5563;
 }
 
 .btn-back:hover {
-    background-color: #d1d5db;
+    background-color: #e5e7eb;
 }
 
-/* 승인 버튼 */
 .btn-next {
     background-color: #22c55e;
     color: white;
