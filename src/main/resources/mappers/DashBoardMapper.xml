@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.DashBoardMapper">
+
+    <select id="getWarehouseUsageRate" resultType="double">
+        SELECT wh.FAR
+        FROM warehouse wh
+        JOIN admin a
+        ON wh.warehouse_id = a.warehouse_id
+        WHERE admin_id = #{admin_id}
+    </select>
+
+    <select id="getSectorUsageList" resultType="com.ssg.martgowmsfullstack.dto.SectorUsageDTO">
+        SELECT s.FAR AS FAR , s.sector_id AS sector_id, s.warehouse_id AS warehouse_id
+        FROM sector s
+        WHERE s.warehouse_id =
+        (SELECT wh.warehouse_id
+        FROM warehouse wh
+        JOIN admin a
+        ON wh.warehouse_id = a.warehouse_id
+        WHERE admin_id = #{admin_id})
+    </select>
+
+    <select id="getTotalUserCount" resultType="int">
+        SELECT COUNT(user_id) FROM user
+    </select>
+
+    <select id="getAdminUserCount" resultType="int">
+        SELECT COUNT(user_id) FROM user WHERE admin_id = #{admin_id}
+    </select>
+
+    <select id="getMonthlyRentTotal" resultType="com.ssg.martgowmsfullstack.dto.MonthlyRentDTO">
+        SELECT
+        DATE_FORMAT(approve_date, '%y-%m') AS month,
+        SUM(rent_price) AS total_rent
+        FROM rent_history
+        WHERE status = '완료'
+        GROUP BY DATE_FORMAT(approve_date, '%y-%m')
+    </select>
+
+</mapper>

@@ -1,6 +1,7 @@
 package com.ssg.martgowmsfullstack.domain;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public class StockHistoryVO {
     private String product_id;
     private String sector_id;
     private Integer count;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date change_date;
     private String change_type;
     private String admin_id;
