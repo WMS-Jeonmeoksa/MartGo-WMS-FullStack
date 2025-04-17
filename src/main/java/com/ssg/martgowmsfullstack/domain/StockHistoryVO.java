@@ -1,17 +1,15 @@
-package com.ssg.martgowmsfullstack.dto;
+package com.ssg.martgowmsfullstack.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
-@Builder
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
-public class StockHistoryDTO {
+@NoArgsConstructor
+@Builder
+@ToString
+public class StockHistoryVO {
     private Integer history_num;
     private String product_id;
     private String sector_id;
