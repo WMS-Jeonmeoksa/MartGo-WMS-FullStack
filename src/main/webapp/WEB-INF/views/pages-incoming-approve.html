@@ -1,7 +1,10 @@
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/outgoing_2.css">
+    <link rel="stylesheet" href="/css/incoming_approve.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -44,14 +47,9 @@
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item active">
                     <a class="sidebar-link" href="/pages-incoming.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-outgoing.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -327,98 +325,80 @@
             </div>
         </nav>
 
-        <div class="outgoing-container">
+        <div class="incoming-container">
             <div class="header">
-                <h1 class="outgoing-h1">출고 신청</h1>
+                <h1 class="incoming-h1">입고 승인</h1>
             </div>
 
-            <div class="steps-container">
-                <div class="progress-bar">
-                    <div class="step active">1
-                        <div class="step-label">재고 선택</div>
-                    </div>
-                    <div class="step active">2
-                        <div class="step-label">세부 정보 입력</div>
-                    </div>
-                    <div class="step">3
-                        <div class="step-label">신청 내역 확인</div>
-                    </div>
-                </div>
+            <div class="section-header">
+                <h3 class="incoming-h3">입고 신청 목록</h3>
             </div>
 
-            <div class="selected-product">
-                <strong>선택한 재고:</strong>
-                <span id="selectedStockText">-</span> /
-                <strong>제품 ID:</strong>
-                <span id="selectedProductText">-</span>
-            </div>
-
-            <div class="outgoing-form-group">
-                <label for="quantity">출고 수량</label>
-                <input type="number" id="quantity" placeholder="출고할 수량을 입력하세요" min="1">
-            </div>
-
-            <div class="outgoing-form-group">
-                <label for="outgoingDate">출고 희망일</label>
-                <input type="date" id="outgoingDate" min="">
-            </div>
+            <table class="incoming_table">
+                <thead>
+                <tr>
+                    <th>입고번호</th>
+                    <th>제품 ID</th>
+                    <th>수량</th>
+                    <th>입고날짜</th>
+                    <th>회원 ID</th>
+                    <th>상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr onclick="selectIncoming(this, 'IN001')">
+                    <td>IN001</td>
+                    <td>PRD001</td>
+                    <td>10</td>
+                    <td>2025-04-17</td>
+                    <td>seller01</td>
+                    <td>대기</td>
+                </tr>
+                <tr onclick="selectIncoming(this, 'IN002')">
+                    <td>IN002</td>
+                    <td>PRD002</td>
+                    <td>5</td>
+                    <td>2025-04-17</td>
+                    <td>seller02</td>
+                    <td>대기</td>
+                </tr>
+                </tbody>
+            </table>
 
             <div class="button-group-full">
-                <button class="outgoing_btn btn-back" onclick="goBack()">
+                <button class="incoming_btn btn-back" onclick="history.back()">
                     <i class="fas fa-arrow-left"></i> 이전
                 </button>
-                <button class="outgoing_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
-                    다음 <i class="fas fa-arrow-right"></i>
+                <button class="incoming_btn btn-next" id="approveBtn" disabled onclick="approveIncoming()">
+                    승인 <i class="fas fa-check"></i>
                 </button>
             </div>
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // 선택된 재고 정보 출력
-                const selectedStockId = sessionStorage.getItem("selectedStockId");
-                const selectedProductId = sessionStorage.getItem("selectedProductId");
+            let selectedIncomingId = null;
 
-                document.getElementById("selectedStockText").textContent = selectedStockId || "-";
-                document.getElementById("selectedProductText").textContent = selectedProductId || "-";
-
-                // 날짜의 최소값을 오늘로 설정
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById("outgoingDate").setAttribute("min", today);
-
-                // input 값 입력 시 다음 버튼 활성화
-                const quantityInput = document.getElementById("quantity");
-                const dateInput = document.getElementById("outgoingDate");
-                const nextBtn = document.getElementById("nextBtn");
-
-                function validateInputs() {
-                    const quantity = quantityInput.value.trim();
-                    const date = dateInput.value.trim();
-                    nextBtn.disabled = !(quantity && date && parseInt(quantity) > 0);
-                }
-
-                quantityInput.addEventListener("input", validateInputs);
-                dateInput.addEventListener("input", validateInputs);
-            });
-
-            function goBack() {
-                window.location.href = "pages-outgoing.html"
+            function selectIncoming(row, incomingId) {
+                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+                row.classList.add('selected');
+                selectedIncomingId = incomingId;
+                document.getElementById('approveBtn').disabled = false;
             }
 
-            function goToNext() {
-                const quantity = document.getElementById("quantity").value;
-                const date = document.getElementById("outgoingDate").value;
-
-                sessionStorage.setItem("outgoingQuantity", quantity);
-                sessionStorage.setItem("outgoingDate", date);
-
-                window.location.href = "pages-outgoing-confirm.html";
+            function approveIncoming() {
+                if (selectedIncomingId) {
+                    const confirmMsg = `해당 입고요청을 승인하겠습니까?`;
+                    if (confirm(confirmMsg)) {
+                        alert(`${selectedIncomingId} 입고요청을 승인하였습니다.`);
+                        // 여기에 AJAX 처리나 form submit 등을 연결하면 됨
+                        // ex) location.reload() or 테이블에서 해당 row 상태만 '완료'로 바꾸기 등
+                    }
+                }
             }
         </script>
 
-
         <!-- JS -->
-        <script src="/js/app.js"></script>
+        <script src="js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -458,7 +438,7 @@
     </div>
 </div>
 
-<script src="/js/app.js"></script>
+<script src="js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

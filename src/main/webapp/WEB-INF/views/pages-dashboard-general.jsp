@@ -1,39 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/outgoing_2.css">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-    <meta name="author" content="AdminKit">
-    <meta name="keywords"
-          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
-
-    <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
-
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5" name="description"/>
+    <meta content="AdminKit" name="author"/>
+    <meta content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
+          name="keywords"/>
+    <link href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="img/icons/icon-48x48.png" rel="shortcut icon"/>
+    <link href="https://demo-basic.adminkit.io/" rel="canonical"/>
     <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
-
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
 </head>
 <body>
 <div class="wrapper">
-    <nav id="sidebar" class="sidebar js-sidebar">
+    <nav class="sidebar js-sidebar" id="sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="index.html">
                 <span class="align-middle">AdminKit</span>
             </a>
-
             <ul class="sidebar-nav">
                 <li class="sidebar-header">
                     Pages
                 </li>
-
-                <li class="sidebar-item">
+                <li class="sidebar-item active">
                     <a class="sidebar-link" href="index.html">
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
@@ -45,13 +39,28 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="/pages-product-register.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/pages-incoming.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/pages-outgoing.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/pages-stock.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">재고 목록</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/pages-stock_history.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">재고 변경 이력</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -59,77 +68,64 @@
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="pages-sign-in.html">
                         <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="pages-sign-up.html">
                         <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="pages-blank.html">
                         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
                     </a>
                 </li>
-
                 <li class="sidebar-header">
-                    Tools & Components
+                    Tools &amp; Components
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="ui-buttons.html">
                         <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="ui-forms.html">
                         <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="ui-cards.html">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="ui-typography.html">
                         <i class="align-middle" data-feather="align-left"></i> <span
                             class="align-middle">Typography</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="icons-feather.html">
                         <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
                     </a>
                 </li>
-
                 <li class="sidebar-header">
-                    Plugins & Addons
+                    Plugins &amp; Addons
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="charts-chartjs.html">
                         <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="maps-google.html">
                         <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
                     </a>
                 </li>
             </ul>
-
             <div class="sidebar-cta">
                 <div class="sidebar-cta-content">
                     <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
@@ -137,35 +133,33 @@
                         Are you looking for more components? Check out our premium version.
                     </div>
                     <div class="d-grid">
-                        <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
+                        <a class="btn btn-primary" href="upgrade-to-pro.html">Upgrade to Pro</a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-
     <div class="main">
         <nav class="navbar navbar-expand navbar-light navbar-bg">
             <a class="sidebar-toggle js-sidebar-toggle">
                 <i class="hamburger align-self-center"></i>
             </a>
-
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+                        <a class="nav-icon dropdown-toggle" data-bs-toggle="dropdown" href="#" id="alertsDropdown">
                             <div class="position-relative">
                                 <i class="align-middle" data-feather="bell"></i>
                                 <span class="indicator">4</span>
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-                             aria-labelledby="alertsDropdown">
+                        <div aria-labelledby="alertsDropdown"
+                             class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0">
                             <div class="dropdown-menu-header">
                                 4 New Notifications
                             </div>
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
                                             <i class="text-danger" data-feather="alert-circle"></i>
@@ -179,7 +173,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
                                             <i class="text-warning" data-feather="bell"></i>
@@ -193,7 +187,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
                                             <i class="text-primary" data-feather="home"></i>
@@ -204,7 +198,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
                                             <i class="text-success" data-feather="user-plus"></i>
@@ -218,29 +212,29 @@
                                 </a>
                             </div>
                             <div class="dropdown-menu-footer">
-                                <a href="#" class="text-muted">Show all notifications</a>
+                                <a class="text-muted" href="#">Show all notifications</a>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
+                        <a class="nav-icon dropdown-toggle" data-bs-toggle="dropdown" href="#" id="messagesDropdown">
                             <div class="position-relative">
                                 <i class="align-middle" data-feather="message-square"></i>
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-                             aria-labelledby="messagesDropdown">
+                        <div aria-labelledby="messagesDropdown"
+                             class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0">
                             <div class="dropdown-menu-header">
                                 <div class="position-relative">
                                     4 New Messages
                                 </div>
                             </div>
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Vanessa Tucker">
+                                            <img alt="Vanessa Tucker" class="avatar img-fluid rounded-circle"
+                                                 src="img/avatars/avatar-5.jpg"/>
                                         </div>
                                         <div class="col-10 ps-2">
                                             <div class="text-dark">Vanessa Tucker</div>
@@ -251,11 +245,11 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="William Harris">
+                                            <img alt="William Harris" class="avatar img-fluid rounded-circle"
+                                                 src="img/avatars/avatar-2.jpg"/>
                                         </div>
                                         <div class="col-10 ps-2">
                                             <div class="text-dark">William Harris</div>
@@ -265,11 +259,11 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Christina Mason">
+                                            <img alt="Christina Mason" class="avatar img-fluid rounded-circle"
+                                                 src="img/avatars/avatar-4.jpg"/>
                                         </div>
                                         <div class="col-10 ps-2">
                                             <div class="text-dark">Christina Mason</div>
@@ -278,11 +272,11 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item" href="#">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Sharon Lessman">
+                                            <img alt="Sharon Lessman" class="avatar img-fluid rounded-circle"
+                                                 src="img/avatars/avatar-3.jpg"/>
                                         </div>
                                         <div class="col-10 ps-2">
                                             <div class="text-dark">Sharon Lessman</div>
@@ -295,18 +289,17 @@
                                 </a>
                             </div>
                             <div class="dropdown-menu-footer">
-                                <a href="#" class="text-muted">Show all messages</a>
+                                <a class="text-muted" href="#">Show all messages</a>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" data-bs-toggle="dropdown" href="#">
                             <i class="align-middle" data-feather="settings"></i>
                         </a>
-
-                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-                                 alt="Charles Hall"/> <span class="text-dark">Charles Hall</span>
+                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" data-bs-toggle="dropdown" href="#">
+                            <img alt="Charles Hall" class="avatar img-fluid rounded me-1" src="img/avatars/avatar.jpg"/>
+                            <span class="text-dark">Charles Hall</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
@@ -315,7 +308,7 @@
                                 Analytics</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="index.html"><i class="align-middle me-1"
-                                                                          data-feather="settings"></i> Settings &
+                                                                          data-feather="settings"></i> Settings &amp;
                                 Privacy</a>
                             <a class="dropdown-item" href="#"><i class="align-middle me-1"
                                                                  data-feather="help-circle"></i> Help Center</a>
@@ -326,106 +319,80 @@
                 </ul>
             </div>
         </nav>
-
-        <div class="outgoing-container">
-            <div class="header">
-                <h1 class="outgoing-h1">출고 신청</h1>
-            </div>
-
-            <div class="steps-container">
-                <div class="progress-bar">
-                    <div class="step active">1
-                        <div class="step-label">재고 선택</div>
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+                <div class="row">
+                    <div class="col-xl-6 col-xxl-5 d-flex"></div>
+                    <div class="col-xl-6 col-xxl-5 d-flex">
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="step active">2
-                        <div class="step-label">세부 정보 입력</div>
+                    <div class="col-xl-6 col-xxl-7">
+                        <div class="card flex-fill w-100">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Recent Movement</h5>
+                            </div>
+                            <div class="card-body py-3" style="height: 350px;">
+                                <div class="chart chart-sm">
+                                    <canvas id="chartjs-dashboard-line"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="step">3
-                        <div class="step-label">신청 내역 확인</div>
+                    <div class="col-xl-6 col-xxl-5 d-flex">
+                        <div class="card flex-fill w-100">
+                            <div class="card-header"><h5 class="card-title mb-0">Monthly Sales</h5></div>
+                            <div class="card-body d-flex w-100" style="height: 350px;">
+                                <div class="align-self-center chart chart-lg">
+                                    <canvas id="chartjs-dashboard-bar"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+                    </div>
+                    <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
+                    </div>
+                </div>
+                <div class="row">
+                    <c:forEach var="sector" items="${dashBoardList.sectorUsageList}" varStatus="loop">
+                        <c:if test="${loop.index < 4}">
+                            <div class="col-12 col-md-6 col-xl-3 d-flex mb-4">
+                                <div class="card flex-fill w-100">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">${sector.sector_id} Usage ${loop.index + 1}</h5>
+                                    </div>
+                                    <div class="card-body d-flex">
+                                        <div class="align-self-center w-100">
+                                            <div class="chart chart-xs" style="height: 180px;">
+                                                <canvas id="chart-sector-${loop.index}"></canvas>
+                                            </div>
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>${sector.sector_id}</td>
+                                                    <td class="text-end">${sector.FAR}%</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
             </div>
-
-            <div class="selected-product">
-                <strong>선택한 재고:</strong>
-                <span id="selectedStockText">-</span> /
-                <strong>제품 ID:</strong>
-                <span id="selectedProductText">-</span>
-            </div>
-
-            <div class="outgoing-form-group">
-                <label for="quantity">출고 수량</label>
-                <input type="number" id="quantity" placeholder="출고할 수량을 입력하세요" min="1">
-            </div>
-
-            <div class="outgoing-form-group">
-                <label for="outgoingDate">출고 희망일</label>
-                <input type="date" id="outgoingDate" min="">
-            </div>
-
-            <div class="button-group-full">
-                <button class="outgoing_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 이전
-                </button>
-                <button class="outgoing_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
-                    다음 <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // 선택된 재고 정보 출력
-                const selectedStockId = sessionStorage.getItem("selectedStockId");
-                const selectedProductId = sessionStorage.getItem("selectedProductId");
-
-                document.getElementById("selectedStockText").textContent = selectedStockId || "-";
-                document.getElementById("selectedProductText").textContent = selectedProductId || "-";
-
-                // 날짜의 최소값을 오늘로 설정
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById("outgoingDate").setAttribute("min", today);
-
-                // input 값 입력 시 다음 버튼 활성화
-                const quantityInput = document.getElementById("quantity");
-                const dateInput = document.getElementById("outgoingDate");
-                const nextBtn = document.getElementById("nextBtn");
-
-                function validateInputs() {
-                    const quantity = quantityInput.value.trim();
-                    const date = dateInput.value.trim();
-                    nextBtn.disabled = !(quantity && date && parseInt(quantity) > 0);
-                }
-
-                quantityInput.addEventListener("input", validateInputs);
-                dateInput.addEventListener("input", validateInputs);
-            });
-
-            function goBack() {
-                window.location.href = "pages-outgoing.html"
-            }
-
-            function goToNext() {
-                const quantity = document.getElementById("quantity").value;
-                const date = document.getElementById("outgoingDate").value;
-
-                sessionStorage.setItem("outgoingQuantity", quantity);
-                sessionStorage.setItem("outgoingDate", date);
-
-                window.location.href = "pages-outgoing-confirm.html";
-            }
-        </script>
-
-
-        <!-- JS -->
-        <script src="/js/app.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                feather.replace();
-            });
-        </script>
-
-
+        </main>
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row text-muted">
@@ -433,7 +400,7 @@
                         <p class="mb-0">
                             <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
                             - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin
-                            Template</strong></a> &copy;
+                            Template</strong></a> ©
                         </p>
                     </div>
                     <div class="col-6 text-end">
@@ -457,9 +424,7 @@
         </footer>
     </div>
 </div>
-
-<script src="/js/app.js"></script>
-
+<script src="js/app.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
@@ -523,78 +488,6 @@
                         borderDash: [3, 3],
                         gridLines: {
                             color: "rgba(0,0,0,0.0)"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Pie chart
-        new Chart(document.getElementById("chartjs-dashboard-pie"), {
-            type: "pie",
-            data: {
-                labels: ["Chrome", "Firefox", "IE"],
-                datasets: [{
-                    data: [4306, 3801, 1689],
-                    backgroundColor: [
-                        window.theme.primary,
-                        window.theme.warning,
-                        window.theme.danger
-                    ],
-                    borderWidth: 5
-                }]
-            },
-            options: {
-                responsive: !window.MSInputMethodContext,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                cutoutPercentage: 75
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-dashboard-bar"), {
-            type: "bar",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "This year",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
                         }
                     }]
                 }
@@ -681,7 +574,72 @@
         });
     });
 </script>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new Chart(document.getElementById("chartjs-dashboard-bar"), {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "This year",
+                    backgroundColor: window.theme.primary,
+                    borderColor: window.theme.primary,
+                    hoverBackgroundColor: window.theme.primary,
+                    hoverBorderColor: window.theme.primary,
+                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                    barPercentage: .75,
+                    categoryPercentage: .5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        stacked: false,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        gridLines: {
+                            color: "transparent"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        <c:forEach var="sector" items="${dashBoardList.sectorUsageList}" varStatus="loop">
+        <c:if test="${loop.index < 4}">
+        new Chart(document.getElementById("chart-sector-${loop.index}"), {
+            type: "pie",
+            data: {
+                labels: ["Usage", "Remaining"],
+                datasets: [{
+                    data: [${sector.FAR}, ${100 - sector.FAR}],
+                    backgroundColor: ['#36A2EB', '#E0E0E0'],
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                cutoutPercentage: 75,
+                legend: {display: false}
+            }
+        });
+        </c:if>
+        </c:forEach>
+    });
+</script>
 </body>
-
 </html>

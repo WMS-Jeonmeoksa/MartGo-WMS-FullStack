@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class IncomingVO {
-    private int incomingNum;
+public class OutgoingVO {
+    private int outgoingNum;
     private int count;
-    private Date incomingDate;
+    private Date outgoingDate;
     private String status;
-    private String productId;
     private String userId;
+    private int stockNum;
 }
