@@ -1,0 +1,100 @@
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 컨테이너 */
+.product-result-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 7rem auto 10rem auto;
+    padding: 2rem 3rem;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    min-height: 55vh;
+}
+
+/* 제목 */
+.product-result-h1 {
+    font-size: 30px;
+    color: #1e3a8a;
+    margin-bottom: 40px;
+}
+
+/* 테이블 */
+.product-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+.product-result-table thead {
+    background-color: #1e3a8a;
+    color: #fff;
+}
+
+.product-result-table th,
+.product-result-table td {
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.product-result-table tbody tr:hover {
+    background-color: #eff6ff;
+}
+
+/* 버튼 */
+.button-group-full {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+}
+
+.product_btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-back {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.btn-back:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-next {
+    background-color: #22c55e;
+    color: white;
+}
+
+.btn-next:hover {
+    background-color: #16a34a;
+}
+
+.product_btn i {
+    margin: 0 8px;
+}
