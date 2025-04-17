@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.Date;
 import java.util.List;
@@ -61,7 +60,7 @@ public class RentMapperTest {
         dto.setRentStartDate(Date.valueOf("2025-05-01"));
         dto.setRentEndDate(Date.valueOf("2025-11-01"));
         dto.setRentPrice(600);
-        dto.setUserId("testUser");
+        dto.setUserId("user02");
 
         rentMapper.saveDb(dto);
     }
