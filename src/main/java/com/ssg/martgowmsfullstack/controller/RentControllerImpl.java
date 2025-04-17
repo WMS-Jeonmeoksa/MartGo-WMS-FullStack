@@ -1,112 +1,93 @@
 package com.ssg.martgowmsfullstack.controller;
 
-
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
 import com.ssg.martgowmsfullstack.service.RentService;
-import com.ssg.martgowmsfullstack.service.RentServiceImpl;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Scanner;
 
-@Service
+@Controller
 @Log4j2
-@RequiredArgsConstructor
 @Transactional
-public class RentControllerImpl implements RentController {
+@RequestMapping("/rent")
+public class RentControllerImpl implements RentController{
 
-    RentService rentService = new RentServiceImpl();
-    private final RentMapper rentMapper;
-    RentHistoryDTO rentHistory = new RentHistoryDTO();
-    Scanner sc = new Scanner(System.in);
+    @Autowired
+    public RentService rentService;
 
-    public void applyRent(String userId) {
-        rentMapper.getAllWarehouses();
+    @Autowired
+    public RentMapper rentMapper;
 
-        // 창고 번호 선택
-//        System.out.print(INPUT_WAREHOUSE.getMessage());
-        int wareHouse = sc.nextInt();
-//        System.out.printf((SHOW_WAREHOUSE_SECTOR_LIST.getMessage()) + "%n", wareHouse);
+    @GetMapping("/warehouse")
+    public String applyRentWarehouse(Model model) {
+        List<RentHistoryDTO> rentHistoryDTOList = rentMapper.getAllWarehouses();
 
+        model.addAttribute("warehouses", rentHistoryDTOList);
+        return "pages-warehouse";
+    }
+
+
+
+
+    @GetMapping("/sector")
+    public String applyRentSec(int wareHouse) {
         rentMapper.getAllSectors(wareHouse);
+        return "redirect:/rent/sector";
+    }
 
-        // 섹터 선택
-//        System.out.print(INPUT_SECTOR.getMessage());
-        String sectorName = sc.next();
-
+    @GetMapping("/costinfo")
+    public String applyRentCostInfo(int wareHouse, String sectorName) {
         rentMapper.getCostInfo(wareHouse, sectorName);
+        return "redirect:/rent/costinfo";
+    }
 
-        // 임대 기간 선택
-//        System.out.println(INPUT_RENT_PERIOD1.getMessage());
-//        System.out.println(INPUT_RENT_PERIOD2.getMessage());
-//        System.out.print(INPUT_RENT_PERIOD3.getMessage());
-        int month = sc.nextInt();
-
-        // 임대 비용 정보
-        int rentPrice = rentMapper.getRentPrice(wareHouse, sectorName, month);
-        rentHistory.setSectorId(sectorName);
-        rentHistory.setWarehouseId(wareHouse);
+    @PostMapping("/last")
+    public String applyRent(
+            @ModelAttribute RentHistoryDTO rentHistory,
+            @RequestParam("month") int month,
+            @RequestParam("startDay") String startDay,
+            @RequestParam("rentPrice") int rentPrice,
+            @RequestParam("userId") String userId // 로그인 세션 등으로 받을 수도 있음
+    ) {
         rentHistory.setRentPrice(rentPrice);
         rentHistory.setUserId(userId);
 
-        // 임대 시작일 입력
-//        System.out.print(INPUT_RENT_START_DATE.getMessage());
-        sc.nextLine(); // 엔터 버퍼 처리
-        String startDay = sc.nextLine();
-
         String endDate = rentService.endDate(month, startDay);
 
-        // 최종 선택 내역 출력
-//        System.out.println(SHOW_RENT_HISTORY_LAST.getMessage());
-//        System.out.printf((RENT_WAREHOUSE.getMessage()) + "%n", wareHouse);
-//        System.out.printf((RENT_SECTOR.getMessage()) + "%n", sectorName);
-//        System.out.printf((RENT_PERIOD.getMessage()) + "%n", startDay, endDate);
-//        System.out.printf((RENT_PRICE.getMessage()) + "%n", rentPrice);
+        int confirm = 1; // 예시: 나중에 실제 확인 여부 값으로 대체
 
-        // 임대 신청 확인
-//        System.out.println(CONFIRM_RENT.getMessage());
-        int confirm = sc.nextInt();
         if (confirm == 1) {
             rentService.saveRentHistory(rentHistory, month, startDay);
-//            System.out.println(RENT_END.getMessage());
         } else {
             System.out.println("임대 신청이 취소되었습니다.");
         }
+
+        return "redirect:/rent/last";
     }
 
-    public void holdRentList(String adminId) {
-//        System.out.println(SHOW_HOLD_RENT_HISTORY.getMessage());
-        rentMapper.getHoldRentHistory();
-
-//        System.out.print(SELECT_RENT_HISTORY.getMessage());
-        int selectRentNum = sc.nextInt();
-
-        rentMapper.updateAdminId(selectRentNum, adminId);
-        rentMapper.updateUserAdminId();
-    }
-
-    public void inProgressRentList(String adminId) {
-//        System.out.println(SHOW_HOLD_RENT_HISTORY.getMessage());
-        rentMapper.getInProgressRentHistory(adminId);
-
-//        System.out.print(SELECT_RENT_HISTORY.getMessage());
-        int selectRentNum = sc.nextInt();
-
-        rentMapper.completedRentStatus(selectRentNum, adminId);
-    }
-
-    public List<RentHistoryDTO> showMonthlyPerformance(String adminId) {
-        List<RentHistoryDTO> list = rentService.getMonthlyPerformance(adminId);
-
-//    for (RentHistoryDTO dto : list) {
-//        System.out.printf("임대 가격: %d, 승인일자: %s%n",
-//                dto.getRentPrice(),
-//                dto.getApproveDate() != null ? dto.getApproveDate().toString() : "없음");
+//
+//    public void holdRentList(String adminId) {
+//        rentMapper.getHoldRentHistory();
+//        int selectRentNum = sc.nextInt();
+//
+//        rentMapper.updateAdminId(selectRentNum, adminId);
+//        rentMapper.updateUserAdminId();
 //    }
-        return list;
-    }
+//
+//    public void inProgressRentList(String adminId) {
+//        rentMapper.getInProgressRentHistory(adminId);
+//        int selectRentNum = sc.nextInt();
+//
+//        rentMapper.completedRentStatus(selectRentNum, adminId);
+//    }
+//
+//    public List<RentHistoryDTO> showMonthlyPerformance(String adminId) {
+//        return rentService.getMonthlyPerformance(adminId);
+//    }
 }
