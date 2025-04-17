@@ -1,0 +1,121 @@
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 전체 박스 */
+.incoming-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    min-height: 60vh;
+}
+
+/* 제목 */
+.incoming-h1 {
+    color: #1e3a8a;
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* 섹션 제목 */
+.section-header {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.incoming-h3 {
+    font-size: 20px;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+/* 테이블 스타일 */
+.incoming_table {
+    width: 100%;
+    table-layout: auto; /* 콘텐츠에 따라 컬럼 넓이 조정 */
+    border-collapse: collapse;
+    margin: 30px 0;
+}
+
+.incoming_table th,
+.incoming_table td {
+    padding: 16px 20px; /* 좌우 패딩 넓게 */
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 15px;
+    word-break: keep-all;
+}
+
+.incoming_table th {
+    background-color: #f1f5f9;
+    color: #1e3a8a;
+    font-weight: 600;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.incoming_table tr:hover {
+    background-color: #f0f9ff;
+    cursor: pointer;
+}
+
+.incoming_table tr.selected {
+    background-color: #dcfce7;
+}
+
+/* 버튼 그룹 */
+.button-group-full {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+/* 버튼 공통 */
+.incoming_btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 이전 버튼 */
+.btn-back {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-back:hover {
+    background-color: #d1d5db;
+}
+
+/* 승인 버튼 */
+.btn-next {
+    background-color: #22c55e;
+    color: white;
+}
+
+.btn-next:hover:not(:disabled) {
+    background-color: #16a34a;
+}
+
+.btn-next:disabled {
+    background-color: #d1d5db;
+    cursor: not-allowed;
+}
