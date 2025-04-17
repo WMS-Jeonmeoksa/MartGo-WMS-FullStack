@@ -1,0 +1,117 @@
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: #f9fafb;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* 제목 */
+.product-h1 {
+    color: #1e3a8a;
+    font-size: 24px;
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
+/* 전체 wrapper */
+.product-container {
+    width: 100%;
+    max-width: 1000px; /* 더 넓게 확장 */
+    margin: 1.8rem auto;
+    padding: 1.5rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    border-radius: 0.75rem;
+}
+
+/* 폼 그룹 */
+.product-form-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-form-group label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1e40af;
+}
+
+.product-form-group input {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.product-form-group input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+    outline: none;
+}
+
+/* 버튼 영역 */
+.button-group-full {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.product_btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.btn i {
+    margin: 0 6px;
+    font-size: 13px;
+}
+
+.btn-back {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.btn-back:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-next {
+    background-color: #22c55e;
+    color: white;
+}
+
+.btn-next:hover:not(:disabled) {
+    background-color: #16a34a;
+}
+#categorySelect, #categoryInput {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#categorySelect:focus, #categoryInput:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+    outline: none;
+}

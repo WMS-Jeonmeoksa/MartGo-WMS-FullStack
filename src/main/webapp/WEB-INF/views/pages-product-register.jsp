@@ -1,7 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/outgoing_2.css">
+    <link rel="stylesheet" href="/css/product_1.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,8 +52,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-outgoing.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
+                    <a class="sidebar-link" href="/pages-product-register.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -327,98 +329,120 @@
             </div>
         </nav>
 
-        <div class="outgoing-container">
+        <div class="product-container">
             <div class="header">
-                <h1 class="outgoing-h1">출고 신청</h1>
+                <h1 class="product-h1">제품 등록</h1>
             </div>
 
-            <div class="steps-container">
-                <div class="progress-bar">
-                    <div class="step active">1
-                        <div class="step-label">재고 선택</div>
-                    </div>
-                    <div class="step active">2
-                        <div class="step-label">세부 정보 입력</div>
-                    </div>
-                    <div class="step">3
-                        <div class="step-label">신청 내역 확인</div>
-                    </div>
+            <form action="${pageContext.request.contextPath}/product/register" method="post" onsubmit="return prepareCategoryValue()">
+                <div class="product-form-group">
+                    <label for="productId">제품 ID</label>
+                    <input type="text" id="productId" name="productId" placeholder="예: PRD001">
                 </div>
-            </div>
 
-            <div class="selected-product">
-                <strong>선택한 재고:</strong>
-                <span id="selectedStockText">-</span> /
-                <strong>제품 ID:</strong>
-                <span id="selectedProductText">-</span>
-            </div>
+                <div class="product-form-group">
+                    <label for="productName">제품명</label>
+                    <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고">
+                </div>
 
-            <div class="outgoing-form-group">
-                <label for="quantity">출고 수량</label>
-                <input type="number" id="quantity" placeholder="출고할 수량을 입력하세요" min="1">
-            </div>
+                <div class="product-form-group">
+                    <label for="categorySelect">카테고리</label>
+                    <select id="categorySelect" onchange="handleCategoryChange()">
+                        <option value="">선택하세요</option>
+                        <option value="냉장고">냉장고</option>
+                        <option value="TV">TV</option>
+                        <option value="세탁기">세탁기</option>
+                        <option value="건조기">건조기</option>
+                        <option value="에어컨">에어컨</option>
+                        <option value="청소기">청소기</option>
+                        <option value="direct">직접입력</option>
+                    </select>
+                    <input type="text" id="categoryInput" placeholder="카테고리를 입력하세요" style="display:none; margin-top: 8px;">
+                    <input type="hidden" name="category" id="category">
+                </div>
 
-            <div class="outgoing-form-group">
-                <label for="outgoingDate">출고 희망일</label>
-                <input type="date" id="outgoingDate" min="">
-            </div>
+                <div class="product-form-group">
+                    <label for="height">제품 높이 (cm)</label>
+                    <input type="number" id="height" name="height" placeholder="예: 180" min="0">
+                </div>
 
-            <div class="button-group-full">
-                <button class="outgoing_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 이전
-                </button>
-                <button class="outgoing_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
-                    다음 <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
+                <div class="product-form-group">
+                    <label for="area">제품 면적 (㎡)</label>
+                    <input type="number" id="area" name="width" placeholder="예: 20" min="0" step="0.01">
+                </div>
+
+                <div class="product-form-group">
+                    <label for="price">제품 가격 (원)</label>
+                    <input type="number" id="price" name="price" placeholder="예: 500000" min="0">
+                </div>
+
+                <div class="product-form-group">
+                    <label for="manufacturer">제조사</label>
+                    <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자">
+                </div>
+
+<%--                나중에 userid 받아오면 수정예정--%>
+                <input type="hidden" name="userId" value="seller03" />
+
+                <div class="button-group-full">
+                    <button class="product_btn btn-back" type="button" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> 이전
+                    </button>
+                    <button class="product_btn btn-next" type="submit">
+                        등록하기 <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </form>
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // 선택된 재고 정보 출력
-                const selectedStockId = sessionStorage.getItem("selectedStockId");
-                const selectedProductId = sessionStorage.getItem("selectedProductId");
-
-                document.getElementById("selectedStockText").textContent = selectedStockId || "-";
-                document.getElementById("selectedProductText").textContent = selectedProductId || "-";
-
-                // 날짜의 최소값을 오늘로 설정
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById("outgoingDate").setAttribute("min", today);
-
-                // input 값 입력 시 다음 버튼 활성화
-                const quantityInput = document.getElementById("quantity");
-                const dateInput = document.getElementById("outgoingDate");
-                const nextBtn = document.getElementById("nextBtn");
-
-                function validateInputs() {
-                    const quantity = quantityInput.value.trim();
-                    const date = dateInput.value.trim();
-                    nextBtn.disabled = !(quantity && date && parseInt(quantity) > 0);
-                }
-
-                quantityInput.addEventListener("input", validateInputs);
-                dateInput.addEventListener("input", validateInputs);
-            });
-
             function goBack() {
-                window.location.href = "pages-outgoing.html"
+                window.history.back();
             }
 
-            function goToNext() {
-                const quantity = document.getElementById("quantity").value;
-                const date = document.getElementById("outgoingDate").value;
+            function handleCategoryChange() {
+                const select = document.getElementById("categorySelect");
+                const input = document.getElementById("categoryInput");
+                if (select.value === "direct") {
+                    input.style.display = "block";
+                } else {
+                    input.style.display = "none";
+                    input.value = "";
+                }
+            }
 
-                sessionStorage.setItem("outgoingQuantity", quantity);
-                sessionStorage.setItem("outgoingDate", date);
+            function prepareCategoryValue() {
+                const category = document.getElementById("category");
+                const select = document.getElementById("categorySelect");
+                const input = document.getElementById("categoryInput");
 
-                window.location.href = "pages-outgoing-confirm.html";
+                category.value = (select.value === "direct") ? input.value.trim() : select.value;
+
+                const requiredFields = [
+                    "productId", "productName", "height", "area", "price", "manufacturer", "userId"
+                ];
+
+                for (const field of requiredFields) {
+                    const val = document.getElementById(field).value.trim();
+                    if (val === "") {
+                        alert("모든 필드를 입력해주세요.");
+                        return false;
+                    }
+                }
+
+                if (category.value === "") {
+                    alert("카테고리를 입력해주세요.");
+                    return false;
+                }
+
+                return confirm("등록하시겠습니까?");
             }
         </script>
 
 
+
         <!-- JS -->
-        <script src="/js/app.js"></script>
+        <script src="js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -458,7 +482,7 @@
     </div>
 </div>
 
-<script src="/js/app.js"></script>
+<script src="js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
