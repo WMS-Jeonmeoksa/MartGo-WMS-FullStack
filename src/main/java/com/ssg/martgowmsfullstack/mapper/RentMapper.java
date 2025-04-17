@@ -5,12 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RentMapper {
 
-    List<RentHistoryDTO> getAllWarehouses();
-    List<RentHistoryDTO> getAllSectors(@Param("warehouseId") int warehouseId);
+    List<Map<String, Object>> getAllWarehouses();
+    List<Map<String, Object>> getAllSectors(@Param("warehouseId") int warehouseId);
     List<RentHistoryDTO> getCostInfo(@Param("warehouseId") int warehouseId,
                                      @Param("sectorId") String sectorId);
     int getRentPrice(@Param("warehouseId") int warehouseId,

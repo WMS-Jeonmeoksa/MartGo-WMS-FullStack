@@ -1,7 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" href="/css/outgoing_3.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,17 +12,20 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords"
           content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
-
-    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+    <title>warehouse rent</title>
 
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/sector.css" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
@@ -38,20 +44,10 @@
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item active">
                     <a class="sidebar-link" href="pages-warehouse.jsp">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-outgoing.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -239,7 +235,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Vanessa Tucker">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -254,7 +250,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="William Harris">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -268,7 +264,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Christina Mason">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -281,7 +277,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Sharon Lessman">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -305,8 +301,8 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-                                 alt="Charles Hall"/> <span class="text-dark">Charles Hall</span>
+                            <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
+                            <span class="text-dark">Charles Hall</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
@@ -326,328 +322,336 @@
                 </ul>
             </div>
         </nav>
-        <div class="outgoing-container">
-            <div class="header">
-                <h1 class="outgoing-h1">출고 신청</h1>
-            </div>
-            <div class="steps-container">
-                <div class="progress-bar">
-                    <div class="step active">1
-                        <div class="step-label">재고 선택</div>
-                    </div>
-                    <div class="step active">2
-                        <div class="step-label">세부 정보 입력</div>
-                    </div>
-                    <div class="step active">3
-                        <div class="step-label">신청 내역 확인</div>
-                    </div>
+
+        <div class="container">
+            <h1>창고 임대 신청</h1>
+
+            <div class="progress-bar">
+                <div class="step active">
+                    1
+                    <div class="step-label">창고 선택</div>
+                </div>
+                <div class="step active">
+                    2
+                    <div class="step-label">섹터 선택</div>
+                </div>
+                <div class="step">
+                    3
+                    <div class="step-label">가격/기간 선택</div>
+                </div>
+                <div class="step">
+                    4
+                    <div class="step-label">신청 완료</div>
                 </div>
             </div>
 
-            <div class="outgoing-summary-box">
-                <table class="outgoing-summary-table">
-                    <tr><th>재고번호</th><td id="stockId">-</td></tr>
-                    <tr><th>제품 ID</th><td id="productId">-</td></tr>
-                    <tr><th>출고 수량</th><td id="quantity">-</td></tr>
-                    <tr><th>출고 희망일</th><td id="outgoingDate">-</td></tr>
-                    <tr><th>신청 상태</th><td>대기중</td></tr>
-                </table>
+            <div class="section-header">
+                <h3><i class="fas fa-th-large"></i> 선택한 창고 정보</h3>
+            </div>
+            <div class="summary-box">
+                <div><strong>창고 ID:</strong> ${warehouseId}</div>
+                <div><strong>창고 이름:</strong>
+                    <c:out value="${warehouseName}" default="-" />
+                </div>
             </div>
 
-            <div class="button-group-full">
-                <button class="outgoing_btn btn-back" onclick="history.back()">
+
+            <!-- 섹터 목록 -->
+            <div class="section-header">
+                <h3><i class="fas fa-layer-group"></i> 섹터 목록</h3>
+            </div>
+            <table id="sector-table">
+                <thead>
+                <tr>
+                    <th>섹터 ID</th>
+                    <th>이름</th>
+                    <th>크기 (㎡)</th>
+                    <th>특징</th>
+                    <th>상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="sec" items="${sectors}" varStatus="loop">
+                    <tr onclick="selectSector('${sec.sector_id}','${sec.name}', this)">
+                        <td>${sec.sector_id}</td>
+                        <td>${sec.name}</td>
+                        <td>${sec.size}</td>
+                        <td>${sec.features}</td>
+                        <td>${sec.status}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <div class="button-group">
+                <button class="btn btn-back" id="prev-btn">
                     <i class="fas fa-arrow-left"></i> 이전
                 </button>
-                <button class="outgoing_btn btn-next" id="nextBtn" onclick="submitApplication()">
-                    출고 신청
+                <button class="btn btn-next" id="next-btn" disabled>
+                    다음 <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
-
-        <script>
-            const stockId = sessionStorage.getItem("selectedStockId") || "-";
-            const productId = sessionStorage.getItem("selectedProductId") || "-";
-            const quantity = sessionStorage.getItem("outgoingQuantity") || "-";
-            const date = sessionStorage.getItem("outgoingDate") || "-";
-
-            document.getElementById("stockId").textContent = stockId;
-            document.getElementById("productId").textContent = productId;
-            document.getElementById("quantity").textContent = quantity + " 개";
-            document.getElementById("outgoingDate").textContent = date;
-
-            function submitApplication() {
-                alert("출고 신청이 완료되었습니다. 관리자의 승인을 기다려주세요.");
-                // 실제 서버로 전송하는 로직이 들어가는 위치
-                window.location.href = "index.html";
-            }
-        </script>
-
-
-
-        <!-- JS -->
-        <script src="/js/app.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                feather.replace();
-            });
-        </script>
-
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row text-muted">
-                    <div class="col-6 text-start">
-                        <p class="mb-0">
-                            <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
-                            - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin
-                            Template</strong></a> &copy;
-                        </p>
-                    </div>
-                    <div class="col-6 text-end">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>
 
-<script src="/js/app.js"></script>
+<script>
+    // 테이블 행 클릭 시
+    function selectSector(sectorId, sectorName, row) {
+        // 선택 표시
+        document.querySelectorAll('#sector-table tbody tr').forEach(tr => tr.classList.remove('selected'));
+        row.classList.add('selected');
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-        var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-        gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-        gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-        // Line chart
-        new Chart(document.getElementById("chartjs-dashboard-line"), {
-            type: "line",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Sales ($)",
-                    fill: true,
-                    backgroundColor: gradient,
-                    borderColor: window.theme.primary,
-                    data: [
-                        2115,
-                        1562,
-                        1584,
-                        1892,
-                        1587,
-                        1923,
-                        2566,
-                        2448,
-                        2805,
-                        3438,
-                        2917,
-                        3327
-                    ]
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    intersect: false
-                },
-                hover: {
-                    intersect: true
-                },
-                plugins: {
-                    filler: {
-                        propagate: false
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        reverse: true,
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            stepSize: 1000
-                        },
-                        display: true,
-                        borderDash: [3, 3],
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
-                    }]
-                }
-            }
+        // 세션에 저장
+        sessionStorage.setItem('selectedSectorId', sectorId);
+        sessionStorage.setItem('selectedSectorName', sectorName);
+
+        // 다음 버튼 활성화
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    // 이전 버튼
+    document.getElementById('prev-btn').addEventListener('click', () => {
+        // 창고 선택 페이지로 돌아가기
+        window.location.href = '/rent/warehouse';
+    });
+
+    // 다음 버튼: 선택한 창고·섹터를 쿼리스트링으로 넘겨요
+    document.getElementById('next-btn').addEventListener('click', () => {
+        const sectorId = sessionStorage.getItem('selectedSectorId');
+        const sectorName = sessionStorage.getItem('selectedSectorName');
+        const params = new URLSearchParams({
+            warehouseId:   sessionStorage.getItem('selectedWarehouseId'),  // ← 이 이름이 컨트롤러와 동일해야 함
+            warehouseName: sessionStorage.getItem('selectedWarehouseName'),
+            sectorId,
+            sectorName
         });
+        window.location.href = '/rent/period?' + params.toString();
     });
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Pie chart
-        new Chart(document.getElementById("chartjs-dashboard-pie"), {
-            type: "pie",
-            data: {
-                labels: ["Chrome", "Firefox", "IE"],
-                datasets: [{
-                    data: [4306, 3801, 1689],
-                    backgroundColor: [
-                        window.theme.primary,
-                        window.theme.warning,
-                        window.theme.danger
-                    ],
-                    borderWidth: 5
-                }]
-            },
-            options: {
-                responsive: !window.MSInputMethodContext,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                cutoutPercentage: 75
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-dashboard-bar"), {
-            type: "bar",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "This year",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
+        <script src="js/app.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+                var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+                gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+                gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+                // Line chart
+                new Chart(document.getElementById("chartjs-dashboard-line"), {
+                    type: "line",
+                    data: {
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                        datasets: [{
+                            label: "Sales ($)",
+                            fill: true,
+                            backgroundColor: gradient,
+                            borderColor: window.theme.primary,
+                            data: [
+                                2115,
+                                1562,
+                                1584,
+                                1892,
+                                1587,
+                                1923,
+                                2566,
+                                2448,
+                                2805,
+                                3438,
+                                2917,
+                                3327
+                            ]
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        legend: {
                             display: false
                         },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
+                        tooltips: {
+                            intersect: false
+                        },
+                        hover: {
+                            intersect: true
+                        },
+                        plugins: {
+                            filler: {
+                                propagate: false
+                            }
+                        },
+                        scales: {
+                            xAxes: [{
+                                reverse: true,
+                                gridLines: {
+                                    color: "rgba(0,0,0,0.0)"
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    stepSize: 1000
+                                },
+                                display: true,
+                                borderDash: [3, 3],
+                                gridLines: {
+                                    color: "rgba(0,0,0,0.0)"
+                                }
+                            }]
                         }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Pie chart
+                new Chart(document.getElementById("chartjs-dashboard-pie"), {
+                    type: "pie",
+                    data: {
+                        labels: ["Chrome", "Firefox", "IE"],
+                        datasets: [{
+                            data: [4306, 3801, 1689],
+                            backgroundColor: [
+                                window.theme.primary,
+                                window.theme.warning,
+                                window.theme.danger
+                            ],
+                            borderWidth: 5
+                        }]
+                    },
+                    options: {
+                        responsive: !window.MSInputMethodContext,
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false
+                        },
+                        cutoutPercentage: 75
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Bar chart
+                new Chart(document.getElementById("chartjs-dashboard-bar"), {
+                    type: "bar",
+                    data: {
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                        datasets: [{
+                            label: "This year",
+                            backgroundColor: window.theme.primary,
+                            borderColor: window.theme.primary,
+                            hoverBackgroundColor: window.theme.primary,
+                            hoverBorderColor: window.theme.primary,
+                            data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                            barPercentage: .75,
+                            categoryPercentage: .5
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                gridLines: {
+                                    display: false
+                                },
+                                stacked: false,
+                                ticks: {
+                                    stepSize: 20
+                                }
+                            }],
+                            xAxes: [{
+                                stacked: false,
+                                gridLines: {
+                                    color: "transparent"
+                                }
+                            }]
                         }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var markers = [{
-            coords: [31.230391, 121.473701],
-            name: "Shanghai"
-        },
-            {
-                coords: [28.704060, 77.102493],
-                name: "Delhi"
-            },
-            {
-                coords: [6.524379, 3.379206],
-                name: "Lagos"
-            },
-            {
-                coords: [35.689487, 139.691711],
-                name: "Tokyo"
-            },
-            {
-                coords: [23.129110, 113.264381],
-                name: "Guangzhou"
-            },
-            {
-                coords: [40.7127837, -74.0059413],
-                name: "New York"
-            },
-            {
-                coords: [34.052235, -118.243683],
-                name: "Los Angeles"
-            },
-            {
-                coords: [41.878113, -87.629799],
-                name: "Chicago"
-            },
-            {
-                coords: [51.507351, -0.127758],
-                name: "London"
-            },
-            {
-                coords: [40.416775, -3.703790],
-                name: "Madrid "
-            }
-        ];
-        var map = new jsVectorMap({
-            map: "world",
-            selector: "#world_map",
-            zoomButtons: true,
-            markers: markers,
-            markerStyle: {
-                initial: {
-                    r: 9,
-                    strokeWidth: 7,
-                    stokeOpacity: .4,
-                    fill: window.theme.primary
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var markers = [{
+                    coords: [31.230391, 121.473701],
+                    name: "Shanghai"
                 },
-                hover: {
-                    fill: window.theme.primary,
-                    stroke: window.theme.primary
-                }
-            },
-            zoomOnScroll: false
-        });
-        window.addEventListener("resize", () => {
-            map.updateSize();
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-        var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-        document.getElementById("datetimepicker-dashboard").flatpickr({
-            inline: true,
-            prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-            nextArrow: "<span title=\"Next month\">&raquo;</span>",
-            defaultDate: defaultDate
-        });
-    });
-</script>
+                    {
+                        coords: [28.704060, 77.102493],
+                        name: "Delhi"
+                    },
+                    {
+                        coords: [6.524379, 3.379206],
+                        name: "Lagos"
+                    },
+                    {
+                        coords: [35.689487, 139.691711],
+                        name: "Tokyo"
+                    },
+                    {
+                        coords: [23.129110, 113.264381],
+                        name: "Guangzhou"
+                    },
+                    {
+                        coords: [40.7127837, -74.0059413],
+                        name: "New York"
+                    },
+                    {
+                        coords: [34.052235, -118.243683],
+                        name: "Los Angeles"
+                    },
+                    {
+                        coords: [41.878113, -87.629799],
+                        name: "Chicago"
+                    },
+                    {
+                        coords: [51.507351, -0.127758],
+                        name: "London"
+                    },
+                    {
+                        coords: [40.416775, -3.703790],
+                        name: "Madrid "
+                    }
+                ];
+                var map = new jsVectorMap({
+                    map: "world",
+                    selector: "#world_map",
+                    zoomButtons: true,
+                    markers: markers,
+                    markerStyle: {
+                        initial: {
+                            r: 9,
+                            strokeWidth: 7,
+                            stokeOpacity: .4,
+                            fill: window.theme.primary
+                        },
+                        hover: {
+                            fill: window.theme.primary,
+                            stroke: window.theme.primary
+                        }
+                    },
+                    zoomOnScroll: false
+                });
+                window.addEventListener("resize", () => {
+                    map.updateSize();
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+                var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+                document.getElementById("datetimepicker-dashboard").flatpickr({
+                    inline: true,
+                    prevArrow: "<span title=\"Previous month\">&laquo;</span>",
+                    nextArrow: "<span title=\"Next month\">&raquo;</span>",
+                    defaultDate: defaultDate
+                });
+            });
+        </script>
 
 </body>
 

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j2
@@ -26,19 +27,26 @@ public class RentControllerImpl implements RentController{
 
     @GetMapping("/warehouse")
     public String applyRentWarehouse(Model model) {
-        List<RentHistoryDTO> rentHistoryDTOList = rentMapper.getAllWarehouses();
-
-        model.addAttribute("warehouses", rentHistoryDTOList);
+        List<Map<String, Object>> warehouseList = rentMapper.getAllWarehouses();
+        model.addAttribute("warehouses", warehouseList);
         return "pages-warehouse";
     }
 
-
-
-
     @GetMapping("/sector")
-    public String applyRentSec(int wareHouse) {
-        rentMapper.getAllSectors(wareHouse);
-        return "redirect:/rent/sector";
+    public String applyRentSec(
+            @RequestParam("warehouseId") int warehouseId,
+            @RequestParam(value = "warehouseName", required = false) String warehouseName,
+            Model model
+    ) {
+        // DB 에서 섹터 리스트 꺼내오기
+        List<Map<String, Object>> sectorList = rentMapper.getAllSectors(warehouseId);
+
+        model.addAttribute("sectors", sectorList);
+        model.addAttribute("warehouseId", warehouseId);
+        if (warehouseName != null) {
+            model.addAttribute("warehouseName", warehouseName);
+        }
+        return "pages-sector";
     }
 
     @GetMapping("/costinfo")
