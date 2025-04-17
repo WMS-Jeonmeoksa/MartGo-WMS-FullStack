@@ -21,5 +21,5 @@ public class DashBoardDTO {
     // 6. 전체 회원 수
     private int totalUserCount;
     // 7. 담당 회원 수 (해당 관리자 기준)
-    private int AdminUserCount;
+    private int adminUserCount;
 }

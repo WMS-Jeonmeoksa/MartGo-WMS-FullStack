@@ -364,136 +364,32 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-6 col-xl-3 d-flex">
-                        <div class="card flex-fill w-100">
-                            <div class="card-header"><h5 class="card-title mb-0">Browser Usage</h5></div>
-                            <div class="card-body d-flex">
-                                <div class="align-self-center w-100">
-                                    <div class="chart chart-xs">
-                                        <canvas id="chartjs-dashboard-pie-1"></canvas>
+                    <c:forEach var="sector" items="${dashBoardList.sectorUsageList}" varStatus="loop">
+                        <c:if test="${loop.index < 4}">
+                            <div class="col-12 col-md-6 col-xl-3 d-flex mb-4">
+                                <div class="card flex-fill w-100">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">${sector.sector_id} Usage ${loop.index + 1}</h5>
                                     </div>
-                                    <table class="table mb-0">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                Sector A
-                                            </td>
-                                            <td class="text-end">1200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector B</td>
-                                            <td class="text-end">950</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector C</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector D</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="card-body d-flex">
+                                        <div class="align-self-center w-100">
+                                            <div class="chart chart-xs" style="height: 180px;">
+                                                <canvas id="chart-sector-${loop.index}"></canvas>
+                                            </div>
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>${sector.sector_id}</td>
+                                                    <td class="text-end">${sector.FAR}%</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-3 d-flex">
-                        <div class="card flex-fill w-100">
-                            <div class="card-header"><h5 class="card-title mb-0">Browser Usage</h5></div>
-                            <div class="card-body d-flex">
-                                <div class="align-self-center w-100">
-                                    <div class="chart chart-xs">
-                                        <canvas id="chartjs-dashboard-pie-2"></canvas>
-                                    </div>
-                                    <table class="table mb-0">
-                                        <tbody>
-                                        <tr>
-                                            <td>Sector A</td>
-                                            <td class="text-end">1200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector B</td>
-                                            <td class="text-end">950</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector C</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector D</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-3 d-flex">
-                        <div class="card flex-fill w-100">
-                            <div class="card-header"><h5 class="card-title mb-0">Browser Usage</h5></div>
-                            <div class="card-body d-flex">
-                                <div class="align-self-center w-100">
-                                    <div class="chart chart-xs">
-                                        <canvas id="chartjs-dashboard-pie-3"></canvas>
-                                    </div>
-                                    <table class="table mb-0">
-                                        <tbody>
-                                        <tr>
-                                            <td>Sector A</td>
-                                            <td class="text-end">1200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector B</td>
-                                            <td class="text-end">950</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector C</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector D</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-3 d-flex">
-                        <div class="card flex-fill w-100">
-                            <div class="card-header"><h5 class="card-title mb-0">Browser Usage</h5></div>
-                            <div class="card-body d-flex">
-                                <div class="align-self-center w-100">
-                                    <div class="chart chart-xs">
-                                        <canvas id="chartjs-dashboard-pie-4"></canvas>
-                                    </div>
-                                    <table class="table mb-0">
-                                        <tbody>
-                                        <tr>
-                                            <td>Sector A</td>
-                                            <td class="text-end">1200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector B</td>
-                                            <td class="text-end">950</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector C</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sector D</td>
-                                            <td class="text-end">700</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
         </main>
@@ -723,82 +619,27 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-
-        new Chart(document.getElementById("chartjs-dashboard-pie-1"), {
+        <c:forEach var="sector" items="${dashBoardList.sectorUsageList}" varStatus="loop">
+        <c:if test="${loop.index < 4}">
+        new Chart(document.getElementById("chart-sector-${loop.index}"), {
             type: "pie",
             data: {
-                labels: ['SectorA', 'SectorB', 'SectorC', 'SectorD'],
+                labels: ["Usage", "Remaining"],
                 datasets: [{
-                    data: [1200, 950, 700, 600],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                    data: [${sector.FAR}, ${100 - sector.FAR}],
+                    backgroundColor: ['#36A2EB', '#E0E0E0'],
                     borderWidth: 5
                 }]
             },
             options: {
                 maintainAspectRatio: false,
                 cutoutPercentage: 75,
-                legend: {
-                    display: false
-                }
+                legend: {display: false}
             }
         });
-
-        new Chart(document.getElementById("chartjs-dashboard-pie-2"), {
-            type: "pie",
-            data: {
-                labels: ['SectorA', 'SectorB', 'SectorC', 'SectorD'],
-                datasets: [{
-                    data: [1100, 980, 670, 2000],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                    borderWidth: 5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                cutoutPercentage: 75,
-                legend: {
-                    display: false
-                }
-            }
-        });
-
-        new Chart(document.getElementById("chartjs-dashboard-pie-3"), {
-            type: "pie",
-            data: {
-                labels: ['SectorA', 'SectorB', 'SectorC', 'SectorD'],
-                datasets: [{
-                    data: [1050, 1020, 800, 450],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                    borderWidth: 5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                cutoutPercentage: 75,
-                legend: {
-                    display: false
-                }
-            }
-        });
-
-        new Chart(document.getElementById("chartjs-dashboard-pie-4"), {
-            type: "pie",
-            data: {
-                labels: ['SectorA', 'SectorB', 'SectorC', 'SectorD'],
-                datasets: [{
-                    data: [1250, 900, 760, 520],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                    borderWidth: 5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                cutoutPercentage: 75,
-                legend: {
-                    display: false
-                }
-            }
-        });
-    });</script>
+        </c:if>
+        </c:forEach>
+    });
+</script>
 </body>
 </html>

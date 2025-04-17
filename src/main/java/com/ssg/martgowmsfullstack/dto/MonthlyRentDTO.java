@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class MonthlyRentDTO {
     private String month;      // "2024-01"
-    private int totalRent;     // 월별 총 임대 금액
+    private int total_rent;     // 월별 총 임대 금액
 }

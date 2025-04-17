@@ -10,11 +10,17 @@ import java.util.List;
 @Mapper
 public interface DashBoardMapper {
     // 창고 용적률
-    double getWarehouseUsageRate(@Param("admin_id") String adminId);
+    double getWarehouseUsageRate(@Param("admin_id") String admin_id);
+
     // 섹터 용적률
-    List<SectorUsageDTO> getSectorUsageList(@Param("admin_id") String adminId);
+    List<SectorUsageDTO> getSectorUsageList(@Param("admin_id") String admin_id);
+
     // 총 회원수
-    int getTotalUserCount(@Param("admin_id") String adminId);
+    int getTotalUserCount();
+
     // 담당 회원수
-    int getAdminUserCount(@Param("admin_id") String adminId);
+    int getAdminUserCount(@Param("admin_id") String admin_id);
+
+    // 월별 실적 저장
+    List<MonthlyRentDTO> getMonthlyRentTotal();
 }
