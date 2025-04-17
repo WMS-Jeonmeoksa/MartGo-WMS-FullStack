@@ -1,15 +1,13 @@
-package com.ssg.martgowmsfullstack.dto;
+package com.ssg.martgowmsfullstack.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@Builder
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
-public class StockDTO {
+@NoArgsConstructor
+@Builder
+@ToString
+public class StockVO {
     private Integer stock_num;
     private Integer count;
     private Integer total_price;

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.StockHistoryMapper">
     <select id="checkAdminStockHistory" parameterType="String"
-            resultType="com.ssg.martgowmsfullstack.dto.StockHistoryDTO">
+            resultType="com.ssg.martgowmsfullstack.domain.StockHistoryVO">
         SELECT history_num, product_id, stock_history.sector_id, count, change_date, change_type,
         stock_history.admin_id, incoming_num, outgoing_num, stock_num
         FROM stock_history
@@ -12,7 +12,7 @@
     </select>
 
     <select id="checkGeneralStockHistory" parameterType="String"
-            resultType="com.ssg.martgowmsfullstack.dto.StockHistoryDTO">
+            resultType="com.ssg.martgowmsfullstack.domain.StockHistoryVO">
         SELECT history_num, product_id, stock_history.sector_id, count, change_date, change_type,
         stock_history.admin_id, incoming_num, outgoing_num, stock_num
         FROM stock_history
