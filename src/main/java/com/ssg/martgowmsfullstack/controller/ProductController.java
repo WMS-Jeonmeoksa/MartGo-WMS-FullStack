@@ -18,12 +18,12 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/register")
-    public String register() {
+    public String showProductRegister() {
         return "pages-product-register";
     }
 
     @PostMapping("/register")
-    public String registerProduct(@ModelAttribute ProductDTO productDTO, Model model) {
+    public String submitProductRegister(@ModelAttribute ProductDTO productDTO, Model model) {
         productService.registerProduct(productDTO);
         model.addAttribute("product", productDTO);
         return "pages-product-confirm";
