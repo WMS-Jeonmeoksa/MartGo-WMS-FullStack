@@ -41,4 +41,9 @@
         GROUP BY DATE_FORMAT(approve_date, '%y-%m')
     </select>
 
+    <select id="getAllWareHouseUsageList" resultType="com.ssg.martgowmsfullstack.dto.WareHouseUsageDTO">
+        SELECT FAR, warehouse_name
+        FROM warehouse
+    </select>
+
 </mapper>
