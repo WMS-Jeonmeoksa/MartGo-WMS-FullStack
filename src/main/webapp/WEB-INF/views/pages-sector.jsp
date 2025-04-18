@@ -364,18 +364,17 @@
                 <thead>
                 <tr>
                     <th>섹터 ID</th>
-                    <th>이름</th>
                     <th>크기 (㎡)</th>
-                    <th>특징</th>
+                    <th>용적률</th>
                     <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="sec" items="${sectors}" varStatus="loop">
-                    <tr onclick="selectSector('${sec.sector_id}','${sec.name}', this)">
+                    <tr onclick="selectSector('${sec.sector_id}', this)">
                         <td>${sec.sector_id}</td>
+                        <td>${sec.height * sec.width}㎡</td>
                         <td>${sec.FAR}</td>
-                        <td>${sec.height} * ${sec.width}</td>
                         <td>${sec.status}</td>
                     </tr>
                 </c:forEach>
@@ -396,14 +395,13 @@
 
 <script>
     // 테이블 행 클릭 시
-    function selectSector(sectorId, sectorName, row) {
+    function selectSector(sectorId, row) {
         // 선택 표시
         document.querySelectorAll('#sector-table tbody tr').forEach(tr => tr.classList.remove('selected'));
         row.classList.add('selected');
 
         // 세션에 저장
         sessionStorage.setItem('selectedSectorId', sectorId);
-        sessionStorage.setItem('selectedSectorName', sectorName);
 
         // 다음 버튼 활성화
         document.getElementById('next-btn').disabled = false;
@@ -418,12 +416,10 @@
     // 다음 버튼: 선택한 창고·섹터를 쿼리스트링으로 넘겨요
     document.getElementById('next-btn').addEventListener('click', () => {
         const sectorId = sessionStorage.getItem('selectedSectorId');
-        const sectorName = sessionStorage.getItem('selectedSectorName');
         const params = new URLSearchParams({
             warehouseId:   sessionStorage.getItem('selectedWarehouseId'),  // ← 이 이름이 컨트롤러와 동일해야 함
             warehouseName: sessionStorage.getItem('selectedWarehouseName'),
-            sectorId,
-            sectorName
+            sectorId
         });
         window.location.href = '/rent/period?' + params.toString();
     });
