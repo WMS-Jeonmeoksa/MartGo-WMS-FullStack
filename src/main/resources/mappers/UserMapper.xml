@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.UserMapper">
+    <select id="findByUserid" parameterType="String" resultType="com.ssg.martgowmsfullstack.domain.UserVO">
+        SELECT * FROM user WHERE user_id = #{userid}
+    </select>
+
+    <insert id="insertUser">
+        insert into user (user_id, user_name, user_pw, phone, email, address, role, admin_id)
+        values (#{userid},  #{username},  #{password}, #{phone}, #{email}, #{address}, #{role}, #{adminid})
+    </insert>
+</mapper>
