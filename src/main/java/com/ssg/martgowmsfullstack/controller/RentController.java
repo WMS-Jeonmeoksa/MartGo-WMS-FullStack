@@ -10,7 +10,7 @@ public interface RentController {
     String applyRentWarehouse(Model model);
 
     String applyRentSec(@RequestParam("warehouseId") int warehouseId,
-                        @RequestParam(value = "warehouseName", required = false) String warehouseName,
+                        @RequestParam(value = "warehouseName") String warehouseName,
                         Model model);
 
     String applyRentCostInfo(  @RequestParam("warehouseId")   int    warehouseId,

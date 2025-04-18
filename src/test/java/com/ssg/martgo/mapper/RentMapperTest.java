@@ -1,6 +1,7 @@
 package com.ssg.martgo.mapper;
 
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
+import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class RentMapperTest {
 
     @Test
     void testGetAllSectors() {
-        List<Map<String,Object>> list = rentMapper.getAllSectors(1);
+        List<SectorDTO> list = rentMapper.getAllSectors(1);
         assertNotNull(list);
         list.forEach(System.out::println);
     }

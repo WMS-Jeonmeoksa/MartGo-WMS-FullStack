@@ -2,6 +2,7 @@ package com.ssg.martgowmsfullstack.service;
 
 
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
+import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +29,22 @@ public class RentServiceImpl implements RentService {
 
 
     public List<Map<String, Object>> getAllWarehouses() {
-        return rentMapper.getAllWarehouses();
+        List<Map<String, Object>> warehouses = rentMapper.getAllWarehouses();
+        for (Map<String, Object> wh : warehouses) {
+            Integer warehouseId = (Integer) wh.get("warehouse_id");
+            String status = getSectorStatus(warehouseId);
+            wh.put("status", status);
+        }
+        return warehouses;
+    }
+    public String getSectorStatus(int warehouseId) {
+        List<String> sectorStatuses = rentMapper.getSectorStatus(warehouseId);
+        boolean anyAvailable = sectorStatuses.stream()
+                .anyMatch("사용가능"::equals);
+        return anyAvailable ? "사용가능" : "사용불가";
     }
 
-    public List<Map<String, Object>> getAllSector(int warehouseId) {
+    public List<SectorDTO> getAllSector(int warehouseId) {
         return rentMapper.getAllSectors(warehouseId);
     }
 
