@@ -5,6 +5,17 @@
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.ProductMapper">
 
+    <resultMap id="productResultMap" type="com.ssg.martgowmsfullstack.dto.ProductDTO">
+        <id property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="category" column="category"/>
+        <result property="height" column="height"/>
+        <result property="width" column="width"/>
+        <result property="price" column="price"/>
+        <result property="manufacturer" column="manufacturer"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
     <insert id="insertProduct" parameterType="com.ssg.martgowmsfullstack.domain.ProductVO">
         INSERT INTO product
         (product_id, product_name, category, height, width, price, manufacturer, user_id)
@@ -19,7 +30,7 @@
         WHERE user_id = #{userId}
     </select>
 
-    <select id="getProductByUserId" parameterType="String" resultType="com.ssg.martgowmsfullstack.dto.ProductDTO">
+    <select id="getProductByUserId" parameterType="String" resultMap="productResultMap">
         SELECT *
         FROM product
         WHERE user_id = #{userId}

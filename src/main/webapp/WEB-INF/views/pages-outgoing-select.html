@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/incoming_1.css">
+    <link rel="stylesheet" href="/css/outgoing_select.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,6 @@
     <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
     <link href="/css/app.css" rel="stylesheet">
-    <link rel="stylesheet" href="incoming_1.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -45,9 +44,14 @@
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-incoming.html">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/pages-outgoing-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -323,15 +327,15 @@
             </div>
         </nav>
 
-        <div class="incoming-container">
+        <div class="outgoing-container">
             <div class="header">
-                <h1 class="incoming-h1">입고 신청</h1>
+                <h1 class="outgoing-h1">출고 신청</h1>
             </div>
 
             <div class="steps-container">
                 <div class="progress-bar">
                     <div class="step active">1
-                        <div class="step-label">제품 선택</div>
+                        <div class="step-label">재고 선택</div>
                     </div>
                     <div class="step">2
                         <div class="step-label">세부 정보 입력</div>
@@ -343,83 +347,86 @@
             </div>
 
             <div class="section-header">
-                <h3 class="incoming-h3">제품목록</h3>
+                <h3 class="outgoing-h3">재고 목록</h3>
             </div>
 
-            <table class="incoming_table">
+            <table class="outgoing_table">
                 <thead>
                 <tr>
+                    <th>재고번호</th>
                     <th>제품 ID</th>
-                    <th>제품명</th>
-                    <th>카테고리</th>
-                    <th>높이(cm)</th>
-                    <th>면적(㎡)</th>
-                    <th>가격(원)</th>
-                    <th>제조사</th>
+                    <th>수량</th>
+                    <th>가격</th>
+                    <th>창고 ID</th>
+                    <th>섹터 ID</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr onclick="selectProduct(this, 'PRD001')">
+                <tr onclick="selectStock(this, 'STK001', 'PRD001')">
+                    <td>STK001</td>
                     <td>PRD001</td>
-                    <td>냉장고</td>
-                    <td>가전</td>
-                    <td>180</td>
-                    <td>1.2</td>
-                    <td>500,000</td>
-                    <td>삼성</td>
+                    <td>10</td>
+                    <td>5,000,000</td>
+                    <td>WH001</td>
+                    <td>S001</td>
                 </tr>
-                <tr onclick="selectProduct(this, 'PRD002')">
+                <tr onclick="selectStock(this, 'STK002', 'PRD002')">
+                    <td>STK002</td>
                     <td>PRD002</td>
-                    <td>세탁기</td>
-                    <td>가전</td>
-                    <td>150</td>
-                    <td>1.0</td>
-                    <td>450,000</td>
-                    <td>LG</td>
+                    <td>5</td>
+                    <td>2,250,000</td>
+                    <td>WH002</td>
+                    <td>S002</td>
                 </tr>
-                <tr onclick="selectProduct(this, 'PRD003')">
+                <tr onclick="selectStock(this, 'STK003', 'PRD003')">
+                    <td>STK003</td>
                     <td>PRD003</td>
-                    <td>에어컨</td>
-                    <td>가전</td>
-                    <td>200</td>
-                    <td>1.5</td>
-                    <td>600,000</td>
-                    <td>위니아</td>
+                    <td>8</td>
+                    <td>4,800,000</td>
+                    <td>WH003</td>
+                    <td>S003</td>
                 </tr>
                 </tbody>
             </table>
 
             <div class="button-group-full">
-                <button class="incoming_btn btn-back" onclick="history.back()">
+                <button class="outgoing_btn btn-back" onclick="history.back()">
                     <i class="fas fa-arrow-left"></i> 이전
                 </button>
-                <button class="incoming_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
+                <button class="outgoing_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
                     다음 <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
 
-
         <script>
-            let selectedProductId = null;
-
-            function selectProduct(row, productId) {
+            function selectStock(row, stockId, productId) {
+                // 기존 선택 제거
                 document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+
+                // 현재 선택 적용
                 row.classList.add('selected');
-                selectedProductId = productId;
+
+                // 재고 ID와 제품 ID 저장
+                sessionStorage.setItem('selectedStockId', stockId);
                 sessionStorage.setItem('selectedProductId', productId);
+
+                // 다음 버튼 활성화
                 document.getElementById('nextBtn').disabled = false;
             }
 
             function goToNext() {
-                if (selectedProductId) {
-                    window.location.href = 'pages-incoming-quantity.html';
+                const stockId = sessionStorage.getItem('selectedStockId');
+                const productId = sessionStorage.getItem('selectedProductId');
+
+                if (stockId && productId) {
+                    window.location.href = 'pages-outgoing-detail.html';
                 }
             }
         </script>
 
         <!-- JS -->
-        <script src="js/app.js"></script>
+        <script src="/js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -459,7 +466,7 @@
     </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="/js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
