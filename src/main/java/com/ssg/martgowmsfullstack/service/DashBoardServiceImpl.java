@@ -28,6 +28,7 @@ public class DashBoardServiceImpl implements DashBoardService {
                 .approvedIncomingCount(incomingService.getIncomingCount(admin_id))
                 .approvedOutgoingCount(outgoingService.getOutgoingCount(admin_id))
                 .monthlyRentTotalList(monthRentDTO)
+                .wareHouseUsageList(dashBoardMapper.getAllWareHouseUsageList())
                 .build();
         return dashBoardDTO;
     }

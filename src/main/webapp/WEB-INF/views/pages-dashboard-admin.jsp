@@ -153,7 +153,7 @@
                         <div class="card flex-fill">
                             <div class="card-header"><h5 class="card-title mb-0">총 회원수</h5></div>
                             <div class="card-body d-flex flex-column align-items-start justify-content-center"
-                                 style="height: 140px;"><h2 class="mb-1">${dashBoardList.totalUserCount}</h2>
+                                 style="height: 120px;"><h2 class="mb-1">${dashBoardList.totalUserCount}</h2>
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                         <div class="card flex-fill">
                             <div class="card-header"><h5 class="card-title mb-0">담당 회원 수</h5></div>
                             <div class="card-body d-flex flex-column align-items-start justify-content-center"
-                                 style="height: 140px;"><h2 class="mb-1">${dashBoardList.adminUserCount}</h2>
+                                 style="height: 120px;"><h2 class="mb-1">${dashBoardList.adminUserCount}</h2>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                         <div class="card flex-fill">
                             <div class="card-header"><h5 class="card-title mb-0">입고 승인 횟수</h5></div>
                             <div class="card-body d-flex flex-column align-items-start justify-content-center"
-                                 style="height: 140px;"><h2 class="mb-1">${dashBoardList.approvedIncomingCount}</h2>
+                                 style="height: 120px;"><h2 class="mb-1">${dashBoardList.approvedIncomingCount}</h2>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                         <div class="card flex-fill">
                             <div class="card-header"><h5 class="card-title mb-0">출고 승인 횟수</h5></div>
                             <div class="card-body d-flex flex-column align-items-start justify-content-center"
-                                 style="height: 140px;"><h2 class="mb-1">${dashBoardList.approvedOutgoingCount}</h2>
+                                 style="height: 120px;"><h2 class="mb-1">${dashBoardList.approvedOutgoingCount}</h2>
                             </div>
                         </div>
                     </div>
