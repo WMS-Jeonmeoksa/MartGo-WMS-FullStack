@@ -1,6 +1,7 @@
 package com.ssg.martgowmsfullstack.mapper;
 
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
+import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +12,8 @@ import java.util.Map;
 public interface RentMapper {
 
     List<Map<String, Object>> getAllWarehouses();
-    List<Map<String, Object>> getAllSectors(@Param("warehouseId") int warehouseId);
+    List<String> getSectorStatus(@Param("warehouseId") int warehouseId);
+    List<SectorDTO> getAllSectors(@Param("warehouseId") int warehouseId);
     List<Map<String, Object>> getCostInfo(@Param("warehouseId") int warehouseId,
                                      @Param("sectorId") String sectorId);
     int getRentPrice(@Param("warehouseId") int warehouseId,

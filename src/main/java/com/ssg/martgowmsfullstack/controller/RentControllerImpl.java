@@ -1,6 +1,8 @@
 package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
+import com.ssg.martgowmsfullstack.dto.SectorDTO;
+import com.ssg.martgowmsfullstack.dto.WarehouseDTO;
 import com.ssg.martgowmsfullstack.service.RentService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -30,14 +33,21 @@ public class RentControllerImpl implements RentController {
     @GetMapping("/sector")
     public String applyRentSec(
             @RequestParam("warehouseId") int warehouseId,
-            @RequestParam(value = "warehouseName", required = false) String warehouseName,
+            @RequestParam("warehouseName") String warehouseName,
             Model model
     ) {
-        List<Map<String, Object>> sectorList = rentService.getAllSector(warehouseId);
+        List<SectorDTO> sectorList = rentService.getAllSector(warehouseId);
+        for (SectorDTO sec : sectorList) {
+            System.out.println("섹터 ID: " + sec.getSectorId());
+        }
+
+        System.out.println("warehouseId = " + warehouseId);
+        System.out.println("sectorList.size = " + sectorList.size());
 
         model.addAttribute("sectors", sectorList);
         model.addAttribute("warehouseId", warehouseId);
         model.addAttribute("warehouseName", warehouseName);
+
         return "pages-sector";
     }
 
