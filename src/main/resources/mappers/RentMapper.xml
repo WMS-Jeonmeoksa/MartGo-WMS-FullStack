@@ -9,11 +9,11 @@
         CALL GetAllWarehouses()
     </select>
 
-    <select id="getAllSectors" parameterType="int" resultType="map">
+    <select id="getAllSectors" parameterType="map" resultType="map">
         CALL GetAllSectors(#{warehouseId})
     </select>
 
-    <select id="getCostInfo" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+    <select id="getCostInfo" resultType="map">
         CALL GetCostInfoSector(#{warehouseId}, #{sectorId})
     </select>
 
