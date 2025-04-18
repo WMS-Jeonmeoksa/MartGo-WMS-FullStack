@@ -1,46 +1,30 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-    <meta content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5" name="description"/>
-    <meta content="AdminKit" name="author"/>
-    <meta content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web"
-          name="keywords"/>
-    <link href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="img/icons/icon-48x48.png" rel="shortcut icon"/>
-    <link href="https://demo-basic.adminkit.io/" rel="canonical"/>
-    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
-    <link href="css/app.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>MartGo - General Dashboard</title>
+    <link href="/css/app.css" rel="stylesheet">
+    <script src="/js/app.js"></script>
 </head>
 <body>
 <div class="wrapper">
-    <nav class="sidebar js-sidebar" id="sidebar">
+    <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="index.html">
                 <span class="align-middle">AdminKit</span>
             </a>
             <ul class="sidebar-nav">
-                <li class="sidebar-header">
-                    Pages
-                </li>
+                <li class="sidebar-header">Pages</li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="index.html">
+                    <a class="sidebar-link" href="/dashboard/general?admin_id=${admin_id}">
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.html">
-                        <i class="align-middle" data-feather="rent"></i> <span
-                            class="align-middle">Warehouse Rent</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-product-register.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    <a class="sidebar-link" href="pages-warehouse.jsp">
+                        <i class="align-middle" data-feather="rent"></i> <span class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -49,17 +33,12 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-outgoing.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-stock.html">
+                    <a class="sidebar-link" href="/stock/general?admin_id=${admin_id}">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">재고 목록</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-stock_history.html">
+                    <a class="sidebar-link" href="/stock_history/general?admin_id=${admin_id}">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">재고 변경 이력</span>
                     </a>
                 </li>
@@ -83,9 +62,7 @@
                         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
                     </a>
                 </li>
-                <li class="sidebar-header">
-                    Tools &amp; Components
-                </li>
+                <li class="sidebar-header">Tools & Components</li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="ui-buttons.html">
                         <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
@@ -103,8 +80,7 @@
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="ui-typography.html">
-                        <i class="align-middle" data-feather="align-left"></i> <span
-                            class="align-middle">Typography</span>
+                        <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -112,9 +88,7 @@
                         <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
                     </a>
                 </li>
-                <li class="sidebar-header">
-                    Plugins &amp; Addons
-                </li>
+                <li class="sidebar-header">Plugins & Addons</li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="charts-chartjs.html">
                         <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
@@ -129,247 +103,59 @@
             <div class="sidebar-cta">
                 <div class="sidebar-cta-content">
                     <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                    <div class="mb-3 text-sm">
-                        Are you looking for more components? Check out our premium version.
-                    </div>
+                    <div class="mb-3 text-sm">Are you looking for more components? Check out our premium version.</div>
                     <div class="d-grid">
-                        <a class="btn btn-primary" href="upgrade-to-pro.html">Upgrade to Pro</a>
+                        <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+
     <div class="main">
         <nav class="navbar navbar-expand navbar-light navbar-bg">
-            <a class="sidebar-toggle js-sidebar-toggle">
-                <i class="hamburger align-self-center"></i>
-            </a>
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav navbar-align">
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" data-bs-toggle="dropdown" href="#" id="alertsDropdown">
-                            <div class="position-relative">
-                                <i class="align-middle" data-feather="bell"></i>
-                                <span class="indicator">4</span>
-                            </div>
-                        </a>
-                        <div aria-labelledby="alertsDropdown"
-                             class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0">
-                            <div class="dropdown-menu-header">
-                                4 New Notifications
-                            </div>
-                            <div class="list-group">
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-danger" data-feather="alert-circle"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Update completed</div>
-                                            <div class="text-muted small mt-1">Restart server 12 to complete the
-                                                update.
-                                            </div>
-                                            <div class="text-muted small mt-1">30m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-warning" data-feather="bell"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Lorem ipsum</div>
-                                            <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate
-                                                hendrerit et.
-                                            </div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-primary" data-feather="home"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Login from 192.186.1.8</div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-success" data-feather="user-plus"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">New connection</div>
-                                            <div class="text-muted small mt-1">Christina accepted your request.</div>
-                                            <div class="text-muted small mt-1">14h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-menu-footer">
-                                <a class="text-muted" href="#">Show all notifications</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" data-bs-toggle="dropdown" href="#" id="messagesDropdown">
-                            <div class="position-relative">
-                                <i class="align-middle" data-feather="message-square"></i>
-                            </div>
-                        </a>
-                        <div aria-labelledby="messagesDropdown"
-                             class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0">
-                            <div class="dropdown-menu-header">
-                                <div class="position-relative">
-                                    4 New Messages
-                                </div>
-                            </div>
-                            <div class="list-group">
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img alt="Vanessa Tucker" class="avatar img-fluid rounded-circle"
-                                                 src="img/avatars/avatar-5.jpg"/>
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Vanessa Tucker</div>
-                                            <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu
-                                                tortor.
-                                            </div>
-                                            <div class="text-muted small mt-1">15m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img alt="William Harris" class="avatar img-fluid rounded-circle"
-                                                 src="img/avatars/avatar-2.jpg"/>
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">William Harris</div>
-                                            <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.
-                                            </div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img alt="Christina Mason" class="avatar img-fluid rounded-circle"
-                                                 src="img/avatars/avatar-4.jpg"/>
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Christina Mason</div>
-                                            <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-                                            <div class="text-muted small mt-1">4h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img alt="Sharon Lessman" class="avatar img-fluid rounded-circle"
-                                                 src="img/avatars/avatar-3.jpg"/>
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Sharon Lessman</div>
-                                            <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed,
-                                                posuere ac, mattis non.
-                                            </div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-menu-footer">
-                                <a class="text-muted" href="#">Show all messages</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" data-bs-toggle="dropdown" href="#">
-                            <i class="align-middle" data-feather="settings"></i>
-                        </a>
-                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" data-bs-toggle="dropdown" href="#">
-                            <img alt="Charles Hall" class="avatar img-fluid rounded me-1" src="img/avatars/avatar.jpg"/>
-                            <span class="text-dark">Charles Hall</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-                                                                                  data-feather="user"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
-                                Analytics</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index.html"><i class="align-middle me-1"
-                                                                          data-feather="settings"></i> Settings &amp;
-                                Privacy</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                                                 data-feather="help-circle"></i> Help Center</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i></a>
         </nav>
+
         <main class="content">
             <div class="container-fluid p-0">
-                <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+                <h1 class="h3 mb-3"><strong>General Dashboard</strong></h1>
+
                 <div class="row">
-                    <div class="col-xl-6 col-xxl-5 d-flex"></div>
-                    <div class="col-xl-6 col-xxl-5 d-flex">
-                        <div class="w-100">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                </div>
-                                <div class="col-sm-6">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-xl-6 col-xxl-7">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Recent Movement</h5>
+                                <h5 class="card-title mb-0">Monthly Rent</h5>
                             </div>
-                            <div class="card-body py-3" style="height: 350px;">
+                            <div class="card-body py-3" style="height: 370px; padding-bottom: 20px;">
                                 <div class="chart chart-sm">
                                     <canvas id="chartjs-dashboard-line"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-xxl-5 d-flex">
+
+                    <div class="col-xl-6 col-xxl-5">
                         <div class="card flex-fill w-100">
-                            <div class="card-header"><h5 class="card-title mb-0">Monthly Sales</h5></div>
-                            <div class="card-body d-flex w-100" style="height: 350px;">
-                                <div class="align-self-center chart chart-lg">
-                                    <canvas id="chartjs-dashboard-bar"></canvas>
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">FAR by WareHouse</h5>
+                            </div>
+                            <div class="card-body w-100" style="height: 370px; padding-bottom: 20px;">
+                                <div class="chart chart-lg" style="height: 100%;">
+                                    <canvas id="chartjs-dashboard-bar" style="height: 100%;"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
-                    </div>
-                    <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
-                    </div>
-                </div>
+
                 <div class="row">
                     <c:forEach var="sector" items="${dashBoardList.sectorUsageList}" varStatus="loop">
                         <c:if test="${loop.index < 4}">
                             <div class="col-12 col-md-6 col-xl-3 d-flex mb-4">
                                 <div class="card flex-fill w-100">
                                     <div class="card-header">
-                                        <h5 class="card-title mb-0">${sector.sector_id} Usage ${loop.index + 1}</h5>
+                                        <h5 class="card-title mb-0">${sector.sector_id} Usage</h5>
                                     </div>
                                     <div class="card-body d-flex">
                                         <div class="align-self-center w-100">
@@ -393,253 +179,194 @@
                 </div>
             </div>
         </main>
+
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row text-muted">
                     <div class="col-6 text-start">
-                        <p class="mb-0">
-                            <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
-                            - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin
-                            Template</strong></a> ©
-                        </p>
+                        <p class="mb-0"><strong>MartGo</strong> &copy;</p>
                     </div>
                     <div class="col-6 text-end">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-                            </li>
-                        </ul>
+                        <a class="text-muted" href="#">Support</a>
                     </div>
                 </div>
             </div>
         </footer>
     </div>
 </div>
-<script src="js/app.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
         var gradient = ctx.createLinearGradient(0, 0, 0, 225);
         gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
         gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-        // Line chart
-        new Chart(document.getElementById("chartjs-dashboard-line"), {
+
+        var dtoList = [
+            <c:forEach var="dto" items="${monthlyRentTotals}" varStatus="st">
+            {
+                month: "${dto.month}",
+                totalRent: ${dto.total_rent}
+            }<c:if test="${!st.last}">,</c:if>
+            </c:forEach>
+        ];
+
+        var labels = dtoList.map(function (item) {
+            return item.month.slice(-12);
+        });
+        var dataValues = dtoList.map(function (item) {
+            return item.totalRent;
+        });
+
+        new Chart(ctx, {
             type: "line",
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: labels,
                 datasets: [{
-                    label: "Sales ($)",
+                    label: "Monthly Rent Total",
                     fill: true,
                     backgroundColor: gradient,
                     borderColor: window.theme.primary,
-                    data: [
-                        2115,
-                        1562,
-                        1584,
-                        1892,
-                        1587,
-                        1923,
-                        2566,
-                        2448,
-                        2805,
-                        3438,
-                        2917,
-                        3327
-                    ]
+                    data: dataValues
                 }]
             },
             options: {
                 maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    intersect: false
-                },
-                hover: {
-                    intersect: true
-                },
-                plugins: {
-                    filler: {
-                        propagate: false
+                responsive: true,
+                layout: {
+                    padding: {
+                        top: 0,
+                        bottom: 0
                     }
                 },
                 scales: {
-                    xAxes: [{
-                        reverse: true,
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
-                    }],
-                    yAxes: [{
+                    y: {
                         ticks: {
-                            stepSize: 1000
+                            stepSize: 1000000,
+                            maxTicksLimit: 5,
+                            callback: function(value) {
+                                return value / 10000 + '만';
+                            }
                         },
-                        display: true,
-                        borderDash: [3, 3],
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
-                    }]
+                        beginAtZero: true
+                    }
                 }
             }
         });
     });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var markers = [{
-            coords: [31.230391, 121.473701],
-            name: "Shanghai"
-        },
-            {
-                coords: [28.704060, 77.102493],
-                name: "Delhi"
-            },
-            {
-                coords: [6.524379, 3.379206],
-                name: "Lagos"
-            },
-            {
-                coords: [35.689487, 139.691711],
-                name: "Tokyo"
-            },
-            {
-                coords: [23.129110, 113.264381],
-                name: "Guangzhou"
-            },
-            {
-                coords: [40.7127837, -74.0059413],
-                name: "New York"
-            },
-            {
-                coords: [34.052235, -118.243683],
-                name: "Los Angeles"
-            },
-            {
-                coords: [41.878113, -87.629799],
-                name: "Chicago"
-            },
-            {
-                coords: [51.507351, -0.127758],
-                name: "London"
-            },
-            {
-                coords: [40.416775, -3.703790],
-                name: "Madrid "
-            }
+        var warehouseLabels = [
+            <c:forEach var="warehouse" items="${dashBoardList.wareHouseUsageList}" varStatus="loop">
+            "${warehouse.warehouse_name}"<c:if test="${!loop.last}">,</c:if>
+            </c:forEach>
         ];
-        var map = new jsVectorMap({
-            map: "world",
-            selector: "#world_map",
-            zoomButtons: true,
-            markers: markers,
-            markerStyle: {
-                initial: {
-                    r: 9,
-                    strokeWidth: 7,
-                    stokeOpacity: .4,
-                    fill: window.theme.primary
-                },
-                hover: {
-                    fill: window.theme.primary,
-                    stroke: window.theme.primary
-                }
-            },
-            zoomOnScroll: false
+        var warehouseData = [
+            <c:forEach var="warehouse" items="${dashBoardList.wareHouseUsageList}" varStatus="loop">
+            ${warehouse.FAR}<c:if test="${!loop.last}">,</c:if>
+            </c:forEach>
+        ];
+
+        var barColors = warehouseData.map(function (far) {
+            if (far > 100) {
+                return '#d12345';
+            } else if (far <= 30) {
+                return '#5db261';
+            } else {
+                return '#f6c265';
+            }
         });
-        window.addEventListener("resize", () => {
-            map.updateSize();
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-        var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-        document.getElementById("datetimepicker-dashboard").flatpickr({
-            inline: true,
-            prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-            nextArrow: "<span title=\"Next month\">&raquo;</span>",
-            defaultDate: defaultDate
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
+
         new Chart(document.getElementById("chartjs-dashboard-bar"), {
             type: "bar",
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: warehouseLabels,
                 datasets: [{
-                    label: "This year",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                    barPercentage: .75,
-                    categoryPercentage: .5
+                    label: "Warehouse Usage",
+                    backgroundColor: barColors,
+                    borderColor: barColors,
+                    hoverBackgroundColor: barColors,
+                    hoverBorderColor: barColors,
+                    data: warehouseData,
+                    barPercentage: 0.8,
+                    categoryPercentage: 0.5
                 }]
             },
             options: {
                 maintainAspectRatio: false,
-                legend: {
-                    display: false
+                responsive: true,
+                layout: { padding: 0 },
+                plugins: {
+                    legend: { display: true, position: 'top' }
                 },
                 scales: {
                     yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
                         ticks: {
-                            stepSize: 20
+                            min: 0,
+                            max: 100,
+                            stepSize: 10,
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        gridLines: {
+                            display: true,
+                            drawBorder: false,
+                            color: "rgba(0,0,0,0.1)",
+                            lineWidth: 1
                         }
                     }],
                     xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
+                        ticks: { fontSize: 10, padding: 5 },
+                        gridLines: { drawBorder: false, color: "transparent" }
                     }]
                 }
             }
         });
     });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         <c:forEach var="sector" items="${dashBoardList.sectorUsageList}" varStatus="loop">
         <c:if test="${loop.index < 4}">
-        new Chart(document.getElementById("chart-sector-${loop.index}"), {
-            type: "pie",
-            data: {
-                labels: ["Usage", "Remaining"],
-                datasets: [{
-                    data: [${sector.FAR}, ${100 - sector.FAR}],
-                    backgroundColor: ['#36A2EB', '#E0E0E0'],
-                    borderWidth: 5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                cutoutPercentage: 75,
-                legend: {display: false}
+        (function () {
+            var usage = ${sector.FAR};
+            var usageFixed = usage > 100 ? 100 : usage;
+            var remaining = usageFixed > 0 ? 100 - usageFixed : 100;
+
+            var usageColor = '';
+            if (usage >= 80) {
+                usageColor = '#d12345';
+            } else if (usage <= 30) {
+                usageColor = '#5db261';
+            } else {
+                usageColor = '#f6c265';
             }
-        });
+
+            new Chart(document.getElementById("chart-sector-${loop.index}"), {
+                type: "pie",
+                data: {
+                    labels: ["Usage", "Remaining"],
+                    datasets: [{
+                        data: [usageFixed, remaining],
+                        backgroundColor: [usageColor, '#E0E0E0'],
+                        borderWidth: 5
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutoutPercentage: 75,
+                    legend: { display: false }
+                }
+            });
+        })();
         </c:if>
         </c:forEach>
     });
 </script>
+
 </body>
 </html>
