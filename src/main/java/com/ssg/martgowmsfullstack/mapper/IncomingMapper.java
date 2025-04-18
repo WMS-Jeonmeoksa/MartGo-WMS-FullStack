@@ -1,5 +1,6 @@
 package com.ssg.martgowmsfullstack.mapper;
 
+import com.ssg.martgowmsfullstack.domain.IncomingVO;
 import com.ssg.martgowmsfullstack.dto.IncomingDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface IncomingMapper {
 
-    void insertIncoming(IncomingDTO incomingDTO);
+    void insertIncoming(IncomingVO incomingVO);
 
     String getAdminRoleById(String adminId);
 

@@ -15,7 +15,7 @@
     </resultMap>
 
     <!-- 입고 등록 -->
-    <insert id="insertIncoming" parameterType="com.ssg.martgowmsfullstack.dto.IncomingDTO">
+    <insert id="insertIncoming" parameterType="com.ssg.martgowmsfullstack.domain.IncomingVO">
         INSERT INTO incoming (count, incoming_date, status, product_id, user_id)
         VALUES (#{count}, #{incomingDate}, '대기', #{productId}, #{userId})
     </insert>
