@@ -1,7 +1,10 @@
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/outgoing_1.css">
+    <link rel="stylesheet" href="/css/outgoing_approve.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,19 +42,14 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.jsp">
+                    <a class="sidebar-link" href="pages-warehouse.html">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-outgoing.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -329,62 +327,40 @@
 
         <div class="outgoing-container">
             <div class="header">
-                <h1 class="outgoing-h1">출고 신청</h1>
-            </div>
-
-            <div class="steps-container">
-                <div class="progress-bar">
-                    <div class="step active">1
-                        <div class="step-label">재고 선택</div>
-                    </div>
-                    <div class="step">2
-                        <div class="step-label">세부 정보 입력</div>
-                    </div>
-                    <div class="step">3
-                        <div class="step-label">신청 내역 확인</div>
-                    </div>
-                </div>
+                <h1 class="outgoing-h1">출고 승인</h1>
             </div>
 
             <div class="section-header">
-                <h3 class="outgoing-h3">재고 목록</h3>
+                <h3 class="outgoing-h3">출고 신청 목록</h3>
             </div>
 
             <table class="outgoing_table">
                 <thead>
                 <tr>
+                    <th>출고번호</th>
                     <th>재고번호</th>
-                    <th>제품 ID</th>
                     <th>수량</th>
-                    <th>가격</th>
-                    <th>창고 ID</th>
-                    <th>섹터 ID</th>
+                    <th>출고날짜</th>
+                    <th>회원 ID</th>
+                    <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr onclick="selectStock(this, 'STK001', 'PRD001')">
+                <tr onclick="selectOutgoing(this, 'OUT001')">
+                    <td>OUT001</td>
                     <td>STK001</td>
-                    <td>PRD001</td>
-                    <td>10</td>
-                    <td>5,000,000</td>
-                    <td>WH001</td>
-                    <td>S001</td>
-                </tr>
-                <tr onclick="selectStock(this, 'STK002', 'PRD002')">
-                    <td>STK002</td>
-                    <td>PRD002</td>
                     <td>5</td>
-                    <td>2,250,000</td>
-                    <td>WH002</td>
-                    <td>S002</td>
+                    <td>2025-04-17</td>
+                    <td>seller01</td>
+                    <td>대기</td>
                 </tr>
-                <tr onclick="selectStock(this, 'STK003', 'PRD003')">
-                    <td>STK003</td>
-                    <td>PRD003</td>
-                    <td>8</td>
-                    <td>4,800,000</td>
-                    <td>WH003</td>
-                    <td>S003</td>
+                <tr onclick="selectOutgoing(this, 'OUT002')">
+                    <td>OUT002</td>
+                    <td>STK002</td>
+                    <td>3</td>
+                    <td>2025-04-17</td>
+                    <td>seller02</td>
+                    <td>대기</td>
                 </tr>
                 </tbody>
             </table>
@@ -393,40 +369,35 @@
                 <button class="outgoing_btn btn-back" onclick="history.back()">
                     <i class="fas fa-arrow-left"></i> 이전
                 </button>
-                <button class="outgoing_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
-                    다음 <i class="fas fa-arrow-right"></i>
+                <button class="outgoing_btn btn-next" id="approveBtn" disabled onclick="approveOutgoing()">
+                    승인 <i class="fas fa-check"></i>
                 </button>
             </div>
         </div>
 
         <script>
-            function selectStock(row, stockId, productId) {
-                // 기존 선택 제거
+            let selectedOutgoingId = null;
+
+            function selectOutgoing(row, outgoingId) {
                 document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
-
-                // 현재 선택 적용
                 row.classList.add('selected');
-
-                // 재고 ID와 제품 ID 저장
-                sessionStorage.setItem('selectedStockId', stockId);
-                sessionStorage.setItem('selectedProductId', productId);
-
-                // 다음 버튼 활성화
-                document.getElementById('nextBtn').disabled = false;
+                selectedOutgoingId = outgoingId;
+                document.getElementById('approveBtn').disabled = false;
             }
 
-            function goToNext() {
-                const stockId = sessionStorage.getItem('selectedStockId');
-                const productId = sessionStorage.getItem('selectedProductId');
-
-                if (stockId && productId) {
-                    window.location.href = 'pages-outgoing-quantity.html';
+            function approveOutgoing() {
+                if (selectedOutgoingId) {
+                    const confirmMsg = `해당 출고요청을 승인하겠습니까?`;
+                    if (confirm(confirmMsg)) {
+                        alert(`${selectedOutgoingId} 출고요청을 승인하였습니다.`);
+                        // 여기서 AJAX 처리나 form submit 연결 가능
+                    }
                 }
             }
         </script>
 
         <!-- JS -->
-        <script src="/js/app.js"></script>
+        <script src="js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -466,7 +437,7 @@
     </div>
 </div>
 
-<script src="/js/app.js"></script>
+<script src="js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
