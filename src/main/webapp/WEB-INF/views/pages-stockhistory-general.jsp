@@ -22,7 +22,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.html">
+                    <a class="sidebar-link" href="/dashboard/general?admin_id=${admin_id}">
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
