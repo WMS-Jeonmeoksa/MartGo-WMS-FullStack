@@ -5,8 +5,17 @@
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.OutgoingMapper">
 
+    <resultMap id="outgoingResultMap" type="com.ssg.martgowmsfullstack.dto.OutgoingDTO">
+        <id property="outgoingNum" column="outgoing_num"/>
+        <result property="count" column="count"/>
+        <result property="outgoingDate" column="outgoing_date"/>
+        <result property="status" column="status"/>
+        <result property="userId" column="user_id"/>
+        <result property="stockNum" column="stock_num"/>
+    </resultMap>
+
     <!-- 재고 목록 조회 -->
-    <select id="getStockByUserId" parameterType="string" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
+    <select id="getStockByUserId" parameterType="string" resultMap="outgoingResultMap">
         SELECT * FROM stock WHERE user_id = #{userId}
     </select>
 
@@ -17,7 +26,7 @@
     </insert>
 
     <!-- 출고 상태별 목록 조회 (창고관리자용) -->
-    <select id="getOutgoingByStatus" parameterType="map" resultType="com.ssg.martgowmsfullstack.dto.OutgoingDTO">
+    <select id="getOutgoingByStatus" parameterType="map" resultMap="outgoingResultMap">
         SELECT o.*
         FROM outgoing o
                  JOIN user u ON o.user_id = u.user_id
@@ -25,7 +34,7 @@
     </select>
 
     <!-- 출고 상태별 목록 조회 (총관리자용) -->
-    <select id="getOutgoingByStatusNext" parameterType="map" resultType="com.ssg.martgowmsfullstack.dto.OutgoingDTO">
+    <select id="getOutgoingByStatusNext" parameterType="map" resultMap="outgoingResultMap">
         SELECT o.*
         FROM outgoing o
                  JOIN user u ON o.user_id = u.user_id

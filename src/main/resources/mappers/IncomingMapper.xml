@@ -5,6 +5,15 @@
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.IncomingMapper">
 
+    <resultMap id="incomingResultMap" type="com.ssg.martgowmsfullstack.dto.IncomingDTO">
+        <id property="incomingNum" column="incoming_num"/>
+        <result property="count" column="count"/>
+        <result property="incomingDate" column="incoming_date"/>
+        <result property="status" column="status"/>
+        <result property="productId" column="product_id"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
     <!-- 입고 등록 -->
     <insert id="insertIncoming" parameterType="com.ssg.martgowmsfullstack.dto.IncomingDTO">
         INSERT INTO incoming (count, incoming_date, status, product_id, user_id)
@@ -17,7 +26,7 @@
     </select>
 
     <!-- 특정 상태의 입고 목록 (자신이 담당한 회원 기준) -->
-    <select id="getIncomingByStatus" parameterType="map" resultType="com.ssg.martgowmsfullstack.dto.IncomingDTO">
+    <select id="getIncomingByStatus" parameterType="map" resultMap="incomingResultMap">
         SELECT i.*
         FROM incoming i
                  JOIN user u ON i.user_id = u.user_id
@@ -25,7 +34,7 @@
     </select>
 
     <!-- 특정 상태의 입고 목록 (같은 창고의 다른 관리자 포함) -->
-    <select id="getIncomingByStatusNext" parameterType="map" resultType="com.ssg.martgowmsfullstack.dto.IncomingDTO">
+    <select id="getIncomingByStatusNext" parameterType="map" resultMap="incomingResultMap">
         SELECT i.*
         FROM incoming i
                  JOIN user u ON i.user_id = u.user_id
