@@ -26,17 +26,40 @@
 							<div class="m-sm-3">
 								<form action="${pageContext.request.contextPath}/register" method="post">
 									<div class="mb-3">
-										<label class="form-label">이름</label>
-										<input class="form-control form-control-lg" type="text" name="name" placeholder="이름을 입력하세요" />
+										<label class="form-label">아이디</label>
+										<input class="form-control form-control-lg" type="text" name="userid" id="userid" placeholder="아이디를 입력하세요" required/>
 									</div>
+
 									<div class="mb-3">
-										<label class="form-label">이메일</label>
-										<input class="form-control form-control-lg" type="email" name="email" placeholder="이메일을 입력하세요" />
+										<label class="form-label">이름</label>
+										<input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="이름을 입력하세요" required/>
 									</div>
+
 									<div class="mb-3">
 										<label class="form-label">비밀번호</label>
-										<input class="form-control form-control-lg" type="password" name="password" placeholder="비밀번호를 입력하세요" />
+										<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="비밀번호를 입력하세요" required/>
 									</div>
+
+									<div class="mb-3">
+										<label class="form-label">비밀번호 확인</label>
+										<input class="form-control form-control-lg" type="password" name="confirmPassword" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required/>
+									</div>
+									
+									<div class="mb-3">
+										<label class="form-label">전화번호</label>
+										<input class="form-control form-control-lg" type="tel" name="phone" id="phone" placeholder="전화번호를 입력하세요" />
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label">이메일</label>
+										<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="이메일을 입력하세요" />
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label">주소</label>
+										<input class="form-control form-control-lg" type="text" name="address" id="address" placeholder="주소를 입력하세요" />
+									</div>
+
 
 									<c:if test="${not empty error}">
 										<div class="alert alert-danger">${error}</div>

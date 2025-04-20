@@ -5,5 +5,7 @@ import com.ssg.martgowmsfullstack.domain.UserVO;
 public interface UserService {
     boolean login(UserVO inputUser); //로그인확인
     void register(UserVO newUser); //회원가입
+    UserVO findByUserid(String userid); //검증
+    void delete(String userid);
 
 }
