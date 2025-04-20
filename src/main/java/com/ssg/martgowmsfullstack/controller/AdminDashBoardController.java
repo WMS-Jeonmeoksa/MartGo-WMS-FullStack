@@ -1,23 +1,20 @@
 package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.dto.DashBoardDTO;
-import com.ssg.martgowmsfullstack.service.DashBoardService;
+import com.ssg.martgowmsfullstack.service.AdminDashBoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/dashboard")
-public class DashBoardController {
+public class AdminDashBoardController {
 
-    private final DashBoardService dashBoardService;
+    private final AdminDashBoardService dashBoardService;
 
     @GetMapping("/admin")
     public String adminDashBoard(@RequestParam String admin_id, Model model) {

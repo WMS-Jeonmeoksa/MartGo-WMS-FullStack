@@ -1,11 +1,12 @@
 package com.ssg.martgowmsfullstack.mapper;
 
-import com.ssg.martgowmsfullstack.dto.MonthlyRentDTO;
-import com.ssg.martgowmsfullstack.dto.SectorUsageDTO;
-import com.ssg.martgowmsfullstack.dto.WareHouseUsageDTO;
+import com.ssg.martgowmsfullstack.dto.*;
+import jdk.vm.ci.meta.Local;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -26,4 +27,9 @@ public interface DashBoardMapper {
     List<MonthlyRentDTO> getMonthlyRentTotal();
 
     List<WareHouseUsageDTO> getAllWareHouseUsageList();
+
+    List<UserAdminDTO> getUserAdminList(@Param("user_id")String user_id);
+    int getRemainingDays(@Param("user_id")String user_id);
+    List<RentSectorWarehouseDTO> getRentSectorWarehouseList(@Param("user_id")String user_id);
+    List<SectorUsageDTO> getUserSectorUsage(@Param("user_id") String user_id);
 }
