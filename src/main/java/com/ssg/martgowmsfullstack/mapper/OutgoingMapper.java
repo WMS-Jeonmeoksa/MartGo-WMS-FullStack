@@ -1,5 +1,6 @@
 package com.ssg.martgowmsfullstack.mapper;
 
+import com.ssg.martgowmsfullstack.domain.OutgoingVO;
 import com.ssg.martgowmsfullstack.dto.OutgoingDTO;
 import com.ssg.martgowmsfullstack.dto.StockDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,7 +13,7 @@ public interface OutgoingMapper {
 
     List<StockDTO> getStockByUserId(@Param("userId") String userId);
 
-    void insertOutgoing(OutgoingDTO outgoingDTO);
+    void insertOutgoing(OutgoingVO outgoingVO);
 
     List<OutgoingDTO> getOutgoingByStatus(@Param("adminId") String adminId,
                                           @Param("status") String status);

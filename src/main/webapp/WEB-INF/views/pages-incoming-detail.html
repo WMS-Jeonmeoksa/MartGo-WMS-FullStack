@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" href="/css/incoming_confirm.css">
+	<link rel="stylesheet" href="/css/incoming_detail.css">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -323,62 +323,84 @@
 			</div>
 		</nav>
 
-			<div class="incoming-container">
-				<div class="header">
-					<h1 class="incoming-h1">입고 신청</h1>
-				</div>
-				<div class="steps-container">
-					<div class="progress-bar">
-						<div class="step active">1
-							<div class="step-label">제품 선택</div>
-						</div>
-						<div class="step active">2
-							<div class="step-label">세부 정보 입력</div>
-						</div>
-						<div class="step active">3
-							<div class="step-label">신청 내역 확인</div>
-						</div>
+		<div class="incoming-container">
+			<div class="header">
+				<h1 class="incoming-h1">입고 신청</h1>
+			</div>
+
+			<div class="steps-container">
+				<div class="progress-bar">
+					<div class="step active">1
+						<div class="step-label">제품 선택</div>
 					</div>
-				</div>
-
-				<div class="incoming-summary-box">
-					<table class="incoming-summary-table">
-						<tr><th>제품 ID</th><td id="productId">-</td></tr>
-						<tr><th>입고 수량</th><td id="quantity">-</td></tr>
-						<tr><th>입고 희망일</th><td id="incomingDate">-</td></tr>
-						<tr><th>신청 상태</th><td>대기중</td></tr>
-					</table>
-				</div>
-
-				<div class="button-group-full">
-					<button class="incoming_btn btn-back" onclick="history.back()">
-						<i class="fas fa-arrow-left"></i> 이전
-					</button>
-					<button class="incoming_btn btn-next" id="nextBtn" onclick="submitApplication()">
-						입고 신청
-					</button>
+					<div class="step active">2
+						<div class="step-label">세부 정보 입력</div>
+					</div>
+					<div class="step">3
+						<div class="step-label">신청 내역 확인</div>
+					</div>
 				</div>
 			</div>
 
+			<div class="selected-product">
+				<strong>선택한 제품:</strong> <span id="selectedProductText">-</span>
+			</div>
+
+			<div class="incoming-form-group">
+				<label for="quantity">입고 수량</label>
+				<input type="number" id="quantity" placeholder="입고할 수량을 입력하세요" min="1">
+			</div>
+
+			<div class="incoming-form-group">
+				<label for="incomingDate">입고 희망일</label>
+				<input type="date" id="incomingDate" min="">
+			</div>
+
+			<div class="button-group-full">
+				<button class="incoming_btn btn-back" onclick="goBack()">
+					<i class="fas fa-arrow-left"></i> 이전
+				</button>
+				<button class="incoming_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
+					다음 <i class="fas fa-arrow-right"></i>
+				</button>
+			</div>
+		</div>
 
 
 
 		<script>
-			const productId = sessionStorage.getItem("selectedProductId") || "-";
-			const quantity = sessionStorage.getItem("incomingQuantity") || "-";
-			const date = sessionStorage.getItem("incomingDate") || "-";
+			const today = new Date();
+			document.getElementById("incomingDate").min = today.toISOString().split("T")[0];
 
-			document.getElementById("productId").textContent = productId;
-			document.getElementById("quantity").textContent = quantity + " 개";
-			document.getElementById("incomingDate").textContent = date;
+			const quantityInput = document.getElementById("quantity");
+			const dateInput = document.getElementById("incomingDate");
+			const nextBtn = document.getElementById("nextBtn");
+			const selectedProductText = document.getElementById("selectedProductText");
 
-			function submitApplication() {
-				alert("입고 신청이 완료되었습니다. 관리자의 승인을 기다려주세요.");
-				// 서버 전송 코드 자리
-				window.location.href = "index.html";
+			const productId = sessionStorage.getItem("selectedProductId");
+			selectedProductText.textContent = productId ? `${productId} 제품` : "-";
+
+			quantityInput.addEventListener("input", checkForm);
+			dateInput.addEventListener("input", checkForm);
+
+			function checkForm() {
+				if (quantityInput.value && dateInput.value) {
+					nextBtn.disabled = false;
+				} else {
+					nextBtn.disabled = true;
+				}
+			}
+
+			function goBack() {
+				window.location.href = "incoming_product.html";
+			}
+
+			function goToNext() {
+				sessionStorage.setItem("incomingQuantity", quantityInput.value);
+				sessionStorage.setItem("incomingDate", dateInput.value);
+				window.location.href = "pages-incoming-confirm.html";
 			}
 		</script>
-
 
 		<!-- JS -->
 		<script src="/js/app.js"></script>

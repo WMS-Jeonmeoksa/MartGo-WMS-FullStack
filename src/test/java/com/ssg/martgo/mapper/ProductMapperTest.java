@@ -42,4 +42,9 @@ public class ProductMapperTest {
     public void testIsUserAuthorized() {
         log.info(productMapper.isUserAuthorized("seller05"));
     }
+
+    @Test
+    public void testGetProductByUserId() {
+        log.info(productMapper.getProductByUserId("seller05"));
+    }
 }

@@ -1,6 +1,7 @@
 package com.ssg.martgo.mapper;
 
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
+import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -8,39 +9,43 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
+@WebAppConfiguration
 @ContextConfiguration(locations = {
-        "file:src/main/webapp/WEB-INF/spring/root-context.xml"
+        "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+        "file:src/main/webapp/WEB-INF/spring/servlet-context.xml"
 })
 public class RentMapperTest {
 
     @Autowired(required = false)
     private RentMapper rentMapper;
 
-//    @Test
-//    void testGetAllWarehouses() {
-//        List<RentHistoryDTO> list = rentMapper.getAllWarehouses();
-//        assertNotNull(list);
-//        list.forEach(System.out::println);
-//    }
+    @Test
+    void testGetAllWarehouses() {
+        List<Map<String,Object>> list = rentMapper.getAllWarehouses();
+        assertNotNull(list);
+        list.forEach(System.out::println);
+    }
 
-//    @Test
-//    void testGetAllSectors() {
-//        List<RentHistoryDTO> list = rentMapper.getAllSectors(1);
-//        assertNotNull(list);
-//        list.forEach(System.out::println);
-//    }
+    @Test
+    void testGetAllSectors() {
+        List<SectorDTO> list = rentMapper.getAllSectors(1);
+        assertNotNull(list);
+        list.forEach(System.out::println);
+    }
 
     @Test
     void testGetCostInfo() {
-        List<RentHistoryDTO> list = rentMapper.getCostInfo(1, "1A");
+        List<Map<String,Object>> list = rentMapper.getCostInfo(1, "1A");
         assertNotNull(list);
         list.forEach(System.out::println);
     }

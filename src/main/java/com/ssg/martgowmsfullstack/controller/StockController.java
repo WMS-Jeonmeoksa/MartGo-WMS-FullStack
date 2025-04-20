@@ -2,6 +2,7 @@ package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.dto.StockDTO;
 import com.ssg.martgowmsfullstack.service.StockService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/stock")
 public class StockController {
 
-    @Autowired
-    StockService stockService;
+    private final StockService stockService;
 
     @GetMapping("/user")
     public String userStock(@RequestParam("user_id") String user_id, Model model) {

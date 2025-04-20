@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @Builder
 public class DashBoardDTO {
-    // 1. 창고 전체 용적률
+    // 1. 담당 창고 용적률
     private double warehouseUsageRate;
     // 2. 섹터별 용적률
     private List<SectorUsageDTO> sectorUsageList;
@@ -22,4 +22,6 @@ public class DashBoardDTO {
     private int totalUserCount;
     // 7. 담당 회원 수 (해당 관리자 기준)
     private int adminUserCount;
+    // 8. 창고 전체 용적률
+    private List<WareHouseUsageDTO> wareHouseUsageList;
 }

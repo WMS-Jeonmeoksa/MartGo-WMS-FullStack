@@ -1,26 +1,32 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
-	<link rel="stylesheet" href="/css/incoming_2.css">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
-	<meta name="keywords"
-		  content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-	<link rel="canonical" href="https://demo-basic.adminkit.io/"/>
-
-	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+	<title>warehouse rent</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 	<link href="/css/app.css" rel="stylesheet">
-	<link rel="stylesheet" href="incoming_1.css">
+	<link href="/css/period.css" rel="stylesheet">
+
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 <div class="wrapper">
 	<nav id="sidebar" class="sidebar js-sidebar">
@@ -39,15 +45,9 @@
 						<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
 					</a>
 				</li>
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="pages-warehouse.jsp">
-						<i class="align-middle" data-feather="rent"></i> <span
-							class="align-middle">Warehouse Rent</span>
-					</a>
-				</li>
 				<li class="sidebar-item active">
-					<a class="sidebar-link" href="/pages-incoming.html">
-						<i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
+					<a class="sidebar-link" href="pages-warehouse.jsp">
+						<i class="align-middle" data-feather="rent"></i> <span class="align-middle">Warehouse Rent</span>
 					</a>
 				</li>
 				<li class="sidebar-item">
@@ -57,13 +57,13 @@
 				</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="login.jsp">
+					<a class="sidebar-link" href="pages-sign-in.html">
 						<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
 					</a>
 				</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="registerForm.jsp">
+					<a class="sidebar-link" href="pages-sign-up.html">
 						<i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
 					</a>
 				</li>
@@ -98,8 +98,7 @@
 
 				<li class="sidebar-item">
 					<a class="sidebar-link" href="ui-typography.html">
-						<i class="align-middle" data-feather="align-left"></i> <span
-							class="align-middle">Typography</span>
+						<i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
 					</a>
 				</li>
 
@@ -155,8 +154,7 @@
 								<span class="indicator">4</span>
 							</div>
 						</a>
-						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-							 aria-labelledby="alertsDropdown">
+						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
 							<div class="dropdown-menu-header">
 								4 New Notifications
 							</div>
@@ -168,9 +166,7 @@
 										</div>
 										<div class="col-10">
 											<div class="text-dark">Update completed</div>
-											<div class="text-muted small mt-1">Restart server 12 to complete the
-												update.
-											</div>
+											<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
 											<div class="text-muted small mt-1">30m ago</div>
 										</div>
 									</div>
@@ -182,9 +178,7 @@
 										</div>
 										<div class="col-10">
 											<div class="text-dark">Lorem ipsum</div>
-											<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate
-												hendrerit et.
-											</div>
+											<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
 											<div class="text-muted small mt-1">2h ago</div>
 										</div>
 									</div>
@@ -224,8 +218,7 @@
 								<i class="align-middle" data-feather="message-square"></i>
 							</div>
 						</a>
-						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-							 aria-labelledby="messagesDropdown">
+						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
 							<div class="dropdown-menu-header">
 								<div class="position-relative">
 									4 New Messages
@@ -235,14 +228,11 @@
 								<a href="#" class="list-group-item">
 									<div class="row g-0 align-items-center">
 										<div class="col-2">
-											<img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
-												 alt="Vanessa Tucker">
+											<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
 										</div>
 										<div class="col-10 ps-2">
 											<div class="text-dark">Vanessa Tucker</div>
-											<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu
-												tortor.
-											</div>
+											<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
 											<div class="text-muted small mt-1">15m ago</div>
 										</div>
 									</div>
@@ -250,13 +240,11 @@
 								<a href="#" class="list-group-item">
 									<div class="row g-0 align-items-center">
 										<div class="col-2">
-											<img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
-												 alt="William Harris">
+											<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
 										</div>
 										<div class="col-10 ps-2">
 											<div class="text-dark">William Harris</div>
-											<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.
-											</div>
+											<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
 											<div class="text-muted small mt-1">2h ago</div>
 										</div>
 									</div>
@@ -264,8 +252,7 @@
 								<a href="#" class="list-group-item">
 									<div class="row g-0 align-items-center">
 										<div class="col-2">
-											<img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
-												 alt="Christina Mason">
+											<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
 										</div>
 										<div class="col-10 ps-2">
 											<div class="text-dark">Christina Mason</div>
@@ -277,14 +264,11 @@
 								<a href="#" class="list-group-item">
 									<div class="row g-0 align-items-center">
 										<div class="col-2">
-											<img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
-												 alt="Sharon Lessman">
+											<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
 										</div>
 										<div class="col-10 ps-2">
 											<div class="text-dark">Sharon Lessman</div>
-											<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed,
-												posuere ac, mattis non.
-											</div>
+											<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
 											<div class="text-muted small mt-1">5h ago</div>
 										</div>
 									</div>
@@ -301,20 +285,14 @@
 						</a>
 
 						<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-							<img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-								 alt="Charles Hall"/> <span class="text-dark">Charles Hall</span>
+							<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-end">
-							<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-																				  data-feather="user"></i> Profile</a>
-							<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
-								Analytics</a>
+							<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+							<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="index.html"><i class="align-middle me-1"
-																		  data-feather="settings"></i> Settings &
-								Privacy</a>
-							<a class="dropdown-item" href="#"><i class="align-middle me-1"
-																 data-feather="help-circle"></i> Help Center</a>
+							<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
+							<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">Log out</a>
 						</div>
@@ -322,131 +300,133 @@
 				</ul>
 			</div>
 		</nav>
-
-		<div class="incoming-container">
-			<div class="header">
-				<h1 class="incoming-h1">입고 신청</h1>
+		<div class="container">
+			<h1>창고 임대 신청</h1>
+			<div class="progress-bar">
+				<div class="step active">1<div class="step-label">창고 선택</div></div>
+				<div class="step active">2<div class="step-label">섹터 선택</div></div>
+				<div class="step active">3<div class="step-label">가격/기간 선택</div></div>
+				<div class="step">4<div class="step-label">신청 완료</div></div>
 			</div>
 
-			<div class="steps-container">
-				<div class="progress-bar">
-					<div class="step active">1
-						<div class="step-label">제품 선택</div>
-					</div>
-					<div class="step active">2
-						<div class="step-label">세부 정보 입력</div>
-					</div>
-					<div class="step">3
-						<div class="step-label">신청 내역 확인</div>
-					</div>
+			<div class="summary-box">
+				<h2>선택한 창고 및 섹터 정보</h2>
+				<p><strong>창고:</strong> ${warehouseName} (ID: ${warehouseId})</p>
+				<p><strong>섹터:</strong> ${sectorId}</p>
+			</div>
+
+			<h2>임대 가격표</h2>
+			<p>원하시는 기간을 선택해주세요</p>
+			<table>
+				<thead>
+				<tr>
+					<th>번호</th><th>기간</th><th>월 임대료</th>
+				</tr>
+				</thead>
+				<tbody>
+				<c:forEach var="info" items="${costInfo}" varStatus="loop">
+					<!-- period, price 둘 다 안전하게 따옴표로 감싸서 전달합니다 -->
+					<tr onclick="selectPrice(this, '${info.period}', '${info.price}')">
+						<td>${loop.count}</td>
+						<td>${info.period}</td>
+						<td><fmt:formatNumber value="${info.price}" type="number" groupingUsed="true"/>원</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+
+			<div id="calendarSection" class="calendar-section">
+				<h2>임대 시작일 선택</h2>
+				<input type="date" id="startDate" class="date-picker">
+				<div class="final-summary">
+					<h2>선택 요약</h2>
+					<p><strong>기간:</strong> <span id="selectedPeriod">-</span></p>
+					<p><strong>시작일:</strong> <span id="selectedStartDate">-</span></p>
+					<p><strong>종료일:</strong> <span id="selectedEndDate">-</span></p>
+					<p><strong>총 임대료:</strong> <span id="totalPrice">-</span></p>
 				</div>
 			</div>
 
-			<div class="selected-product">
-				<strong>선택한 제품:</strong> <span id="selectedProductText">-</span>
-			</div>
+			<input type="hidden" id="hiddenWarehouseId"   value="${warehouseId}" />
+			<input type="hidden" id="hiddenWarehouseName" value="${warehouseName}" />
+			<input type="hidden" id="hiddenSectorId"      value="${sectorId}" />
 
-			<div class="incoming-form-group">
-				<label for="quantity">입고 수량</label>
-				<input type="number" id="quantity" placeholder="입고할 수량을 입력하세요" min="1">
-			</div>
-
-			<div class="incoming-form-group">
-				<label for="incomingDate">입고 희망일</label>
-				<input type="date" id="incomingDate" min="">
-			</div>
-
-			<div class="button-group-full">
-				<button class="incoming_btn btn-back" onclick="goBack()">
-					<i class="fas fa-arrow-left"></i> 이전
-				</button>
-				<button class="incoming_btn btn-next" id="nextBtn" disabled onclick="goToNext()">
-					다음 <i class="fas fa-arrow-right"></i>
-				</button>
+			<div class="button-group">
+				<button class="btn btn-back" onclick="goToPreviousPage()">← 이전</button>
+				<button class="btn btn-next" id="nextBtn" disabled onclick="goToNextPage()">다음 →</button>
 			</div>
 		</div>
 
-
-
 		<script>
-			const today = new Date();
-			document.getElementById("incomingDate").min = today.toISOString().split("T")[0];
+			// date-picker 최소값
+			document.getElementById('startDate').min = new Date().toISOString().slice(0,10);
 
-			const quantityInput = document.getElementById("quantity");
-			const dateInput = document.getElementById("incomingDate");
-			const nextBtn = document.getElementById("nextBtn");
-			const selectedProductText = document.getElementById("selectedProductText");
+			let selectedPeriodMonths = 0;
+			let selectedMonthly      = 0;
 
-			const productId = sessionStorage.getItem("selectedProductId");
-			selectedProductText.textContent = productId ? `${productId} 제품` : "-";
+			function selectPrice(row, periodStr, priceStr) {
+				console.log('selectPrice:', periodStr, priceStr);
+				// 문자열로 받은 값 정수로 변환
+				selectedPeriodMonths = parseInt(periodStr, 10);
+				selectedMonthly      = parseInt(priceStr.replace(/,/g,''), 10);
 
-			quantityInput.addEventListener("input", checkForm);
-			dateInput.addEventListener("input", checkForm);
+				document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+				row.classList.add('selected');
 
-			function checkForm() {
-				if (quantityInput.value && dateInput.value) {
-					nextBtn.disabled = false;
-				} else {
-					nextBtn.disabled = true;
-				}
+				document.getElementById('calendarSection').classList.add('show');
+				updateSummary();
+				checkNextButton();
 			}
 
-			function goBack() {
-				window.location.href = "incoming_product.html";
-			}
-
-			function goToNext() {
-				sessionStorage.setItem("incomingQuantity", quantityInput.value);
-				sessionStorage.setItem("incomingDate", dateInput.value);
-				window.location.href = "pages-incoming-confirm.html";
-			}
-		</script>
-
-		<!-- JS -->
-		<script src="/js/app.js"></script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-				feather.replace();
+			document.getElementById('startDate').addEventListener('change', () => {
+				updateSummary();
+				checkNextButton();
 			});
+
+			function updateSummary() {
+				const start = document.getElementById('startDate').value;
+				if (!selectedPeriodMonths || !start) return;
+				const sd = new Date(start);
+				const ed = new Date(sd);
+				ed.setMonth(ed.getMonth() + selectedPeriodMonths);
+				ed.setDate(ed.getDate() - 1);
+
+				document.getElementById('selectedPeriod').innerText    =  selectedPeriodMonths + "개월";
+				document.getElementById('selectedStartDate').innerText = start;
+				document.getElementById('selectedEndDate').innerText   = ed.toISOString().slice(0,10);
+				document.getElementById('totalPrice').innerText        =
+						(selectedMonthly * selectedPeriodMonths).toLocaleString() + '원';
+			}
+
+			function checkNextButton() {
+				document.getElementById('nextBtn').disabled =
+						!(selectedPeriodMonths && document.getElementById('startDate').value);
+			}
+
+			function goToPreviousPage() {
+				const qs = new URLSearchParams({
+					warehouseId:   document.getElementById('hiddenWarehouseId').value,
+					warehouseName: document.getElementById('hiddenWarehouseName').value,
+					sectorId:      document.getElementById('hiddenSectorId').value
+				});
+				window.location.href = '/rent/sector?' + qs;
+			}
+
+			function goToNextPage() {
+				const qs = new URLSearchParams({
+					warehouseId:   document.getElementById('hiddenWarehouseId').value,
+					warehouseName: document.getElementById('hiddenWarehouseName').value,
+					sectorId:      document.getElementById('hiddenSectorId').value,
+					month:         selectedPeriodMonths,
+					startDay:      document.getElementById('startDate').value
+				});
+				window.location.href = '/rent/last?' + qs;
+			}
 		</script>
-
-
-		<footer class="footer">
-			<div class="container-fluid">
-				<div class="row text-muted">
-					<div class="col-6 text-start">
-						<p class="mb-0">
-							<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
-							- <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin
-							Template</strong></a> &copy;
-						</p>
-					</div>
-					<div class="col-6 text-end">
-						<ul class="list-inline">
-							<li class="list-inline-item">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-							</li>
-							<li class="list-inline-item">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-							</li>
-							<li class="list-inline-item">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-							</li>
-							<li class="list-inline-item">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</footer>
-	</div>
-</div>
-
-<script src="/js/app.js"></script>
+		<script src="js/app.js"></script>
 
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("DOMContentLoaded", function() {
 		var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
 		var gradient = ctx.createLinearGradient(0, 0, 0, 225);
 		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -516,7 +496,7 @@
 	});
 </script>
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("DOMContentLoaded", function() {
 		// Pie chart
 		new Chart(document.getElementById("chartjs-dashboard-pie"), {
 			type: "pie",
@@ -544,7 +524,7 @@
 	});
 </script>
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("DOMContentLoaded", function() {
 		// Bar chart
 		new Chart(document.getElementById("chartjs-dashboard-bar"), {
 			type: "bar",
@@ -588,7 +568,7 @@
 	});
 </script>
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("DOMContentLoaded", function() {
 		var markers = [{
 			coords: [31.230391, 121.473701],
 			name: "Shanghai"
@@ -655,7 +635,7 @@
 	});
 </script>
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("DOMContentLoaded", function() {
 		var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
 		var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
 		document.getElementById("datetimepicker-dashboard").flatpickr({
@@ -666,7 +646,8 @@
 		});
 	});
 </script>
-
+	</div>
+</div>
 </body>
 
 </html>

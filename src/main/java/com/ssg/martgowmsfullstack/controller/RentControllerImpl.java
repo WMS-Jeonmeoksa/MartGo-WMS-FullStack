@@ -1,7 +1,8 @@
 package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
-import com.ssg.martgowmsfullstack.mapper.RentMapper;
+import com.ssg.martgowmsfullstack.dto.SectorDTO;
+import com.ssg.martgowmsfullstack.dto.WarehouseDTO;
 import com.ssg.martgowmsfullstack.service.RentService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -17,67 +19,79 @@ import java.util.Map;
 @Log4j2
 @Transactional
 @RequestMapping("/rent")
-public class RentControllerImpl implements RentController{
+public class RentControllerImpl implements RentController {
 
     @Autowired
     public RentService rentService;
 
-    @Autowired
-    public RentMapper rentMapper;
-
     @GetMapping("/warehouse")
     public String applyRentWarehouse(Model model) {
-        List<Map<String, Object>> warehouseList = rentMapper.getAllWarehouses();
-        model.addAttribute("warehouses", warehouseList);
+        model.addAttribute("warehouses", rentService.getAllWarehouses());
         return "pages-warehouse";
     }
 
     @GetMapping("/sector")
     public String applyRentSec(
             @RequestParam("warehouseId") int warehouseId,
-            @RequestParam(value = "warehouseName", required = false) String warehouseName,
+            @RequestParam("warehouseName") String warehouseName,
             Model model
     ) {
-        // DB 에서 섹터 리스트 꺼내오기
-        List<Map<String, Object>> sectorList = rentMapper.getAllSectors(warehouseId);
+        List<SectorDTO> sectorList = rentService.getAllSector(warehouseId);
+        for (SectorDTO sec : sectorList) {
+            System.out.println("섹터 ID: " + sec.getSectorId());
+        }
+
+        System.out.println("warehouseId = " + warehouseId);
+        System.out.println("sectorList.size = " + sectorList.size());
 
         model.addAttribute("sectors", sectorList);
         model.addAttribute("warehouseId", warehouseId);
-        if (warehouseName != null) {
-            model.addAttribute("warehouseName", warehouseName);
-        }
+        model.addAttribute("warehouseName", warehouseName);
+
         return "pages-sector";
     }
 
-    @GetMapping("/costinfo")
-    public String applyRentCostInfo(int wareHouse, String sectorName) {
-        rentMapper.getCostInfo(wareHouse, sectorName);
-        return "redirect:/rent/costinfo";
-    }
-
-    @PostMapping("/last")
-    public String applyRent(
-            @ModelAttribute RentHistoryDTO rentHistory,
-            @RequestParam("month") int month,
-            @RequestParam("startDay") String startDay,
-            @RequestParam("rentPrice") int rentPrice,
-            @RequestParam("userId") String userId // 로그인 세션 등으로 받을 수도 있음
+    @GetMapping("/period")
+    public String applyRentCostInfo(
+            @RequestParam("warehouseId")   int    warehouseId,
+            @RequestParam("warehouseName") String warehouseName,
+            @RequestParam("sectorId")      String sectorId,
+            Model model
     ) {
-        rentHistory.setRentPrice(rentPrice);
-        rentHistory.setUserId(userId);
+        List<Map<String,Object>> costInfo =
+                rentService.getAllCostInfo(warehouseId, sectorId);
 
-        String endDate = rentService.endDate(month, startDay);
-
-        int confirm = 1; // 예시: 나중에 실제 확인 여부 값으로 대체
-
-        if (confirm == 1) {
-            rentService.saveRentHistory(rentHistory, month, startDay);
-        } else {
-            System.out.println("임대 신청이 취소되었습니다.");
-        }
-
-        return "redirect:/rent/last";
+        model.addAttribute("costInfo",      costInfo);
+        model.addAttribute("warehouseId",   warehouseId);
+        model.addAttribute("warehouseName", warehouseName);
+        model.addAttribute("sectorId",      sectorId);
+        return "pages-period";
     }
+
+
+//    @PostMapping("/last")
+//    public String applyRent(
+//            @ModelAttribute RentHistoryDTO rentHistory,
+//            @RequestParam("month") int month,
+//            @RequestParam("startDay") String startDay,
+//            @RequestParam("rentPrice") int rentPrice,
+//            @RequestParam("userId") String userId
+//    ) {
+//        rentHistory.setRentPrice(rentPrice);
+//        rentHistory.setUserId(userId);
+//
+//        String endDate = rentService.endDate(month, startDay);
+//
+//        int confirm = 1; // 예시: 나중에 실제 확인 여부 값으로 대체
+//
+//        if (confirm == 1) {
+//            rentService.saveRentHistory(rentHistory, month, startDay);
+//        } else {
+//            System.out.println("임대 신청이 취소되었습니다.");
+//        }
+//
+//        return "redirect:/rent/last";
+//    }
 
 //
 //    public void holdRentList(String adminId) {
@@ -93,9 +107,5 @@ public class RentControllerImpl implements RentController{
 //        int selectRentNum = sc.nextInt();
 //
 //        rentMapper.completedRentStatus(selectRentNum, adminId);
-//    }
-//
-//    public List<RentHistoryDTO> showMonthlyPerformance(String adminId) {
-//        return rentService.getMonthlyPerformance(adminId);
 //    }
 }

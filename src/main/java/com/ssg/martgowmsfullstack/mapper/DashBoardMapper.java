@@ -2,6 +2,7 @@ package com.ssg.martgowmsfullstack.mapper;
 
 import com.ssg.martgowmsfullstack.dto.MonthlyRentDTO;
 import com.ssg.martgowmsfullstack.dto.SectorUsageDTO;
+import com.ssg.martgowmsfullstack.dto.WareHouseUsageDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +24,6 @@ public interface DashBoardMapper {
 
     // 월별 실적 저장
     List<MonthlyRentDTO> getMonthlyRentTotal();
+
+    List<WareHouseUsageDTO> getAllWareHouseUsageList();
 }
