@@ -36,9 +36,11 @@ public class AuthController {
         if (user != null && user.getPassword().equals(password)) {
             // 유저 로그인 성공
             UserRole role = UserRole.fromLabel(user.getRole());
+            String sessionUserId = user.getUserid();
 
             session.setAttribute("loginInfo", user);
             session.setAttribute("roleEnum", role);
+            session.setAttribute("sessionUserId", sessionUserId);
 
             switch (role) {
                 case USER:

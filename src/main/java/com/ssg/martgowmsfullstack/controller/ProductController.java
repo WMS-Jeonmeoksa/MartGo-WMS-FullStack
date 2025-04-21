@@ -24,6 +24,7 @@ public class ProductController {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
         }
+        System.out.println(session.getAttribute("userId"));
         return "pages-product-register";
     }
 
