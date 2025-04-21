@@ -38,7 +38,7 @@ public class UserServiceImpl implements  UserService {
 
     @Override
     public void delete(String userid) {
-        userMapper.deleteUser(userid);
+        userMapper.disableUser(userid);
     }
 
 

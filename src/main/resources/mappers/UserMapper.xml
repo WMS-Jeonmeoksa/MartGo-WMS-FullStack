@@ -35,8 +35,14 @@
                  )
     </insert>
 
-    <delete id="deleteUser" parameterType="String">
-        DELETE FROM user WHERE user_id = #{userid}
-    </delete>
+<!--    <delete id="deleteUser" parameterType="String">-->
+<!--        DELETE FROM user WHERE user_id = #{userid}-->
+<!--    </delete>-->
+
+    <update id="disableUser" parameterType="String">
+        UPDATE user
+        SET status = '비활성화'
+        WHERE user_id = #{userid}
+    </update>
 
 </mapper>

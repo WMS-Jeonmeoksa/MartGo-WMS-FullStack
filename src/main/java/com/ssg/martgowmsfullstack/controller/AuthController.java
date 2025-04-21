@@ -33,7 +33,10 @@ public class AuthController {
         // 1. 일반 사용자 조회
         UserVO user = userService.findByUserid(userid);
 
-        if (user != null && user.getPassword().equals(password)) {
+
+
+
+        if (user != null && "활성화".equals(user.getStatus())&& user.getPassword().equals(password)) {
             // 유저 로그인 성공
             UserRole role = UserRole.fromLabel(user.getRole());
             String sessionUserId = user.getUserid();
