@@ -19,6 +19,5 @@ public class UserMapperTests {
 
     @Test
     public void testUserMapper() {
-        log.debug();
     }
 }

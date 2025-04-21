@@ -326,16 +326,16 @@
 
 			<div class="summary-box">
 				<table class="summary-table">
-					<tr><th>창고</th><td>${warehouseName}</td></tr>
-					<tr><th>섹터</th><td>${sectorId}</td></tr>
-					<tr><th>기간</th><td>${month}개월</td></tr>
-					<tr><th>시작일</th><td>${startDay}</td></tr>
-					<tr><th>종료일</th><td>${endDay}</td></tr>
+					<tr><th>창고</th><td>${rentSelectDTO.warehouseName}</td></tr>
+					<tr><th>섹터</th><td>${rentSelectDTO.sectorId}</td></tr>
+					<tr><th>기간</th><td>${rentSelectDTO.month}개월</td></tr>
+					<tr><th>시작일</th><td>${rentSelectDTO.rentStartDate}</td></tr>
+					<tr><th>종료일</th><td>${rentSelectDTO.rentEndDate}</td></tr>
 					<tr><th>월 임대료</th>
-						<td><fmt:formatNumber value="${monthly}" type="number" groupingUsed="true"/>원</td>
+						<td><fmt:formatNumber value="${rentSelectDTO.monthly}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 					<tr><th>총 임대료</th>
-						<td><fmt:formatNumber value="${total}" type="number" groupingUsed="true"/>원</td>
+						<td><fmt:formatNumber value="${rentSelectDTO.rentPrice}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 				</table>
 			</div>
@@ -376,13 +376,11 @@
 		</script>
 
 		<form id="rentForm" action="/rent/last" method="post">
-			<input type="hidden" name="warehouseId"   value="${warehouseId}" />
-			<input type="hidden" name="sectorId"      value="${sectorId}" />
-
-			<!-- 서버에서 넘어온 ISO‑날짜 문자열을 그대로 넘깁니다 -->
-			<input type="hidden" name="rentStartDate" value="${startDay}" />
-			<input type="hidden" name="rentEndDate"   value="${endDay}"   />
-			<input type="hidden" name="rentPrice"     value="${total}"    />
+			<input type="hidden" name="warehouseId"   value="${rentSelectDTO.warehouseId}" />
+			<input type="hidden" name="sectorId"      value="${rentSelectDTO.sectorId}" />
+			<input type="hidden" name="rentStartDate" value="${rentSelectDTO.rentStartDate}" />
+			<input type="hidden" name="rentEndDate"   value="${rentSelectDTO.rentEndDate}" />
+			<input type="hidden" name="rentPrice"     value="${rentSelectDTO.rentPrice}" />
 
 			<div class="modal-overlay" id="confirmationModal" style="display:none;">
 				<div class="modal">
@@ -407,12 +405,16 @@
 					warehouseName: document.getElementById('hiddenWarehouseName').value,
 					sectorId: document.getElementById('hiddenSectorId').value
 				});
-				window.location.href = '/rent/sector?' + qs;			}
+				window.location.href = '/rent/period?' + qs;
+			}
 
 			function submitApplication() {
 				document.getElementById('confirmationModal').style.display = 'flex';
 			}
 		</script>
+		<input type="hidden" id="hiddenWarehouseId"   value="${rentSelectDTO.warehouseId}" />
+		<input type="hidden" id="hiddenWarehouseName" value="${rentSelectDTO.warehouseName}" />
+		<input type="hidden" id="hiddenSectorId"      value="${rentSelectDTO.sectorId}" />
 
 
 

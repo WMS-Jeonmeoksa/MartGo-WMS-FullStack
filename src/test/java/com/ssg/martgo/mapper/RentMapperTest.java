@@ -32,7 +32,7 @@ public class RentMapperTest {
 
     @Test
     void testGetAllWarehouses() {
-        List<Map<String,Object>> list = rentMapper.getAllWarehouses();
+        List<Map<String, Object>> list = rentMapper.getAllWarehouses();
         assertNotNull(list);
         list.forEach(System.out::println);
     }
