@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/product")
@@ -18,7 +20,11 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/register")
-    public String showProductRegister() {
+    public String showProductRegister(HttpSession session) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        System.out.println(session.getAttribute("userId"));
         return "pages-product-register";
     }
 
