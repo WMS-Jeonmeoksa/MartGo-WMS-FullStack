@@ -325,7 +325,7 @@
             </div>
         </nav>
 
-        <form id="productForm" action="/incoming/detail" method="post">
+        <form id="productForm" action="/incoming/detail" method="get">
             <input type="hidden" name="productId" id="productIdHidden" />
 
             <div class="incoming-container">

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -326,60 +327,65 @@
 			</div>
 		</nav>
 
-		<div class="incoming-container">
-			<div class="header">
-				<h1 class="incoming-h1">입고 신청</h1>
-			</div>
-			<div class="steps-container">
-				<div class="progress-bar">
-					<div class="step active">1
-						<div class="step-label">제품 선택</div>
-					</div>
-					<div class="step active">2
-						<div class="step-label">세부 정보 입력</div>
-					</div>
-					<div class="step active">3
-						<div class="step-label">신청 내역 확인</div>
+		<fmt:formatDate value="${incomingDTO.incomingDate}" pattern="yyyy-MM-dd" var="formattedDate" />
+
+		<form id="confirmForm" action="/incoming/submit" method="post">
+			<div class="incoming-container">
+				<div class="header">
+					<h1 class="incoming-h1">입고 신청</h1>
+				</div>
+
+				<div class="steps-container">
+					<div class="progress-bar">
+						<div class="step active">1<div class="step-label">제품 선택</div></div>
+						<div class="step active">2<div class="step-label">세부 정보 입력</div></div>
+						<div class="step active">3<div class="step-label">신청 내역 확인</div></div>
 					</div>
 				</div>
+
+				<!-- ✅ 신청 정보 요약 -->
+				<div class="incoming-summary-box">
+					<table class="incoming-summary-table">
+						<tr><th>제품 ID</th><td>${incomingDTO.productId}</td></tr>
+						<tr><th>입고 수량</th><td>${incomingDTO.count} 개</td></tr>
+						<tr><th>입고 희망일</th><td>${formattedDate}</td></tr>
+						<tr><th>신청 상태</th><td>${incomingDTO.status}</td></tr>
+					</table>
+				</div>
+
+				<!-- ✅ 서버 전송용 Hidden 값 -->
+				<input type="hidden" name="productId" value="${incomingDTO.productId}">
+				<input type="hidden" name="count" value="${incomingDTO.count}">
+				<input type="hidden" name="incomingDate" value="${formattedDate}">
+				<input type="hidden" name="status" value="${incomingDTO.status}">
+
+				<div class="button-group-full">
+					<button type="button" class="incoming_btn btn-back" onclick="history.back()">
+						<i class="fas fa-arrow-left"></i> 이전
+					</button>
+					<button type="submit" class="incoming_btn btn-next" onclick="return confirm('입고 신청하시겠습니까?');">
+						입고 신청
+					</button>
+				</div>
 			</div>
+		</form>
 
-			<!-- ✅ 최종 확인 테이블 -->
-			<div class="incoming-summary-box">
-				<table class="incoming-summary-table">
-					<tr><th>제품 ID</th><td id="productId">-</td></tr>
-					<tr><th>입고 수량</th><td id="quantity">-</td></tr>
-					<tr><th>입고 희망일</th><td id="incomingDate">-</td></tr>
-					<tr><th>신청 상태</th><td>대기중</td></tr>
-				</table>
-			</div>
+<%--		<script>--%>
+<%--			const productId = sessionStorage.getItem("selectedProductId") || "-";--%>
+<%--			const quantity = sessionStorage.getItem("incomingQuantity") || "-";--%>
+<%--			const date = sessionStorage.getItem("incomingDate") || "-";--%>
 
-			<div class="button-group-full">
-				<button class="incoming_btn btn-back" onclick="history.back()">
-					<i class="fas fa-arrow-left"></i> 이전
-				</button>
-				<button class="incoming_btn btn-next" id="nextBtn" onclick="submitApplication()">
-					입고 신청
-				</button>
-			</div>
-		</div>
+<%--			document.getElementById("productId").textContent = productId;--%>
+<%--			document.getElementById("quantity").textContent = quantity + " 개";--%>
+<%--			document.getElementById("incomingDate").textContent = date;--%>
 
-		<script>
-			const productId = sessionStorage.getItem("selectedProductId") || "-";
-			const quantity = sessionStorage.getItem("incomingQuantity") || "-";
-			const date = sessionStorage.getItem("incomingDate") || "-";
-
-			document.getElementById("productId").textContent = productId;
-			document.getElementById("quantity").textContent = quantity + " 개";
-			document.getElementById("incomingDate").textContent = date;
-
-			function submitApplication() {
-				// TODO: 실제 서버 전송 처리 (Ajax or form 방식)
-				alert("입고 신청이 완료되었습니다. 관리자의 승인을 기다려주세요.");
-				sessionStorage.clear(); // 신청 후 값 초기화
-				window.location.href = "index.jsp"; // ✅ 메인 페이지 경로 수정
-			}
-		</script>
+<%--			function submitApplication() {--%>
+<%--				// TODO: 실제 서버 전송 처리 (Ajax or form 방식)--%>
+<%--				alert("입고 신청이 완료되었습니다. 관리자의 승인을 기다려주세요.");--%>
+<%--				sessionStorage.clear(); // 신청 후 값 초기화--%>
+<%--				window.location.href = "index.jsp"; // ✅ 메인 페이지 경로 수정--%>
+<%--			}--%>
+<%--		</script>--%>
 
 
 		<!-- JS -->

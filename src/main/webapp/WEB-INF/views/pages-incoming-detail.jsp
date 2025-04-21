@@ -349,8 +349,8 @@
 				<input type="hidden" name="productId" value="${param.productId}" />
 
 				<div class="incoming-form-group">
-					<label for="quantity">입고 수량</label>
-					<input type="number" name="count" id="quantity" placeholder="입고할 수량을 입력하세요" min="1" required>
+					<label for="count">입고 수량</label>
+					<input type="number" name="count" id="count" placeholder="입고할 수량을 입력하세요" min="1" required>
 				</div>
 
 				<div class="incoming-form-group">

@@ -30,8 +30,19 @@ public class IncomingController {
         return "pages-incoming-select";
     }
 
-    @PostMapping("/submit")
-    public String submitIncoming(HttpSession session,
+    @GetMapping("/detail")
+    public String selectIncomingDetail(HttpSession session,
+                                 @RequestParam("productId") String productId,
+                                 Model model) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("productId", productId);
+        return "pages-incoming-detail";
+    }
+
+    @PostMapping("/detail")
+    public String selectIncomingDetail(HttpSession session,
                                  @ModelAttribute IncomingDTO incomingDTO) {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
@@ -40,9 +51,31 @@ public class IncomingController {
         String userId = (String) session.getAttribute("sessionUserId");
         incomingDTO.setUserId(userId);
 
-        incomingService.requestIncoming(incomingDTO);
+        return "pages-incoming-confirm";
+    }
 
-        return "redirect:/incoming/confirm";
+    @PostMapping("/confirm")
+    public String confirmIncoming(HttpSession session,
+                                  @ModelAttribute IncomingDTO incomingDTO,
+                                  Model model) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("incomingDTO", incomingDTO);
+        System.out.println(incomingDTO);
+        return "pages-incoming-confirm";
+    }
+
+    @PostMapping("/submit")
+    public String submitIncoming(HttpSession session,
+                                 @ModelAttribute IncomingDTO incomingDTO) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        String userId = (String) session.getAttribute("sessionUserId");
+        incomingDTO.setUserId(userId);
+        incomingService.requestIncoming(incomingDTO);
+        return "redirect:/index";
     }
 
     @GetMapping("/approve")
