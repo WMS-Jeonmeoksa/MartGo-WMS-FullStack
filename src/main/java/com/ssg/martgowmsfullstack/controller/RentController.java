@@ -2,12 +2,15 @@ package com.ssg.martgowmsfullstack.controller;
 
 
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
+import com.ssg.martgowmsfullstack.dto.RentSelectDTO;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 public interface RentController {
-    String getAllWarehouse(Model model);
+    String getAllWarehouse(Model model, HttpSession session);
 
     String getSector(@RequestParam("warehouseId") int warehouseId,
                         @RequestParam(value = "warehouseName") String warehouseName,
@@ -18,17 +21,8 @@ public interface RentController {
                                @RequestParam("sectorId")      String sectorId,
                                Model model);
 
-    String applyRent(@ModelAttribute RentHistoryDTO rentHistoryDTO);
-    String showRentSummary(
-            @RequestParam("warehouseId") String warehouseId,
-            @RequestParam("warehouseName") String warehouseName,
-            @RequestParam("sectorId") String sectorId,
-            @RequestParam("month") int month,
-            @RequestParam("startDay") String startDay,
-            @RequestParam("endDay") String endDay,
-            @RequestParam("monthly") int monthly,
-            @RequestParam("total") int total,
-            Model model);
+    String applyRent(@ModelAttribute RentHistoryDTO rentHistoryDTO, HttpSession session);
+    String showRentSummary(@ModelAttribute RentSelectDTO rentSelectDTO, Model model);
 //     void inProgressRentList(String adminId);
 //     void holdRentList(String adminId);
 }
