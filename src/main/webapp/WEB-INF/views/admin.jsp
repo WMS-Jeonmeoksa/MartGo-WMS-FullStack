@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.ssg.martgowmsfullstack.domain.AdminVO" %>
 <%
 	AdminVO admin = (AdminVO) session.getAttribute("loginInfo");
@@ -12,109 +13,144 @@
 <head>
 	<meta charset="UTF-8">
 	<title>MartGo - 창고관리자 페이지</title>
-	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/app.js"></script>
 	<style>
-		body {
-			display: flex;
-			margin: 0;
-			height: 100vh;
-			font-family: 'Inter', sans-serif;
+		.sidebar-submenu {
+			display: none;
+			padding-left: 1.5rem;
 		}
-
-		aside {
-			width: 220px;
-			background-color: #343a40;
-			color: white;
-			padding: 2rem 1rem;
-			display: flex;
-			flex-direction: column;
-		}
-
-		aside h2 {
-			font-size: 1.3rem;
-			margin-bottom: 2rem;
-			text-align: center;
-		}
-
-		aside a {
-			color: white;
-			text-decoration: none;
-			margin: 0.5rem 0;
-			font-weight: 500;
+		.sidebar-item.open > .sidebar-submenu {
 			display: block;
-			padding: 0.5rem 1rem;
-			border-radius: 4px;
 		}
-
-		aside a:hover {
-			background-color: #495057;
-		}
-
-		main {
-			flex-grow: 1;
-			display: flex;
-			flex-direction: column;
-		}
-
-		header {
-			background-color: #f8f9fa;
-			padding: 1rem 2rem;
+		.submenu-toggle {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 		}
-
-		.main-content {
-			flex-grow: 1;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-			padding: 2rem;
+		.submenu-icon {
+			font-size: 0.8rem;
+			transition: transform 0.3s ease;
 		}
-
-		.main-content h1 {
-			font-size: 2rem;
-			margin-bottom: 1rem;
-		}
-
-		.main-content p {
-			font-size: 1.1rem;
-			color: #555;
+		.sidebar-item.open .submenu-icon {
+			transform: rotate(180deg);
 		}
 	</style>
 </head>
 <body>
+<div class="wrapper">
+	<!-- 사이드바 -->
+	<nav id="sidebar" class="sidebar js-sidebar">
+		<div class="sidebar-content js-simplebar">
+			<a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
+				<span class="align-middle">MartGo</span>
+			</a>
+			<ul class="sidebar-nav">
+				<li class="sidebar-header">창고관리자 메뉴</li>
 
-<aside>
-	<h2>창고관리 메뉴</h2>
-	<a href="#">입고 관리</a>
-	<a href="#">출고 관리</a>
-	<a href="#">재고 현황</a>
-	<a href="#">창고 설정</a>
-</aside>
+				<li class="sidebar-item active">
+					<a class="sidebar-link" href="${pageContext.request.contextPath}/admin">
+						<i class="align-middle" data-feather="home"></i> <span class="align-middle">홈</span>
+					</a>
+				</li>
 
-<main>
-	<header>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath}/admin" style="text-decoration: none; font-weight: 700; color: #333;">MartGo</a>
-		</div>
-		<div class="auth-links">
-			<%= admin.getAdminname() %> 관리자님 |
-			<a href="${pageContext.request.contextPath}/admin/mypage">마이페이지</a> |
-			<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
-		</div>
-	</header>
+				<li class="sidebar-item">
+					<a class="sidebar-link" href="${pageContext.request.contextPath}/admin/mypage">
+						<i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
+					</a>
+				</li>
 
-	<div class="main-content">
-		<div>
-			<h1><%= admin.getAdminname() %> 창고관리자님, 환영합니다!</h1>
-			<p>입출고 요청 및 재고를 효율적으로 관리할 수 있는 관리자 페이지입니다.</p>
+				<li class="sidebar-item">
+					<a class="sidebar-link submenu-toggle" href="#">
+						<span><i class="align-middle" data-feather="clock"></i> 대기중</span>
+						<i class="fas fa-chevron-down submenu-icon"></i>
+					</a>
+					<ul class="sidebar-submenu">
+						<li><a class="sidebar-link" href="#">임대 신청 목록</a></li>
+						<li><a class="sidebar-link" href="#">입고 신청 목록</a></li>
+						<li><a class="sidebar-link" href="#">출고 신청 목록</a></li>
+					</ul>
+				</li>
+
+				<li class="sidebar-item">
+					<a class="sidebar-link submenu-toggle" href="#">
+						<span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
+						<i class="fas fa-chevron-down submenu-icon"></i>
+					</a>
+					<ul class="sidebar-submenu">
+						<li><a class="sidebar-link" href="#">재고 목록</a></li>
+						<li><a class="sidebar-link" href="#">재고 변경 이력</a></li>
+					</ul>
+				</li>
+			</ul>
 		</div>
+	</nav>
+
+	<!-- 메인 -->
+	<div class="main">
+		<!-- 상단 네비게이션 -->
+		<nav class="navbar navbar-expand navbar-light navbar-bg">
+			<a class="sidebar-toggle js-sidebar-toggle">
+				<i class="hamburger align-self-center"></i>
+			</a>
+			<div class="navbar-collapse collapse">
+				<ul class="navbar-nav navbar-align ms-auto">
+					<li class="nav-item">
+						<span class="nav-link"><i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님</span>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/logout">
+							<i class="fas fa-sign-out-alt"></i> 로그아웃
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- 콘텐츠 -->
+		<main class="content">
+			<div class="container-fluid p-0">
+				<h1 class="h3 mb-3"><strong>MartGo 창고관리자 페이지</strong></h1>
+				<div class="card">
+					<div class="card-body">
+						<h4><%= admin.getAdminname() %> 관리자님 환영합니다!</h4>
+						<p class="text-muted">MartGo의 입출고 요청 및 재고 내역을 좌측 메뉴를 통해 관리할 수 있습니다.</p>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- 푸터 -->
+		<footer class="footer">
+			<div class="container-fluid">
+				<div class="row text-muted">
+					<div class="col-6 text-start">
+						<p class="mb-0"><strong>MartGo</strong> &copy;</p>
+					</div>
+					<div class="col-6 text-end">
+						<a class="text-muted" href="#">Support</a>
+					</div>
+				</div>
+			</div>
+		</footer>
 	</div>
-</main>
+</div>
 
+<!-- 토글 동작 스크립트 -->
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const toggles = document.querySelectorAll(".submenu-toggle");
+		toggles.forEach(toggle => {
+			toggle.addEventListener("click", function (e) {
+				e.preventDefault();
+				const item = this.closest(".sidebar-item");
+				item.classList.toggle("open");
+			});
+		});
+	});
+</script>
 </body>
 </html>
