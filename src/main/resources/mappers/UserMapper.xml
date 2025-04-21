@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.UserMapper">
+
+    <!-- 명시적 매핑: DB 컬럼명 -> VO 필드명 -->
+    <resultMap id="userResultMap" type="com.ssg.martgowmsfullstack.domain.UserVO">
+        <result property="userid" column="user_id"/>
+        <result property="username" column="user_name"/>
+        <result property="password" column="user_pw"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="role" column="role"/>
+        <result property="adminid" column="admin_id"/>
+    </resultMap>
+
+    <!-- 로그인용 조회 -->
+    <select id="findByUserid" parameterType="String" resultMap="userResultMap">
+        SELECT * FROM user WHERE user_id = #{userid}
+    </select>
+
+    <!-- 회원가입용 삽입 -->
+    <insert id="insertUser">
+        INSERT INTO user (
+            user_id, user_name, user_pw,
+            phone, email, address,
+            role, admin_id
+        ) VALUES (
+                     #{userid}, #{username}, #{password},
+                     #{phone}, #{email}, #{address},
+                     #{role}, #{adminid}
+                 )
+    </insert>
+
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM user WHERE user_id = #{userid}
+    </delete>
+
+</mapper>
