@@ -1,5 +1,6 @@
 package com.ssg.martgo.mapper;
 
+import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
@@ -45,7 +46,7 @@ public class RentMapperTest {
 
     @Test
     void testGetCostInfo() {
-        List<Map<String,Object>> list = rentMapper.getCostInfo(1, "1A");
+        List<CostInfoDTO> list = rentMapper.getCostInfo(1, "1A");
         assertNotNull(list);
         list.forEach(System.out::println);
     }
@@ -66,7 +67,6 @@ public class RentMapperTest {
         dto.setRentEndDate(Date.valueOf("2025-11-01"));
         dto.setRentPrice(600);
         dto.setUserId("user02");
-
         rentMapper.saveDb(dto);
     }
 
@@ -97,12 +97,5 @@ public class RentMapperTest {
         rentMapper.completedRentStatus(1, "admin01");
     }
 
-    @Test
-    void testGetMonthlyPerformance() {
-        List<RentHistoryDTO> list = rentMapper.getMonthlyPerformance("admin01");
-        assertNotNull(list);
-        for (RentHistoryDTO dto : list) {
-            System.out.println("Price: " + dto.getRentPrice() + ", Date: " + dto.getApproveDate());
-        }
-    }
+
 }

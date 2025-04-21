@@ -1,6 +1,7 @@
 package com.ssg.martgowmsfullstack.service;
 
 
+import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
@@ -48,30 +49,13 @@ public class RentServiceImpl implements RentService {
         return rentMapper.getAllSectors(warehouseId);
     }
 
-    public List<Map<String, Object>> getAllCostInfo(int wareHouseId, String sectorId) {
+    public List<CostInfoDTO> getAllCostInfo(int wareHouseId, String sectorId) {
         return rentMapper.getCostInfo(wareHouseId,sectorId);
     }
 
 
-    public void saveRentHistory(RentHistoryDTO rentHistory, int month, String startDay) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate startDate = LocalDate.parse(startDay, formatter);
-        LocalDate endDate = startDate.plusMonths(month);
-
-        rentHistory.setSectorId(rentHistory.getSectorId());
-        rentHistory.setWarehouseId(rentHistory.getWarehouseId());
-        rentHistory.setRentStartDate(Date.valueOf(startDate));
-        rentHistory.setRentEndDate(Date.valueOf(endDate));
-        rentHistory.setRentPrice(rentHistory.getRentPrice());
-
-        rentMapper.saveDb(rentHistory);
-    }
-
-    public String endDate(int month, String startDay) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate startDate = LocalDate.parse(startDay, formatter);
-        LocalDate endDate = startDate.plusMonths(month);
-        return endDate.format(formatter);
+    public void saveRentHistory(RentHistoryDTO rentHistoryDTO) {
+        rentMapper.saveDb(rentHistoryDTO);
     }
 
 }

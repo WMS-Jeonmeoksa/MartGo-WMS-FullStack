@@ -1,6 +1,7 @@
 package com.ssg.martgowmsfullstack.service;
 
 
+import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import org.springframework.ui.Model;
@@ -15,9 +16,8 @@ public interface RentService {
 
     List<SectorDTO> getAllSector(int warehouseId);
 
-    List<Map<String, Object>> getAllCostInfo(int wareHouseId, String sectorId);
+    List<CostInfoDTO> getAllCostInfo(int wareHouseId, String sectorId);
 
-    void saveRentHistory(RentHistoryDTO rentHistory, int month, String startDay);
+    void saveRentHistory(RentHistoryDTO rentHistoryDTO);
 
-    String endDate(int month, String startDay);
 }
