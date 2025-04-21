@@ -82,14 +82,25 @@ public class RentControllerImpl implements RentController {
         return "redirect:/user";
     }
 
-//
-//    public void holdRentList(String adminId) {
-//        rentMapper.getHoldRentHistory();
-//        int selectRentNum = sc.nextInt();
+    @GetMapping("/admin")
+    public String holdRentList(String adminId, Model model) {
+        List<RentHistoryDTO> rentHistoryDTO = rentService.holdRentList(adminId);
+        model.addAttribute("rentHistoryDTO", rentHistoryDTO);
+
+        rentService.holdRentList(adminId);
+        return "pages-rent-approve";
+    }
+
+
+//     @PostMapping("/admin")
+//     public String inProgressRentList(String adminId, int selectRentNum){
 //
 //        rentMapper.updateAdminId(selectRentNum, adminId);
 //        rentMapper.updateUserAdminId();
 //    }
+
+
+
 //
 //    public void inProgressRentList(String adminId) {
 //        rentMapper.getInProgressRentHistory(adminId);

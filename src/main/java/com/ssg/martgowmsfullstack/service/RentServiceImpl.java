@@ -58,4 +58,8 @@ public class RentServiceImpl implements RentService {
         rentMapper.saveDb(rentHistoryDTO);
     }
 
+    public List<RentHistoryDTO> holdRentList(String adminId) {
+       return rentMapper.getHoldRentHistory();
+    }
+
 }

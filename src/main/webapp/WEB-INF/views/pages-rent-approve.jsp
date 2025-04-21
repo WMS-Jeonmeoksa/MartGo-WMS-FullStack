@@ -1,10 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
 
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="en">
 <head>
+    <link rel="stylesheet" href="/css/incoming_approve.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,20 +12,17 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords"
           content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <title>warehouse rent</title>
+    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+
     <link href="/css/app.css" rel="stylesheet">
-    <script src="/js/app.js"></script>
-    <link href="/css/warehouse.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
@@ -44,10 +41,15 @@
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/rent/warehouse">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-warehouse.html">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -235,7 +237,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Vanessa Tucker">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -250,7 +252,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="William Harris">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -264,7 +266,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Christina Mason">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -277,7 +279,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Sharon Lessman">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -301,8 +303,8 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
-                            <span class="text-dark">Charles Hall</span>
+                            <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
+                                 alt="Charles Hall"/> <span class="text-dark">Charles Hall</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
@@ -322,151 +324,85 @@
                 </ul>
             </div>
         </nav>
-        <div class="container">
-            <div id="mapWrapper">
-                <div id="map1" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
-                <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
-            </div>
-            <div class="header">
-                <h1>창고 임대 신청</h1>
-            </div>
 
-            <div class="steps-container">
-                <div class="progress-bar">
-                    <div class="step active">1
-                        <div class="step-label">창고 선택</div>
-                    </div>
-                    <div class="step">2
-                        <div class="step-label">섹터 선택</div>
-                    </div>
-                    <div class="step">3
-                        <div class="step-label">가격/기간 선택</div>
-                    </div>
-                    <div class="step">4
-                        <div class="step-label">신청 완료</div>
-                    </div>
-                </div>
+        <div class="incoming-container">
+            <div class="header">
+                <h1 class="incoming-h1">임대 승인</h1>
             </div>
 
             <div class="section-header">
-                <h3><i class="fas fa-warehouse"></i> 창고 목록</h3>
+                <h3 class="incoming-h3">임대 신청 목록</h3>
             </div>
 
-            <div id="map" style="width:100%;height:550px; margin-top: 20px;"></div>
+            <table class="incoming_table">
+                <thead>
+                <tr>
+                    <th>입고번호</th>
+                    <th>제품 ID</th>
+                    <th>수량</th>
+                    <th>입고날짜</th>
+                    <th>회원 ID</th>
+                    <th>상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr onclick="selectIncoming(this, 'IN001')">
+                    <td>IN001</td>
+                    <td>PRD001</td>
+                    <td>10</td>
+                    <td>2025-04-17</td>
+                    <td>seller01</td>
+                    <td>대기</td>
+                </tr>
+                <tr onclick="selectIncoming(this, 'IN002')">
+                    <td>IN002</td>
+                    <td>PRD002</td>
+                    <td>5</td>
+                    <td>2025-04-17</td>
+                    <td>seller02</td>
+                    <td>대기</td>
+                </tr>
+                </tbody>
+            </table>
 
             <div class="button-group-full">
-                <button class="btn btn-back" id="prev-btn">
-                    ← 이전
+                <button class="incoming_btn btn-back" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i> 이전
                 </button>
-                <button class="btn btn-next" id="nextBtn" disabled>
-                    다음 →
+                <button class="incoming_btn btn-next" id="approveBtn" disabled onclick="approveIncoming()"> 승인 <i class="fas fa-check"></i>
                 </button>
             </div>
-
-            <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=f0fadb18408cdb55d9431eca1e67b1b7&libraries=services"></script>
-            <script>
-                const mapContainer = document.getElementById('map');
-                const mapOption = {
-                    center: new kakao.maps.LatLng(36.5, 127.8),
-                    level: 13
-                };
-                const map = new kakao.maps.Map(mapContainer, mapOption);
-
-                const geocoder = new kakao.maps.services.Geocoder();
-
-                const markerImageSrc = 'https://cdn-icons-png.flaticon.com/512/2776/2776067.png';
-                const normalImage = new kakao.maps.MarkerImage(markerImageSrc, new kakao.maps.Size(40, 42), {offset: new kakao.maps.Point(20, 42)});
-                const largeImage = new kakao.maps.MarkerImage(markerImageSrc, new kakao.maps.Size(50, 55), {offset: new kakao.maps.Point(25, 55)});
-
-                const warehouses = [
-                    <c:forEach var="wh" items="${warehouses}" varStatus="loop">
-                    {
-                        id: '${wh.warehouse_id}',
-                        name: '${wh.warehouse_name}',
-                        location: '${wh.location}',
-                        ratio: '${wh.FAR}%',
-                        area: '${wh.width}㎡',
-                        status: '${wh.status}'
-                    }<c:if test="${!loop.last}">, </c:if>
-                    </c:forEach>
-                ];
-
-                let selectedMarker = null;
-                let selectedWarehouseId = null;
-                let selectedWarehouseName = null;
-
-                warehouses.forEach(data => {
-                    geocoder.addressSearch(data.location, function (result, status) {
-                        if (status === kakao.maps.services.Status.OK) {
-                            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                            const marker = new kakao.maps.Marker({
-                                map: map,
-                                position: coords,
-                                image: normalImage,
-                                title: data.name
-                            });
-
-                            const content = `
-                    <div class="custom-overlay">
-                      <div class="title"><i class="fas fa-warehouse"></i> \${data.name}</div>
-                      <div><i class="fas fa-map-marker-alt"></i> <strong>위치:</strong> \${data.location}</div>
-                      <div><i class="fas fa-compress-arrows-alt"></i> <strong>용적률:</strong> \${data.ratio}</div>
-                      <div><i class="fas fa-ruler-combined"></i> <strong>면적:</strong> \${data.area}</div>
-                      <div><i class="fas fa-info-circle"></i> <strong>상태:</strong>
-                        <span class="\${data.status == '사용가능' ? 'status-available' : 'status-unavailable'}">\${data.status}</span>
-                      </div>
-                    </div>
-                `;
-
-                            const infowindow = new kakao.maps.InfoWindow({content});
-
-                            kakao.maps.event.addListener(marker, 'mouseover', () => infowindow.open(map, marker));
-                            kakao.maps.event.addListener(marker, 'mouseout', () => infowindow.close());
-
-                            kakao.maps.event.addListener(marker, 'click', () => {
-
-                                if (selectedMarker !== null) {
-                                    selectedMarker.setImage(normalImage);
-                                }
-
-                                marker.setImage(largeImage);
-                                selectedMarker = marker;
-                                selectedWarehouseId = data.id;
-                                selectedWarehouseName = data.name;
-
-                                sessionStorage.setItem('selectedWarehouseId', selectedWarehouseId);
-                                sessionStorage.setItem('selectedWarehouseName', selectedWarehouseName);
-
-                                document.getElementById('nextBtn').disabled = false;
-                            });
-                        }
-                    });
-                });
-
-                document.getElementById('nextBtn').addEventListener('click', () => {
-                    if (!selectedWarehouseId) {
-                        alert('창고를 선택해주세요.');
-                        return;
-                    }
-
-                    const params = new URLSearchParams({
-                        warehouseId: selectedWarehouseId,
-                        warehouseName: selectedWarehouseName
-                    });
-                    window.location.href = '/rent/sector?' + params.toString();
-                });
-                document.getElementById('prev-btn').addEventListener('click', () => {
-                    // 창고 선택 페이지로 돌아가기
-                    window.location.href = '/user';
-                });
-                const mapTypeControl = new kakao.maps.MapTypeControl();
-                map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-                const zoomControl = new kakao.maps.ZoomControl();
-                map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-            </script>
         </div>
+
+        <script>
+            let selectedIncomingId = null;
+
+            function selectIncoming(row, incomingId) {
+                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+                row.classList.add('selected');
+                selectedIncomingId = incomingId;
+                document.getElementById('approveBtn').disabled = false;
+            }
+
+            function approveIncoming() {
+                if (selectedIncomingId) {
+                    const confirmMsg = `해당 입고요청을 승인하겠습니까?`;
+                    if (confirm(confirmMsg)) {
+                        alert(`${selectedIncomingId} 입고요청을 승인하였습니다.`);
+                        // 여기에 AJAX 처리나 form submit 등을 연결하면 됨
+                        // ex) location.reload() or 테이블에서 해당 row 상태만 '완료'로 바꾸기 등
+                    }
+                }
+            }
+        </script>
+
+        <!-- JS -->
+        <script src="js/app.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                feather.replace();
+            });
+        </script>
 
 
         <footer class="footer">
@@ -726,4 +662,5 @@
 </script>
 
 </body>
+
 </html>

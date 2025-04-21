@@ -20,4 +20,5 @@ public interface RentService {
 
     void saveRentHistory(RentHistoryDTO rentHistoryDTO);
 
+    List<RentHistoryDTO> holdRentList(String adminId);
 }
