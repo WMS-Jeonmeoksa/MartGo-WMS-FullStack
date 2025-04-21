@@ -58,9 +58,11 @@ public class AuthController {
 
         if (admin != null && admin.getPassword().equals(password)) {
             UserRole role = UserRole.fromLabel(admin.getRole());
+            String sessionAdminId = admin.getAdminId();
 
             session.setAttribute("loginInfo", admin); // admin도 loginInfo 키로 저장
             session.setAttribute("roleEnum", role);
+            session.setAttribute("sessionAdminId", sessionAdminId);
 
             switch (role) {
                 case ADMIN:
