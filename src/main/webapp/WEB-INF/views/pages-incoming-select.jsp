@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/product_1.css">
+    <link rel="stylesheet" href="/css/incoming_select.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,19 +42,14 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.html">
+                    <a class="sidebar-link" href="pages-warehouse.jsp">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-product-register.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -329,117 +325,79 @@
             </div>
         </nav>
 
-        <div class="product-container">
-            <div class="header">
-                <h1 class="product-h1">제품 등록</h1>
-            </div>
+        <form id="productForm" action="/incoming/detail" method="get">
+            <input type="hidden" name="productId" id="productIdHidden" />
 
-            <form action="${pageContext.request.contextPath}/product/register" method="post" onsubmit="return prepareCategoryValue()">
-                <div class="product-form-group">
-                    <label for="productId">제품 ID</label>
-                    <input type="text" id="productId" name="productId" placeholder="예: PRD001">
+            <div class="incoming-container">
+                <div class="header">
+                    <h1 class="incoming-h1">입고 신청</h1>
                 </div>
 
-                <div class="product-form-group">
-                    <label for="productName">제품명</label>
-                    <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고">
+                <div class="steps-container">
+                    <div class="progress-bar">
+                        <div class="step active">1
+                            <div class="step-label">제품 선택</div>
+                        </div>
+                        <div class="step">2
+                            <div class="step-label">세부 정보 입력</div>
+                        </div>
+                        <div class="step">3
+                            <div class="step-label">신청 내역 확인</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="product-form-group">
-                    <label for="categorySelect">카테고리</label>
-                    <select id="categorySelect" onchange="handleCategoryChange()">
-                        <option value="">선택하세요</option>
-                        <option value="냉장고">냉장고</option>
-                        <option value="TV">TV</option>
-                        <option value="세탁기">세탁기</option>
-                        <option value="건조기">건조기</option>
-                        <option value="에어컨">에어컨</option>
-                        <option value="청소기">청소기</option>
-                        <option value="direct">직접입력</option>
-                    </select>
-                    <input type="text" id="categoryInput" placeholder="카테고리를 입력하세요" style="display:none; margin-top: 8px;">
-                    <input type="hidden" name="category" id="category">
+                <div class="section-header">
+                    <h3 class="incoming-h3">제품목록</h3>
                 </div>
 
-                <div class="product-form-group">
-                    <label for="height">제품 높이 (cm)</label>
-                    <input type="number" id="height" name="height" placeholder="예: 180" min="0">
-                </div>
-
-                <div class="product-form-group">
-                    <label for="width">제품 면적 (㎡)</label>
-                    <input type="number" id="width" name="width" placeholder="예: 20" min="0" step="0.01">
-                </div>
-
-                <div class="product-form-group">
-                    <label for="price">제품 가격 (원)</label>
-                    <input type="number" id="price" name="price" placeholder="예: 500000" min="0">
-                </div>
-
-                <div class="product-form-group">
-                    <label for="manufacturer">제조사</label>
-                    <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자">
-                </div>
-
-<%--                나중에 userid 받아오면 수정예정--%>
-                <input type="hidden" name="userId" value="seller03" />
+                <!-- 제품 목록 테이블 -->
+                <table class="incoming_table">
+                    <thead>
+                    <tr>
+                        <th>제품 ID</th>
+                        <th>제품명</th>
+                        <th>카테고리</th>
+                        <th>높이(cm)</th>
+                        <th>넓이(cm)</th>
+                        <th>가격(원)</th>
+                        <th>제조사</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="product" items="${productList}">
+                        <tr onclick="selectProduct(this, '${product.productId}')">
+                            <td>${product.productId}</td>
+                            <td>${product.productName}</td>
+                            <td>${product.category}</td>
+                            <td>${product.height}</td>
+                            <td>${product.width}</td>
+                            <td><fmt:formatNumber value="${product.price}" type="number" /></td>
+                            <td>${product.manufacturer}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
 
                 <div class="button-group-full">
-                    <button class="product_btn btn-back" type="button" onclick="goBack()">
+                    <button type="button" class="incoming_btn btn-back" onclick="history.back()">
                         <i class="fas fa-arrow-left"></i> 이전
                     </button>
-                    <button class="product_btn btn-next" type="submit">
-                        등록하기 <i class="fas fa-check"></i>
+                    <button type="submit" class="incoming_btn btn-next" id="nextBtn" disabled>
+                        다음 <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
 
         <script>
-            function goBack() {
-                window.history.back();
-            }
-
-            function handleCategoryChange() {
-                const select = document.getElementById("categorySelect");
-                const input = document.getElementById("categoryInput");
-                if (select.value === "direct") {
-                    input.style.display = "block";
-                } else {
-                    input.style.display = "none";
-                    input.value = "";
-                }
-            }
-
-            function prepareCategoryValue() {
-                const category = document.getElementById("category");
-                const select = document.getElementById("categorySelect");
-                const input = document.getElementById("categoryInput");
-
-                category.value = (select.value === "direct") ? input.value.trim() : select.value;
-
-                const requiredFields = [
-                    "productId", "productName", "height", "width", "price", "manufacturer", "userId"
-                ];
-
-                for (const field of requiredFields) {
-                    const val = document.getElementById(field).value.trim();
-                    if (val === "") {
-                        alert("모든 필드를 입력해주세요.");
-                        return false;
-                    }
-                }
-
-                if (category.value === "") {
-                    alert("카테고리를 입력해주세요.");
-                    return false;
-                }
-
-                return confirm("등록하시겠습니까?");
+            function selectProduct(row, productId) {
+                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+                row.classList.add('selected');
+                document.getElementById("productIdHidden").value = productId;
+                document.getElementById("nextBtn").disabled = false;
             }
         </script>
-
-
 
         <!-- JS -->
         <script src="js/app.js"></script>
