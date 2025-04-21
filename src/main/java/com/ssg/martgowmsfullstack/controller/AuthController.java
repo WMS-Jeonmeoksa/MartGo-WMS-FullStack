@@ -89,11 +89,24 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserVO user, Model model) {
-        user.setRole("회원"); // 기본 role은 회원
+    public String register(@ModelAttribute UserVO user,
+                           @RequestParam("addressDetail") String addressDetail,
+                           Model model) {
+
+        if (userService.findByUserid(user.getUserid()) != null) {
+            model.addAttribute("error", "이미 존재하는 아이디입니다.");
+            return "registerForm";
+        }
+
+        String fullAddress = (user.getAddress() + " (" + addressDetail + ")").trim();
+        user.setAddress(fullAddress);
+        user.setRole("회원");
+        user.setStatus("활성화");
+
         userService.register(user);
         return "redirect:/login";
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
