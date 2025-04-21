@@ -192,19 +192,8 @@
 
 	</div>
 
-	<div class="btn-wrap">
-		<button class="btn-delete" onclick="document.querySelector('.confirm-modal').style.display='flex'">회원 탈퇴</button>
-	</div>
 </div>
 
-<!-- 탈퇴 확인 모달 -->
-<div class="confirm-modal">
-	<div class="confirm-box">
-		<p>정말 탈퇴하시겠습니까?</p>
-		<button class="btn-confirm" onclick="location.href='${pageContext.request.contextPath}/customer/delete'">확인</button>
-		<button class="btn-cancel" onclick="document.querySelector('.confirm-modal').style.display='none'">취소</button>
-	</div>
-</div>
 
 </body>
 </html>

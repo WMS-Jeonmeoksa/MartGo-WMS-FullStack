@@ -189,6 +189,17 @@
     <div class="btn-wrap">
         <button class="btn-delete" onclick="document.querySelector('.confirm-modal').style.display='flex'">회원 탈퇴</button>
     </div>
+
+    <!-- 모달 안의 버튼은 form + POST 방식 -->
+    <div class="confirm-modal">
+        <div class="confirm-box">
+            <p>정말 탈퇴하시겠습니까?</p>
+            <form action="${pageContext.request.contextPath}/user/delete" method="post">
+                <button class="btn-confirm" type="submit">확인</button>
+                <button class="btn-cancel" type="button" onclick="document.querySelector('.confirm-modal').style.display='none'">취소</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- 탈퇴 확인 모달 -->
