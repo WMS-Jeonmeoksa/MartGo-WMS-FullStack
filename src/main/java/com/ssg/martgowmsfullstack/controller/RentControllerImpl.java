@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -25,10 +26,18 @@ public class RentControllerImpl implements RentController {
     public RentService rentService;
 
     @GetMapping("/warehouse")
-    public String applyRentWarehouse(Model model) {
+    public String applyRentWarehouse(HttpSession session, Model model) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("warehouses", rentService.getAllWarehouses());
         return "pages-warehouse";
     }
+//    @GetMapping("/warehouse")
+//    public String applyRentWarehouse(Model model) {
+//        model.addAttribute("warehouses", rentService.getAllWarehouses());
+//        return "pages-warehouse";
+//    }
 
     @GetMapping("/sector")
     public String applyRentSec(
