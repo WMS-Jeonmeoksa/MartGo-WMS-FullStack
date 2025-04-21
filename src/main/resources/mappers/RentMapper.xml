@@ -24,9 +24,7 @@
     </select>
 
 
-
-
-    <select id="getCostInfo" resultType="map">
+    <select id="getCostInfo" resultType="com.ssg.martgowmsfullstack.dto.CostInfoDTO">
         CALL GetCostInfoSector(#{warehouseId}, #{sectorId})
     </select>
 
@@ -64,9 +62,5 @@
     <update id="completedRentStatus">
         CALL CompletedRentStatus(#{rentNum}, #{adminId})
     </update>
-
-    <select id="getMonthlyPerformance" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
-        CALL GetMonthlyPerformance(#{adminId})
-    </select>
 
 </mapper>
