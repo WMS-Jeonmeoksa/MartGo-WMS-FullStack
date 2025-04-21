@@ -320,12 +320,11 @@
 			<table>
 				<thead>
 				<tr>
-					<th>번호</th><th>기간</th><th>월 임대료</th>
+					<th>번호</th><th>기간</th><th>총 임대료</th>
 				</tr>
 				</thead>
 				<tbody>
 				<c:forEach var="info" items="${costInfo}" varStatus="loop">
-					<!-- period, price 둘 다 안전하게 따옴표로 감싸서 전달합니다 -->
 					<tr onclick="selectPrice(this, '${info.period}', '${info.price}')">
 						<td>${loop.count}</td>
 						<td>${info.period}</td>
@@ -362,16 +361,16 @@
 			document.getElementById('startDate').min = new Date().toISOString().slice(0, 10);
 
 			let selectedPeriodMonths = 0;
-			let selectedMonthly = 0;
+			let selectedPriceTotal = 0;
 			let calculatedEndDate = "";
-			let calculatedTotal = 0;
+			let calculatedMonth = 0;
 
 			function selectPrice(row, periodStr, priceStr) {
 				console.log('selectPrice:', periodStr, priceStr);
 
 				// 값 설정
 				selectedPeriodMonths = parseInt(periodStr, 10);
-				selectedMonthly = parseInt(priceStr.replace(/,/g, ''), 10);
+				selectedPriceTotal = parseInt(priceStr.replace(/,/g, ''), 10);
 
 				// UI 강조 표시
 				document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
@@ -391,7 +390,7 @@
 
 			function updateSummary() {
 				const start = document.getElementById('startDate').value;
-				if (!start || selectedPeriodMonths === 0 || selectedMonthly === 0) return;
+				if (!start || selectedPeriodMonths === 0 || selectedPriceTotal === 0) return;
 
 				const sd = new Date(start);
 				const ed = new Date(sd);
@@ -400,13 +399,13 @@
 
 				// 계산 결과 전역에 저장
 				calculatedEndDate = ed.toISOString().slice(0, 10);
-				calculatedTotal = selectedMonthly * selectedPeriodMonths;
+				calculatedMonth = Math.floor(selectedPriceTotal / selectedPeriodMonths);
 
 				// 화면에 출력
 				document.getElementById('selectedPeriod').innerText = selectedPeriodMonths + "개월";
 				document.getElementById('selectedStartDate').innerText = start;
 				document.getElementById('selectedEndDate').innerText = calculatedEndDate;
-				document.getElementById('totalPrice').innerText = calculatedTotal.toLocaleString() + '원';
+				document.getElementById('totalPrice').innerText = calculatedMonth.toLocaleString() + '원';
 			}
 
 			function checkNextButton() {
@@ -428,10 +427,10 @@
 					warehouseName: document.getElementById('hiddenWarehouseName').value,
 					sectorId: document.getElementById('hiddenSectorId').value,
 					month: selectedPeriodMonths,
-					startDay: document.getElementById('startDate').value,
-					endDay: calculatedEndDate,
-					monthly: selectedMonthly,
-					total: calculatedTotal
+					rentStartDate: document.getElementById('startDate').value,
+					rentEndDate: calculatedEndDate,
+					monthly: calculatedMonth,
+					rentPrice: selectedPriceTotal
 				});
 				window.location.href = '/rent/last?' + qs;
 			}

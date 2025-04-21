@@ -2,6 +2,7 @@ package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
+import com.ssg.martgowmsfullstack.dto.RentSelectDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import com.ssg.martgowmsfullstack.service.RentService;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -23,7 +25,10 @@ public class RentControllerImpl implements RentController {
     public RentService rentService;
 
     @GetMapping("/warehouse")
-    public String getAllWarehouse(Model model) {
+    public String getAllWarehouse(Model model, HttpSession session) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("warehouses", rentService.getAllWarehouses());
         return "pages-warehouse";
     }
@@ -34,6 +39,7 @@ public class RentControllerImpl implements RentController {
             @RequestParam("warehouseName") String warehouseName,
             Model model
     ) {
+
         List<SectorDTO> sectorList = rentService.getAllSector(warehouseId);
 
         model.addAttribute("sectors", sectorList);
@@ -61,35 +67,19 @@ public class RentControllerImpl implements RentController {
     }
 
     @GetMapping("/last")
-    public String showRentSummary(
-            @RequestParam("warehouseId") String warehouseId,
-            @RequestParam("warehouseName") String warehouseName,
-            @RequestParam("sectorId") String sectorId,
-            @RequestParam("month") int month,
-            @RequestParam("startDay") String startDay,
-            @RequestParam("endDay") String endDay,
-            @RequestParam("monthly") int monthly,
-            @RequestParam("total") int total,
-            Model model) {
-
-        model.addAttribute("warehouseId", warehouseId);
-        model.addAttribute("warehouseName", warehouseName);
-        model.addAttribute("sectorId", sectorId);
-        model.addAttribute("month", month);
-        model.addAttribute("startDay", startDay);
-        model.addAttribute("endDay", endDay);
-        model.addAttribute("monthly", monthly);
-        model.addAttribute("total", total);
-
+    public String showRentSummary(@ModelAttribute RentSelectDTO rentSelectDTO, Model model) {
+        model.addAttribute("rentSelectDTO", rentSelectDTO);
         return "pages-last";
     }
 
 
     @PostMapping("/last")
-    public String applyRent(RentHistoryDTO rentHistoryDTO) {
-        rentHistoryDTO.setUserId("user01"); // 유저 id가져와야됨 (수정 예정)
+    public String applyRent(@ModelAttribute RentHistoryDTO rentHistoryDTO, HttpSession session) {
+        String userId = (String) session.getAttribute("sessionUserId");
+
+        rentHistoryDTO.setUserId(userId);
         rentService.saveRentHistory(rentHistoryDTO);
-        return "pages-dashboard-general";
+        return "redirect:/user";
     }
 
 //
