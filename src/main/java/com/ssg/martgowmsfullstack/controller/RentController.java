@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 public interface RentController {
-    String applyRentWarehouse(Model model);
+    String applyRentWarehouse(HttpSession session, Model model);
 
     String applyRentSec(@RequestParam("warehouseId") int warehouseId,
                         @RequestParam(value = "warehouseName") String warehouseName,

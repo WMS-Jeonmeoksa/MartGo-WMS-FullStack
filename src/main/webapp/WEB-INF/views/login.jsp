@@ -10,9 +10,21 @@
 			background-color: #f6f6f6;
 			margin: 0;
 		}
+		.header {
+			width: 100%;
+			padding: 1rem 2rem;
+			background-color: #f8f9fa;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+		}
+		.header .logo a {
+			text-decoration: none;
+			font-size: 1.3rem;
+			font-weight: bold;
+			color: #333;
+		}
 		.login-container {
 			width: 380px;
-			margin: 100px auto;
+			margin: 60px auto;
 			padding: 40px;
 			background-color: white;
 			border-radius: 10px;
@@ -52,10 +64,18 @@
 	</style>
 </head>
 <body>
+
+<!-- ✅ 상단 로고 추가 -->
+<div class="header">
+	<div class="logo">
+		<a href="${pageContext.request.contextPath}/guest">MartGo</a>
+	</div>
+</div>
+
 <div class="login-container">
 	<h2>MartGo 로그인</h2>
 
-	<form action="/login" method="post">
+	<form action="${pageContext.request.contextPath}/login" method="post">
 		<input type="text" name="userid" placeholder="아이디" required />
 		<input type="password" name="password" placeholder="비밀번호" required />
 		<c:if test="${not empty error}">
@@ -65,7 +85,7 @@
 	</form>
 
 	<div class="link">
-		<a href="/register">회원가입</a>
+		<a href="${pageContext.request.contextPath}/register">회원가입</a>
 	</div>
 </div>
 </body>

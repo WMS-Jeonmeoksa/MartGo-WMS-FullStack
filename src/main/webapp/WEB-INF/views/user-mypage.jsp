@@ -13,81 +13,89 @@
     <meta charset="UTF-8">
     <title>MartGo - 회원 마이페이지</title>
     <link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #f6f6f6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            background-color: #f4f6f8;
         }
+
         header {
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
+
         .logo a {
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-weight: bold;
+            font-size: 1.5rem;
             color: #333;
+            text-decoration: none;
         }
+
         .auth-links a {
             margin-left: 1rem;
-            text-decoration: none;
-            color: #0d6efd;
             font-weight: 500;
+            color: #1e90ff;
+            text-decoration: none;
         }
+
         .container {
-            width: 450px;
-            background-color: white;
-            border-radius: 12px;
+            max-width: 600px;
+            margin: 3rem auto;
             padding: 2rem;
+            background-color: #fff;
+            border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            margin: 2rem auto;
         }
+
         h2 {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
         }
-        label {
-            display: block;
-            margin-top: 1rem;
-            font-weight: 600;
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
         }
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-top: 5px;
-        }
-        .btn-wrap {
+
+        .info-item {
             display: flex;
             justify-content: space-between;
-            margin-top: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
         }
-        .btn-wrap a, .btn-wrap button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
+
+        .info-item strong {
+            color: #555;
         }
-        .btn-edit {
-            background-color: #0d6efd;
-            color: white;
-            text-decoration: none;
+
+        .info-value {
+            color: #333;
+            font-weight: bold;
         }
+
+        .btn-wrap {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
         .btn-delete {
+            padding: 10px 24px;
             background-color: #dc3545;
             color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
         }
+
         .confirm-modal {
             position: fixed;
             top: 0; left: 0;
@@ -97,28 +105,33 @@
             justify-content: center;
             align-items: center;
         }
+
         .confirm-box {
             background: white;
-            padding: 2rem;
+            padding: 2rem 2.5rem;
             border-radius: 12px;
             text-align: center;
         }
+
         .confirm-box p {
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
         }
+
         .confirm-box button {
             padding: 8px 18px;
-            margin: 0 10px;
+            margin: 1rem 10px 0;
             border-radius: 6px;
             border: none;
             font-weight: bold;
             cursor: pointer;
         }
+
         .btn-confirm {
             background-color: #dc3545;
             color: white;
         }
+
         .btn-cancel {
             background-color: #6c757d;
             color: white;
@@ -132,6 +145,7 @@
         <a href="${pageContext.request.contextPath}/user">MartGo</a>
     </div>
     <div class="auth-links">
+        <span><%= user.getUsername() %>님</span>
         <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
     </div>
 </header>
@@ -139,37 +153,49 @@
 <div class="container">
     <h2>회원 마이페이지</h2>
 
-    <form>
-        <label>아이디</label>
-        <input type="text" value="<%= user.getUserid() %>" readonly />
-
-        <label>이름</label>
-        <input type="text" value="<%= user.getUsername() %>" readonly />
-
-        <label>이메일</label>
-        <input type="email" value="<%= user.getEmail() %>" readonly />
-
-        <label>전화번호</label>
-        <input type="text" value="<%= user.getPhone() %>" readonly />
-
-        <label>주소</label>
-        <input type="text" value="<%= user.getAddress() %>" readonly />
-
-        <div class="btn-wrap">
-            <a href="${pageContext.request.contextPath}/user/edit" class="btn-edit">정보 수정</a>
-            <button type="button" class="btn-delete" onclick="document.querySelector('.confirm-modal').style.display='flex'">회원 탈퇴</button>
+    <div class="info-group">
+        <div class="info-item">
+            <strong>아이디</strong>
+            <div class="info-value"><%= user.getUserid() %></div>
         </div>
-    </form>
+        <div class="info-item">
+            <strong>이름</strong>
+            <div class="info-value"><%= user.getUsername() %></div>
+        </div>
+        <div class="info-item">
+            <strong>이메일</strong>
+            <div class="info-value"><%= user.getEmail() != null ? user.getEmail() : "없음" %></div>
+        </div>
+        <div class="info-item">
+            <strong>전화번호</strong>
+            <div class="info-value"><%= user.getPhone() %></div>
+        </div>
+        <div class="info-item">
+            <strong>주소</strong>
+            <div class="info-value"><%= user.getAddress() %></div>
+        </div>
+        <div class="info-item">
+            <strong>권한</strong>
+            <div class="info-value"><%= user.getRole() %></div>
+        </div>
+        <div class="info-item">
+            <strong style="color: #495057;">담당 창고 관리자ID</strong>
+            <div class="info-value" style="color: #1e90ff; font-weight: bold;">
+                <%= user.getAdminid() != null ? user.getAdminid() : "없음" %>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-wrap">
+        <button class="btn-delete" onclick="document.querySelector('.confirm-modal').style.display='flex'">회원 탈퇴</button>
+    </div>
 </div>
 
 <!-- 탈퇴 확인 모달 -->
 <div class="confirm-modal">
     <div class="confirm-box">
         <p>정말 탈퇴하시겠습니까?</p>
-
-        <form method="post" action="${pageContext.request.contextPath}/user/delete" style="display: inline;">
-            <button type="submit" class="btn-confirm">확인</button>
-        </form>
+        <button class="btn-confirm" onclick="location.href='${pageContext.request.contextPath}/user/delete'">확인</button>
         <button class="btn-cancel" onclick="document.querySelector('.confirm-modal').style.display='none'">취소</button>
     </div>
 </div>

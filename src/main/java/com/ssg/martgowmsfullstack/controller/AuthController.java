@@ -2,7 +2,9 @@ package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.domain.UserRole;
 import com.ssg.martgowmsfullstack.domain.UserVO;
+import com.ssg.martgowmsfullstack.domain.AdminVO;
 import com.ssg.martgowmsfullstack.service.UserService;
+import com.ssg.martgowmsfullstack.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 public class AuthController {
 
     private final UserService userService;
+    private final AdminService adminService;
 
     @GetMapping("/login")
     public String loginForm() {
@@ -27,50 +30,60 @@ public class AuthController {
                         HttpSession session,
                         Model model) {
 
-        UserVO dbUser = userService.findByUserid(userid);
+        // 1. 일반 사용자 조회
+        UserVO user = userService.findByUserid(userid);
 
-        if (dbUser == null || !dbUser.getPassword().equals(password)) {
-            model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            return "login";
+        if (user != null && user.getPassword().equals(password)) {
+            // 유저 로그인 성공
+            UserRole role = UserRole.fromLabel(user.getRole());
+
+            session.setAttribute("loginInfo", user);
+            session.setAttribute("roleEnum", role);
+
+            switch (role) {
+                case USER:
+                    return "redirect:/user";
+                case CUSTOMER:
+                    return "redirect:/customer";
+                default:
+                    model.addAttribute("error", "허용되지 않은 사용자 권한입니다.");
+                    return "login";
+            }
         }
 
-        // ⭐ role 문자열을 enum으로 수동 매핑
-        UserRole enumRole;
-        try {
-            enumRole = UserRole.fromLabel(dbUser.getRole());  // "거래처" → UserRole.CUSTOMER
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", "알 수 없는 권한입니다.");
-            return "login";
+        // 2. 관리자 조회
+        AdminVO admin = adminService.getAdminById(userid);
+
+        if (admin != null && admin.getPassword().equals(password)) {
+            UserRole role = UserRole.fromLabel(admin.getRole());
+
+            session.setAttribute("loginInfo", admin); // admin도 loginInfo 키로 저장
+            session.setAttribute("roleEnum", role);
+
+            switch (role) {
+                case ADMIN:
+                    return "redirect:/admin";
+                case SUPERADMIN:
+                    return "redirect:/superadmin";
+                default:
+                    model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
+                    return "login";
+            }
         }
 
-        // 새로 매핑한 enumRole을 세션에 저장하고 싶다면 따로 DTO에 넣거나 필요할 때만 사용
-        session.setAttribute("loginInfo", dbUser);
-        session.setAttribute("roleEnum", enumRole); // 필요 시
-
-        switch (enumRole) {
-            case USER:
-                return "redirect:/user";
-            case CUSTOMER:
-                return "redirect:/customer";
-            case ADMIN:
-                return "redirect:/admin";
-            case SUPERADMIN:
-                return "redirect:/superadmin";
-            default:
-                model.addAttribute("error", "권한 정보가 잘못되었습니다.");
-                return "login";
-        }
+        // 둘 다 실패
+        model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
+        return "login";
     }
-
 
     @GetMapping("/register")
     public String registerForm() {
-        return "registerForm"; // registerForm.jsp
+        return "registerForm";
     }
 
     @PostMapping("/register")
     public String register(@ModelAttribute UserVO user, Model model) {
-        user.setRole("회원");
+        user.setRole("회원"); // 기본 role은 회원
         userService.register(user);
         return "redirect:/login";
     }
@@ -78,6 +91,6 @@ public class AuthController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "guest"; // → guest.jsp 열림
+        return "guest"; // 비회원 홈
     }
 }

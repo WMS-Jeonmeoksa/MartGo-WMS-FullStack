@@ -8,8 +8,30 @@
 	<title>회원가입</title>
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<style>
+		.header {
+			width: 100%;
+			padding: 1rem 2rem;
+			background-color: #f8f9fa;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+		}
+		.header .logo a {
+			text-decoration: none;
+			font-size: 1.3rem;
+			font-weight: bold;
+			color: #333;
+		}
+	</style>
 </head>
 <body>
+
+<!-- ✅ 상단 로고 추가 -->
+<div class="header">
+	<div class="logo">
+		<a href="${pageContext.request.contextPath}/guest">MartGo</a>
+	</div>
+</div>
+
 <main class="d-flex w-100">
 	<div class="container d-flex flex-column">
 		<div class="row vh-100">
@@ -44,7 +66,7 @@
 										<label class="form-label">비밀번호 확인</label>
 										<input class="form-control form-control-lg" type="password" name="confirmPassword" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required/>
 									</div>
-									
+
 									<div class="mb-3">
 										<label class="form-label">전화번호</label>
 										<input class="form-control form-control-lg" type="tel" name="phone" id="phone" placeholder="전화번호를 입력하세요" />
@@ -59,7 +81,6 @@
 										<label class="form-label">주소</label>
 										<input class="form-control form-control-lg" type="text" name="address" id="address" placeholder="주소를 입력하세요" />
 									</div>
-
 
 									<c:if test="${not empty error}">
 										<div class="alert alert-danger">${error}</div>

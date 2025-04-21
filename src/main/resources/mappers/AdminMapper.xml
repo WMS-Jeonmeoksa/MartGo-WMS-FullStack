@@ -1,9 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.AdminMapper">
 
-    <!-- 아직 구현 전이더라도 최소 구조는 이렇게 -->
+    <resultMap id="AdminResultMap" type="com.ssg.martgowmsfullstack.domain.AdminVO">
+        <result column="admin_id" property="adminId"/>
+        <result column="admin_name" property="adminname"/>
+        <result column="admin_pw" property="password"/> <!-- 여기 주의 -->
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="address" property="address"/>
+        <result column="role" property="role"/>
+        <result column="warehouse" property="warehouse"/>
+    </resultMap>
+
+    <select id="findByAdminId" resultType="com.ssg.martgowmsfullstack.domain.AdminVO">
+        SELECT
+            admin_id AS adminId,
+            admin_name AS adminname,
+            admin_pw AS password,
+            phone_num AS phone,
+            email,
+            role,
+            warehouse_id AS warehouse
+        FROM admin
+        WHERE admin_id = #{adminId}
+    </select>
 </mapper>

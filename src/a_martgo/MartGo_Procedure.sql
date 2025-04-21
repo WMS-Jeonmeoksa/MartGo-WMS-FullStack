@@ -142,3 +142,11 @@ SELECT rent_price, approve_date
 FROM rent_history
 WHERE warehouse_id = admin_wh_id;
 END;
+
+drop procedure if exists getSectorStatus;
+create
+    procedure getSectorStatus(IN p_warehouse_id int)
+BEGIN
+SELECT status FROM sector
+WHERE warehouse_id = p_warehouse_id;
+END;
