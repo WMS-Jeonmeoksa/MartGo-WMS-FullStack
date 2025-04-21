@@ -7,22 +7,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface RentController {
-    String applyRentWarehouse(Model model);
+    String getAllWarehouse(Model model);
 
-    String applyRentSec(@RequestParam("warehouseId") int warehouseId,
+    String getSector(@RequestParam("warehouseId") int warehouseId,
                         @RequestParam(value = "warehouseName") String warehouseName,
                         Model model);
 
-    String applyRentCostInfo(  @RequestParam("warehouseId")   int    warehouseId,
+    String getSectorCostInfo(  @RequestParam("warehouseId")   int    warehouseId,
                                @RequestParam("warehouseName") String warehouseName,
                                @RequestParam("sectorId")      String sectorId,
                                Model model);
 
-//    String applyRent(@ModelAttribute RentHistoryDTO rentHistory,
-//                     @RequestParam("month") int month,
-//                     @RequestParam("startDay") String startDay,
-//                     @RequestParam("rentPrice") int rentPrice,
-//                     @RequestParam("userId") String userId);
+    String applyRent(@ModelAttribute RentHistoryDTO rentHistoryDTO);
+    String showRentSummary(
+            @RequestParam("warehouseId") String warehouseId,
+            @RequestParam("warehouseName") String warehouseName,
+            @RequestParam("sectorId") String sectorId,
+            @RequestParam("month") int month,
+            @RequestParam("startDay") String startDay,
+            @RequestParam("endDay") String endDay,
+            @RequestParam("monthly") int monthly,
+            @RequestParam("total") int total,
+            Model model);
 //     void inProgressRentList(String adminId);
 //     void holdRentList(String adminId);
 }
