@@ -1,6 +1,7 @@
 package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.domain.AdminVO;
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.StockHistoryDTO;
 import com.ssg.martgowmsfullstack.service.StockService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,8 @@ public class StockHistoryController {
 
     @PostMapping("/general")
     public String generalStockHistory(HttpSession session, Model model) {
-        AdminVO adminVO = (AdminVO) session.getAttribute("loginInfo");
-        String admin_id = adminVO.getAdminId();
+        AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
+        String admin_id = adminDTO.getAdminId();
 
         String cleanAdminId = admin_id.trim().replace("\"", "");
         List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
@@ -36,8 +37,8 @@ public class StockHistoryController {
 
     @PostMapping("/admin")
     public String adminStockHistory(HttpSession session, Model model) {
-        AdminVO adminVO = (AdminVO) session.getAttribute("loginInfo");
-        String admin_id = adminVO.getAdminId();
+        AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
+        String admin_id = adminDTO.getAdminId();
 
         String cleanAdminId = admin_id.trim().replace("\"", "");
         List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);

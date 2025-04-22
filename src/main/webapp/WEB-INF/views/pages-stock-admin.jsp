@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.ssg.martgowmsfullstack.domain.AdminVO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
 <%
-    AdminVO admin = (AdminVO) session.getAttribute("loginInfo");
+    AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
     if (admin == null) {
         response.sendRedirect(request.getContextPath() + "/login");
         return;

@@ -1,17 +1,14 @@
 package com.ssg.martgowmsfullstack.controller;
 
-import com.ssg.martgowmsfullstack.domain.AdminVO;
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.StockDTO;
 import com.ssg.martgowmsfullstack.service.StockService;
 import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -36,8 +33,8 @@ public class StockController {
 
     @PostMapping("/admin")
     public String adminStock(HttpSession session, Model model) {
-        AdminVO adminVO = (AdminVO) session.getAttribute("loginInfo");
-        String admin_id = adminVO.getAdminId();
+        AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
+        String admin_id = adminDTO.getAdminId();
 
         String cleanAdminId = admin_id.trim().replace("\"", "");
         List<StockDTO> stockList = stockService.getAdminUserStock(cleanAdminId);
@@ -48,8 +45,8 @@ public class StockController {
 
     @PostMapping("/general")
     public String generalStock(HttpSession session, Model model) {
-        AdminVO adminVO = (AdminVO) session.getAttribute("loginInfo");
-        String admin_id = adminVO.getAdminId();
+        AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
+        String admin_id = adminDTO.getAdminId();
 
         String cleanAdminId = admin_id.trim().replace("\"", "");
         List<StockDTO> stockList = stockService.getGeneralStock(cleanAdminId);

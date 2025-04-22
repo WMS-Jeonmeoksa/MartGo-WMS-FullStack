@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.ssg.martgowmsfullstack.domain.UserVO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.UserDTO" %>
 
 <%
-    UserVO user = (UserVO) session.getAttribute("loginInfo");
+    UserDTO user = (UserDTO) session.getAttribute("loginInfo");
 %>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/client">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/customer/">
                 <span class="align-middle">MartGo</span>
             </a>
             <ul class="sidebar-nav">
