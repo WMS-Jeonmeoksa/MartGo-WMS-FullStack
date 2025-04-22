@@ -6,6 +6,7 @@ import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -21,4 +22,7 @@ public interface RentService {
     void saveRentHistory(RentHistoryDTO rentHistoryDTO);
 
     List<RentHistoryDTO> holdRentList(String adminId);
+    List<RentHistoryDTO> inProgressRentList(String adminId);
+    void approveRentHistory(int rentNum, String adminId);
+    void confirmRentHistory(int rentNum, String adminId);
 }

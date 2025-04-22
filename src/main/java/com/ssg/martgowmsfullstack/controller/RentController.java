@@ -25,7 +25,7 @@ public interface RentController {
 
     String showRentSummary(@ModelAttribute RentSelectDTO rentSelectDTO, Model model);
 
-    String holdRentList(String adminId, Model model);
+    String holdRentList(Model model,HttpSession session);
 
 //    void inProgressRentList(String adminId);
 }

@@ -24,9 +24,9 @@ public class RentHistoryDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date rentEndDate;
     private int rentPrice;
+    private Date approveDate;
     private String status;
     private String adminId;
-    private Date approveDate;
 
 
 }

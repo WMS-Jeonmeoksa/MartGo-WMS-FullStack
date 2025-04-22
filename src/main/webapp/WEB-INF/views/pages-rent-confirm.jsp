@@ -326,7 +326,7 @@
             </div>
         </nav>
 
-        <form id="approveForm" action="/rent/approve" method="post">
+        <form id="approveForm" action="/rent/confirm" method="post">
             <input type="hidden" name="rentNum" id="rentNumInput" />
 
             <div class="incoming-container">

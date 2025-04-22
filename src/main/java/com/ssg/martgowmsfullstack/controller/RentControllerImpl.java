@@ -82,30 +82,44 @@ public class RentControllerImpl implements RentController {
         return "redirect:/user";
     }
 
-    @GetMapping("/admin")
-    public String holdRentList(String adminId, Model model) {
+    @GetMapping("/approve")
+    public String holdRentList(Model model, HttpSession session) {
+        String adminId = (String) session.getAttribute("sessionAdminId");
+
         List<RentHistoryDTO> rentHistoryDTO = rentService.holdRentList(adminId);
         model.addAttribute("rentHistoryDTO", rentHistoryDTO);
 
-        rentService.holdRentList(adminId);
         return "pages-rent-approve";
     }
 
+    @PostMapping("/approve")
+    public String approveAdmin(int rentNum, HttpSession session) {
+        String adminId = (String) session.getAttribute("sessionAdminId");
 
-//     @PostMapping("/admin")
-//     public String inProgressRentList(String adminId, int selectRentNum){
-//
-//        rentMapper.updateAdminId(selectRentNum, adminId);
-//        rentMapper.updateUserAdminId();
-//    }
+        rentService.approveRentHistory(rentNum,adminId);
+
+        return "redirect:/admin";
+    }
 
 
+    @GetMapping("/confirm")
+    public String inProgressRentList(Model model, HttpSession session) {
+        String adminId = (String) session.getAttribute("sessionAdminId");
 
-//
-//    public void inProgressRentList(String adminId) {
-//        rentMapper.getInProgressRentHistory(adminId);
-//        int selectRentNum = sc.nextInt();
-//
-//        rentMapper.completedRentStatus(selectRentNum, adminId);
-//    }
+        List<RentHistoryDTO> rentHistoryDTO = rentService.inProgressRentList(adminId);
+
+        model.addAttribute("rentHistoryDTO", rentHistoryDTO);
+
+        return "pages-rent-confirm";
+    }
+
+    @PostMapping("/confirm")
+    public String confirmRentHistory(int rentNum, HttpSession session) {
+        String adminId = (String) session.getAttribute("sessionAdminId");
+
+        rentService.confirmRentHistory(rentNum,adminId);
+
+        return "redirect:/admin";
+    }
+
 }
