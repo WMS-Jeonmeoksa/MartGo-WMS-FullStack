@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
@@ -28,7 +29,10 @@ public class UserHomeController {
 
     // 👤 회원 마이페이지
     @GetMapping("/mypage")
-    public String mypage() {
+    public String mypage(HttpSession session) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
         return "user-mypage"; // /WEB-INF/views/user-mypage.jsp
     }
 

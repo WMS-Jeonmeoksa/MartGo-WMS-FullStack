@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminHomeController {
 
-    // 🔸 창고 관리자 메인 페이지
+    // 창고 관리자 메인 페이지
     @GetMapping("")
     public String home(HttpSession session) {
         if (session.getAttribute("loginInfo") == null) {
@@ -19,7 +19,7 @@ public class AdminHomeController {
         return "redirect:/dashboard/admin/"; // /WEB-INF/views/admin.jsp
     }
 
-    // 🔸 창고 관리자 마이페이지
+    // 창고 관리자 마이페이지
     @GetMapping("/mypage")
     public String mypage(HttpSession session) {
         if (session.getAttribute("loginInfo") == null) {
