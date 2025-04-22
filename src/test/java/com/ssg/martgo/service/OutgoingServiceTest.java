@@ -31,7 +31,7 @@ public class OutgoingServiceTest {
 
     @Test
     public void testShowStockByUserId() {
-        log.info(outgoingService.showStockByUserId("seller05"));
+        log.info(outgoingService.showStockByUserId("seller03"));
     }
 
     @Test

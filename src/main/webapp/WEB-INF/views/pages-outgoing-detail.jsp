@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/incoming_approve.css">
+    <link rel="stylesheet" href="/css/outgoing_detail.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,14 +43,19 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.html">
+                    <a class="sidebar-link" href="pages-warehouse.jsp">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/pages-incoming-select.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/pages-outgoing-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -326,74 +331,59 @@
             </div>
         </nav>
 
-        <form id="approveForm" action="/incoming/approve" method="post">
-            <input type="hidden" name="incomingNum" id="incomingNumInput" />
-
-            <div class="incoming-container">
+        <form action="/outgoing/confirm" method="post">
+            <div class="outgoing-container">
                 <div class="header">
-                    <h1 class="incoming-h1">입고 승인</h1>
+                    <h1 class="outgoing-h1">출고 신청</h1>
                 </div>
 
-                <div class="section-header">
-                    <h3 class="incoming-h3">입고 신청 목록</h3>
+                <div class="steps-container">
+                    <div class="progress-bar">
+                        <div class="step active">1<div class="step-label">재고 선택</div></div>
+                        <div class="step active">2<div class="step-label">세부 정보 입력</div></div>
+                        <div class="step">3<div class="step-label">신청 내역 확인</div></div>
+                    </div>
                 </div>
 
-                <table class="incoming_table">
-                    <thead>
-                    <tr>
-                        <th>입고번호</th>
-                        <th>제품 ID</th>
-                        <th>수량</th>
-                        <th>입고날짜</th>
-                        <th>회원 ID</th>
-                        <th>상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="incoming" items="${incomingList}">
-                        <tr onclick="selectIncoming(this, '${incoming.incomingNum}')">
-                            <td>${incoming.incomingNum}</td>
-                            <td>${incoming.productId}</td>
-                            <td>${incoming.count}</td>
-                            <td><fmt:formatDate value="${incoming.incomingDate}" pattern="yyyy-MM-dd"/></td>
-                            <td>${incoming.userId}</td>
-                            <td>${incoming.status}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <div class="selected-product">
+                    <strong>선택한 재고:</strong> <span>${param.stockNum}</span> /
+                    <strong>제품 ID:</strong> <span>${param.productId}</span>
+                </div>
+
+                <!-- ✅ 이전 단계에서 전달받은 값 유지 -->
+                <input type="hidden" name="stockNum" value="${param.stockNum}" />
+                <input type="hidden" name="productId" value="${param.productId}" />
+
+                <div class="outgoing-form-group">
+                    <label for="count">출고 수량</label>
+                    <input type="number" id="count" name="count" placeholder="출고할 수량을 입력하세요" min="1" required>
+                </div>
+
+                <div class="outgoing-form-group">
+                    <label for="outgoingDate">출고 희망일</label>
+                    <input type="date" id="outgoingDate" name="outgoingDate" required>
+                </div>
 
                 <div class="button-group-full">
-                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href ='/index.html'">
-                        <i class="fas fa-arrow-left"></i> 홈으로
+                    <button type="button" class="outgoing_btn btn-back" onclick="history.back()">
+                        <i class="fas fa-arrow-left"></i> 이전
                     </button>
-                    <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
-                        승인 <i class="fas fa-check"></i>
+                    <button type="submit" class="outgoing_btn btn-next">
+                        다음 <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </form>
 
         <script>
-            let selectedIncomingId = null;
-
-            function selectIncoming(row, incomingId) {
-                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
-                row.classList.add('selected');
-                selectedIncomingId = incomingId;
-                document.getElementById("incomingNumInput").value = incomingId;
-                document.getElementById('approveBtn').disabled = false;
-            }
-
-            function confirmApproval() {
-                if (selectedIncomingId) {
-                    return confirm(`${selectedIncomingId} 입고요청을 승인하겠습니까?`);
-                }
-                return false;
-            }
+            // 오늘 날짜 이후만 선택 가능
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("outgoingDate").min = today;
         </script>
+
+
         <!-- JS -->
-        <script src="js/app.js"></script>
+        <script src="/js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -433,7 +423,7 @@
     </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="/js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

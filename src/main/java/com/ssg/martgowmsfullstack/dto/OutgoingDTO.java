@@ -21,4 +21,6 @@ public class OutgoingDTO {
     private String status = "대기";
     private String userId;
     private int stockNum;
+
+    private String productId;
 }
