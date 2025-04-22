@@ -15,6 +15,7 @@
         <result property="address" column="address"/>
         <result property="role" column="role"/>
         <result property="adminid" column="admin_id"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <!-- 로그인용 조회 -->
@@ -23,22 +24,19 @@
     </select>
 
     <!-- 회원가입용 삽입 -->
-    <insert id="insertUser">
+    <insert id="insertUser" parameterType="com.ssg.martgowmsfullstack.domain.UserVO">
         INSERT INTO user (
             user_id, user_name, user_pw,
             phone, email, address,
-            role, admin_id
+            role, admin_id, status
         ) VALUES (
                      #{userid}, #{username}, #{password},
                      #{phone}, #{email}, #{address},
-                     #{role}, #{adminid}
+                     #{role}, #{adminid}, #{status}
                  )
     </insert>
 
-<!--    <delete id="deleteUser" parameterType="String">-->
-<!--        DELETE FROM user WHERE user_id = #{userid}-->
-<!--    </delete>-->
-
+    <!-- 사용자 비활성화 -->
     <update id="disableUser" parameterType="String">
         UPDATE user
         SET status = '비활성화'

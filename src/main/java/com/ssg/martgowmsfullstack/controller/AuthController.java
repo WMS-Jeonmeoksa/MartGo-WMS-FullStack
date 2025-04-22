@@ -1,8 +1,8 @@
 package com.ssg.martgowmsfullstack.controller;
 
-import com.ssg.martgowmsfullstack.domain.UserRole;
-import com.ssg.martgowmsfullstack.domain.UserVO;
 import com.ssg.martgowmsfullstack.domain.AdminVO;
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
+import com.ssg.martgowmsfullstack.dto.UserDTO;
 import com.ssg.martgowmsfullstack.service.UserService;
 import com.ssg.martgowmsfullstack.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -31,50 +31,45 @@ public class AuthController {
                         Model model) {
 
         // 1. 일반 사용자 조회
-        UserVO user = userService.findByUserid(userid);
+        UserDTO user = userService.findByUserid(userid);
 
+        if (user != null && "활성화".equals(user.getStatus())) {
+            if (!user.getPassword().equals(password)) {
+                model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
+                return "login";
+            }
 
-
-
-        if (user != null && "활성화".equals(user.getStatus())&& user.getPassword().equals(password)) {
-            // 유저 로그인 성공
-            UserRole role = UserRole.fromLabel(user.getRole());
-            String sessionUserId = user.getUserid();
-
+            String role = user.getRole();
             session.setAttribute("loginInfo", user);
-            session.setAttribute("roleEnum", role);
-            session.setAttribute("sessionUserId", sessionUserId);
+            session.setAttribute("role", role);
+            session.setAttribute("sessionUserId", user.getUserid());
 
-            switch (role) {
-                case USER:
-                    return "redirect:/user";
-                case CUSTOMER:
-                    return "redirect:/customer";
-                default:
-                    model.addAttribute("error", "허용되지 않은 사용자 권한입니다.");
-                    return "login";
+            if ("회원".equals(role)) {
+                return "redirect:/user";
+            } else if ("거래처".equals(role)) {
+                return "redirect:/customer";
+            } else {
+                model.addAttribute("error", "허용되지 않은 사용자 권한입니다.");
+                return "login";
             }
         }
 
         // 2. 관리자 조회
-        AdminVO admin = adminService.getAdminById(userid);
+        AdminDTO admin = adminService.getAdminById(userid);
 
         if (admin != null && admin.getPassword().equals(password)) {
-            UserRole role = UserRole.fromLabel(admin.getRole());
-            String sessionAdminId = admin.getAdminId();
+            String role = admin.getRole();
+            session.setAttribute("loginInfo", admin);
+            session.setAttribute("role", role);
+            session.setAttribute("sessionAdminId", admin.getAdminId());
 
-            session.setAttribute("loginInfo", admin); // admin도 loginInfo 키로 저장
-            session.setAttribute("roleEnum", role);
-            session.setAttribute("sessionAdminId", sessionAdminId);
-
-            switch (role) {
-                case ADMIN:
-                    return "redirect:/admin";
-                case SUPERADMIN:
-                    return "redirect:/superadmin";
-                default:
-                    model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
-                    return "login";
+            if ("창고관리자".equals(role)) {
+                return "redirect:/admin";
+            } else if ("총관리자".equals(role)) {
+                return "redirect:/superadmin";
+            } else {
+                model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
+                return "login";
             }
         }
 
@@ -89,7 +84,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserVO user,
+    public String register(@ModelAttribute UserDTO user,
                            @RequestParam("addressDetail") String addressDetail,
                            Model model) {
 
@@ -106,7 +101,6 @@ public class AuthController {
         userService.register(user);
         return "redirect:/login";
     }
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
