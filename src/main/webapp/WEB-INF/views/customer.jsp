@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.ssg.martgowmsfullstack.domain.UserVO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.UserDTO" %>
 
 <%
-	UserVO user = (UserVO) session.getAttribute("loginInfo");
+	UserDTO user = (UserDTO)session.getAttribute("loginInfo");
 %>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 	<meta charset="UTF-8"/>
 	<title>MartGo - 거래처 전용 페이지</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/client.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<script src="${pageContext.request.contextPath}/js/app.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -22,20 +22,20 @@
 	<!-- 사이드바 -->
 	<nav id="sidebar" class="sidebar js-sidebar">
 		<div class="sidebar-content js-simplebar">
-			<a class="sidebar-brand" href="${pageContext.request.contextPath}/client">
+			<a class="sidebar-brand" href="${pageContext.request.contextPath}/customer/">
 				<span class="align-middle">MartGo</span>
 			</a>
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">거래처 메뉴</li>
 
 				<li class="sidebar-item active">
-					<a class="sidebar-link" href="${pageContext.request.contextPath}/client">
+					<a class="sidebar-link" href="${pageContext.request.contextPath}/customer/">
 						<i class="align-middle" data-feather="home"></i> <span class="align-middle">홈</span>
 					</a>
-				</li>
+				</li>S
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="${pageContext.request.contextPath}/client/mypage">
+					<a class="sidebar-link" href="${pageContext.request.contextPath}/customer/mypage">
 						<i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
 					</a>
 				</li>

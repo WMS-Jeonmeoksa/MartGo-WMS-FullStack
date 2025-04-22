@@ -5,52 +5,9 @@
     <meta charset="UTF-8">
     <title>MartGo - 가전 창고 플랫폼</title>
     <link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/guest.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #f8f9fa;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #333;
-        }
-        .auth-links a {
-            margin-left: 1rem;
-            text-decoration: none;
-            color: #0d6efd;
-            font-weight: 500;
-        }
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-        }
-        .main-content h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        .main-content p {
-            font-size: 1.2rem;
-            color: #555;
-            line-height: 1.6;
-        }
-    </style>
+
 </head>
 <body>
 
