@@ -1,200 +1,97 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.ssg.martgowmsfullstack.domain.UserVO" %>
+
+<%
+    UserVO user = (UserVO) session.getAttribute("loginInfo");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8"/>
     <title>MartGo - 재고 목록</title>
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/js/app.js"></script>
 </head>
 <body>
 <div class="wrapper">
-    <!-- 사이드바 영역 -->
+    <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="index.html">
-                <span class="align-middle">AdminKit</span>
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/client">
+                <span class="align-middle">MartGo</span>
             </a>
-
             <ul class="sidebar-nav">
-                <li class="sidebar-header">
-                    Pages
-                </li>
+                <li class="sidebar-header">거래처 메뉴</li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.html">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    <a class="sidebar-link" href="#"
+                       onclick="document.getElementById('UserDashBoardForm').submit(); return false;">
+                        <i class="align-middle" data-feather="list"></i>
+                        <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
+                <form id="UserDashBoardForm" action="${pageContext.request.contextPath}/dashboard/user/"
+                      method="post" style="display: none;"></form>
+
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.jsp">
-                        <i class="align-middle" data-feather="rent"></i> <span
-                            class="align-middle">Warehouse Rent</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/stock/user?user_id=${user_id}">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">재고 목록</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-profile.html">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/client/mypage">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="login.jsp">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                    <a class="sidebar-link" href="#">
+                        <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">제품 등록</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="registerForm.jsp">
-                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+                    <a class="sidebar-link" href="#">
+                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">입고 요청</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-blank.html">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+                    <a class="sidebar-link" href="#">
+                        <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">출고 요청</span>
                     </a>
                 </li>
 
-                <li class="sidebar-header">
-                    Tools & Components
-                </li>
+                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
+                      style="display: none;">
+                </form>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-buttons.html">
-                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
-                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-cards.html">
-                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-typography.html">
-                        <i class="align-middle" data-feather="align-left"></i> <span
-                            class="align-middle">Typography</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-header">
-                    Plugins & Addons
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="charts-chartjs.html">
-                        <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="maps-google.html">
-                        <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                    <a class="sidebar-link" href="#"
+                       onclick="document.getElementById('stockForm').submit(); return false;">
+                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 조회</span>
                     </a>
                 </li>
             </ul>
-
-            <div class="sidebar-cta">
-                <div class="sidebar-cta-content">
-                    <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                    <div class="mb-3 text-sm">
-                        Are you looking for more components? Check out our premium version.
-                    </div>
-                    <div class="d-grid">
-                        <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </nav>
 
     <!-- 메인 콘텐츠 영역 -->
     <div class="main">
-        <!-- 상단 네비게이션 영역 -->
+        <!-- 상단 네비게이션 -->
         <nav class="navbar navbar-expand navbar-light navbar-bg">
             <a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i></a>
             <div class="navbar-collapse collapse">
-                <ul class="navbar-nav navbar-align">
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <div class="position-relative"><i class="align-middle" data-feather="bell"></i><span
-                                    class="indicator">4</span></div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0">
-                            <div class="dropdown-menu-header">4 New Notifications</div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item"><i class="text-danger"
-                                                                       data-feather="alert-circle"></i> Update completed</a>
-                                <a href="#" class="list-group-item"><i class="text-warning" data-feather="bell"></i>
-                                    Lorem ipsum</a>
-                                <a href="#" class="list-group-item"><i class="text-primary" data-feather="home"></i>
-                                    Login from 192.186.1.8</a>
-                                <a href="#" class="list-group-item"><i class="text-success"
-                                                                       data-feather="user-plus"></i> New connection</a>
-                            </div>
-                            <div class="dropdown-menu-footer"><a href="#" class="text-muted">Show all notifications</a>
-                            </div>
-                        </div>
+                <ul class="navbar-nav navbar-align ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="align-middle"
-                                                                                                  data-feather="message-square"></i></a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0">
-                            <div class="dropdown-menu-header">4 New Messages</div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">Vanessa Tucker - Nam pretium turpis</a>
-                                <a href="#" class="list-group-item">William Harris - Curabitur ligula</a>
-                            </div>
-                            <div class="dropdown-menu-footer"><a href="#" class="text-muted">Show all messages</a></div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="User"/> <span
-                                class="text-dark">Charles Hall</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">
+                            <i class="fas fa-sign-out-alt"></i> 로그아웃
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-                                                                                  data-feather="user"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
-                                Analytics</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i>
-                                Settings & Privacy</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                                                 data-feather="help-circle"></i> Help Center</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
-                        </div>
                     </li>
                 </ul>
             </div>
         </nav>
+
         <main class="content">
             <div class="container-fluid p-0">
                 <h1 class="h3 mb-3"><strong>재고</strong> 목록</h1>

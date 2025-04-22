@@ -41,4 +41,20 @@ public class DashBoardMapperTests {
     public void test4() {
         log.info(dashBoardMapper.getTotalUserCount());
     }
+    @Test
+    public void test5() {
+        log.info(dashBoardMapper.getUserAdminList("seller01"));
+    }
+    @Test
+    public void test6() {
+        log.info(dashBoardMapper.getRentSectorWarehouseList("seller01"));
+    }
+    @Test
+    public void test7() {
+        log.info(dashBoardMapper.getRemainingDays("seller01"));
+    }
+    @Test
+    public void test8() {
+        log.info(dashBoardMapper.getUserSectorUsage("seller01"));
+    }
 }

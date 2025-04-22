@@ -3,6 +3,7 @@ package com.ssg.martgowmsfullstack.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -24,4 +25,8 @@ public class DashBoardDTO {
     private int adminUserCount;
     // 8. 창고 전체 용적률
     private List<WareHouseUsageDTO> wareHouseUsageList;
+    private List<UserAdminDTO> userAdminList;
+    private int remainingDays;
+    private List<RentSectorWarehouseDTO> rentSectorWarehouseList;
+    private List<SectorUsageDTO> userSectorUsage;
 }

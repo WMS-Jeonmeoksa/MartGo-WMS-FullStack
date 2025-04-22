@@ -2,7 +2,6 @@ package com.ssg.martgowmsfullstack.service;
 
 import com.ssg.martgowmsfullstack.dto.DashBoardDTO;
 import com.ssg.martgowmsfullstack.dto.MonthlyRentDTO;
-import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.mapper.DashBoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DashBoardServiceImpl implements DashBoardService {
+public class AdminDashBoardServiceImpl implements AdminDashBoardService {
 
     private final DashBoardMapper dashBoardMapper;
     private final IncomingService incomingService;
