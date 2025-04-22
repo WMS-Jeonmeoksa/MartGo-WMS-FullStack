@@ -1,10 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.ssg.martgowmsfullstack.domain.UserVO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.UserDTO" %>
 
-<%
-    UserVO user = (UserVO) session.getAttribute("loginInfo");
-%>
+	UserDTO user = (UserDTO)session.getAttribute("loginInfo");
 
 <!DOCTYPE html>
 <html lang="ko">

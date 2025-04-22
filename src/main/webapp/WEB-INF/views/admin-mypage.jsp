@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.ssg.martgowmsfullstack.domain.AdminVO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
 <%
-	AdminVO admin = (AdminVO) session.getAttribute("loginInfo");
+	AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
 	if (admin == null) {
 		response.sendRedirect(request.getContextPath() + "/login");
 		return;
@@ -13,74 +13,9 @@
 	<meta charset="UTF-8">
 	<title>MartGo - 창고 관리자 마이페이지</title>
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/admin_mypage.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-	<style>
-		body {
-			margin: 0;
-			font-family: 'Inter', sans-serif;
-			background-color: #f6f6f6;
-		}
-		header {
-			background-color: #fff;
-			padding: 1rem 2rem;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-		}
-		.logo a {
-			text-decoration: none;
-			font-size: 1.5rem;
-			font-weight: bold;
-			color: #333;
-		}
-		.auth-links {
-			font-size: 1rem;
-		}
-		.auth-links a {
-			margin-left: 1rem;
-			text-decoration: none;
-			color: #0d6efd;
-			font-weight: 500;
-		}
-		.profile-container {
-			max-width: 640px;
-			background: white;
-			margin: 3rem auto;
-			padding: 2.5rem;
-			border-radius: 16px;
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-		}
-		.profile-container h2 {
-			text-align: center;
-			margin-bottom: 2rem;
-			font-size: 1.8rem;
-		}
-		.profile-item {
-			display: flex;
-			justify-content: space-between;
-			padding: 0.9rem 0;
-			border-bottom: 1px solid #eee;
-		}
-		.profile-item span:first-child {
-			font-weight: 600;
-			color: #555;
-		}
-		.profile-item span:last-child {
-			color: #333;
-		}
-		.warehouse-box {
-			background-color: #f1f3ff;
-			border: 2px solid #4e6ef2;
-			color: #2b3990;
-			padding: 1rem 1.2rem;
-			margin-top: 2rem;
-			text-align: center;
-			border-radius: 10px;
-			font-size: 1.2rem;
-			font-weight: bold;
-		}
-	</style>
+
 </head>
 <body>
 

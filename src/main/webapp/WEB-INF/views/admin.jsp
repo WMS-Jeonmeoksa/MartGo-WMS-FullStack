@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.ssg.martgowmsfullstack.domain.AdminVO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
 <%
-	AdminVO admin = (AdminVO) session.getAttribute("loginInfo");
+	AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
 	if (admin == null) {
 		response.sendRedirect(request.getContextPath() + "/login");
 		return;
@@ -18,27 +18,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/js/app.js"></script>
-	<style>
-		.sidebar-submenu {
-			display: none;
-			padding-left: 1.5rem;
-		}
-		.sidebar-item.open > .sidebar-submenu {
-			display: block;
-		}
-		.submenu-toggle {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.submenu-icon {
-			font-size: 0.8rem;
-			transition: transform 0.3s ease;
-		}
-		.sidebar-item.open .submenu-icon {
-			transform: rotate(180deg);
-		}
-	</style>
 </head>
 <body>
 <div class="wrapper">
@@ -112,7 +91,7 @@
 
 	<!-- 메인 -->
 	<div class="main">
-		<!-- 상단 네비게이션 -->
+		<!-- 상단 네비가이션 -->
 		<nav class="navbar navbar-expand navbar-light navbar-bg">
 			<a class="sidebar-toggle js-sidebar-toggle">
 				<i class="hamburger align-self-center"></i>
@@ -131,14 +110,14 @@
 			</div>
 		</nav>
 
-		<!-- 콘텐츠 -->
+		<!-- 컨텐츠 -->
 		<main class="content">
 			<div class="container-fluid p-0">
 				<h1 class="h3 mb-3"><strong>MartGo 창고관리자 페이지</strong></h1>
 				<div class="card">
 					<div class="card-body">
 						<h4><%= admin.getAdminname() %> 관리자님 환영합니다!</h4>
-						<p class="text-muted">MartGo의 입출고 요청 및 재고 내역을 좌측 메뉴를 통해 관리할 수 있습니다.</p>
+						<p class="text-muted">MartGo의 입출고 요청 및 재고 내역을 왼칸 메뉴를 통해 관리할 수 있습니다.</p>
 					</div>
 				</div>
 			</div>
