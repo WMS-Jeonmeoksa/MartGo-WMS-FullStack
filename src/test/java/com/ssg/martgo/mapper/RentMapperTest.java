@@ -70,11 +70,7 @@ public class RentMapperTest {
         rentMapper.saveDb(dto);
     }
 
-    @Test
-    void testGetHoldRentHistory() {
-        List<RentHistoryDTO> list = rentMapper.getHoldRentHistory();
-        list.forEach(System.out::println);
-    }
+
 
     @Test
     void testUpdateUserAdminId() {
@@ -85,6 +81,14 @@ public class RentMapperTest {
     void testUpdateAdminId() {
         rentMapper.updateAdminId(1, "admin01");
     }
+
+
+    @Test
+    void testGetHoldRentHistory() {
+        List<RentHistoryDTO> list = rentMapper.getHoldRentHistory("admin01");
+        list.forEach(System.out::println);
+    }
+
 
     @Test
     void testGetInProgressRentHistory() {

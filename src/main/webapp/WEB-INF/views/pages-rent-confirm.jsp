@@ -1,10 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <link rel="stylesheet" href="/css/incoming_approve.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,20 +13,17 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords"
           content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
-    <title>warehouse rent</title>
+
+    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/sector.css" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
@@ -44,10 +42,15 @@
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="pages-warehouse.jsp">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="pages-warehouse.html">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">임대 승인</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -235,7 +238,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Vanessa Tucker">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -250,7 +253,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="William Harris">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -264,7 +267,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Christina Mason">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -277,7 +280,7 @@
                                 <a href="#" class="list-group-item">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-2">
-                                            <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
+                                            <img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
                                                  alt="Sharon Lessman">
                                         </div>
                                         <div class="col-10 ps-2">
@@ -301,8 +304,8 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
-                            <span class="text-dark">Charles Hall</span>
+                            <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
+                                 alt="Charles Hall"/> <span class="text-dark">Charles Hall</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
@@ -323,108 +326,117 @@
             </div>
         </nav>
 
-        <div class="container">
-            <h1>창고 임대 신청</h1>
+        <form id="approveForm" action="/rent/confirm" method="post">
+            <input type="hidden" name="rentNum" id="rentNumInput" />
 
-            <div class="progress-bar">
-                <div class="step active">
-                    1
-                    <div class="step-label">창고 선택</div>
+            <div class="incoming-container">
+                <div class="header">
+                    <h1 class="incoming-h1">임대 승인</h1>
                 </div>
-                <div class="step active">
-                    2
-                    <div class="step-label">섹터 선택</div>
-                </div>
-                <div class="step">
-                    3
-                    <div class="step-label">가격/기간 선택</div>
-                </div>
-                <div class="step">
-                    4
-                    <div class="step-label">신청 완료</div>
-                </div>
-            </div>
 
-            <div class="section-header">
-                <h3><i class="fas fa-th-large"></i> 선택한 창고 정보</h3>
-            </div>
-            <div class="summary-box">
-                <div><strong>창고 ID:</strong> ${warehouseId}</div>
-                <div><strong>창고 이름:</strong>
-                    <c:out value="${warehouseName}" default="-"/>
+                <div class="section-header">
+                    <h3 class="incoming-h3">임대 신청 목록</h3>
                 </div>
-            </div>
 
-
-            <!-- 섹터 목록 -->
-            <div class="section-header">
-                <h3><i class="fas fa-layer-group"></i> 섹터 목록</h3>
-            </div>
-            <table id="sector-table">
-                <thead>
-                <tr>
-                    <th>섹터 ID</th>
-                    <th>크기 (㎡)</th>
-                    <th>용적률</th>
-                    <th>상태</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="sec" items="${sectors}" varStatus="loop">
-                    <tr onclick="selectSector('${sec.sectorId}', this)">
-                        <td>${sec.sectorId}</td>
-                        <td>${sec.height * sec.width}㎡</td>
-                        <td>${sec.FAR}</td>
-                        <td>${sec.status}</td>
+                <table class="incoming_table">
+                    <thead>
+                    <tr>
+                        <th>임대 번호</th>
+                        <th>섹터 ID</th>
+                        <th>창고 ID</th>
+                        <th>회원 ID</th>
+                        <th>임대 시작일</th>
+                        <th>임대 종료일</th>
+                        <th>임대료</th>
+                        <th>상태</th>
                     </tr>
-                </c:forEach>
-                </tbody>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="rentHistory" items="${rentHistoryDTO}">
+                        <tr onclick="selectIncoming(this, '${rentHistory.rentNum}')">
+                            <td>${rentHistory.rentNum}</td>
+                            <td>${rentHistory.sectorId}</td>
+                            <td>${rentHistory.warehouseId}</td>
+                            <td>${rentHistory.userId}</td>
+                            <td><fmt:formatDate value="${rentHistory.rentStartDate}" pattern="yyyy-MM-dd"/></td>
+                            <td><fmt:formatDate value="${rentHistory.rentEndDate}" pattern="yyyy-MM-dd"/></td>
+                            <td>${rentHistory.rentPrice}</td>
+                            <td>${rentHistory.status}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
 
-            </table>
-
-            <div class="button-group">
-                <button class="btn btn-back" id="prev-btn">
-                    ← 이전
-                </button>
-                <button class="btn btn-next" id="next-btn" disabled>
-                    다음 →
-                </button>
+                <div class="button-group-full">
+                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href ='/index.html'">
+                        <i class="fas fa-arrow-left"></i> 홈으로
+                    </button>
+                    <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
+                        승인 <i class="fas fa-check"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
+
+        <script>
+            let selectedRentId = null;
+
+            function selectIncoming(row, rentNum) {
+                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+                row.classList.add('selected');
+                selectedRentId = rentNum;
+                document.getElementById("rentNumInput").value = rentNum;
+                document.getElementById('approveBtn').disabled = false;
+            }
+
+            function confirmApproval() {
+                if (selectedRentId) {
+                    return confirm(`${selectedRentId} 임대요청을 승인하겠습니까?`);
+                }
+                return false;
+            }
+        </script>
+        <!-- JS -->
+        <script src="js/app.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                feather.replace();
+            });
+        </script>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row text-muted">
+                    <div class="col-6 text-start">
+                        <p class="mb-0">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
+                            - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin
+                            Template</strong></a> &copy;
+                        </p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
 
-<script>
-    // 테이블 행 클릭 시
-    function selectSector(sectorId, row) {
-        // 선택 표시
-        document.querySelectorAll('#sector-table tbody tr').forEach(tr => tr.classList.remove('selected'));
-        row.classList.add('selected');
-
-        // 세션에 저장
-        sessionStorage.setItem('selectedSectorId', sectorId);
-
-        // 다음 버튼 활성화
-        document.getElementById('next-btn').disabled = false;
-    }
-
-    // 이전 버튼
-    document.getElementById('prev-btn').addEventListener('click', () => {
-        // 창고 선택 페이지로 돌아가기
-        window.location.href = '/rent/warehouse';
-    });
-
-    // 다음 버튼: 선택한 창고·섹터를 쿼리스트링으로 넘겨요
-    document.getElementById('next-btn').addEventListener('click', () => {
-        const sectorId = sessionStorage.getItem('selectedSectorId');
-        const params = new URLSearchParams({
-            warehouseId: sessionStorage.getItem('selectedWarehouseId'),  // ← 이 이름이 컨트롤러와 동일해야 함
-            warehouseName: sessionStorage.getItem('selectedWarehouseName'),
-            sectorId
-        });
-        window.location.href = '/rent/period?' + params.toString();
-    });
-</script>
 <script src="js/app.js"></script>
 
 <script>

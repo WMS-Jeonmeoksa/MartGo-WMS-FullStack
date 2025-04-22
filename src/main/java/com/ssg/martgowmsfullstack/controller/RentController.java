@@ -13,16 +13,19 @@ public interface RentController {
     String getAllWarehouse(Model model, HttpSession session);
 
     String getSector(@RequestParam("warehouseId") int warehouseId,
-                        @RequestParam(value = "warehouseName") String warehouseName,
-                        Model model);
+                     @RequestParam(value = "warehouseName") String warehouseName,
+                     Model model);
 
-    String getSectorCostInfo(  @RequestParam("warehouseId")   int    warehouseId,
-                               @RequestParam("warehouseName") String warehouseName,
-                               @RequestParam("sectorId")      String sectorId,
-                               Model model);
+    String getSectorCostInfo(@RequestParam("warehouseId") int warehouseId,
+                             @RequestParam("warehouseName") String warehouseName,
+                             @RequestParam("sectorId") String sectorId,
+                             Model model);
 
     String applyRent(@ModelAttribute RentHistoryDTO rentHistoryDTO, HttpSession session);
+
     String showRentSummary(@ModelAttribute RentSelectDTO rentSelectDTO, Model model);
-//     void inProgressRentList(String adminId);
-//     void holdRentList(String adminId);
+
+    String holdRentList(Model model,HttpSession session);
+
+//    void inProgressRentList(String adminId);
 }

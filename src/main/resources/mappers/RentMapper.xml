@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.RentMapper">
-    <resultMap id="SectorMap" type="com.ssg.martgowmsfullstack.dto.SectorDTO">
+    <resultMap id="SectorDTOResultMap" type="com.ssg.martgowmsfullstack.dto.SectorDTO">
         <result property="sectorId" column="sector_id"/>
         <result property="warehouseId" column="warehouse_id"/>
         <result property="height" column="height"/>
@@ -12,6 +12,19 @@
         <result property="FAR" column="FAR"/>
         <result property="status" column="status"/>
     </resultMap>
+    <resultMap id="RentHistoryDTOResultMap" type="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+        <result property="rentNum" column="rent_num"/>
+        <result property="sectorId" column="sector_id"/>
+        <result property="warehouseId" column="warehouse_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="rentStartDate" column="rent_start_date"/>
+        <result property="rentEndDate" column="rent_end_date"/>
+        <result property="rentPrice" column="rent_price"/>
+        <result property="approveDate" column="approve_date"/>
+        <result property="status" column="status"/>
+        <result property="adminId" column="admin_id"/>
+    </resultMap>
+
     <select id="getAllWarehouses" resultType="map">
         CALL GetAllWarehouses()
     </select>
@@ -19,7 +32,7 @@
         CALL getSectorStatus(#{warehouseId})
     </select>
 
-    <select id="getAllSectors" parameterType="int" resultMap="SectorMap" statementType="CALLABLE">
+    <select id="getAllSectors" parameterType="int" resultMap="SectorDTOResultMap" statementType="CALLABLE">
         CALL GetAllSectors(#{warehouseId})
     </select>
 
@@ -43,8 +56,8 @@
              )
     </insert>
 
-    <select id="getHoldRentHistory" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
-        CALL GetHoldRentHistory()
+    <select id="getHoldRentHistory" resultMap="RentHistoryDTOResultMap">
+        CALL GetHoldRentHistory(#{adminId})
     </select>
 
     <update id="updateUserAdminId">
@@ -55,7 +68,7 @@
         CALL UpdateAdminId(#{rentNum}, #{adminId})
     </update>
 
-    <select id="getInProgressRentHistory" resultType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+    <select id="getInProgressRentHistory" resultMap="RentHistoryDTOResultMap">
         CALL GetInProgressRentHistory(#{adminId})
     </select>
 
