@@ -21,7 +21,10 @@ public class CustomerHomeController {
 
     // 거래처 마이페이지
     @GetMapping("/mypage")
-    public String mypage() {
+    public String mypage(HttpSession session) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
         return "customer-mypage"; // /WEB-INF/views/customer-mypage.jsp
     }
 }
