@@ -60,7 +60,7 @@
                         <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
-                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post"
+                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="get"
                       style="display: none;"></form>
 
                 <li class="sidebar-item">
@@ -103,10 +103,10 @@
                             </a>
                         </li>
                     </ul>
-                    <form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="post"
+                    <form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="get"
                           style="display: none;"></form>
                     <form id="StockHistoryForm" action="${pageContext.request.contextPath}/stock_history/admin/"
-                          method="post" style="display: none;"></form>
+                          method="get" style="display: none;"></form>
                 </li>
             </ul>
         </div>

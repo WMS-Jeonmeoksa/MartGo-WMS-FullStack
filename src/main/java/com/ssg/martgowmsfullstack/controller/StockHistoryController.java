@@ -23,7 +23,7 @@ public class StockHistoryController {
 
     private final StockService stockService;
 
-    @PostMapping("/general")
+    @GetMapping("/general")
     public String generalStockHistory(HttpSession session, Model model) {
         AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
         String admin_id = adminDTO.getAdminId();
@@ -35,7 +35,7 @@ public class StockHistoryController {
         return "pages-stockhistory-general";
     }
 
-    @PostMapping("/admin")
+    @GetMapping("/admin")
     public String adminStockHistory(HttpSession session, Model model) {
         AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
         String admin_id = adminDTO.getAdminId();

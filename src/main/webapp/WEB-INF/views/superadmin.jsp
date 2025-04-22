@@ -64,7 +64,7 @@
 					</a>
 				</li>
 				<form id="GeneralDashBoardForm" action="${pageContext.request.contextPath}/dashboard/general/"
-					  method="post" style="display: none;"></form>
+					  method="get" style="display: none;"></form>
 
 				<li class="sidebar-item">
 					<a class="sidebar-link" href="${pageContext.request.contextPath}/superadmin/mypage">
@@ -100,7 +100,7 @@
 							</a>
 						</li>
 						<form id="GeneralStockForm" action="${pageContext.request.contextPath}/stock/general/"
-							  method="post" style="display: none;"></form>
+							  method="get" style="display: none;"></form>
 
 						<li class="sidebar-item">
 							<a class="sidebar-link" href="#"
@@ -110,7 +110,7 @@
 							</a>
 						</li>
 						<form id="GeneralStockHistoryForm"
-							  action="${pageContext.request.contextPath}/stock_history/general/" method="post"
+							  action="${pageContext.request.contextPath}/stock_history/general/" method="get"
 							  style="display: none;"></form>
 					</ul>
 				</li>

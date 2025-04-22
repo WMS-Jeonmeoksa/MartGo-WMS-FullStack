@@ -3,10 +3,12 @@ package com.ssg.martgowmsfullstack.controller;
 import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.StockDTO;
 import com.ssg.martgowmsfullstack.service.StockService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
@@ -18,7 +20,7 @@ public class StockController {
 
     private final StockService stockService;
 
-    @PostMapping("/user")
+    @GetMapping("/user")
     public String userStock(HttpSession session, Model model) {
         String user_id = (String) session.getAttribute("sessionUserId");
 
@@ -31,7 +33,7 @@ public class StockController {
     }
 
 
-    @PostMapping("/admin")
+    @GetMapping("/admin")
     public String adminStock(HttpSession session, Model model) {
         AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
         String admin_id = adminDTO.getAdminId();
@@ -43,7 +45,7 @@ public class StockController {
         return "pages-stock-admin";
     }
 
-    @PostMapping("/general")
+    @GetMapping("/general")
     public String generalStock(HttpSession session, Model model) {
         AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
         String admin_id = adminDTO.getAdminId();

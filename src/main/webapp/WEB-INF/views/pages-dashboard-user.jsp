@@ -34,10 +34,10 @@
                     </a>
                 </li>
                 <form id="UserDashBoardForm" action="${pageContext.request.contextPath}/dashboard/user/"
-                      method="post" style="display: none;"></form>
+                      method="get" style="display: none;"></form>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/client/mypage">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/customer/mypage">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
@@ -60,7 +60,7 @@
                     </a>
                 </li>
 
-                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
+                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="get"
                       style="display: none;">
                 </form>
 
@@ -102,7 +102,8 @@
                         <div class="col-md-6 d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header"><h5 class="card-title mb-0">담당 관리자 이름</h5></div>
-                                <div class="card-body d-flex flex-column align-items-start justify-content-center" style="height: 120px;">
+                                <div class="card-body d-flex flex-column align-items-start justify-content-center"
+                                     style="height: 120px;">
                                     <h2 class="mb-1">${dashBoardList.userAdminList[0].admin_name}</h2>
                                 </div>
                             </div>
@@ -110,7 +111,8 @@
                         <div class="col-md-6 d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header"><h5 class="card-title mb-0">담당 관리자 연락처</h5></div>
-                                <div class="card-body d-flex flex-column align-items-start justify-content-center" style="height: 120px;">
+                                <div class="card-body d-flex flex-column align-items-start justify-content-center"
+                                     style="height: 120px;">
                                     <h2 class="mb-1">${dashBoardList.userAdminList[0].phone_num}</h2>
                                 </div>
                             </div>
@@ -121,7 +123,8 @@
                         <div class="col-md-6 d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header"><h5 class="card-title mb-0">임대한 섹터 ID</h5></div>
-                                <div class="card-body d-flex flex-column align-items-start justify-content-center" style="height: 120px;">
+                                <div class="card-body d-flex flex-column align-items-start justify-content-center"
+                                     style="height: 120px;">
                                     <h2 class="mb-1">${dashBoardList.rentSectorWarehouseList[0].sector_id}</h2>
                                 </div>
                             </div>
@@ -129,7 +132,8 @@
                         <div class="col-md-6 d-flex">
                             <div class="card flex-fill">
                                 <div class="card-header"><h5 class="card-title mb-0">임대한 창고 이름</h5></div>
-                                <div class="card-body d-flex flex-column align-items-start justify-content-center" style="height: 120px;">
+                                <div class="card-body d-flex flex-column align-items-start justify-content-center"
+                                     style="height: 120px;">
                                     <h2 class="mb-1">${dashBoardList.rentSectorWarehouseList[0].warehouse_name}</h2>
                                 </div>
                             </div>
@@ -141,7 +145,8 @@
                     <div class="col-md-6 d-flex">
                         <div class="card flex-fill">
                             <div class="card-header"><h5 class="card-title mb-0">임대 만료까지 남은 일수</h5></div>
-                            <div class="card-body d-flex flex-column align-items-start justify-content-center" style="height: 180px;">
+                            <div class="card-body d-flex flex-column align-items-start justify-content-center"
+                                 style="height: 180px;">
                                 <h2 class="mb-1">${dashBoardList.remainingDays}</h2>
                             </div>
                         </div>
@@ -152,12 +157,14 @@
                             <div class="card-header">
                                 <h5 class="card-title mb-0">${dashBoardList.userSectorUsage[0].sector_id} Usage</h5>
                             </div>
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center" style="height: 250px;">
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center"
+                                 style="height: 250px;">
                                 <div class="chart chart-xs" style="height: 150px; width: 150px;">
                                     <canvas id="chart-sector-0"></canvas>
                                 </div>
                                 <div class="mt-3 text-center" style="font-weight: bold; font-size: 1.1rem;">
-                                    ${dashBoardList.userSectorUsage[0].sector_id} - ${dashBoardList.userSectorUsage[0].FAR}%
+                                    ${dashBoardList.userSectorUsage[0].sector_id}
+                                    - ${dashBoardList.userSectorUsage[0].FAR}%
                                 </div>
                             </div>
 

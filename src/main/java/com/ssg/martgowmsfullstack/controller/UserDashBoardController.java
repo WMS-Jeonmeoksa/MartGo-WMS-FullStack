@@ -20,7 +20,7 @@ public class UserDashBoardController {
 
     private final UserDashBoardService userDashBoardService;
 
-    @PostMapping("/user")
+    @GetMapping("/user")
     public String userDashBoard(HttpSession session, Model model) {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";

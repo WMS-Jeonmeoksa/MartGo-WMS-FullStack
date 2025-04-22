@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <form id="UserDashBoardForm" action="${pageContext.request.contextPath}/dashboard/user/"
-                      method="post" style="display: none;"></form>
+                      method="get" style="display: none;"></form>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="${pageContext.request.contextPath}/customer/mypage">
@@ -60,7 +60,7 @@
                     </a>
                 </li>
 
-                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
+                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="get"
                       style="display: none;">
                 </form>
 

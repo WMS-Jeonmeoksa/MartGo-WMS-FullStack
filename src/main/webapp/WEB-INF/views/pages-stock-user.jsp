@@ -33,10 +33,10 @@
                     </a>
                 </li>
                 <form id="UserDashBoardForm" action="${pageContext.request.contextPath}/dashboard/user/"
-                      method="post" style="display: none;"></form>
+                      method="get" style="display: none;"></form>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/client/mypage">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/customer/mypage">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
@@ -59,7 +59,7 @@
                     </a>
                 </li>
 
-                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
+                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="get"
                       style="display: none;">
                 </form>
 

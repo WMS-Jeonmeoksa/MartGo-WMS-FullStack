@@ -30,7 +30,7 @@
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">창고관리자 메뉴</li>
 
-				<form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post"
+				<form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="get"
 					  style="display: none;">
 				</form>
 
@@ -80,10 +80,10 @@
 							</a>
 						</li>
 					</ul>
-					<form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="post"
+					<form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="get"
 						  style="display: none;"></form>
 					<form id="StockHistoryForm" action="${pageContext.request.contextPath}/stock_history/admin/"
-						  method="post" style="display: none;"></form>
+						  method="get" style="display: none;"></form>
 				</li>
 			</ul>
 		</div>
