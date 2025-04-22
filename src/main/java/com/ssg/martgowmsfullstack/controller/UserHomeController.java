@@ -1,6 +1,7 @@
 package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.domain.UserVO;
+import com.ssg.martgowmsfullstack.dto.UserDTO;
 import com.ssg.martgowmsfullstack.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
@@ -27,13 +29,16 @@ public class UserHomeController {
 
     // 👤 회원 마이페이지
     @GetMapping("/mypage")
-    public String mypage() {
+    public String mypage(HttpSession session) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
         return "user-mypage"; // /WEB-INF/views/user-mypage.jsp
     }
 
     @PostMapping("/delete")
     public String deleteAccount(HttpSession session, Model model) {
-        UserVO user = (UserVO) session.getAttribute("loginInfo");
+        UserDTO user = (UserDTO) session.getAttribute("loginInfo");
 
         if (user == null || !"회원".equals(user.getRole())) {
             model.addAttribute("error", "회원만 탈퇴할 수 있습니다.");

@@ -21,7 +21,7 @@ public interface RentMapper {
                      @Param("sectorId") String sectorId,
                      @Param("month") int month);
     void saveDb(RentHistoryDTO rentHistory);
-    List<RentHistoryDTO> getHoldRentHistory();
+    List<RentHistoryDTO> getHoldRentHistory(@Param("adminId") String adminId);
     void updateUserAdminId();
     void updateAdminId(@Param("rentNum") int rentNum,
                        @Param("adminId") String adminId);

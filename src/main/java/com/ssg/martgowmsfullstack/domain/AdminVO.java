@@ -3,7 +3,6 @@ package com.ssg.martgowmsfullstack.domain;
 import lombok.*;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

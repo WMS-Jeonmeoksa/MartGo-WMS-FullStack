@@ -384,10 +384,10 @@
 
             <div class="button-group">
                 <button class="btn btn-back" id="prev-btn">
-                    <i class="fas fa-arrow-left"></i> 이전
+                    ← 이전
                 </button>
                 <button class="btn btn-next" id="next-btn" disabled>
-                    다음 <i class="fas fa-arrow-right"></i>
+                    다음 →
                 </button>
             </div>
         </div>

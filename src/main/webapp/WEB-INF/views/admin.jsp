@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.ssg.martgowmsfullstack.domain.AdminVO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
 <%
-	AdminVO admin = (AdminVO) session.getAttribute("loginInfo");
+	AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
 	if (admin == null) {
 		response.sendRedirect(request.getContextPath() + "/login");
 		return;
@@ -18,27 +18,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/js/app.js"></script>
-	<style>
-		.sidebar-submenu {
-			display: none;
-			padding-left: 1.5rem;
-		}
-		.sidebar-item.open > .sidebar-submenu {
-			display: block;
-		}
-		.submenu-toggle {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.submenu-icon {
-			font-size: 0.8rem;
-			transition: transform 0.3s ease;
-		}
-		.sidebar-item.open .submenu-icon {
-			transform: rotate(180deg);
-		}
-	</style>
 </head>
 <body>
 <div class="wrapper">
@@ -51,9 +30,14 @@
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">창고관리자 메뉴</li>
 
-				<li class="sidebar-item active">
-					<a class="sidebar-link" href="${pageContext.request.contextPath}/admin">
-						<i class="align-middle" data-feather="home"></i> <span class="align-middle">홈</span>
+				<form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post"
+					  style="display: none;">
+				</form>
+
+				<li class="sidebar-item">
+					<a class="sidebar-link" href="#"
+					   onclick="document.getElementById('AdminDashBoardForm').submit(); return false;">
+						<i class="align-middle" data-feather="list"></i> <span class="align-middle">대시 보드</span>
 					</a>
 				</li>
 
@@ -81,9 +65,25 @@
 						<i class="fas fa-chevron-down submenu-icon"></i>
 					</a>
 					<ul class="sidebar-submenu">
-						<li><a class="sidebar-link" href="#">재고 목록</a></li>
-						<li><a class="sidebar-link" href="#">재고 변경 이력</a></li>
+						<li>
+							<a class="sidebar-link" href="#"
+							   onclick="document.getElementById('StockForm').submit(); return false;">
+								<i class="align-middle" data-feather="list"></i>
+								<span class="align-middle">재고 목록</span>
+							</a>
+						</li>
+						<li>
+							<a class="sidebar-link" href="#"
+							   onclick="document.getElementById('StockHistoryForm').submit(); return false;">
+								<i class="align-middle" data-feather="list"></i>
+								<span class="align-middle">재고 변경 이력</span>
+							</a>
+						</li>
 					</ul>
+					<form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="post"
+						  style="display: none;"></form>
+					<form id="StockHistoryForm" action="${pageContext.request.contextPath}/stock_history/admin/"
+						  method="post" style="display: none;"></form>
 				</li>
 			</ul>
 		</div>
@@ -91,7 +91,7 @@
 
 	<!-- 메인 -->
 	<div class="main">
-		<!-- 상단 네비게이션 -->
+		<!-- 상단 네비가이션 -->
 		<nav class="navbar navbar-expand navbar-light navbar-bg">
 			<a class="sidebar-toggle js-sidebar-toggle">
 				<i class="hamburger align-self-center"></i>
@@ -110,14 +110,14 @@
 			</div>
 		</nav>
 
-		<!-- 콘텐츠 -->
+		<!-- 컨텐츠 -->
 		<main class="content">
 			<div class="container-fluid p-0">
 				<h1 class="h3 mb-3"><strong>MartGo 창고관리자 페이지</strong></h1>
 				<div class="card">
 					<div class="card-body">
 						<h4><%= admin.getAdminname() %> 관리자님 환영합니다!</h4>
-						<p class="text-muted">MartGo의 입출고 요청 및 재고 내역을 좌측 메뉴를 통해 관리할 수 있습니다.</p>
+						<p class="text-muted">MartGo의 입출고 요청 및 재고 내역을 왼칸 메뉴를 통해 관리할 수 있습니다.</p>
 					</div>
 				</div>
 			</div>
