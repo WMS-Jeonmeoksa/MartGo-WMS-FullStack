@@ -144,6 +144,7 @@ CREATE TABLE `user`
     address   VARCHAR(100)      NOT NULL,
     role      ENUM ('회원','거래처') NOT NULL DEFAULT '회원' COMMENT '회원 또는 거래처',
     admin_id  varchar(100),
+    status    VARCHAR(100)      NOT NULL DEFAULT '활성화',
     PRIMARY KEY (user_id)
 );
 
@@ -163,3 +164,5 @@ ALTER TABLE rent_history
 ALTER TABLE cost_info
     ADD CONSTRAINT fk_sector_to_cost_info FOREIGN KEY (sector_id, warehouse_id)
         REFERENCES sector (sector_id, warehouse_id);
+
+ALTER TABLE user ADD COLUMN status VARCHAR(10) DEFAULT '활성화';

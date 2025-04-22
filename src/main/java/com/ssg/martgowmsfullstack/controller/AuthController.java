@@ -33,7 +33,10 @@ public class AuthController {
         // 1. 일반 사용자 조회
         UserVO user = userService.findByUserid(userid);
 
-        if (user != null && user.getPassword().equals(password)) {
+
+
+
+        if (user != null && "활성화".equals(user.getStatus())&& user.getPassword().equals(password)) {
             // 유저 로그인 성공
             UserRole role = UserRole.fromLabel(user.getRole());
             String sessionUserId = user.getUserid();
@@ -58,9 +61,11 @@ public class AuthController {
 
         if (admin != null && admin.getPassword().equals(password)) {
             UserRole role = UserRole.fromLabel(admin.getRole());
+            String sessionAdminId = admin.getAdminId();
 
             session.setAttribute("loginInfo", admin); // admin도 loginInfo 키로 저장
             session.setAttribute("roleEnum", role);
+            session.setAttribute("sessionAdminId", sessionAdminId);
 
             switch (role) {
                 case ADMIN:
@@ -84,11 +89,24 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserVO user, Model model) {
-        user.setRole("회원"); // 기본 role은 회원
+    public String register(@ModelAttribute UserVO user,
+                           @RequestParam("addressDetail") String addressDetail,
+                           Model model) {
+
+        if (userService.findByUserid(user.getUserid()) != null) {
+            model.addAttribute("error", "이미 존재하는 아이디입니다.");
+            return "registerForm";
+        }
+
+        String fullAddress = (user.getAddress() + " (" + addressDetail + ")").trim();
+        user.setAddress(fullAddress);
+        user.setRole("회원");
+        user.setStatus("활성화");
+
         userService.register(user);
         return "redirect:/login";
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

@@ -1,10 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
 	<meta charset="utf-8">
@@ -16,15 +14,16 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 	<title>warehouse rent</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 	<link href="/css/app.css" rel="stylesheet">
-	<link href="/css/period.css" rel="stylesheet">
+	<link href="/css/last.css" rel="stylesheet">
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -300,365 +299,348 @@
 				</ul>
 			</div>
 		</nav>
+
 		<div class="container">
 			<h1>창고 임대 신청</h1>
 			<div class="progress-bar">
-				<div class="step active">1<div class="step-label">창고 선택</div></div>
-				<div class="step active">2<div class="step-label">섹터 선택</div></div>
-				<div class="step active">3<div class="step-label">가격/기간 선택</div></div>
-				<div class="step">4<div class="step-label">신청 완료</div></div>
-			</div>
-
-			<div class="summary-box">
-				<h2>선택한 창고 및 섹터 정보</h2>
-				<p><strong>창고:</strong> ${warehouseName} (ID: ${warehouseId})</p>
-				<p><strong>섹터:</strong> ${sectorId}</p>
-			</div>
-
-			<h2>임대 가격표</h2>
-			<p>원하시는 기간을 선택해주세요</p>
-			<table>
-				<thead>
-				<tr>
-					<th>번호</th><th>기간</th><th>총 임대료</th>
-				</tr>
-				</thead>
-				<tbody>
-				<c:forEach var="info" items="${costInfo}" varStatus="loop">
-					<tr onclick="selectPrice(this, '${info.period}', '${info.price}')">
-						<td>${loop.count}</td>
-						<td>${info.period}</td>
-						<td><fmt:formatNumber value="${info.price}" type="number" groupingUsed="true"/>원</td>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
-
-			<div id="calendarSection" class="calendar-section">
-				<h2>임대 시작일 선택</h2>
-				<input type="date" id="startDate" class="date-picker">
-				<div class="final-summary">
-					<h2>선택 요약</h2>
-					<p><strong>기간:</strong> <span id="selectedPeriod">-</span></p>
-					<p><strong>시작일:</strong> <span id="selectedStartDate">-</span></p>
-					<p><strong>종료일:</strong> <span id="selectedEndDate">-</span></p>
-					<p><strong>총 임대료:</strong> <span id="totalPrice">-</span></p>
+				<div class="step active">
+					1
+					<div class="step-label">창고 선택</div>
+				</div>
+				<div class="step active">
+					2
+					<div class="step-label">섹터 선택</div>
+				</div>
+				<div class="step active">
+					3
+					<div class="step-label">가격/기간 선택</div>
+				</div>
+				<div class="step active">
+					4
+					<div class="step-label">신청 완료</div>
 				</div>
 			</div>
 
-			<input type="hidden" id="hiddenWarehouseId"   value="${warehouseId}" />
-			<input type="hidden" id="hiddenWarehouseName" value="${warehouseName}" />
-			<input type="hidden" id="hiddenSectorId"      value="${sectorId}" />
+			<h2>임대 신청 확인</h2>
+			<p>아래 정보를 확인하신 후 임대 신청 버튼을 클릭해주세요.</p>
 
-			<div class="button-group">
-				<button class="btn btn-back" onclick="goToPreviousPage()">← 이전</button>
-				<button class="btn btn-next" id="nextBtn" disabled onclick="goToNextPage()">다음 →</button>
+			<div class="summary-box">
+				<table class="summary-table">
+					<tr><th>창고</th><td>${rentSelectDTO.warehouseName}</td></tr>
+					<tr><th>섹터</th><td>${rentSelectDTO.sectorId}</td></tr>
+					<tr><th>기간</th><td>${rentSelectDTO.month}개월</td></tr>
+					<tr><th>시작일</th><td>${rentSelectDTO.rentStartDate}</td></tr>
+					<tr><th>종료일</th><td>${rentSelectDTO.rentEndDate}</td></tr>
+					<tr><th>월 임대료</th>
+						<td><fmt:formatNumber value="${rentSelectDTO.monthly}" type="number" groupingUsed="true"/>원</td>
+					</tr>
+					<tr><th>총 임대료</th>
+						<td><fmt:formatNumber value="${rentSelectDTO.rentPrice}" type="number" groupingUsed="true"/>원</td>
+					</tr>
+				</table>
 			</div>
+
+
+
+			<h2>이용약관</h2>
+			<div class="terms-box">
+				<p>제1조 (목적) 본 약관은 창고 임대 서비스를 제공하는 회사와 이용 고객 간의 권리와 의무를 규정함을 목적으로 합니다.</p>
+				<p>제2조 (정의) "임대인"은 서비스를 제공하는 자, "임차인"은 사용하는 자를 말합니다.</p>
+				<p>제3조 (지불) 임대료는 매월 선불이며 지연 시 연체료가 발생할 수 있습니다.</p>
+				<p>제4조 (이용) 임차인은 계약 목적에 맞게 공간을 사용해야 합니다.</p>
+			</div>
+
+			<div class="checkbox-container">
+				<input type="checkbox" id="termsAgree" onchange="checkSubmitState()">
+				<label for="termsAgree">이용약관에 동의합니다.</label>
+			</div>
+			<div class="checkbox-container">
+				<input type="checkbox" id="infoAgree" onchange="checkSubmitState()">
+				<label for="infoAgree">입력 정보가 정확함을 확인했습니다.</label>
+			</div>
+			<div class="button-group">
+				<button class="btn btn-back" onclick="goToPreviousPage()">
+					<i class="fas fa-arrow-left"></i> 이전
+				</button>
+				<button class="btn btn-submit" id="submitBtn" disabled onclick="submitApplication()">
+					임대 신청
+				</button>
+			</div>
+
 		</div>
+		<script>
+			// 모달 확인 버튼 핸들러: 바로 폼 제출
+			function goToMainPage() {
+				document.getElementById("rentForm").submit();
+			}
+		</script>
+
+		<form id="rentForm" action="/rent/last" method="post">
+			<input type="hidden" name="warehouseId"   value="${rentSelectDTO.warehouseId}" />
+			<input type="hidden" name="sectorId"      value="${rentSelectDTO.sectorId}" />
+			<input type="hidden" name="rentStartDate" value="${rentSelectDTO.rentStartDate}" />
+			<input type="hidden" name="rentEndDate"   value="${rentSelectDTO.rentEndDate}" />
+			<input type="hidden" name="rentPrice"     value="${rentSelectDTO.rentPrice}" />
+
+			<div class="modal-overlay" id="confirmationModal" style="display:none;">
+				<div class="modal">
+					<h2>임대 신청 완료</h2>
+					<p>신청이 정상적으로 접수되었습니다.<br>관리자가 확인 후 승인 절차가 진행됩니다.</p>
+					<button class="modal-btn" type="button" onclick="goToMainPage()">확인</button>
+				</div>
+			</div>
+		</form>
+
 
 		<script>
-			// 최소 선택일 오늘 날짜로 설정
-			document.getElementById('startDate').min = new Date().toISOString().slice(0, 10);
-
-			let selectedPeriodMonths = 0;
-			let selectedPriceTotal = 0;
-			let calculatedEndDate = "";
-			let calculatedMonth = 0;
-
-			function selectPrice(row, periodStr, priceStr) {
-				console.log('selectPrice:', periodStr, priceStr);
-
-				// 값 설정
-				selectedPeriodMonths = parseInt(periodStr, 10);
-				selectedPriceTotal = parseInt(priceStr.replace(/,/g, ''), 10);
-
-				// UI 강조 표시
-				document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
-				row.classList.add('selected');
-
-				// 달력 섹션 보여주기 + 요약 갱신
-				document.getElementById('calendarSection').classList.add('show');
-				updateSummary();
-				checkNextButton();
-			}
-
-			// 시작일 변경 시 요약 다시 계산
-			document.getElementById('startDate').addEventListener('change', () => {
-				updateSummary();
-				checkNextButton();
-			});
-
-			function updateSummary() {
-				const start = document.getElementById('startDate').value;
-				if (!start || selectedPeriodMonths === 0 || selectedPriceTotal === 0) return;
-
-				const sd = new Date(start);
-				const ed = new Date(sd);
-				ed.setMonth(ed.getMonth() + selectedPeriodMonths);
-				ed.setDate(ed.getDate() - 1); // 종료일: 마지막 날
-
-				// 계산 결과 전역에 저장
-				calculatedEndDate = ed.toISOString().slice(0, 10);
-				calculatedMonth = Math.floor(selectedPriceTotal / selectedPeriodMonths);
-
-				// 화면에 출력
-				document.getElementById('selectedPeriod').innerText = selectedPeriodMonths + "개월";
-				document.getElementById('selectedStartDate').innerText = start;
-				document.getElementById('selectedEndDate').innerText = calculatedEndDate;
-				document.getElementById('totalPrice').innerText = calculatedMonth.toLocaleString() + '원';
-			}
-
-			function checkNextButton() {
-				const valid = selectedPeriodMonths > 0 && document.getElementById('startDate').value;
-				document.getElementById('nextBtn').disabled = !valid;
+			function checkSubmitState() {
+				const terms = document.getElementById('termsAgree')?.checked;
+				const info  = document.getElementById('infoAgree')?.checked;
+				document.getElementById('submitBtn').disabled = !(terms && info);
 			}
 
 			function goToPreviousPage() {
 				const qs = new URLSearchParams({
 					warehouseId: document.getElementById('hiddenWarehouseId').value,
 					warehouseName: document.getElementById('hiddenWarehouseName').value,
+					sectorId: document.getElementById('hiddenSectorId').value
 				});
-				window.location.href = '/rent/sector?' + qs;
+				window.location.href = '/rent/period?' + qs;
 			}
 
-			function goToNextPage() {
-				const qs = new URLSearchParams({
-					warehouseId: document.getElementById('hiddenWarehouseId').value,
-					warehouseName: document.getElementById('hiddenWarehouseName').value,
-					sectorId: document.getElementById('hiddenSectorId').value,
-					month: selectedPeriodMonths,
-					rentStartDate: document.getElementById('startDate').value,
-					rentEndDate: calculatedEndDate,
-					monthly: calculatedMonth,
-					rentPrice: selectedPriceTotal
-				});
-				window.location.href = '/rent/last?' + qs;
+			function submitApplication() {
+				document.getElementById('confirmationModal').style.display = 'flex';
 			}
 		</script>
+		<input type="hidden" id="hiddenWarehouseId"   value="${rentSelectDTO.warehouseId}" />
+		<input type="hidden" id="hiddenWarehouseName" value="${rentSelectDTO.warehouseName}" />
+		<input type="hidden" id="hiddenSectorId"      value="${rentSelectDTO.sectorId}" />
+
+
 
 		<script src="js/app.js"></script>
 
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-		var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-		gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-		// Line chart
-		new Chart(document.getElementById("chartjs-dashboard-line"), {
-			type: "line",
-			data: {
-				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-				datasets: [{
-					label: "Sales ($)",
-					fill: true,
-					backgroundColor: gradient,
-					borderColor: window.theme.primary,
-					data: [
-						2115,
-						1562,
-						1584,
-						1892,
-						1587,
-						1923,
-						2566,
-						2448,
-						2805,
-						3438,
-						2917,
-						3327
-					]
-				}]
-			},
-			options: {
-				maintainAspectRatio: false,
-				legend: {
-					display: false
-				},
-				tooltips: {
-					intersect: false
-				},
-				hover: {
-					intersect: true
-				},
-				plugins: {
-					filler: {
-						propagate: false
-					}
-				},
-				scales: {
-					xAxes: [{
-						reverse: true,
-						gridLines: {
-							color: "rgba(0,0,0,0.0)"
-						}
-					}],
-					yAxes: [{
-						ticks: {
-							stepSize: 1000
-						},
-						display: true,
-						borderDash: [3, 3],
-						gridLines: {
-							color: "rgba(0,0,0,0.0)"
-						}
-					}]
-				}
-			}
-		});
-	});
-</script>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Pie chart
-		new Chart(document.getElementById("chartjs-dashboard-pie"), {
-			type: "pie",
-			data: {
-				labels: ["Chrome", "Firefox", "IE"],
-				datasets: [{
-					data: [4306, 3801, 1689],
-					backgroundColor: [
-						window.theme.primary,
-						window.theme.warning,
-						window.theme.danger
-					],
-					borderWidth: 5
-				}]
-			},
-			options: {
-				responsive: !window.MSInputMethodContext,
-				maintainAspectRatio: false,
-				legend: {
-					display: false
-				},
-				cutoutPercentage: 75
-			}
-		});
-	});
-</script>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Bar chart
-		new Chart(document.getElementById("chartjs-dashboard-bar"), {
-			type: "bar",
-			data: {
-				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-				datasets: [{
-					label: "This year",
-					backgroundColor: window.theme.primary,
-					borderColor: window.theme.primary,
-					hoverBackgroundColor: window.theme.primary,
-					hoverBorderColor: window.theme.primary,
-					data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-					barPercentage: .75,
-					categoryPercentage: .5
-				}]
-			},
-			options: {
-				maintainAspectRatio: false,
-				legend: {
-					display: false
-				},
-				scales: {
-					yAxes: [{
-						gridLines: {
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+				var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+				gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+				gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+				// Line chart
+				new Chart(document.getElementById("chartjs-dashboard-line"), {
+					type: "line",
+					data: {
+						labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+						datasets: [{
+							label: "Sales ($)",
+							fill: true,
+							backgroundColor: gradient,
+							borderColor: window.theme.primary,
+							data: [
+								2115,
+								1562,
+								1584,
+								1892,
+								1587,
+								1923,
+								2566,
+								2448,
+								2805,
+								3438,
+								2917,
+								3327
+							]
+						}]
+					},
+					options: {
+						maintainAspectRatio: false,
+						legend: {
 							display: false
 						},
-						stacked: false,
-						ticks: {
-							stepSize: 20
+						tooltips: {
+							intersect: false
+						},
+						hover: {
+							intersect: true
+						},
+						plugins: {
+							filler: {
+								propagate: false
+							}
+						},
+						scales: {
+							xAxes: [{
+								reverse: true,
+								gridLines: {
+									color: "rgba(0,0,0,0.0)"
+								}
+							}],
+							yAxes: [{
+								ticks: {
+									stepSize: 1000
+								},
+								display: true,
+								borderDash: [3, 3],
+								gridLines: {
+									color: "rgba(0,0,0,0.0)"
+								}
+							}]
 						}
-					}],
-					xAxes: [{
-						stacked: false,
-						gridLines: {
-							color: "transparent"
+					}
+				});
+			});
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				// Pie chart
+				new Chart(document.getElementById("chartjs-dashboard-pie"), {
+					type: "pie",
+					data: {
+						labels: ["Chrome", "Firefox", "IE"],
+						datasets: [{
+							data: [4306, 3801, 1689],
+							backgroundColor: [
+								window.theme.primary,
+								window.theme.warning,
+								window.theme.danger
+							],
+							borderWidth: 5
+						}]
+					},
+					options: {
+						responsive: !window.MSInputMethodContext,
+						maintainAspectRatio: false,
+						legend: {
+							display: false
+						},
+						cutoutPercentage: 75
+					}
+				});
+			});
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				// Bar chart
+				new Chart(document.getElementById("chartjs-dashboard-bar"), {
+					type: "bar",
+					data: {
+						labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+						datasets: [{
+							label: "This year",
+							backgroundColor: window.theme.primary,
+							borderColor: window.theme.primary,
+							hoverBackgroundColor: window.theme.primary,
+							hoverBorderColor: window.theme.primary,
+							data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+							barPercentage: .75,
+							categoryPercentage: .5
+						}]
+					},
+					options: {
+						maintainAspectRatio: false,
+						legend: {
+							display: false
+						},
+						scales: {
+							yAxes: [{
+								gridLines: {
+									display: false
+								},
+								stacked: false,
+								ticks: {
+									stepSize: 20
+								}
+							}],
+							xAxes: [{
+								stacked: false,
+								gridLines: {
+									color: "transparent"
+								}
+							}]
 						}
-					}]
-				}
-			}
-		});
-	});
-</script>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		var markers = [{
-			coords: [31.230391, 121.473701],
-			name: "Shanghai"
-		},
-			{
-				coords: [28.704060, 77.102493],
-				name: "Delhi"
-			},
-			{
-				coords: [6.524379, 3.379206],
-				name: "Lagos"
-			},
-			{
-				coords: [35.689487, 139.691711],
-				name: "Tokyo"
-			},
-			{
-				coords: [23.129110, 113.264381],
-				name: "Guangzhou"
-			},
-			{
-				coords: [40.7127837, -74.0059413],
-				name: "New York"
-			},
-			{
-				coords: [34.052235, -118.243683],
-				name: "Los Angeles"
-			},
-			{
-				coords: [41.878113, -87.629799],
-				name: "Chicago"
-			},
-			{
-				coords: [51.507351, -0.127758],
-				name: "London"
-			},
-			{
-				coords: [40.416775, -3.703790],
-				name: "Madrid "
-			}
-		];
-		var map = new jsVectorMap({
-			map: "world",
-			selector: "#world_map",
-			zoomButtons: true,
-			markers: markers,
-			markerStyle: {
-				initial: {
-					r: 9,
-					strokeWidth: 7,
-					stokeOpacity: .4,
-					fill: window.theme.primary
+					}
+				});
+			});
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var markers = [{
+					coords: [31.230391, 121.473701],
+					name: "Shanghai"
 				},
-				hover: {
-					fill: window.theme.primary,
-					stroke: window.theme.primary
-				}
-			},
-			zoomOnScroll: false
-		});
-		window.addEventListener("resize", () => {
-			map.updateSize();
-		});
-	});
-</script>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-		var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-		document.getElementById("datetimepicker-dashboard").flatpickr({
-			inline: true,
-			prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-			nextArrow: "<span title=\"Next month\">&raquo;</span>",
-			defaultDate: defaultDate
-		});
-	});
-</script>
+					{
+						coords: [28.704060, 77.102493],
+						name: "Delhi"
+					},
+					{
+						coords: [6.524379, 3.379206],
+						name: "Lagos"
+					},
+					{
+						coords: [35.689487, 139.691711],
+						name: "Tokyo"
+					},
+					{
+						coords: [23.129110, 113.264381],
+						name: "Guangzhou"
+					},
+					{
+						coords: [40.7127837, -74.0059413],
+						name: "New York"
+					},
+					{
+						coords: [34.052235, -118.243683],
+						name: "Los Angeles"
+					},
+					{
+						coords: [41.878113, -87.629799],
+						name: "Chicago"
+					},
+					{
+						coords: [51.507351, -0.127758],
+						name: "London"
+					},
+					{
+						coords: [40.416775, -3.703790],
+						name: "Madrid "
+					}
+				];
+				var map = new jsVectorMap({
+					map: "world",
+					selector: "#world_map",
+					zoomButtons: true,
+					markers: markers,
+					markerStyle: {
+						initial: {
+							r: 9,
+							strokeWidth: 7,
+							stokeOpacity: .4,
+							fill: window.theme.primary
+						},
+						hover: {
+							fill: window.theme.primary,
+							stroke: window.theme.primary
+						}
+					},
+					zoomOnScroll: false
+				});
+				window.addEventListener("resize", () => {
+					map.updateSize();
+				});
+			});
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+				var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+				document.getElementById("datetimepicker-dashboard").flatpickr({
+					inline: true,
+					prevArrow: "<span title=\"Previous month\">&laquo;</span>",
+					nextArrow: "<span title=\"Next month\">&raquo;</span>",
+					defaultDate: defaultDate
+				});
+			});
+		</script>
 	</div>
 </div>
 </body>
