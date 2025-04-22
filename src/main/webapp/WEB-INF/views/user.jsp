@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/rent/warehouse">
                         <i class="align-middle" data-feather="box"></i> <span class="align-middle">임대 신청</span>
                     </a>
                 </li>
