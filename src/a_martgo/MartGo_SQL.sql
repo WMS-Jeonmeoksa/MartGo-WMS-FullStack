@@ -164,5 +164,5 @@ ALTER TABLE rent_history
 ALTER TABLE cost_info
     ADD CONSTRAINT fk_sector_to_cost_info FOREIGN KEY (sector_id, warehouse_id)
         REFERENCES sector (sector_id, warehouse_id);
-
+use martgodb;
 ALTER TABLE user ADD COLUMN status VARCHAR(10) DEFAULT '활성화';

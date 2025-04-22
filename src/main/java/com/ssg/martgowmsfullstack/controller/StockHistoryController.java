@@ -1,5 +1,6 @@
 package com.ssg.martgowmsfullstack.controller;
 
+import com.ssg.martgowmsfullstack.domain.AdminVO;
 import com.ssg.martgowmsfullstack.dto.StockHistoryDTO;
 import com.ssg.martgowmsfullstack.service.StockService;
 import lombok.RequiredArgsConstructor;
@@ -7,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,8 +22,11 @@ public class StockHistoryController {
 
     private final StockService stockService;
 
-    @GetMapping("/general")
-    public String generalStockHistory(@RequestParam("admin_id") String admin_id, Model model) {
+    @PostMapping("/general")
+    public String generalStockHistory(HttpSession session, Model model) {
+        AdminVO adminVO = (AdminVO) session.getAttribute("loginInfo");
+        String admin_id = adminVO.getAdminId();
+
         String cleanAdminId = admin_id.trim().replace("\"", "");
         List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
         model.addAttribute("stockHistoryList", stockHistoryList);
@@ -28,8 +34,11 @@ public class StockHistoryController {
         return "pages-stockhistory-general";
     }
 
-    @GetMapping("/admin")
-    public String adminStockHistory(@RequestParam("admin_id") String admin_id, Model model) {
+    @PostMapping("/admin")
+    public String adminStockHistory(HttpSession session, Model model) {
+        AdminVO adminVO = (AdminVO) session.getAttribute("loginInfo");
+        String admin_id = adminVO.getAdminId();
+
         String cleanAdminId = admin_id.trim().replace("\"", "");
         List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
         model.addAttribute("stockHistoryList", stockHistoryList);

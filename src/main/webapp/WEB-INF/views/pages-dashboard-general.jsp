@@ -1,120 +1,139 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.ssg.martgowmsfullstack.domain.AdminVO" %>
+<%
+    AdminVO admin = (AdminVO) session.getAttribute("loginInfo");
+    if (admin == null) {
+        response.sendRedirect(request.getContextPath() + "/login");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>MartGo - General Dashboard</title>
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/js/app.js"></script>
+    <style>
+        .sidebar-submenu {
+            display: none;
+            padding-left: 1.5rem;
+        }
+
+        .sidebar-item.open > .sidebar-submenu {
+            display: block;
+        }
+
+        .submenu-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .submenu-icon {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-item.open .submenu-icon {
+            transform: rotate(180deg);
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper">
+    <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="index.html">
-                <span class="align-middle">AdminKit</span>
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/superadmin">
+                <span class="align-middle">MartGo</span>
             </a>
+
             <ul class="sidebar-nav">
-                <li class="sidebar-header">Pages</li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/dashboard/general?admin_id=${admin_id}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                <li class="sidebar-header">총관리자 메뉴</li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="#"
+                       onclick="document.getElementById('GeneralDashBoardForm').submit(); return false;">
+                        <i class="align-middle" data-feather="list"></i>
+                        <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
+                <form id="GeneralDashBoardForm" action="${pageContext.request.contextPath}/dashboard/general/"
+                      method="post" style="display: none;"></form>
+
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.jsp">
-                        <i class="align-middle" data-feather="rent"></i> <span class="align-middle">Warehouse Rent</span>
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/superadmin/mypage">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
+
+                <!-- 진행중 메뉴 -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
+                    <a class="sidebar-link submenu-toggle" href="#">
+                        <span><i class="align-middle" data-feather="clock"></i> 진행중</span>
+                        <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
+                    <ul class="sidebar-submenu">
+                        <li><a class="sidebar-link" href="#">임대 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="#">입고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="#">출고 신청 목록</a></li>
+                    </ul>
                 </li>
+
+                <!-- 담당 창고 메뉴 -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/stock/general?admin_id=${admin_id}">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">재고 목록</span>
+                    <a class="sidebar-link submenu-toggle" href="#">
+                        <span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
+                        <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/stock_history/general?admin_id=${admin_id}">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">재고 변경 이력</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-profile.html">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="login.jsp">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="registerForm.jsp">
-                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-blank.html">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
-                    </a>
-                </li>
-                <li class="sidebar-header">Tools & Components</li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-buttons.html">
-                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
-                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-cards.html">
-                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-typography.html">
-                        <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                    </a>
-                </li>
-                <li class="sidebar-header">Plugins & Addons</li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="charts-chartjs.html">
-                        <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="maps-google.html">
-                        <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-                    </a>
+                    <ul class="sidebar-submenu">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#"
+                               onclick="document.getElementById('GeneralStockForm').submit(); return false;">
+                                <i class="align-middle" data-feather="list"></i>
+                                <span class="align-middle">재고 목록</span>
+                            </a>
+                        </li>
+                        <form id="GeneralStockForm" action="${pageContext.request.contextPath}/stock/general/"
+                              method="post" style="display: none;"></form>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#"
+                               onclick="document.getElementById('GeneralStockHistoryForm').submit(); return false;">
+                                <i class="align-middle" data-feather="list"></i>
+                                <span class="align-middle">재고 변경 이력</span>
+                            </a>
+                        </li>
+                        <form id="GeneralStockHistoryForm"
+                              action="${pageContext.request.contextPath}/stock_history/general/" method="post"
+                              style="display: none;"></form>
+                    </ul>
                 </li>
             </ul>
-            <div class="sidebar-cta">
-                <div class="sidebar-cta-content">
-                    <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                    <div class="mb-3 text-sm">Are you looking for more components? Check out our premium version.</div>
-                    <div class="d-grid">
-                        <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </nav>
 
     <div class="main">
         <nav class="navbar navbar-expand navbar-light navbar-bg">
-            <a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i></a>
+            <a class="sidebar-toggle js-sidebar-toggle">
+                <i class="hamburger align-self-center"></i>
+            </a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav navbar-align ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link"><i
+                                class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">
+                            <i class="fas fa-sign-out-alt"></i> 로그아웃
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
         <main class="content">
@@ -134,7 +153,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-xl-6 col-xxl-5">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
@@ -197,6 +215,18 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        const toggles = document.querySelectorAll(".submenu-toggle");
+        toggles.forEach(toggle => {
+            toggle.addEventListener("click", function (e) {
+                e.preventDefault();
+                const item = this.closest(".sidebar-item");
+                item.classList.toggle("open");
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
         var gradient = ctx.createLinearGradient(0, 0, 0, 225);
         gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -207,7 +237,7 @@
             {
                 month: "${dto.month}",
                 totalRent: ${dto.total_rent}
-            }<c:if test="${!st.last}">,</c:if>
+            }<c:if test="${!st.last}">, </c:if>
             </c:forEach>
         ];
 
@@ -244,7 +274,7 @@
                         ticks: {
                             stepSize: 1000000,
                             maxTicksLimit: 5,
-                            callback: function(value) {
+                            callback: function (value) {
                                 return value / 10000 + '만';
                             }
                         },
@@ -260,12 +290,12 @@
     document.addEventListener("DOMContentLoaded", function () {
         var warehouseLabels = [
             <c:forEach var="warehouse" items="${dashBoardList.wareHouseUsageList}" varStatus="loop">
-            "${warehouse.warehouse_name}"<c:if test="${!loop.last}">,</c:if>
+            "${warehouse.warehouse_name}"<c:if test="${!loop.last}">, </c:if>
             </c:forEach>
         ];
         var warehouseData = [
             <c:forEach var="warehouse" items="${dashBoardList.wareHouseUsageList}" varStatus="loop">
-            ${warehouse.FAR}<c:if test="${!loop.last}">,</c:if>
+            ${warehouse.FAR}<c:if test="${!loop.last}">, </c:if>
             </c:forEach>
         ];
 
@@ -297,9 +327,9 @@
             options: {
                 maintainAspectRatio: false,
                 responsive: true,
-                layout: { padding: 0 },
+                layout: {padding: 0},
                 plugins: {
-                    legend: { display: true, position: 'top' }
+                    legend: {display: true, position: 'top'}
                 },
                 scales: {
                     yAxes: [{
@@ -307,7 +337,7 @@
                             min: 0,
                             max: 100,
                             stepSize: 10,
-                            callback: function(value) {
+                            callback: function (value) {
                                 return value + '%';
                             }
                         },
@@ -319,8 +349,8 @@
                         }
                     }],
                     xAxes: [{
-                        ticks: { fontSize: 10, padding: 5 },
-                        gridLines: { drawBorder: false, color: "transparent" }
+                        ticks: {fontSize: 10, padding: 5},
+                        gridLines: {drawBorder: false, color: "transparent"}
                     }]
                 }
             }
@@ -359,7 +389,7 @@
                 options: {
                     maintainAspectRatio: false,
                     cutoutPercentage: 75,
-                    legend: { display: false }
+                    legend: {display: false}
                 }
             });
         })();
@@ -367,6 +397,5 @@
         </c:forEach>
     });
 </script>
-
 </body>
 </html>
