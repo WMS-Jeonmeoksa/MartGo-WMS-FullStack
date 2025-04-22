@@ -57,14 +57,11 @@
 				<li class="sidebar-header">총관리자 메뉴</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="#"
-					   onclick="document.getElementById('GeneralDashBoardForm').submit(); return false;">
+					<a class="sidebar-link" href="/dashboard/general/">
 						<i class="align-middle" data-feather="list"></i>
 						<span class="align-middle">대시 보드</span>
 					</a>
 				</li>
-				<form id="GeneralDashBoardForm" action="${pageContext.request.contextPath}/dashboard/general/"
-					  method="post" style="display: none;"></form>
 
 				<li class="sidebar-item">
 					<a class="sidebar-link" href="${pageContext.request.contextPath}/superadmin/mypage">
@@ -93,25 +90,18 @@
 					</a>
 					<ul class="sidebar-submenu">
 						<li class="sidebar-item">
-							<a class="sidebar-link" href="#"
-							   onclick="document.getElementById('GeneralStockForm').submit(); return false;">
+							<a class="sidebar-link" href="/stock/general/">
 								<i class="align-middle" data-feather="list"></i>
 								<span class="align-middle">재고 목록</span>
 							</a>
 						</li>
-						<form id="GeneralStockForm" action="${pageContext.request.contextPath}/stock/general/"
-							  method="post" style="display: none;"></form>
 
 						<li class="sidebar-item">
-							<a class="sidebar-link" href="#"
-							   onclick="document.getElementById('GeneralStockHistoryForm').submit(); return false;">
+							<a class="sidebar-link" href="/stock_history/general/">
 								<i class="align-middle" data-feather="list"></i>
 								<span class="align-middle">재고 변경 이력</span>
 							</a>
 						</li>
-						<form id="GeneralStockHistoryForm"
-							  action="${pageContext.request.contextPath}/stock_history/general/" method="post"
-							  style="display: none;"></form>
 					</ul>
 				</li>
 			</ul>

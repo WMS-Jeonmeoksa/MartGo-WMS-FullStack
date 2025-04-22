@@ -25,17 +25,25 @@ public class DashBoardMapperTests {
     @Test
     public void test1() {
         log.info(dashBoardMapper.getAdminUserCount("admin03"));
+        Object result = dashBoardMapper.getAdminUserCount("admin03");
+        log.info(result.getClass().getName());
     }
 
     @Test
     public void test2() {
         log.info(dashBoardMapper.getSectorUsageList("admin03"));
+        Object result = dashBoardMapper.getAdminUserCount("admin03");
+        log.info(result.getClass().getName());
+
     }
 
     @Test
     public void test3() {
         log.info(dashBoardMapper.getWarehouseUsageRate("admin03"));
+        Object result = dashBoardMapper.getAdminUserCount("admin03");
+        log.info(result.getClass().getName());
     }
+
 
     @Test
     public void test4() {

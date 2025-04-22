@@ -29,9 +29,13 @@ public class DashBoardServiceTests {
     @Test
     public void testAdminDashBoardService() {
         log.info(adminDashBoardService.getDashBoard("admin01"));
+        Object result = adminDashBoardService.getDashBoard("admin01");
+        log.info(result.getClass().getName());
     }
     @Test
     public void testUserDashBoardService() {
         log.info(userDashBoardService.getDashBoard("seller01"));
+        Object result = userDashBoardService.getDashBoard("seller01");
+        log.info(result.getClass().getName());
     }
 }
