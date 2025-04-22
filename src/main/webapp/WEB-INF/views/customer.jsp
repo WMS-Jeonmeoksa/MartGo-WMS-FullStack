@@ -43,19 +43,19 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/product/register">
                         <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">제품 등록</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/select">
                         <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">입고 요청</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/select">
                         <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">출고 요청</span>
                     </a>
                 </li>

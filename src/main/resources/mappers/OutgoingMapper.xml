@@ -15,7 +15,7 @@
     </resultMap>
 
     <!-- 재고 목록 조회 -->
-    <select id="getStockByUserId" parameterType="string" resultType="com.ssg.martgowmsfullstack.domain.StockVO">
+    <select id="getStockByUserId" parameterType="string" resultType="com.ssg.martgowmsfullstack.dto.StockDTO">
         SELECT * FROM stock WHERE user_id = #{userId}
     </select>
 
