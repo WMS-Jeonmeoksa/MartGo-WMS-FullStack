@@ -25,8 +25,12 @@ public class DashBoardDTO {
     private int adminUserCount;
     // 8. 창고 전체 용적률
     private List<WareHouseUsageDTO> wareHouseUsageList;
+    // 9. 거래처 본인의 담당 관리자 정보
     private List<UserAdminDTO> userAdminList;
+    // 10. 거래처 본인의 임대까지 남은 기간
     private int remainingDays;
+    // 11. 거래처 본인이 임대한 섹터 ID 와 창고 이름
     private List<RentSectorWarehouseDTO> rentSectorWarehouseList;
+    // 12. 거래처 본인이 임대한 섹터의 용적률
     private List<SectorUsageDTO> userSectorUsage;
 }
