@@ -61,13 +61,16 @@ BEGIN
       AND sector_id = p_sector_id;
 END//
 delimiter ;
--- 임대 내역 테이블에서 상태가 대기 인 레코드 모두 출력하는 프로시저
+-- 본인 창고의 임대 내역 테이블에서 상태가 대기 인 레코드 모두 출력하는 프로시저
 drop procedure if exists GetholdRentHistory;
 delimiter //
-create procedure GetholdRentHistory()
+create procedure GetholdRentHistory(IN p_admin_id varchar(100))
 BEGIN
-    SELECT * FROM rent_history WHERE status = '대기';
-END//
+
+    SELECT rh.*
+    FROM rent_history rh
+             JOIN admin a ON rh.warehouse_id = a.warehouse_id
+    WHERE a.admin_id = p_admin_id AND rh.status = '대기';END//
 delimiter ;
 -- 임대내역 테이블에서 상태가 진행중인 레코드 모두 출력하는 프로시저
 drop procedure if exists GetInProgressRentHistory;

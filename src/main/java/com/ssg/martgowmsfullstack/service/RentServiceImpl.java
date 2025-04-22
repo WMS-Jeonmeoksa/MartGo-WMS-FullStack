@@ -58,4 +58,22 @@ public class RentServiceImpl implements RentService {
         rentMapper.saveDb(rentHistoryDTO);
     }
 
+    public List<RentHistoryDTO> holdRentList(String adminId) {
+       return rentMapper.getHoldRentHistory(adminId);
+    }
+
+    public List<RentHistoryDTO> inProgressRentList(String adminId) {
+        return rentMapper.getInProgressRentHistory(adminId);
+    }
+
+   public void approveRentHistory(int rentNum, String adminId){
+        rentMapper.updateAdminId(rentNum,adminId);
+        rentMapper.updateUserAdminId();
+
+   }
+
+    public void confirmRentHistory(int rentNum, String adminId){
+        rentMapper.completedRentStatus(rentNum,adminId);
+    }
+
 }

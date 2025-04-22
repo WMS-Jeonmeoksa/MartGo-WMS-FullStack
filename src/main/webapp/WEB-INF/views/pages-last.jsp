@@ -360,7 +360,7 @@
 			</div>
 			<div class="button-group">
 				<button class="btn btn-back" onclick="goToPreviousPage()">
-					<i class="fas fa-arrow-left"></i> 이전
+					← 이전
 				</button>
 				<button class="btn btn-submit" id="submitBtn" disabled onclick="submitApplication()">
 					임대 신청
