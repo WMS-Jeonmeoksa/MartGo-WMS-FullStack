@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/incoming_approve.css">
+    <link rel="stylesheet" href="/css/outgoing_approve.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -60,13 +60,13 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="login.jsp">
+                    <a class="sidebar-link" href="pages-sign-in.html">
                         <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="registerForm.jsp">
+                    <a class="sidebar-link" href="pages-sign-up.html">
                         <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
                     </a>
                 </li>
@@ -326,48 +326,48 @@
             </div>
         </nav>
 
-        <form id="approveForm" action="/incoming/approve" method="post">
-            <input type="hidden" name="incomingNum" id="incomingNumInput" />
+        <form id="approveForm" action="/outgoing/approve" method="post">
+            <input type="hidden" name="outgoingNum" id="selectedOutgoingNum" />
 
-            <div class="incoming-container">
+            <div class="outgoing-container">
                 <div class="header">
-                    <h1 class="incoming-h1">입고 승인</h1>
+                    <h1 class="outgoing-h1">출고 승인</h1>
                 </div>
 
                 <div class="section-header">
-                    <h3 class="incoming-h3">입고 신청 목록</h3>
+                    <h3 class="outgoing-h3">출고 신청 목록</h3>
                 </div>
 
-                <table class="incoming_table">
+                <table class="outgoing_table">
                     <thead>
                     <tr>
-                        <th>입고번호</th>
-                        <th>제품 ID</th>
+                        <th>출고번호</th>
+                        <th>재고번호</th>
                         <th>수량</th>
-                        <th>입고날짜</th>
+                        <th>출고날짜</th>
                         <th>회원 ID</th>
                         <th>상태</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="incoming" items="${incomingList}">
-                        <tr onclick="selectIncoming(this, '${incoming.incomingNum}')">
-                            <td>${incoming.incomingNum}</td>
-                            <td>${incoming.productId}</td>
-                            <td>${incoming.count}</td>
-                            <td><fmt:formatDate value="${incoming.incomingDate}" pattern="yyyy-MM-dd"/></td>
-                            <td>${incoming.userId}</td>
-                            <td>${incoming.status}</td>
+                    <c:forEach var="outgoing" items="${outgoingList}">
+                        <tr onclick="selectOutgoing(this, '${outgoing.outgoingNum}')">
+                            <td>${outgoing.outgoingNum}</td>
+                            <td>${outgoing.stockNum}</td>
+                            <td>${outgoing.count}</td>
+                            <td><fmt:formatDate value="${outgoing.outgoingDate}" pattern="yyyy-MM-dd"/></td>
+                            <td>${outgoing.userId}</td>
+                            <td>${outgoing.status}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
 
                 <div class="button-group-full">
-                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href ='/index.html'">
-                        <i class="fas fa-arrow-left"></i> 홈으로
+                    <button type="button" class="outgoing_btn btn-back" onclick="window.location.href='/index'">
+                        <i class="fas fa-arrow-left"></i> 이전
                     </button>
-                    <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
+                    <button type="button" class="outgoing_btn btn-next" id="approveBtn" disabled onclick="approveOutgoing()">
                         승인 <i class="fas fa-check"></i>
                     </button>
                 </div>
@@ -375,21 +375,23 @@
         </form>
 
         <script>
-            let selectedIncomingId = null;
+            let selectedOutgoingId = null;
 
-            function selectIncoming(row, incomingId) {
+            function selectOutgoing(row, outgoingId) {
                 document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
                 row.classList.add('selected');
-                selectedIncomingId = incomingId;
-                document.getElementById("incomingNumInput").value = incomingId;
+                selectedOutgoingId = outgoingId;
+                document.getElementById('selectedOutgoingNum').value = outgoingId;
                 document.getElementById('approveBtn').disabled = false;
             }
 
-            function confirmApproval() {
-                if (selectedIncomingId) {
-                    return confirm(`${selectedIncomingId} 입고요청을 승인하겠습니까?`);
+            function approveOutgoing() {
+                if (selectedOutgoingId) {
+                    const confirmMsg = `해당 출고요청을 승인하겠습니까?`;
+                    if (confirm(confirmMsg)) {
+                        document.getElementById('approveForm').submit();
+                    }
                 }
-                return false;
             }
         </script>
         <!-- JS -->

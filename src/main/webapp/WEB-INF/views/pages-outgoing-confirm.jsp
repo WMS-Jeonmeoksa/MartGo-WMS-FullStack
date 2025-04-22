@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/incoming_approve.css">
+    <link rel="stylesheet" href="/css/outgoing_confirm.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,14 +43,19 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.html">
+                    <a class="sidebar-link" href="pages-warehouse.jsp">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/pages-incoming-select.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/pages-outgoing-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -326,74 +331,62 @@
             </div>
         </nav>
 
-        <form id="approveForm" action="/incoming/approve" method="post">
-            <input type="hidden" name="incomingNum" id="incomingNumInput" />
+        <fmt:formatDate value="${outgoingDTO.outgoingDate}" pattern="yyyy-MM-dd" var="formattedDate" />
 
-            <div class="incoming-container">
+        <form id="confirmForm" action="/outgoing/submit" method="post">
+            <div class="outgoing-container">
                 <div class="header">
-                    <h1 class="incoming-h1">입고 승인</h1>
+                    <h1 class="outgoing-h1">출고 신청</h1>
                 </div>
 
-                <div class="section-header">
-                    <h3 class="incoming-h3">입고 신청 목록</h3>
+                <div class="steps-container">
+                    <div class="progress-bar">
+                        <div class="step active">1<div class="step-label">재고 선택</div></div>
+                        <div class="step active">2<div class="step-label">세부 정보 입력</div></div>
+                        <div class="step active">3<div class="step-label">신청 내역 확인</div></div>
+                    </div>
                 </div>
 
-                <table class="incoming_table">
-                    <thead>
-                    <tr>
-                        <th>입고번호</th>
-                        <th>제품 ID</th>
-                        <th>수량</th>
-                        <th>입고날짜</th>
-                        <th>회원 ID</th>
-                        <th>상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="incoming" items="${incomingList}">
-                        <tr onclick="selectIncoming(this, '${incoming.incomingNum}')">
-                            <td>${incoming.incomingNum}</td>
-                            <td>${incoming.productId}</td>
-                            <td>${incoming.count}</td>
-                            <td><fmt:formatDate value="${incoming.incomingDate}" pattern="yyyy-MM-dd"/></td>
-                            <td>${incoming.userId}</td>
-                            <td>${incoming.status}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <!-- ✅ 최종 확인 테이블 -->
+                <div class="outgoing-summary-box">
+                    <table class="outgoing-summary-table">
+                        <tr><th>재고번호</th><td>${outgoingDTO.stockNum}</td></tr>
+                        <tr><th>제품 ID</th><td>${param.productId}</td></tr>
+                        <tr><th>출고 수량</th><td>${outgoingDTO.count} 개</td></tr>
+                        <tr><th>출고 희망일</th><td>${formattedDate}</td></tr>
+                        <tr><th>신청 상태</th><td>대기</td></tr>
+                    </table>
+                </div>
+
+                <!-- ✅ 서버 전송용 hidden input -->
+                <input type="hidden" name="stockNum" value="${outgoingDTO.stockNum}">
+                <input type="hidden" name="count" value="${outgoingDTO.count}">
+                <input type="hidden" name="outgoingDate" value="${formattedDate}">
+                <input type="hidden" name="status" value="대기">
 
                 <div class="button-group-full">
-                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href ='/index.html'">
-                        <i class="fas fa-arrow-left"></i> 홈으로
+                    <button type="button" class="outgoing_btn btn-back" onclick="history.back()">
+                        <i class="fas fa-arrow-left"></i> 이전
                     </button>
-                    <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
-                        승인 <i class="fas fa-check"></i>
+                    <button type="button" class="outgoing_btn btn-next" onclick="submitApplication()">
+                        출고 신청
                     </button>
                 </div>
             </div>
         </form>
 
         <script>
-            let selectedIncomingId = null;
-
-            function selectIncoming(row, incomingId) {
-                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
-                row.classList.add('selected');
-                selectedIncomingId = incomingId;
-                document.getElementById("incomingNumInput").value = incomingId;
-                document.getElementById('approveBtn').disabled = false;
-            }
-
-            function confirmApproval() {
-                if (selectedIncomingId) {
-                    return confirm(`${selectedIncomingId} 입고요청을 승인하겠습니까?`);
+            function submitApplication() {
+                if (confirm("출고 신청을 완료하시겠습니까?")) {
+                    document.getElementById("confirmForm").submit();
                 }
-                return false;
             }
         </script>
+
+
+
         <!-- JS -->
-        <script src="js/app.js"></script>
+        <script src="/js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -433,7 +426,7 @@
     </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="/js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
