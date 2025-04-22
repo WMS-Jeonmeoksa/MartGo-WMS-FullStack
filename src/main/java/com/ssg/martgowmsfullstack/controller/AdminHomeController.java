@@ -16,7 +16,7 @@ public class AdminHomeController {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
         }
-        return "admin"; // /WEB-INF/views/admin.jsp
+        return "redirect:/dashboard/admin/"; // /WEB-INF/views/admin.jsp
     }
 
     // 🔸 창고 관리자 마이페이지

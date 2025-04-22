@@ -82,22 +82,20 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item open">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
                         <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
                     <ul class="sidebar-submenu">
                         <li>
-                            <a class="sidebar-link" href="#"
-                               onclick="document.getElementById('StockForm').submit(); return false;">
+                            <a class="sidebar-link" href="/stock/admin/">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
-                        <li>
-                            <a class="sidebar-link" href="#"
-                               onclick="document.getElementById('StockHistoryForm').submit(); return false;">
+                        <li class="sidebar-item active">
+                            <a class="sidebar-link" href="/stock_history/admin/">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 변경 이력</span>
                             </a>
