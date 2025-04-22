@@ -7,21 +7,9 @@
 	<meta charset="UTF-8">
 	<title>회원가입</title>
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/registerForm.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-	<style>
-		.header {
-			width: 100%;
-			padding: 1rem 2rem;
-			background-color: #f8f9fa;
-			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-		}
-		.header .logo a {
-			text-decoration: none;
-			font-size: 1.3rem;
-			font-weight: bold;
-			color: #333;
-		}
-	</style>
+
 </head>
 <body>
 
@@ -46,7 +34,7 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="m-sm-3">
-								<form action="${pageContext.request.contextPath}/register" method="post">
+								<form action="${pageContext.request.contextPath}/register" method="post" onsubmit="return validateForm()">
 									<div class="mb-3">
 										<label class="form-label">아이디</label>
 										<input class="form-control form-control-lg" type="text" name="userid" id="userid" placeholder="아이디를 입력하세요" required/>
@@ -77,10 +65,20 @@
 										<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="이메일을 입력하세요" />
 									</div>
 
+									<!-- 주소 -->
 									<div class="mb-3">
 										<label class="form-label">주소</label>
-										<input class="form-control form-control-lg" type="text" name="address" id="address" placeholder="주소를 입력하세요" />
+										<div style="display: flex; gap: 10px;">
+											<input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="주소 찾기 클릭" readonly required />
+											<button type="button" onclick="execDaumPostcode()" class="btn btn-outline-secondary" style="white-space: nowrap;">주소 찾기</button>
+										</div>
 									</div>
+
+									<!-- 상세 주소 -->
+									<div class="mb-3">
+										<input type="text" name="addressDetail" id="addressDetail" class="form-control form-control-lg" placeholder="상세 주소를 입력하세요" required/>
+									</div>
+
 
 									<c:if test="${not empty error}">
 										<div class="alert alert-danger">${error}</div>
@@ -105,5 +103,79 @@
 </main>
 
 <script src="${pageContext.request.contextPath}/js/app.js"></script>
+
+<script>
+	function validateForm() {
+		const userid = document.getElementById("userid").value.trim();
+		const username = document.getElementById("username").value.trim();
+		const password = document.getElementById("password").value.trim();
+		const confirmPassword = document.getElementById("confirmPassword").value.trim();
+		const email = document.getElementById("email").value.trim();
+		const address = document.getElementById("address").value.trim();
+		const addressDetail = document.getElementById("addressDetail").value.trim();
+
+		const useridRegex = /^[a-zA-Z0-9]{4,}$/;  // 영어+숫자, 4글자 이상
+		const usernameRegex = /^[가-힣]+$/;        // 한글만
+		const emailRegex = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/; // 이메일 기본 패턴
+
+		if (!useridRegex.test(userid)) {
+			alert("아이디는 영어와 숫자 조합으로 4자 이상 입력하세요.");
+			return false;
+		}
+
+		if (!usernameRegex.test(username)) {
+			alert("이름은 한글만 입력 가능합니다.");
+			return false;
+		}
+
+		if (password.length < 4) {
+			alert("비밀번호는 4자 이상 입력해야 합니다.");
+			return false;
+		}
+
+		if (password !== confirmPassword) {
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+
+		if (email && !emailRegex.test(email)) {
+			alert("이메일 형식이 올바르지 않습니다.");
+			return false;
+		}
+
+		if (!address) {
+			alert("주소를 입력해 주세요.");
+			return false;
+		}
+
+		if (!addressDetail) {
+			alert("상세 주소를 입력해 주세요.");
+			return false;
+		}
+
+
+
+		return true;
+	}
+
+
+</script>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function execDaumPostcode() {
+		new daum.Postcode({
+			oncomplete: function(data) {
+				// 사용자가 선택한 주소를 입력란에 넣음
+				document.getElementById("address").value = data.roadAddress || data.jibunAddress;
+				document.getElementById("addressDetail").focus();  // 상세주소 입력으로 자동 이동
+			}
+		}).open();
+	}
+</script>
+
+
+
+
 </body>
 </html>

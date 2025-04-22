@@ -46,4 +46,36 @@
         FROM warehouse
     </select>
 
+    <select id="getUserAdminList" resultType="com.ssg.martgowmsfullstack.dto.UserAdminDTO">
+        SELECT a.admin_name AS admin_name, a.phone_num AS phone_num
+        FROM user u
+        JOIN admin a
+        ON u.admin_id = a.admin_id
+        WHERE u.user_id = #{user_id}
+    </select>
+
+    <select id="getRemainingDays" resultType="java.lang.Integer" parameterType="String">
+        SELECT DATEDIFF(rent_end_date, NOW()) AS remainingDays
+        FROM rent_history
+        WHERE user_id = #{user_id}
+    </select>
+
+    <select id="getRentSectorWarehouseList" resultType="com.ssg.martgowmsfullstack.dto.RentSectorWarehouseDTO">
+        SELECT r.sector_id AS sector_id, w.warehouse_name AS warehouse_name
+        FROM rent_history r
+        JOIN warehouse w
+        ON r.warehouse_id = w.warehouse_id
+        WHERE user_id = #{user_id}
+    </select>
+
+    <select id="getUserSectorUsage" resultType="com.ssg.martgowmsfullstack.dto.SectorUsageDTO" parameterType="String">
+        SELECT s.FAR AS FAR, s.sector_id AS sector_id, w.warehouse_id AS warehouse_id
+        FROM rent_history r
+        JOIN sector s
+        ON s.sector_id = r.sector_id
+        JOIN warehouse w
+        ON s.warehouse_id = w.warehouse_id
+        WHERE r.user_id = #{user_id}
+    </select>
+
 </mapper>

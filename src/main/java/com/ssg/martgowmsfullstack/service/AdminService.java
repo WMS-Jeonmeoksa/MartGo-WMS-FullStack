@@ -1,7 +1,7 @@
 package com.ssg.martgowmsfullstack.service;
 
-import com.ssg.martgowmsfullstack.domain.AdminVO;
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
 
 public interface AdminService {
-    AdminVO getAdminById(String adminId);
+    AdminDTO getAdminById(String adminId);
 }
