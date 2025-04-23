@@ -13,6 +13,7 @@
     <title>MartGo - Dashboard</title>
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/margoLogo.css">
     <script src="/js/app.js"></script>
 </head>
 <body>
@@ -21,7 +22,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/customer/">
-                <span class="align-middle">MartGo</span>
+                <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">거래처 메뉴</li>
