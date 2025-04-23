@@ -5,7 +5,7 @@ html, body {
     background-color: #f4f6f8;
 }
 
-/* 레이아웃 구조 */
+/* 전체 레이아웃 */
 .wrapper {
     display: flex;
     min-height: 100vh;
@@ -16,7 +16,6 @@ html, body {
     background-color: #1f2d3d;
 }
 
-/* 기존 .main을 flex-column 레이아웃으로 구성 */
 .main {
     flex: 1;
     display: flex;
@@ -34,6 +33,7 @@ header,
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
+/* 로고 및 인증 링크 */
 .logo a {
     font-weight: bold;
     font-size: 1.5rem;
@@ -48,24 +48,22 @@ header,
     text-decoration: none;
 }
 
-/* 컨텐츠 영역 (푸터 밀어내기 위해 flex: 1 적용) */
+/* 콘텐츠 영역 */
 .container {
     max-width: 700px;
-    margin: 2rem auto;
+    margin: 2rem auto 1rem auto;  /* 하단 여백 줄임 */
     background-color: #fff;
     padding: 2rem;
     border-radius: 16px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
-/* 제목 */
 h2 {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 1.8rem;
 }
 
-/* 정보 그룹 */
 .info-group {
     display: flex;
     flex-direction: column;
@@ -88,27 +86,35 @@ h2 {
     font-weight: bold;
 }
 
-/* 강조 텍스트 */
 .highlight {
     color: #dc3545;
 }
 
-/* 버튼 스타일 */
+/* 버튼 */
 .btn-wrap {
     text-align: center;
     margin-top: 2.5rem;
 }
 
 .btn-delete {
-    padding: 10px 24px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 20px;
     border-radius: 8px;
     font-weight: bold;
-    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+    transition: background-color 0.2s ease-in-out;
 }
 
+.btn-delete:hover {
+    background-color: #c82333 !important;
+    box-shadow: 0 6px 14px rgba(220, 53, 69, 0.4);
+}
 /* 모달창 */
 .confirm-modal {
     position: fixed;
@@ -151,9 +157,9 @@ h2 {
     color: white;
 }
 
-/* 이미지 로고 */
+/* 로고 이미지 */
 img {
-    margin: 10px 20px 0px 0px;
+    margin: 10px 20px 0 0;
     width: 150px;
     height: 40px;
 }
@@ -167,11 +173,22 @@ img {
     color: #888;
 }
 
+/* 푸터 밀어내기용 콘텐츠 wrapper */
 .content-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
-.footer {
-    background-color: red !important;
+
+#deleteAccountModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* ✅ 다른 요소 위로 */
 }
