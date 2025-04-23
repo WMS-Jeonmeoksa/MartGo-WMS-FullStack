@@ -17,6 +17,7 @@
     <title>MartGo - 창고 관리자 재고 목록</title>
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/rent_approve.css" rel="stylesheet">
+    <link href="/css/margoLogo.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/js/app.js"></script>
 </head>
@@ -26,7 +27,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
-                <span class="align-middle">MartGo</span>
+                <img src="/img/MartGo_Logo.png" alt="a">
             </a>
 
             <ul class="sidebar-nav">
@@ -54,7 +55,7 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li class="sidebar-item active">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/rent/approve">
+                            <a class="sidebar-link" href="${pageContext.request.contextPath}/rent/confirm">
                                 임대 신청 목록
                             </a>
                         </li>
