@@ -1,4 +1,54 @@
-/* 컨테이너 기본 정렬 */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f8;
+}
+
+/* 레이아웃 구조 */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1f2d3d;
+}
+
+/* 기존 .main을 flex-column 레이아웃으로 구성 */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상단 네비게이션 */
+header,
+.navbar {
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.logo a {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #333;
+    text-decoration: none;
+}
+
+.auth-links a {
+    margin-left: 1rem;
+    font-weight: 500;
+    color: #1e90ff;
+    text-decoration: none;
+}
+
+/* 컨텐츠 영역 (푸터 밀어내기 위해 flex: 1 적용) */
 .container {
     max-width: 700px;
     margin: 2rem auto;
@@ -10,127 +60,118 @@
 
 /* 제목 */
 h2 {
-    font-size: 1.8rem;
     text-align: center;
     margin-bottom: 2rem;
-    color: #333;
+    font-size: 1.8rem;
 }
 
-/* 정보 그룹 전체 정렬 */
+/* 정보 그룹 */
 .info-group {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
-/* 각 항목 */
 .info-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #eee;
     padding-bottom: 0.5rem;
 }
 
-/* 라벨 */
 .info-item strong {
     color: #555;
-    font-weight: 600;
-    font-size: 0.95rem;
 }
 
-/* 값 */
 .info-value {
-    font-weight: 600;
-    font-size: 1rem;
-    color: #222;
+    color: #333;
+    font-weight: bold;
 }
 
-/* 회원 탈퇴 버튼 */
-.delete-account-btn {
-    margin-top: 2rem;
+/* 강조 텍스트 */
+.highlight {
+    color: #dc3545;
+}
+
+/* 버튼 스타일 */
+.btn-wrap {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.btn-delete {
+    padding: 10px 24px;
     background-color: #dc3545;
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 8px;
-    font-size: 0.95rem;
     font-weight: bold;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
-.delete-account-btn:hover {
-    background-color: #c82333;
-}
-
-/* 모달 */
-.modal {
-    display: none;
+/* 모달창 */
+.confirm-modal {
     position: fixed;
-    z-index: 999;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background: #fff;
-    width: 400px;
-    padding: 2rem;
-    border-radius: 12px;
-    margin: 10% auto;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
     align-items: center;
 }
 
-.modal-header h3 {
-    margin: 0;
-    color: #dc3545;
-    font-size: 1.25rem;
+.confirm-box {
+    background: white;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    text-align: center;
 }
 
-.close-btn {
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: #333;
+.confirm-box p {
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
-.modal-body {
-    margin: 1rem 0;
-    font-size: 0.95rem;
-    color: #555;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-}
-
-.modal-footer button {
-    padding: 0.5rem 1rem;
-    border: none;
+.confirm-box button {
+    padding: 8px 18px;
+    margin: 1rem 10px 0;
     border-radius: 6px;
+    border: none;
     font-weight: bold;
     cursor: pointer;
-    font-size: 0.9rem;
 }
 
-.cancel-btn {
+.btn-confirm {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-cancel {
     background-color: #6c757d;
     color: white;
 }
 
-.confirm-btn {
-    background-color: #dc3545;
-    color: white;
+/* 이미지 로고 */
+img {
+    margin: 10px 20px 0px 0px;
+    width: 150px;
+    height: 40px;
+}
+
+/* 푸터 */
+.footer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.footer {
+    background-color: red !important;
 }
