@@ -16,9 +16,8 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
 
     @Override
-    public boolean login(UserDTO userDTO) {
-        // DB에서 조회 (아이디 기준)
-        UserVO dbUser = userMapper.findByUserid(userDTO.getUserid());
+    public boolean login(String userid, String password) {
+        UserVO dbUser = userMapper.findByUserid(userid);
 
         if (dbUser == null) {
             System.out.println("아이디 없음");
@@ -30,13 +29,11 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        // DTO → VO 매핑해서 비교
-        UserVO inputUser = modelMapper.map(userDTO, UserVO.class);
-        boolean match = dbUser.getPassword().equals(inputUser.getPassword());
-
+        boolean match = dbUser.getPassword().equals(password);
         System.out.println("비밀번호 일치 여부: " + match);
         return match;
     }
+
 
 
     @Override
@@ -49,7 +46,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO findByUserid(String userid) {
         UserVO userVO = userMapper.findByUserid(userid);
-        return (userVO != null) ? modelMapper.map(userVO, UserDTO.class) : null;
+
+        if (userVO == null) return null;
+
+        // 수동으로 DTO 구성 (password는 제외)
+        return UserDTO.builder()
+                .userid(userVO.getUserid())
+                .username(userVO.getUsername())
+                .email(userVO.getEmail())
+                .phone(userVO.getPhone())
+                .address(userVO.getAddress())
+                .adminid(userVO.getAdminid())
+                .status(userVO.getStatus())
+                .role(userVO.getRole())
+                .build();
     }
 
     @Override

@@ -11,7 +11,7 @@ import lombok.*;
 public class AdminDTO {
     private String adminId;
     private String adminname;
-    private String password;
+//    private String password;
     private String phone;
     private String email;
     private String address;

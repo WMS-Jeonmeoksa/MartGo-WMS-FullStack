@@ -1,5 +1,6 @@
 package com.ssg.martgowmsfullstack.controller;
 
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,16 @@ class SuperAdminHomeController {
 
     @GetMapping("/mypage")
     public String mypage(HttpSession session) {
-        if (session.getAttribute("loginInfo") == null) {
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
             return "redirect:/login";
+        }
+        if (!(loginInfo instanceof AdminDTO)) {
+            return "redirect:/access-denied";
+        }
+        AdminDTO adminDTO = (AdminDTO) loginInfo;
+        if (!"총관리자".equals(adminDTO.getRole())) {
+            return "redirect:/access-denied";
         }
         return "superadmin-mypage";
     }
