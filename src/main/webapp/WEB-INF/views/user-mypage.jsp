@@ -14,6 +14,7 @@
     <link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/user.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/user_mypage.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/margoLogo.css">
 
 
 
@@ -28,7 +29,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/user">
-                <span class="align-middle">MartGo</span>
+                <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">회원 메뉴</li>
