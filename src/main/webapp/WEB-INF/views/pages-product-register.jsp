@@ -329,6 +329,8 @@
             </div>
         </nav>
 
+        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
         <div class="product-container">
             <div class="header">
                 <h1 class="product-h1">제품 등록</h1>
@@ -337,12 +339,12 @@
             <form action="${pageContext.request.contextPath}/product/register" method="post" onsubmit="return prepareCategoryValue()">
                 <div class="product-form-group">
                     <label for="productId">제품 ID</label>
-                    <input type="text" id="productId" name="productId" placeholder="예: PRD001">
+                    <input type="text" id="productId" name="productId" placeholder="예: PRD001" required>
                 </div>
 
                 <div class="product-form-group">
                     <label for="productName">제품명</label>
-                    <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고">
+                    <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고" required>
                 </div>
 
                 <div class="product-form-group">
@@ -363,26 +365,23 @@
 
                 <div class="product-form-group">
                     <label for="height">제품 높이 (cm)</label>
-                    <input type="number" id="height" name="height" placeholder="예: 180" min="0">
+                    <input type="number" id="height" name="height" placeholder="예: 180" min="0" required>
                 </div>
 
                 <div class="product-form-group">
                     <label for="width">제품 면적 (㎡)</label>
-                    <input type="number" id="width" name="width" placeholder="예: 20" min="0" step="0.01">
+                    <input type="number" id="width" name="width" placeholder="예: 20" min="0" step="0.01" required>
                 </div>
 
                 <div class="product-form-group">
                     <label for="price">제품 가격 (원)</label>
-                    <input type="number" id="price" name="price" placeholder="예: 500000" min="0">
+                    <input type="number" id="price" name="price" placeholder="예: 500000" min="0" required>
                 </div>
 
                 <div class="product-form-group">
                     <label for="manufacturer">제조사</label>
-                    <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자">
+                    <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자" required>
                 </div>
-
-<%--                나중에 userid 받아오면 수정예정--%>
-                <input type="hidden" name="userId" value="seller03" />
 
                 <div class="button-group-full">
                     <button class="product_btn btn-back" type="button" onclick="goBack()">
@@ -417,18 +416,6 @@
                 const input = document.getElementById("categoryInput");
 
                 category.value = (select.value === "direct") ? input.value.trim() : select.value;
-
-                const requiredFields = [
-                    "productId", "productName", "height", "width", "price", "manufacturer", "userId"
-                ];
-
-                for (const field of requiredFields) {
-                    const val = document.getElementById(field).value.trim();
-                    if (val === "") {
-                        alert("모든 필드를 입력해주세요.");
-                        return false;
-                    }
-                }
 
                 if (category.value === "") {
                     alert("카테고리를 입력해주세요.");
