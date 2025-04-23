@@ -1,8 +1,8 @@
 package com.ssg.martgowmsfullstack.controller;
 
-import com.ssg.martgowmsfullstack.domain.AdminVO;
-import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.UserDTO;
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
+import com.ssg.martgowmsfullstack.dto.LoginDTO;
 import com.ssg.martgowmsfullstack.service.UserService;
 import com.ssg.martgowmsfullstack.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -19,70 +19,60 @@ public class AuthController {
     private final UserService userService;
     private final AdminService adminService;
 
+    // --- 로그인 폼 ---
     @GetMapping("/login")
     public String loginForm() {
-        return "login"; // login.jsp
+        return "login"; // 공통 로그인 폼 (선택지 제공)
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String userid,
-                        @RequestParam String password,
+    public String login(@ModelAttribute LoginDTO loginDTO,
                         HttpSession session,
                         Model model) {
 
-        // 1. 일반 사용자 조회
-        UserDTO user = userService.findByUserid(userid);
+        String userid = loginDTO.getUserid();
+        String password = loginDTO.getPassword();
 
-        if (user != null && "활성화".equals(user.getStatus())) {
-            if (!user.getPassword().equals(password)) {
-                model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
-                return "login";
-            }
-
-            String role = user.getRole();
+        // 1. 사용자 로그인 시도
+        if (userService.login(userid, password)) {
+            UserDTO user = userService.findByUserid(userid);
             session.setAttribute("loginInfo", user);
-            session.setAttribute("role", role);
+            session.setAttribute("role", user.getRole());
             session.setAttribute("sessionUserId", user.getUserid());
 
-            if ("회원".equals(role)) {
-                return "redirect:/user";
-            } else if ("거래처".equals(role)) {
-                return "redirect:/customer";
-            } else {
-                model.addAttribute("error", "허용되지 않은 사용자 권한입니다.");
-                return "login";
-            }
+            if ("회원".equals(user.getRole())) return "redirect:/user";
+            if ("거래처".equals(user.getRole())) return "redirect:/customer";
+
+            model.addAttribute("error", "허용되지 않은 사용자 권한입니다.");
+            return "login";
         }
 
-        // 2. 관리자 조회
-        AdminDTO admin = adminService.getAdminById(userid);
-
-        if (admin != null && admin.getPassword().equals(password)) {
-            String role = admin.getRole();
+        // 2. 관리자 로그인 시도
+        if (adminService.login(userid, password)) {
+            AdminDTO admin = adminService.getAdminById(userid);
             session.setAttribute("loginInfo", admin);
-            session.setAttribute("role", role);
+            session.setAttribute("role", admin.getRole());
             session.setAttribute("sessionAdminId", admin.getAdminId());
 
-            if ("창고관리자".equals(role)) {
-                return "redirect:/admin";
-            } else if ("총관리자".equals(role)) {
-                return "redirect:/superadmin";
-            } else {
-                model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
-                return "login";
-            }
+            if ("창고관리자".equals(admin.getRole())) return "redirect:/admin";
+            if ("총관리자".equals(admin.getRole())) return "redirect:/superadmin";
+
+            model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
+            return "login";
         }
 
-        // 둘 다 실패
+        // 3. 모두 실패
         model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
         return "login";
     }
 
+    // --- 회원가입 폼 ---
     @GetMapping("/register")
     public String registerForm() {
         return "registerForm";
     }
 
+    // --- 회원가입 처리 ---
     @PostMapping("/register")
     public String register(@ModelAttribute UserDTO user,
                            @RequestParam("addressDetail") String addressDetail,
@@ -102,6 +92,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
+    // --- 로그아웃 ---
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

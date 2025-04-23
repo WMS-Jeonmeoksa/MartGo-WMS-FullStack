@@ -13,7 +13,7 @@
 <body>
 
 <header>
-    <img src="/img/MartGo_Logo_Black.png" alt="a">
+    <a href="guest"><img src="/img/MartGo_Logo_Black.png" alt="a"></a>
     <div class="auth-links">
         <a href="${pageContext.request.contextPath}/login">로그인</a>
         <a href="${pageContext.request.contextPath}/register">회원가입</a>
