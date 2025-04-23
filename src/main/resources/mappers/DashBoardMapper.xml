@@ -58,6 +58,7 @@
         SELECT DATEDIFF(rent_end_date, NOW()) AS remainingDays
         FROM rent_history
         WHERE user_id = #{user_id}
+        AND NOW() BETWEEN rent_start_date AND rent_end_date;
     </select>
 
     <select id="getRentSectorWarehouseList" resultType="com.ssg.martgowmsfullstack.domain.RentSectorWarehouseVO">
