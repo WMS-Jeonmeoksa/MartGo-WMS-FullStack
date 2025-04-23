@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 <%
     AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
     if (admin == null) {
@@ -13,25 +12,30 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8"/>
-    <title>MartGo - 창고 관리자 재고 목록</title>
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/rent_approve.css" rel="stylesheet">
-    <link href="/css/margoLogo.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>MartGo</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_mypage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+    <link rel="stylesheet" href="/css/margoLogo.css">
+    <link rel="stylesheet" href="/css/rent_approve.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/js/app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </head>
 <body>
 <div class="wrapper">
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/general">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
                 <img src="/img/MartGo_Logo.png" alt="a">
             </a>
-
             <ul class="sidebar-nav">
                 <li class="sidebar-header">창고관리자 메뉴</li>
+
+                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post" style="display: none;"></form>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/dashboard/admin/">
@@ -42,37 +46,21 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/mypage">
-                        <i class="align-middle" data-feather="user"></i>
-                        <span class="align-middle">마이페이지</span>
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
 
-                <!-- 대기중 메뉴 -->
-                <li class="sidebar-item">
+                <li class="sidebar-item open">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="clock"></i> 대기중</span>
                         <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li class="sidebar-item active">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/rent/confirm">
-                                임대 신청 목록
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#">
-                                입고 신청 목록
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#">
-                                출고 신청 목록
-                            </a>
-                        </li>
+                        <li class="sidebar-item active"><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/rent/confirm">임대 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/approve">입고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/approve">출고 신청 목록</a></li>
                     </ul>
                 </li>
-
-                <!-- 담당 창고 메뉴 -->
                 <li class="sidebar-item">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
@@ -85,7 +73,7 @@
                                 <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li>
                             <a class="sidebar-link" href="/stock_history/admin">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 변경 이력</span>
@@ -93,13 +81,14 @@
                         </li>
                     </ul>
                 </li>
+
             </ul>
         </div>
     </nav>
 
-    <!-- 메인 콘텐츠 영역 -->
+    <!-- 메인 -->
     <div class="main">
-        <!-- 상단 네비게이션 영역 -->
+        <!-- 상단 네비게이션 -->
         <nav class="navbar navbar-expand navbar-light navbar-bg">
             <a class="sidebar-toggle js-sidebar-toggle">
                 <i class="hamburger align-self-center"></i>
@@ -107,7 +96,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님</span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/mypage">
+                            <i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/logout">
@@ -117,6 +108,7 @@
                 </ul>
             </div>
         </nav>
+
         <form id="approveForm" action="/rent/confirm" method="post">
             <input type="hidden" name="rentNum" id="rentNumInput" />
 
@@ -211,5 +203,23 @@
             : false;
     }
 </script>
+
+
+        <!-- Feather 아이콘 & 토글 스크립트 -->
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                feather.replace(); // 아이콘 활성화
+
+                const toggles = document.querySelectorAll(".submenu-toggle");
+                toggles.forEach(toggle => {
+                    toggle.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const item = this.closest(".sidebar-item");
+                        item.classList.toggle("open");
+                    });
+                });
+            });
+        </script>
 </body>
 </html>
