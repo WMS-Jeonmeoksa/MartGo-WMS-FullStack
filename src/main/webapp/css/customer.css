@@ -1,9 +1,16 @@
-body {
-    display: flex;
+html, body {
     margin: 0;
-    height: 100vh;
+    padding: 0;
+    height: 100%;
     font-family: 'Inter', sans-serif;
+    background-color: #f6f6f6;
 }
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
 aside {
     width: 220px;
     background-color: #343a40;
@@ -11,12 +18,15 @@ aside {
     display: flex;
     flex-direction: column;
     padding: 2rem 1rem;
+    flex-shrink: 0; /* 푸터 눌림 방지 */
 }
+
 aside h2 {
     font-size: 1.3rem;
     margin-bottom: 2rem;
     text-align: center;
 }
+
 aside a {
     color: white;
     text-decoration: none;
@@ -34,10 +44,11 @@ main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    min-height: 100vh; /* 내용 부족해도 푸터 고정 */
 }
 
 header {
-    background-color: #f8f9fa;
+    background-color: #fff;
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -47,32 +58,58 @@ header {
 
 .main-content {
     flex-grow: 1;
+    padding: 2rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* 중앙 정렬 말고 위로 붙임 */
+}
+
+.profile-container {
+    max-width: 900px;
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.profile-container h2 {
     text-align: center;
-    padding: 2rem;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    color: #222;
 }
 
-.main-content h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.main-content p {
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #eee;
     font-size: 1.1rem;
+}
+.profile-item span:first-child {
+    font-weight: 600;
     color: #555;
 }
-
-/* client.css 예시 */
-body {
-    background-color: #f9f9fc;
+.profile-item span:last-child {
+    color: #333;
+    font-weight: 600;
 }
 
-.card h4 {
-    color: #28a745; /* 거래처만 초록 계열로? */
+footer {
+    margin-top: auto;
+    padding: 1rem 2rem;
+    background: transparent;
+    font-size: 0.9rem;
+    color: #888;
 }
-
-.sidebar-header {
-    color: #17a2b8;
+footer .text-start strong {
+    color: #333;
+}
+footer .text-end a {
+    color: #888;
+    text-decoration: none;
+}
+footer .text-end a:hover {
+    color: #0d6efd;
 }

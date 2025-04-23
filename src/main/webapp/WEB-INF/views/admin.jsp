@@ -99,7 +99,9 @@
 			<div class="navbar-collapse collapse">
 				<ul class="navbar-nav navbar-align ms-auto">
 					<li class="nav-item">
-						<span class="nav-link"><i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님</span>
+						<a class="nav-link" href="${pageContext.request.contextPath}/admin/mypage">
+							<i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님
+						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="${pageContext.request.contextPath}/logout">
