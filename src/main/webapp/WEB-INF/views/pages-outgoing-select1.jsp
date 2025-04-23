@@ -2,18 +2,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.ssg.martgowmsfullstack.dto.UserDTO" %>
+
 <%
-    UserDTO user = (UserDTO) session.getAttribute("loginInfo");
+    UserDTO user = (UserDTO)session.getAttribute("loginInfo");
 %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8"/>
-    <title>MartGo</title>
-    <link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/customer.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/margoLogo.css">
-    <link rel="stylesheet" href="/css/incoming_select.css">
+    <title>MartGo - 거래처 전용 페이지</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/client.css">
+    <link rel="stylesheet" href="/css/outgoing_select.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -23,54 +24,47 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/user">
-                <img src="/img/MartGo_Logo.png" alt="MartGo_Logo">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/client">
+                <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">거래처 메뉴</li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/dashboard/user">
-                        <i class="align-middle" data-feather="list"></i>
-                        <span class="align-middle">대시 보드</span>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/client">
+                        <i class="align-middle" data-feather="home"></i> <span class="align-middle">홈</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/customer/mypage">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/client/mypage">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/product/register">
+                    <a class="sidebar-link" href="#">
                         <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">제품 등록</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/select">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
                         <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">입고 요청</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/select">
+                    <a class="sidebar-link" href="#">
                         <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">출고 요청</span>
                     </a>
                 </li>
 
-                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
-                      style="display: none;">
-                </form>
-
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#"
-                       onclick="document.getElementById('stockForm').submit(); return false;">
+                    <a class="sidebar-link" href="#">
                         <i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 조회</span>
                     </a>
                 </li>
-
 
             </ul>
         </div>
@@ -95,22 +89,19 @@
             </div>
         </nav>
 
-
-
-        <form id="productForm" action="/incoming/detail" method="get">
+        <form id="outgoingForm" action="/outgoing/detail" method="get">
+            <input type="hidden" name="stockNum" id="stockNumHidden" />
             <input type="hidden" name="productId" id="productIdHidden" />
 
-            <div class="incoming-container">
+            <div class="outgoing-container">
                 <div class="header">
-                    <h1 class="incoming-h1">
-                        <i class="fas fa-box-open"></i> 입고 신청
-                    </h1>
+                    <h1 class="outgoing-h1">출고 신청</h1>
                 </div>
 
                 <div class="steps-container">
                     <div class="progress-bar">
                         <div class="step active">1
-                            <div class="step-label">제품 선택</div>
+                            <div class="step-label">재고 선택</div>
                         </div>
                         <div class="step">2
                             <div class="step-label">세부 정보 입력</div>
@@ -122,44 +113,39 @@
                 </div>
 
                 <div class="section-header">
-                    <h3 class="incoming-h3">
-                        <i class="fas fa-list-ul"></i>&nbsp;제품목록
-                    </h3>
+                    <h3 class="outgoing-h3">재고 목록</h3>
                 </div>
 
-                <!-- 제품 목록 테이블 -->
-                <table class="incoming_table">
+                <table class="outgoing_table">
                     <thead>
                     <tr>
+                        <th>재고번호</th>
                         <th>제품 ID</th>
-                        <th>제품명</th>
-                        <th>카테고리</th>
-                        <th>높이(cm)</th>
-                        <th>넓이(cm)</th>
-                        <th>가격(원)</th>
-                        <th>제조사</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                        <th>창고 ID</th>
+                        <th>섹터 ID</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="product" items="${productList}">
-                        <tr onclick="selectProduct(this, '${product.productId}')">
-                            <td>${product.productId}</td>
-                            <td>${product.productName}</td>
-                            <td>${product.category}</td>
-                            <td>${product.height}</td>
-                            <td>${product.width}</td>
-                            <td><fmt:formatNumber value="${product.price}" type="number" /></td>
-                            <td>${product.manufacturer}</td>
+                    <c:forEach var="stock" items="${stockList}">
+                        <tr onclick="selectStock(this, '${stock.stock_num}', '${stock.product_id}')">
+                            <td>${stock.stock_num}</td>
+                            <td>${stock.product_id}</td>
+                            <td>${stock.count}</td>
+                            <td><fmt:formatNumber value="${stock.total_price}" type="number"/></td>
+                            <td>${stock.warehouse_id}</td>
+                            <td>${stock.sector_id}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
 
                 <div class="button-group-full">
-                    <button type="button" class="incoming_btn btn-back" onclick="history.back()">
+                    <button type="button" class="outgoing_btn btn-back" onclick="window.location.href='/index'">
                         <i class="fas fa-arrow-left"></i> 이전
                     </button>
-                    <button type="submit" class="incoming_btn btn-next" id="nextBtn" disabled>
+                    <button type="submit" class="outgoing_btn btn-next" id="nextBtn" disabled>
                         다음 <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -167,15 +153,18 @@
         </form>
 
         <script>
-            function selectProduct(row, productId) {
+            function selectStock(row, stockNum, productId) {
                 document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
                 row.classList.add('selected');
+
+                document.getElementById("stockNumHidden").value = stockNum;
                 document.getElementById("productIdHidden").value = productId;
+
                 document.getElementById("nextBtn").disabled = false;
             }
         </script>
 
-
+        <!-- 푸터 -->
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row text-muted">
@@ -188,7 +177,7 @@
                 </div>
             </div>
         </footer>
-    </div> <!-- .main -->
-</div> <!-- .wrapper -->
+    </div>
+</div>
 </body>
 </html>

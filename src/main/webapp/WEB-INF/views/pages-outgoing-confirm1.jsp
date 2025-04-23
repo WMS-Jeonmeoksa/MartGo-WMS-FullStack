@@ -1,7 +1,11 @@
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/product_confirm.css">
+    <link rel="stylesheet" href="/css/outgoing_confirm.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,13 +49,13 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-product-register.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    <a class="sidebar-link" href="/pages-outgoing-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -327,76 +331,62 @@
             </div>
         </nav>
 
-        <div class="product-result-container">
-            <div class="header">
-                <h1 class="product-result-h1">제품 등록 결과</h1>
-            </div>
+        <fmt:formatDate value="${outgoingDTO.outgoingDate}" pattern="yyyy-MM-dd" var="formattedDate" />
 
-            <div class="product-result-box">
-                <table class="product-result-table">
-                    <thead>
-                    <tr>
-                        <th>제품 ID</th>
-                        <th>제품명</th>
-                        <th>카테고리</th>
-                        <th>높이(cm)</th>
-                        <th>면적(㎡)</th>
-                        <th>가격(원)</th>
-                        <th>제조사</th>
-                    </tr>
-                    </thead>
-                    <tbody id="productResultBody">
-                    <!-- JS에서 값 삽입 -->
-                    </tbody>
-                </table>
-            </div>
+        <form id="confirmForm" action="/outgoing/submit" method="post">
+            <div class="outgoing-container">
+                <div class="header">
+                    <h1 class="outgoing-h1">출고 신청</h1>
+                </div>
 
-            <div class="button-group-full">
-                <button class="product_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 추가 등록하기
-                </button>
-                <button class="product_btn btn-next" onclick="goToMain()">
-                    메인으로 <i class="fas fa-home"></i>
-                </button>
+                <div class="steps-container">
+                    <div class="progress-bar">
+                        <div class="step active">1<div class="step-label">재고 선택</div></div>
+                        <div class="step active">2<div class="step-label">세부 정보 입력</div></div>
+                        <div class="step active">3<div class="step-label">신청 내역 확인</div></div>
+                    </div>
+                </div>
+
+                <!-- ✅ 최종 확인 테이블 -->
+                <div class="outgoing-summary-box">
+                    <table class="outgoing-summary-table">
+                        <tr><th>재고번호</th><td>${outgoingDTO.stockNum}</td></tr>
+                        <tr><th>제품 ID</th><td>${param.productId}</td></tr>
+                        <tr><th>출고 수량</th><td>${outgoingDTO.count} 개</td></tr>
+                        <tr><th>출고 희망일</th><td>${formattedDate}</td></tr>
+                        <tr><th>신청 상태</th><td>대기</td></tr>
+                    </table>
+                </div>
+
+                <!-- ✅ 서버 전송용 hidden input -->
+                <input type="hidden" name="stockNum" value="${outgoingDTO.stockNum}">
+                <input type="hidden" name="count" value="${outgoingDTO.count}">
+                <input type="hidden" name="outgoingDate" value="${formattedDate}">
+                <input type="hidden" name="status" value="대기">
+
+                <div class="button-group-full">
+                    <button type="button" class="outgoing_btn btn-back" onclick="history.back()">
+                        <i class="fas fa-arrow-left"></i> 이전
+                    </button>
+                    <button type="button" class="outgoing_btn btn-next" onclick="submitApplication()">
+                        출고 신청
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const productDataStr = sessionStorage.getItem("productData");
-                const tbody = document.getElementById("productResultBody");
-
-                if (productDataStr) {
-                    const product = JSON.parse(productDataStr);
-                    const row = `
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.height}</td>
-                    <td>${product.area}</td>
-                    <td>${Number(product.price).toLocaleString()}</td>
-                    <td>${product.manufacturer}</td>
-                </tr>
-            `;
-                    tbody.innerHTML = row;
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>`;
+            function submitApplication() {
+                if (confirm("출고 신청을 완료하시겠습니까?")) {
+                    document.getElementById("confirmForm").submit();
                 }
-            });
-
-            function goBack() {
-                window.location.href = "pages-product-register.html";
-            }
-
-            function goToMain() {
-                window.location.href = "index.html"; // 필요시 메인 페이지 경로 수정
             }
         </script>
 
 
+
         <!-- JS -->
-        <script src="js/app.js"></script>
+        <script src="/js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -436,7 +426,7 @@
     </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="/js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

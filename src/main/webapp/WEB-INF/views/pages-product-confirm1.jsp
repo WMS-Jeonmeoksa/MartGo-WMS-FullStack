@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +43,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.jsp">
+                    <a class="sidebar-link" href="pages-warehouse.html">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
                     </a>
@@ -345,8 +349,23 @@
                         <th>제조사</th>
                     </tr>
                     </thead>
-                    <tbody id="productResultBody">
-                    <!-- JS에서 값 삽입 -->
+                    <tbody>
+                    <c:choose>
+                        <c:when test="${not empty product}">
+                            <tr>
+                                <td>${product.productId}</td>
+                                <td>${product.productName}</td>
+                                <td>${product.category}</td>
+                                <td>${product.height}</td>
+                                <td>${product.width}</td>
+                                <td><fmt:formatNumber value="${product.price}" type="number" groupingUsed="true"/></td>
+                                <td>${product.manufacturer}</td>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>
+                        </c:otherwise>
+                    </c:choose>
                     </tbody>
                 </table>
             </div>
@@ -362,35 +381,12 @@
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const productDataStr = sessionStorage.getItem("productData");
-                const tbody = document.getElementById("productResultBody");
-
-                if (productDataStr) {
-                    const product = JSON.parse(productDataStr);
-                    const row = `
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.height}</td>
-                    <td>${product.area}</td>
-                    <td>${Number(product.price).toLocaleString()}</td>
-                    <td>${product.manufacturer}</td>
-                </tr>
-            `;
-                    tbody.innerHTML = row;
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>`;
-                }
-            });
-
             function goBack() {
-                window.location.href = "pages-product-register.html";
+                window.location.href = "${pageContext.request.contextPath}/product/register";
             }
 
             function goToMain() {
-                window.location.href = "index.html"; // 필요시 메인 페이지 경로 수정
+                window.location.href = "${pageContext.request.contextPath}/index.jsp";
             }
         </script>
 

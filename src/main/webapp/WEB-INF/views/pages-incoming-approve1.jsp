@@ -1,7 +1,11 @@
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/product_confirm.css">
+    <link rel="stylesheet" href="/css/incoming_approve.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,19 +43,14 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.jsp">
+                    <a class="sidebar-link" href="pages-warehouse.html">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-product-register.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -327,74 +326,72 @@
             </div>
         </nav>
 
-        <div class="product-result-container">
-            <div class="header">
-                <h1 class="product-result-h1">제품 등록 결과</h1>
-            </div>
+        <form id="approveForm" action="/incoming/approve" method="post">
+            <input type="hidden" name="incomingNum" id="incomingNumInput" />
 
-            <div class="product-result-box">
-                <table class="product-result-table">
+            <div class="incoming-container">
+                <div class="header">
+                    <h1 class="incoming-h1">입고 승인</h1>
+                </div>
+
+                <div class="section-header">
+                    <h3 class="incoming-h3">입고 신청 목록</h3>
+                </div>
+
+                <table class="incoming_table">
                     <thead>
                     <tr>
+                        <th>입고번호</th>
                         <th>제품 ID</th>
-                        <th>제품명</th>
-                        <th>카테고리</th>
-                        <th>높이(cm)</th>
-                        <th>면적(㎡)</th>
-                        <th>가격(원)</th>
-                        <th>제조사</th>
+                        <th>수량</th>
+                        <th>입고날짜</th>
+                        <th>회원 ID</th>
+                        <th>상태</th>
                     </tr>
                     </thead>
-                    <tbody id="productResultBody">
-                    <!-- JS에서 값 삽입 -->
+                    <tbody>
+                    <c:forEach var="incoming" items="${incomingList}">
+                        <tr onclick="selectIncoming(this, '${incoming.incomingNum}')">
+                            <td>${incoming.incomingNum}</td>
+                            <td>${incoming.productId}</td>
+                            <td>${incoming.count}</td>
+                            <td><fmt:formatDate value="${incoming.incomingDate}" pattern="yyyy-MM-dd"/></td>
+                            <td>${incoming.userId}</td>
+                            <td>${incoming.status}</td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
-            </div>
 
-            <div class="button-group-full">
-                <button class="product_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 추가 등록하기
-                </button>
-                <button class="product_btn btn-next" onclick="goToMain()">
-                    메인으로 <i class="fas fa-home"></i>
-                </button>
+                <div class="button-group-full">
+                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href ='/index.html'">
+                        <i class="fas fa-arrow-left"></i> 홈으로
+                    </button>
+                    <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
+                        승인 <i class="fas fa-check"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const productDataStr = sessionStorage.getItem("productData");
-                const tbody = document.getElementById("productResultBody");
+            let selectedIncomingId = null;
 
-                if (productDataStr) {
-                    const product = JSON.parse(productDataStr);
-                    const row = `
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.height}</td>
-                    <td>${product.area}</td>
-                    <td>${Number(product.price).toLocaleString()}</td>
-                    <td>${product.manufacturer}</td>
-                </tr>
-            `;
-                    tbody.innerHTML = row;
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>`;
-                }
-            });
-
-            function goBack() {
-                window.location.href = "pages-product-register.html";
+            function selectIncoming(row, incomingId) {
+                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+                row.classList.add('selected');
+                selectedIncomingId = incomingId;
+                document.getElementById("incomingNumInput").value = incomingId;
+                document.getElementById('approveBtn').disabled = false;
             }
 
-            function goToMain() {
-                window.location.href = "index.html"; // 필요시 메인 페이지 경로 수정
+            function confirmApproval() {
+                if (selectedIncomingId) {
+                    return confirm(`${selectedIncomingId} 입고요청을 승인하겠습니까?`);
+                }
+                return false;
             }
         </script>
-
-
         <!-- JS -->
         <script src="js/app.js"></script>
         <script>
