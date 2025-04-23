@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -330,7 +331,9 @@
 
             <div class="incoming-container">
                 <div class="header">
-                    <h1 class="incoming-h1">입고 신청</h1>
+                    <h1 class="incoming-h1">
+                        <i class="fas fa-box-open"></i> 입고 신청
+                    </h1>
                 </div>
 
                 <div class="steps-container">
@@ -348,7 +351,9 @@
                 </div>
 
                 <div class="section-header">
-                    <h3 class="incoming-h3">제품목록</h3>
+                    <h3 class="incoming-h3">
+                        <i class="fas fa-list-ul"></i>&nbsp;제품목록
+                    </h3>
                 </div>
 
                 <!-- 제품 목록 테이블 -->
