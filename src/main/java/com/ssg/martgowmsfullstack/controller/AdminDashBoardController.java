@@ -1,5 +1,7 @@
 package com.ssg.martgowmsfullstack.controller;
 
+import com.ssg.martgowmsfullstack.domain.AdminVO;
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.DashBoardDTO;
 import com.ssg.martgowmsfullstack.service.AdminDashBoardService;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +21,18 @@ public class AdminDashBoardController {
 
     @GetMapping("/admin")
     public String adminDashBoard(HttpSession session, Model model) {
-        if (session.getAttribute("loginInfo") == null) {
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
             return "redirect:/login";
         }
-
-        String admin_id = (String) session.getAttribute("sessionAdminId");
+        if (!(loginInfo instanceof AdminDTO)) {
+            return "redirect:/access-denied";
+        }
+        AdminDTO adminDTO = (AdminDTO) loginInfo;
+        if (!"창고관리자".equals(adminDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+        String admin_id = adminDTO.getAdminId().trim().replace("\"", "");
 
         DashBoardDTO dashBoardList = dashBoardService.getDashBoard(admin_id);
         model.addAttribute("dashBoardList", dashBoardList);
@@ -34,21 +43,25 @@ public class AdminDashBoardController {
 
     @GetMapping("/general")
     public String generalDashBoard(HttpSession session, Model model) {
-        if (session.getAttribute("loginInfo") == null) {
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
             return "redirect:/login";
         }
+        if (!(loginInfo instanceof AdminDTO)) {
+            return "redirect:/access-denied";
+        }
+        AdminDTO adminDTO = (AdminDTO) loginInfo;
+        if (!"총관리자".equals(adminDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+        String admin_id = adminDTO.getAdminId().trim().replace("\"", "");
 
-        String admin_id = (String) session.getAttribute("sessionAdminId");
-
-        
         DashBoardDTO dashBoardList = dashBoardService.getDashBoard(admin_id);
         model.addAttribute("dashBoardList", dashBoardList);
         model.addAttribute("monthlyRentTotals", dashBoardList.getMonthlyRentTotalList());
         model.addAttribute("admin_id", admin_id);
         return "pages-dashboard-general";
     }
-
-
 
 
 }
