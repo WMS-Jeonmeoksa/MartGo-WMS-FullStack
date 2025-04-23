@@ -113,3 +113,8 @@ footer .text-end a {
 footer .text-end a:hover {
     color: #0d6efd;
 }
+img {
+    margin: 10px 20px 0px 0px;
+    width: 150px;
+    height: 40px;
+}

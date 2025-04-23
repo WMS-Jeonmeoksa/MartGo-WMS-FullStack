@@ -12,6 +12,7 @@
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/customer.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/customer_mypage.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/margoLogo.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<script src="${pageContext.request.contextPath}/js/app.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -22,7 +23,7 @@
 	<nav id="sidebar" class="sidebar js-sidebar">
 		<div class="sidebar-content js-simplebar">
 			<a class="sidebar-brand" href="${pageContext.request.contextPath}/customer/">
-				<span class="align-middle">MartGo</span>
+				<img src="/img/MartGo_Logo.png" alt="a">
 			</a>
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">거래처 메뉴</li>
