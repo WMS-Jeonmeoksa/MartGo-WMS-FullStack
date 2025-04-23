@@ -1,9 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/product_1.css">
+    <link rel="stylesheet" href="/css/rent_approve.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -46,14 +48,9 @@
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-product-register.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">임대 승인</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -329,105 +326,76 @@
             </div>
         </nav>
 
-        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+        <form id="approveForm" action="/rent/confirm" method="post">
+            <input type="hidden" name="rentNum" id="rentNumInput" />
 
-        <div class="product-container">
-            <div class="header">
-                <h1 class="product-h1">제품 등록</h1>
-            </div>
-
-            <form action="${pageContext.request.contextPath}/product/register" method="post" onsubmit="return prepareCategoryValue()">
-                <div class="product-form-group">
-                    <label for="productId">제품 ID</label>
-                    <input type="text" id="productId" name="productId" placeholder="예: PRD001" required>
+            <div class="incoming-container">
+                <div class="header">
+                    <h1 class="incoming-h1">임대 승인</h1>
                 </div>
 
-                <div class="product-form-group">
-                    <label for="productName">제품명</label>
-                    <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고" required>
+                <div class="section-header">
+                    <h3 class="incoming-h3">임대 신청 목록</h3>
                 </div>
 
-                <div class="product-form-group">
-                    <label for="categorySelect">카테고리</label>
-                    <select id="categorySelect" onchange="handleCategoryChange()">
-                        <option value="">선택하세요</option>
-                        <option value="냉장고">냉장고</option>
-                        <option value="TV">TV</option>
-                        <option value="세탁기">세탁기</option>
-                        <option value="건조기">건조기</option>
-                        <option value="에어컨">에어컨</option>
-                        <option value="청소기">청소기</option>
-                        <option value="direct">직접입력</option>
-                    </select>
-                    <input type="text" id="categoryInput" placeholder="카테고리를 입력하세요" style="display:none; margin-top: 8px;">
-                    <input type="hidden" name="category" id="category">
-                </div>
-
-                <div class="product-form-group">
-                    <label for="height">제품 높이 (cm)</label>
-                    <input type="number" id="height" name="height" placeholder="예: 180" min="0" required>
-                </div>
-
-                <div class="product-form-group">
-                    <label for="width">제품 면적 (㎡)</label>
-                    <input type="number" id="width" name="width" placeholder="예: 20" min="0" step="0.01" required>
-                </div>
-
-                <div class="product-form-group">
-                    <label for="price">제품 가격 (원)</label>
-                    <input type="number" id="price" name="price" placeholder="예: 500000" min="0" required>
-                </div>
-
-                <div class="product-form-group">
-                    <label for="manufacturer">제조사</label>
-                    <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자" required>
-                </div>
+                <table class="incoming_table">
+                    <thead>
+                    <tr>
+                        <th>임대 번호</th>
+                        <th>섹터 ID</th>
+                        <th>창고 ID</th>
+                        <th>회원 ID</th>
+                        <th>임대 시작일</th>
+                        <th>임대 종료일</th>
+                        <th>임대료</th>
+                        <th>상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="rentHistory" items="${rentHistoryDTO}">
+                        <tr onclick="selectIncoming(this, '${rentHistory.rentNum}')">
+                            <td>${rentHistory.rentNum}</td>
+                            <td>${rentHistory.sectorId}</td>
+                            <td>${rentHistory.warehouseId}</td>
+                            <td>${rentHistory.userId}</td>
+                            <td><fmt:formatDate value="${rentHistory.rentStartDate}" pattern="yyyy-MM-dd"/></td>
+                            <td><fmt:formatDate value="${rentHistory.rentEndDate}" pattern="yyyy-MM-dd"/></td>
+                            <td>${rentHistory.rentPrice}</td>
+                            <td>${rentHistory.status}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
 
                 <div class="button-group-full">
-                    <button class="product_btn btn-back" type="button" onclick="goBack()">
-                        <i class="fas fa-arrow-left"></i> 이전
+                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href ='/dashboard/general'">
+                        <i class="fas fa-arrow-left"></i> 홈으로
                     </button>
-                    <button class="product_btn btn-next" type="submit">
-                        등록하기 <i class="fas fa-check"></i>
+                    <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
+                        승인 <i class="fas fa-check"></i>
                     </button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
 
         <script>
-            function goBack() {
-                window.history.back();
+            let selectedRentId = null;
+
+            function selectIncoming(row, rentNum) {
+                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+                row.classList.add('selected');
+                selectedRentId = rentNum;
+                document.getElementById("rentNumInput").value = rentNum;
+                document.getElementById('approveBtn').disabled = false;
             }
 
-            function handleCategoryChange() {
-                const select = document.getElementById("categorySelect");
-                const input = document.getElementById("categoryInput");
-                if (select.value === "direct") {
-                    input.style.display = "block";
-                } else {
-                    input.style.display = "none";
-                    input.value = "";
+            function confirmApproval() {
+                if (selectedRentId) {
+                    return confirm(`${selectedRentId} 임대요청을 승인하겠습니까?`);
                 }
-            }
-
-            function prepareCategoryValue() {
-                const category = document.getElementById("category");
-                const select = document.getElementById("categorySelect");
-                const input = document.getElementById("categoryInput");
-
-                category.value = (select.value === "direct") ? input.value.trim() : select.value;
-
-                if (category.value === "") {
-                    alert("카테고리를 입력해주세요.");
-                    return false;
-                }
-
-                return confirm("등록하시겠습니까?");
+                return false;
             }
         </script>
-
-
-
         <!-- JS -->
         <script src="js/app.js"></script>
         <script>

@@ -8,6 +8,7 @@
 	<title>회원가입</title>
 	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/registerForm.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/margoLogo.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 </head>
@@ -16,7 +17,7 @@
 <!-- ✅ 상단 로고 추가 -->
 <div class="header">
 	<div class="logo">
-		<a href="${pageContext.request.contextPath}/guest">MartGo</a>
+		<img src="/img/MartGo_Logo_Black.png" alt="a">
 	</div>
 </div>
 

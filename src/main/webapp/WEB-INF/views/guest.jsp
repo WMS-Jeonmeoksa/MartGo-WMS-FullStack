@@ -6,13 +6,14 @@
     <title>MartGo - 가전 창고 플랫폼</title>
     <link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/guest.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/margoLogo.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 </head>
 <body>
 
 <header>
-    <div class="logo">MartGo</div>
+    <img src="/img/MartGo_Logo_Black.png" alt="a">
     <div class="auth-links">
         <a href="${pageContext.request.contextPath}/login">로그인</a>
         <a href="${pageContext.request.contextPath}/register">회원가입</a>

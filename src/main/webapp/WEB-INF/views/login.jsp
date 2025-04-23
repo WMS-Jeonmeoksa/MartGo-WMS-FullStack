@@ -5,13 +5,14 @@
 <head>
 	<title>MartGo WMS - 로그인</title>
 	<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/margoLogo.css">
 </head>
 <body>
 
 <!-- ✅ 상단 로고 추가 -->
 <div class="header">
 	<div class="logo">
-		<a href="${pageContext.request.contextPath}/guest">MartGo</a>
+		<img src="/img/MartGo_Logo_Black.png" alt="a">
 	</div>
 </div>
 

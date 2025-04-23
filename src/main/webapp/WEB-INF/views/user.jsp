@@ -13,6 +13,7 @@
     <title>MartGo - 회원 전용 페이지</title>
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/user.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/margoLogo.css">
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -25,7 +26,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/user">
-                <span class="align-middle">MartGo</span>
+                <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">회원 메뉴</li>
