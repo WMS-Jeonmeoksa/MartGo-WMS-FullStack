@@ -1,9 +1,11 @@
+<%@ page import="com.ssg.martgowmsfullstack.dto.UserDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%
+    UserDTO user = (UserDTO) session.getAttribute("loginInfo");
+%>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="utf-8">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -18,7 +20,6 @@
     <link href="/css/warehouse.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 <div class="wrapper">
     <!-- 사이드바 -->
@@ -30,7 +31,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-header">회원 메뉴</li>
 
-                <li class="sidebar-item active">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="${pageContext.request.contextPath}/user">
                         <i class="align-middle" data-feather="home"></i> <span class="align-middle">홈</span>
                     </a>
@@ -42,7 +43,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item active">
                     <a class="sidebar-link" href="${pageContext.request.contextPath}/rent/warehouse">
                         <i class="align-middle" data-feather="box"></i> <span class="align-middle">임대 신청</span>
                     </a>
@@ -50,8 +51,27 @@
             </ul>
         </div>
     </nav>
+    <!-- 메인 -->
+    <div class="main">
+        <!-- 상단 네비게이션 -->
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i></a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav navbar-align ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">
+                            <i class="fas fa-sign-out-alt"></i> 로그아웃
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="container">
+        </nav>
+
+        <div class="rent-container">
             <div id="mapWrapper">
                 <div id="map1" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
                 <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
@@ -59,7 +79,6 @@
             <div class="header">
                 <h1>창고 임대 신청</h1>
             </div>
-
             <div class="steps-container">
                 <div class="progress-bar">
                     <div class="step active">1
@@ -91,7 +110,7 @@
                     다음 →
                 </button>
             </div>
-
+        </div>
             <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=f0fadb18408cdb55d9431eca1e67b1b7&libraries=services"></script>
             <script>
                 const mapContainer = document.getElementById('map');
@@ -195,8 +214,7 @@
                 const zoomControl = new kakao.maps.ZoomControl();
                 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
             </script>
-        </div>
-</div>
+
     <!-- 푸터 -->
     <footer class="footer">
         <div class="container-fluid">
@@ -210,5 +228,7 @@
             </div>
         </div>
     </footer>
-</body>
+    </div>
+</div>
+    </body>
 </html>
