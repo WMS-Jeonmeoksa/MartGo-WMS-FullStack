@@ -28,7 +28,9 @@ body {
 .product-result-h1 {
     font-size: 30px;
     color: #1e3a8a;
+    margin-top: 20px;
     margin-bottom: 40px;
+    font-weight: bold;
 }
 
 /* 테이블 */

@@ -1,7 +1,11 @@
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/product_confirm.css">
+    <link rel="stylesheet" href="/css/outgoing_detail.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,13 +49,13 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-product-register.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    <a class="sidebar-link" href="/pages-outgoing-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">출고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -327,76 +331,59 @@
             </div>
         </nav>
 
-        <div class="product-result-container">
-            <div class="header">
-                <h1 class="product-result-h1">제품 등록 결과</h1>
-            </div>
+        <form action="/outgoing/confirm" method="post">
+            <div class="outgoing-container">
+                <div class="header">
+                    <h1 class="outgoing-h1">출고 신청</h1>
+                </div>
 
-            <div class="product-result-box">
-                <table class="product-result-table">
-                    <thead>
-                    <tr>
-                        <th>제품 ID</th>
-                        <th>제품명</th>
-                        <th>카테고리</th>
-                        <th>높이(cm)</th>
-                        <th>면적(㎡)</th>
-                        <th>가격(원)</th>
-                        <th>제조사</th>
-                    </tr>
-                    </thead>
-                    <tbody id="productResultBody">
-                    <!-- JS에서 값 삽입 -->
-                    </tbody>
-                </table>
-            </div>
+                <div class="steps-container">
+                    <div class="progress-bar">
+                        <div class="step active">1<div class="step-label">재고 선택</div></div>
+                        <div class="step active">2<div class="step-label">세부 정보 입력</div></div>
+                        <div class="step">3<div class="step-label">신청 내역 확인</div></div>
+                    </div>
+                </div>
 
-            <div class="button-group-full">
-                <button class="product_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 추가 등록하기
-                </button>
-                <button class="product_btn btn-next" onclick="goToMain()">
-                    메인으로 <i class="fas fa-home"></i>
-                </button>
+                <div class="selected-product">
+                    <strong>선택한 재고:</strong> <span>${param.stockNum}</span> /
+                    <strong>제품 ID:</strong> <span>${param.productId}</span>
+                </div>
+
+                <!-- ✅ 이전 단계에서 전달받은 값 유지 -->
+                <input type="hidden" name="stockNum" value="${param.stockNum}" />
+                <input type="hidden" name="productId" value="${param.productId}" />
+
+                <div class="outgoing-form-group">
+                    <label for="count">출고 수량</label>
+                    <input type="number" id="count" name="count" placeholder="출고할 수량을 입력하세요" min="1" required>
+                </div>
+
+                <div class="outgoing-form-group">
+                    <label for="outgoingDate">출고 희망일</label>
+                    <input type="date" id="outgoingDate" name="outgoingDate" required>
+                </div>
+
+                <div class="button-group-full">
+                    <button type="button" class="outgoing_btn btn-back" onclick="history.back()">
+                        <i class="fas fa-arrow-left"></i> 이전
+                    </button>
+                    <button type="submit" class="outgoing_btn btn-next">
+                        다음 <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const productDataStr = sessionStorage.getItem("productData");
-                const tbody = document.getElementById("productResultBody");
-
-                if (productDataStr) {
-                    const product = JSON.parse(productDataStr);
-                    const row = `
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.height}</td>
-                    <td>${product.area}</td>
-                    <td>${Number(product.price).toLocaleString()}</td>
-                    <td>${product.manufacturer}</td>
-                </tr>
-            `;
-                    tbody.innerHTML = row;
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>`;
-                }
-            });
-
-            function goBack() {
-                window.location.href = "pages-product-register.html";
-            }
-
-            function goToMain() {
-                window.location.href = "index.html"; // 필요시 메인 페이지 경로 수정
-            }
+            // 오늘 날짜 이후만 선택 가능
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("outgoingDate").min = today;
         </script>
 
 
         <!-- JS -->
-        <script src="js/app.js"></script>
+        <script src="/js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 feather.replace();
@@ -436,7 +423,7 @@
     </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="/js/app.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

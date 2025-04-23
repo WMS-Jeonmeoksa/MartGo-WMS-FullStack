@@ -1,98 +1,134 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.ssg.martgowmsfullstack.dto.UserDTO" %>
+<%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
 <%
-	UserDTO user = (UserDTO) session.getAttribute("loginInfo");
+	AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
+	if (admin == null) {
+		response.sendRedirect(request.getContextPath() + "/login");
+		return;
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8"/>
+	<meta charset="UTF-8">
 	<title>MartGo</title>
-	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/css/customer.css" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/css/customer_mypage.css" rel="stylesheet">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_mypage.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
 	<link rel="stylesheet" href="/css/margoLogo.css">
-	<link rel="stylesheet" href="">
+	<link rel="stylesheet" href="/css/incoming_approve.css">
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-	<script src="${pageContext.request.contextPath}/js/app.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/app.js"></script>
 </head>
 <body>
 <div class="wrapper">
 	<!-- 사이드바 -->
 	<nav id="sidebar" class="sidebar js-sidebar">
 		<div class="sidebar-content js-simplebar">
-			<a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/user">
-				<img src="/img/MartGo_Logo.png" alt="MartGo_Logo">
+			<a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
+				<img src="/img/MartGo_Logo.png" alt="a">
 			</a>
 			<ul class="sidebar-nav">
-				<li class="sidebar-header">거래처 메뉴</li>
+				<li class="sidebar-header">창고관리자 메뉴</li>
+
+				<form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post" style="display: none;"></form>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="/dashboard/user">
+					<a class="sidebar-link" href="/dashboard/admin/">
 						<i class="align-middle" data-feather="list"></i>
 						<span class="align-middle">대시 보드</span>
 					</a>
 				</li>
 
-				<li class="sidebar-item active">
-					<a class="sidebar-link" href="${pageContext.request.contextPath}/customer/mypage">
+				<li class="sidebar-item">
+					<a class="sidebar-link" href="${pageContext.request.contextPath}/admin/mypage">
 						<i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
 					</a>
 				</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="${pageContext.request.contextPath}/product/register">
-						<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">제품 등록</span>
+					<a class="sidebar-link submenu-toggle" href="#">
+						<span><i class="align-middle" data-feather="clock"></i> 대기중</span>
+						<i class="fas fa-chevron-down submenu-icon"></i>
 					</a>
+					<ul class="sidebar-submenu open">
+						<li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/approve">임대 신청 목록</a></li>
+						<li><a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/approve">입고 신청 목록</a></li>
+						<li><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/approve">출고 신청 목록</a></li>
+					</ul>
 				</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/select">
-						<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">입고 요청</span>
+					<a class="sidebar-link submenu-toggle" href="#">
+						<span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
+						<i class="fas fa-chevron-down submenu-icon"></i>
 					</a>
+					<ul class="sidebar-submenu">
+						<li>
+							<a class="sidebar-link" href="#" onclick="document.getElementById('StockForm').submit(); return false;">
+								<i class="align-middle" data-feather="list"></i>
+								<span class="align-middle">재고 목록</span>
+							</a>
+						</li>
+						<li>
+							<a class="sidebar-link" href="#" onclick="document.getElementById('StockHistoryForm').submit(); return false;">
+								<i class="align-middle" data-feather="list"></i>
+								<span class="align-middle">재고 변경 이력</span>
+							</a>
+						</li>
+					</ul>
+					<form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="post" style="display: none;"></form>
+					<form id="StockHistoryForm" action="${pageContext.request.contextPath}/stock_history/admin/" method="post" style="display: none;"></form>
 				</li>
-
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/select">
-						<i class="align-middle" data-feather="log-out"></i> <span class="align-middle">출고 요청</span>
-					</a>
-				</li>
-
-				<form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
-					  style="display: none;">
-				</form>
-
-				<li class="sidebar-item">
-					<a class="sidebar-link" href="#"
-					   onclick="document.getElementById('stockForm').submit(); return false;">
-						<i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 조회</span>
-					</a>
-				</li>
-
-
 			</ul>
 		</div>
 	</nav>
 
-
-
-
-		<footer class="footer">
-			<div class="container-fluid">
-				<div class="row text-muted">
-					<div class="col-6 text-start">
-						<p class="mb-0"><strong>MartGo</strong> &copy;</p>
-					</div>
-					<div class="col-6 text-end">
-						<a class="text-muted" href="#">Support</a>
-					</div>
-				</div>
+	<!-- 메인 -->
+	<div class="main">
+		<!-- 상단 네비게이션 -->
+		<nav class="navbar navbar-expand navbar-light navbar-bg">
+			<a class="sidebar-toggle js-sidebar-toggle">
+				<i class="hamburger align-self-center"></i>
+			</a>
+			<div class="navbar-collapse collapse">
+				<ul class="navbar-nav navbar-align ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/admin/mypage">
+							<i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/logout">
+							<i class="fas fa-sign-out-alt"></i> 로그아웃
+						</a>
+					</li>
+				</ul>
 			</div>
-		</footer>
-	</div> <!-- .main -->
-</div> <!-- .wrapper -->
+		</nav>
+
+
+
+
+		<!-- Feather 아이콘 & 토글 스크립트 -->
+		<script src="https://unpkg.com/feather-icons"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				feather.replace(); // 아이콘 활성화
+
+				const toggles = document.querySelectorAll(".submenu-toggle");
+				toggles.forEach(toggle => {
+					toggle.addEventListener("click", function (e) {
+						e.preventDefault();
+						const item = this.closest(".sidebar-item");
+						item.classList.toggle("open");
+					});
+				});
+			});
+		</script>
 </body>
 </html>

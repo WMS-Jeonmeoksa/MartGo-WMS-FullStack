@@ -1,7 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/product_confirm.css">
+    <link rel="stylesheet" href="/css/product_register.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,7 +41,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-warehouse.jsp">
+                    <a class="sidebar-link" href="pages-warehouse.html">
                         <i class="align-middle" data-feather="rent"></i> <span
                             class="align-middle">Warehouse Rent</span>
                     </a>
@@ -327,72 +329,103 @@
             </div>
         </nav>
 
-        <div class="product-result-container">
+        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+        <div class="product-container">
             <div class="header">
-                <h1 class="product-result-h1">제품 등록 결과</h1>
+                <h1 class="product-h1">제품 등록</h1>
             </div>
 
-            <div class="product-result-box">
-                <table class="product-result-table">
-                    <thead>
-                    <tr>
-                        <th>제품 ID</th>
-                        <th>제품명</th>
-                        <th>카테고리</th>
-                        <th>높이(cm)</th>
-                        <th>면적(㎡)</th>
-                        <th>가격(원)</th>
-                        <th>제조사</th>
-                    </tr>
-                    </thead>
-                    <tbody id="productResultBody">
-                    <!-- JS에서 값 삽입 -->
-                    </tbody>
-                </table>
-            </div>
+            <form action="${pageContext.request.contextPath}/product/register" method="post" onsubmit="return prepareCategoryValue()">
+                <div class="product-form-group">
+                    <label for="productId">제품 ID</label>
+                    <input type="text" id="productId" name="productId" placeholder="예: PRD001" required>
+                </div>
 
-            <div class="button-group-full">
-                <button class="product_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 추가 등록하기
-                </button>
-                <button class="product_btn btn-next" onclick="goToMain()">
-                    메인으로 <i class="fas fa-home"></i>
-                </button>
-            </div>
+                <div class="product-form-group">
+                    <label for="productName">제품명</label>
+                    <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고" required>
+                </div>
+
+                <div class="product-form-group">
+                    <label for="categorySelect">카테고리</label>
+                    <select id="categorySelect" onchange="handleCategoryChange()">
+                        <option value="">선택하세요</option>
+                        <option value="냉장고">냉장고</option>
+                        <option value="TV">TV</option>
+                        <option value="세탁기">세탁기</option>
+                        <option value="건조기">건조기</option>
+                        <option value="에어컨">에어컨</option>
+                        <option value="청소기">청소기</option>
+                        <option value="direct">직접입력</option>
+                    </select>
+                    <input type="text" id="categoryInput" placeholder="카테고리를 입력하세요" style="display:none; margin-top: 8px;">
+                    <input type="hidden" name="category" id="category">
+                </div>
+
+                <div class="product-form-group">
+                    <label for="height">제품 높이 (cm)</label>
+                    <input type="number" id="height" name="height" placeholder="예: 180" min="0" required>
+                </div>
+
+                <div class="product-form-group">
+                    <label for="width">제품 면적 (㎡)</label>
+                    <input type="number" id="width" name="width" placeholder="예: 20" min="0" step="0.01" required>
+                </div>
+
+                <div class="product-form-group">
+                    <label for="price">제품 가격 (원)</label>
+                    <input type="number" id="price" name="price" placeholder="예: 500000" min="0" required>
+                </div>
+
+                <div class="product-form-group">
+                    <label for="manufacturer">제조사</label>
+                    <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자" required>
+                </div>
+
+                <div class="button-group-full">
+                    <button class="product_btn btn-back" type="button" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> 이전
+                    </button>
+                    <button class="product_btn btn-next" type="submit">
+                        등록하기 <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </form>
         </div>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const productDataStr = sessionStorage.getItem("productData");
-                const tbody = document.getElementById("productResultBody");
-
-                if (productDataStr) {
-                    const product = JSON.parse(productDataStr);
-                    const row = `
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.height}</td>
-                    <td>${product.area}</td>
-                    <td>${Number(product.price).toLocaleString()}</td>
-                    <td>${product.manufacturer}</td>
-                </tr>
-            `;
-                    tbody.innerHTML = row;
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>`;
-                }
-            });
-
             function goBack() {
-                window.location.href = "pages-product-register.html";
+                window.history.back();
             }
 
-            function goToMain() {
-                window.location.href = "index.html"; // 필요시 메인 페이지 경로 수정
+            function handleCategoryChange() {
+                const select = document.getElementById("categorySelect");
+                const input = document.getElementById("categoryInput");
+                if (select.value === "direct") {
+                    input.style.display = "block";
+                } else {
+                    input.style.display = "none";
+                    input.value = "";
+                }
+            }
+
+            function prepareCategoryValue() {
+                const category = document.getElementById("category");
+                const select = document.getElementById("categorySelect");
+                const input = document.getElementById("categoryInput");
+
+                category.value = (select.value === "direct") ? input.value.trim() : select.value;
+
+                if (category.value === "") {
+                    alert("카테고리를 입력해주세요.");
+                    return false;
+                }
+
+                return confirm("등록하시겠습니까?");
             }
         </script>
+
 
 
         <!-- JS -->
