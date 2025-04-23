@@ -47,7 +47,7 @@
             )
               AND role = '창고관리자'
         )
-          AND status = #{status}
+          AND o.status = #{status}
     </select>
 
     <!-- 출고 상태 업데이트 -->

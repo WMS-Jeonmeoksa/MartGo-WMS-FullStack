@@ -1,7 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/product_confirm.css">
+    <link rel="stylesheet" href="/css/incoming_select.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -44,14 +48,9 @@
                             class="align-middle">Warehouse Rent</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pages-incoming.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
-                    </a>
-                </li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/pages-product-register.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">제품등록</span>
+                    <a class="sidebar-link" href="/pages-incoming-select.html">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">입고신청</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -327,73 +326,83 @@
             </div>
         </nav>
 
-        <div class="product-result-container">
-            <div class="header">
-                <h1 class="product-result-h1">제품 등록 결과</h1>
-            </div>
+        <form id="productForm" action="/incoming/detail" method="get">
+            <input type="hidden" name="productId" id="productIdHidden" />
 
-            <div class="product-result-box">
-                <table class="product-result-table">
+            <div class="incoming-container">
+                <div class="header">
+                    <h1 class="incoming-h1">
+                        <i class="fas fa-box-open"></i> 입고 신청
+                    </h1>
+                </div>
+
+                <div class="steps-container">
+                    <div class="progress-bar">
+                        <div class="step active">1
+                            <div class="step-label">제품 선택</div>
+                        </div>
+                        <div class="step">2
+                            <div class="step-label">세부 정보 입력</div>
+                        </div>
+                        <div class="step">3
+                            <div class="step-label">신청 내역 확인</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3 class="incoming-h3">
+                        <i class="fas fa-list-ul"></i>&nbsp;제품목록
+                    </h3>
+                </div>
+
+                <!-- 제품 목록 테이블 -->
+                <table class="incoming_table">
                     <thead>
                     <tr>
                         <th>제품 ID</th>
                         <th>제품명</th>
                         <th>카테고리</th>
                         <th>높이(cm)</th>
-                        <th>면적(㎡)</th>
+                        <th>넓이(cm)</th>
                         <th>가격(원)</th>
                         <th>제조사</th>
                     </tr>
                     </thead>
-                    <tbody id="productResultBody">
-                    <!-- JS에서 값 삽입 -->
+                    <tbody>
+                    <c:forEach var="product" items="${productList}">
+                        <tr onclick="selectProduct(this, '${product.productId}')">
+                            <td>${product.productId}</td>
+                            <td>${product.productName}</td>
+                            <td>${product.category}</td>
+                            <td>${product.height}</td>
+                            <td>${product.width}</td>
+                            <td><fmt:formatNumber value="${product.price}" type="number" /></td>
+                            <td>${product.manufacturer}</td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
-            </div>
 
-            <div class="button-group-full">
-                <button class="product_btn btn-back" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> 추가 등록하기
-                </button>
-                <button class="product_btn btn-next" onclick="goToMain()">
-                    메인으로 <i class="fas fa-home"></i>
-                </button>
+                <div class="button-group-full">
+                    <button type="button" class="incoming_btn btn-back" onclick="history.back()">
+                        <i class="fas fa-arrow-left"></i> 이전
+                    </button>
+                    <button type="submit" class="incoming_btn btn-next" id="nextBtn" disabled>
+                        다음 <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const productDataStr = sessionStorage.getItem("productData");
-                const tbody = document.getElementById("productResultBody");
-
-                if (productDataStr) {
-                    const product = JSON.parse(productDataStr);
-                    const row = `
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.height}</td>
-                    <td>${product.area}</td>
-                    <td>${Number(product.price).toLocaleString()}</td>
-                    <td>${product.manufacturer}</td>
-                </tr>
-            `;
-                    tbody.innerHTML = row;
-                } else {
-                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">등록된 제품 정보가 없습니다.</td></tr>`;
-                }
-            });
-
-            function goBack() {
-                window.location.href = "pages-product-register.html";
-            }
-
-            function goToMain() {
-                window.location.href = "index.html"; // 필요시 메인 페이지 경로 수정
+            function selectProduct(row, productId) {
+                document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
+                row.classList.add('selected');
+                document.getElementById("productIdHidden").value = productId;
+                document.getElementById("nextBtn").disabled = false;
             }
         </script>
-
 
         <!-- JS -->
         <script src="js/app.js"></script>

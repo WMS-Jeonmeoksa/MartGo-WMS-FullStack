@@ -83,7 +83,7 @@ public class OutgoingController {
         String userId = (String) session.getAttribute("sessionUserId");
         outgoingDTO.setUserId(userId);
         outgoingService.requestOutgoing(outgoingDTO);
-        return "redirect:/index";
+        return "redirect:/dashboard/user";
     }
 
     @GetMapping("/approve")
@@ -109,6 +109,6 @@ public class OutgoingController {
         String role = incomingService.getAdminRoleById(adminId);
         outgoingService.approveOutgoing(adminId, outgoingNum, role);
 
-        return "redirect:/index";
+        return "redirect:/outgoing/approve";
     }
 }
