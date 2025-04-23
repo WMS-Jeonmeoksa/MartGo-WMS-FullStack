@@ -20,7 +20,7 @@ public class AdminDashBoardController {
 
     private final AdminDashBoardService dashBoardService;
 
-    @PostMapping("/admin")
+    @GetMapping("/admin")
     public String adminDashBoard(HttpSession session, Model model) {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
@@ -35,7 +35,7 @@ public class AdminDashBoardController {
         return "pages-dashboard-admin";
     }
 
-    @PostMapping("/general")
+    @GetMapping("/general")
     public String generalDashBoard(HttpSession session, Model model) {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";

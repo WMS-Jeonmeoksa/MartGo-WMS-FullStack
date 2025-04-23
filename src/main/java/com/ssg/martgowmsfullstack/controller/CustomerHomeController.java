@@ -15,7 +15,7 @@ public class CustomerHomeController {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
         }
-        return "customer";
+        return "redirect:/dashboard/user/";
     }
 
 
