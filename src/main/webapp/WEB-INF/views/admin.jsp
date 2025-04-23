@@ -32,7 +32,8 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/dashboard/admin/">
-                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">대시 보드</span>
+                        <i class="align-middle" data-feather="list"></i>
+                        <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
 

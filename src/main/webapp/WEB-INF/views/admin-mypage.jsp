@@ -36,8 +36,9 @@
 				<form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post" style="display: none;"></form>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="#" onclick="document.getElementById('AdminDashBoardForm').submit(); return false;">
-						<i class="align-middle" data-feather="list"></i> <span class="align-middle">대시 보드</span>
+					<a class="sidebar-link" href="/dashboard/admin/">
+						<i class="align-middle" data-feather="list"></i>
+						<span class="align-middle">대시 보드</span>
 					</a>
 				</li>
 
