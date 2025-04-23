@@ -12,7 +12,7 @@
 <!-- ✅ 상단 로고 추가 -->
 <div class="header">
 	<div class="logo">
-		<img src="/img/MartGo_Logo.png" alt="a">
+		<img src="/img/MartGo_Logo_Black.png" alt="a">
 	</div>
 </div>
 

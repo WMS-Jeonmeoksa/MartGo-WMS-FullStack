@@ -28,12 +28,12 @@ header {
 }
 
 .container {
-    max-width: 600px;
-    margin: 3rem auto;
-    padding: 2rem;
+    max-width: 700px;
+    margin: 2rem auto;
     background-color: #fff;
+    padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 h2 {
