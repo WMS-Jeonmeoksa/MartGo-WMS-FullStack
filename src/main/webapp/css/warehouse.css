@@ -10,7 +10,12 @@ body {
     color: #333;
     line-height: 1.6;
 }
-.container {
+
+/*.main {*/
+/*    margin: 2.5rem auto;*/
+/*    padding: 1.875rem 3.125rem;*/
+/*}*/
+.rent-container {
     width: 100%;
     max-width: 93.75rem;
     margin: 2.5rem auto;
@@ -20,9 +25,6 @@ body {
     min-height: 80vh;
     border-radius: 0.75rem;
 }
-
-
-
 
 .header {
     display: flex;
