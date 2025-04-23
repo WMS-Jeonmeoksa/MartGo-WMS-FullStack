@@ -76,8 +76,8 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/confirm">임대 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="#">입고 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="#">출고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="/incoming/approve">입고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="/outgoing/approve">출고 신청 목록</a></li>
                     </ul>
                 </li>
 

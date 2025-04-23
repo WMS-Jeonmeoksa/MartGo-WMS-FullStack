@@ -55,14 +55,11 @@
                 <li class="sidebar-header">창고관리자 메뉴</li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#"
-                       onclick="document.getElementById('AdminDashBoardForm').submit(); return false;">
+                    <a class="sidebar-link" href="/dashboard/admin/">
                         <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
-                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="get"
-                      style="display: none;"></form>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/mypage">
@@ -78,8 +75,8 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/approve">임대 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="#">입고 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="#">출고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="/incoming/approve">입고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="/outgoing/approve">출고 신청 목록</a></li>
                     </ul>
                 </li>
 
@@ -102,10 +99,6 @@
                             </a>
                         </li>
                     </ul>
-                    <form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="get"
-                          style="display: none;"></form>
-                    <form id="StockHistoryForm" action="${pageContext.request.contextPath}/stock_history/admin/"
-                          method="get" style="display: none;"></form>
                 </li>
             </ul>
         </div>
