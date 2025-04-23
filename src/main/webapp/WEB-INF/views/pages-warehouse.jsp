@@ -14,8 +14,9 @@
     <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <title>warehouse rent</title>
+    <title>MartGo - 창고 임대 신청</title>
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/margoLogo.css" rel="stylesheet">
     <script src="/js/app.js"></script>
     <link href="/css/warehouse.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -26,7 +27,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/user">
-                <span class="align-middle">MartGo</span>
+                <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">회원 메뉴</li>

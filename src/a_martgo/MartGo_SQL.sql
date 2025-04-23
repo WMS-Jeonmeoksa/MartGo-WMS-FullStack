@@ -1,15 +1,16 @@
+use martgodb;
 
 
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS rent_history;
+DROP TABLE IF EXISTS cost_info;
 DROP TABLE IF EXISTS sector;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS incoming;
-DROP TABLE IF EXISTS rent_history;
 DROP TABLE IF EXISTS stock_history;
 DROP TABLE IF EXISTS outgoing;
 DROP TABLE IF EXISTS warehouse;
-DROP TABLE IF EXISTS cost_info;
 DROP TABLE IF EXISTS user;
 
 -- 테이블 생성
@@ -164,5 +165,4 @@ ALTER TABLE rent_history
 ALTER TABLE cost_info
     ADD CONSTRAINT fk_sector_to_cost_info FOREIGN KEY (sector_id, warehouse_id)
         REFERENCES sector (sector_id, warehouse_id);
-use martgodb;
-ALTER TABLE user ADD COLUMN status VARCHAR(10) DEFAULT '활성화';
+
