@@ -46,9 +46,8 @@
         </div>
     </nav>
 
-    <!-- 메인 영역 -->
+    <!-- 메인 -->
     <div class="main">
-        <!-- 상단바 -->
         <nav class="navbar navbar-expand navbar-light navbar-bg">
             <a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i></a>
             <div class="navbar-collapse collapse">
@@ -67,7 +66,7 @@
             </div>
         </nav>
 
-        <!-- ✅ 푸터 밀어내기 위한 wrapper 추가 -->
+        <!-- 콘텐츠 -->
         <div class="content-wrapper">
             <div class="container">
                 <h2>회원 마이페이지</h2>
@@ -78,13 +77,14 @@
                     <div class="info-item"><strong>전화번호</strong><div class="info-value"><%= user.getPhone() %></div></div>
                     <div class="info-item"><strong>주소</strong><div class="info-value"><%= user.getAddress() %></div></div>
                     <div class="info-item"><strong>권한</strong><div class="info-value"><%= user.getRole() %></div></div>
-                    <div class="info-item"><strong>담당 창고 관리자ID</strong>
+                    <div class="info-item">
+                        <strong>담당 창고 관리자ID</strong>
                         <div class="info-value" style="color:#1e90ff; font-weight:bold;">
                             <%= user.getAdminid() != null ? user.getAdminid() : "없음" %>
                         </div>
                     </div>
                 </div>
-                <button class="delete-account-btn" onclick="openDeleteModal()">
+                <button class="btn-delete" onclick="openDeleteModal()">
                     <i class="fas fa-user-minus"></i> 회원 탈퇴
                 </button>
             </div>
@@ -106,9 +106,9 @@
     </div> <!-- .main -->
 </div> <!-- .wrapper -->
 
-<!-- 모달 및 탈퇴 스크립트 -->
-<div id="deleteAccountModal" class="modal">
-    <div class="modal-content">
+<!-- ✅ 모달은 wrapper 밖에 위치해야 fixed가 화면 전체 기준으로 작동함 -->
+<div id="deleteAccountModal" class="confirm-modal">
+    <div class="confirm-box">
         <div class="modal-header">
             <h3>회원 탈퇴</h3>
             <span class="close-btn" onclick="closeDeleteModal()">&times;</span>
@@ -118,8 +118,8 @@
             <p>탈퇴 시 모든 회원 정보와 활동 내역이 삭제되며, 이 작업은 되돌릴 수 없습니다.</p>
         </div>
         <div class="modal-footer">
-            <button class="cancel-btn" onclick="closeDeleteModal()">취소</button>
-            <button class="confirm-btn" onclick="deleteAccount()">탈퇴하기</button>
+            <button class="btn-cancel" onclick="closeDeleteModal()">취소</button>
+            <button class="btn-confirm" onclick="deleteAccount()">탈퇴하기</button>
         </div>
     </div>
 </div>
@@ -128,9 +128,11 @@
     function openDeleteModal() {
         document.getElementById("deleteAccountModal").style.display = "flex";
     }
+
     function closeDeleteModal() {
         document.getElementById("deleteAccountModal").style.display = "none";
     }
+
     function deleteAccount() {
         closeDeleteModal();
         const xhr = new XMLHttpRequest();
@@ -149,11 +151,13 @@
         };
         xhr.send();
     }
+
     window.onclick = function (e) {
         if (e.target === document.getElementById("deleteAccountModal")) {
             closeDeleteModal();
         }
     };
+
     window.addEventListener("keydown", function (e) {
         if (e.key === "Escape") closeDeleteModal();
     });

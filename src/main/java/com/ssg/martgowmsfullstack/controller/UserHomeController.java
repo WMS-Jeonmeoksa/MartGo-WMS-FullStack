@@ -21,8 +21,17 @@ public class UserHomeController {
 
     @GetMapping("")
     public String userHome(HttpSession session) {
-        if (session.getAttribute("loginInfo") == null) {
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
             return "redirect:/login";
+        }
+        if(!(loginInfo instanceof UserDTO)) {
+            return "redirect:/access-denied";
+        }
+        UserDTO userDTO = (UserDTO) loginInfo;
+
+        if(!"회원".equals(userDTO.getRole())) {
+            return "redirect:/access-denied";
         }
         return "user"; // user.jsp
     }
@@ -30,8 +39,17 @@ public class UserHomeController {
     // 👤 회원 마이페이지
     @GetMapping("/mypage")
     public String mypage(HttpSession session) {
-        if (session.getAttribute("loginInfo") == null) {
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
             return "redirect:/login";
+        }
+        if(!(loginInfo instanceof UserDTO)) {
+            return "redirect:/access-denied";
+        }
+        UserDTO userDTO = (UserDTO) loginInfo;
+
+        if(!"회원".equals(userDTO.getRole())) {
+            return "redirect:/access-denied";
         }
         return "user-mypage"; // /WEB-INF/views/user-mypage.jsp
     }
