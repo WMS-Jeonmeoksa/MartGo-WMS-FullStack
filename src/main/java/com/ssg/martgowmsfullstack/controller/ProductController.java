@@ -24,13 +24,20 @@ public class ProductController {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
         }
-        System.out.println(session.getAttribute("userId"));
         return "pages-product-register";
     }
 
     @PostMapping("/register")
-    public String submitProductRegister(@ModelAttribute ProductDTO productDTO, Model model) {
+    public String submitProductRegister(HttpSession session,
+                                        @ModelAttribute ProductDTO productDTO,
+                                        Model model) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        String userId = (String) session.getAttribute("sessionUserId");
+        productDTO.setUserId(userId);
         productService.registerProduct(productDTO);
+
         model.addAttribute("product", productDTO);
         return "pages-product-confirm";
     }
