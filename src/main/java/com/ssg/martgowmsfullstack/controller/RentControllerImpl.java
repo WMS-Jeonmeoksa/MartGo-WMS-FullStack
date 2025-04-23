@@ -98,7 +98,7 @@ public class RentControllerImpl implements RentController {
 
         rentService.approveRentHistory(rentNum,adminId);
 
-        return "redirect:/admin";
+        return "redirect:/dashboard/admin";
     }
 
 
@@ -119,7 +119,7 @@ public class RentControllerImpl implements RentController {
 
         rentService.confirmRentHistory(rentNum,adminId);
 
-        return "redirect:/admin";
+        return "redirect:/dashboard/general";
     }
 
 }
