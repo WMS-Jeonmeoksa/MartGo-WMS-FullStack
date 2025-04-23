@@ -1,121 +1,136 @@
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #f4f6f8;
-}
-
-header {
-    background-color: #ffffff;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.logo a {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #333;
-    text-decoration: none;
-}
-
-.auth-links a {
-    margin-left: 1rem;
-    font-weight: 500;
-    color: #1e90ff;
-    text-decoration: none;
-}
-
+/* 컨테이너 기본 정렬 */
 .container {
-    max-width: 600px;
-    margin: 3rem auto;
-    padding: 2rem;
+    max-width: 700px;
+    margin: 2rem auto;
     background-color: #fff;
+    padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
+/* 제목 */
 h2 {
+    font-size: 1.8rem;
     text-align: center;
     margin-bottom: 2rem;
-    font-size: 1.8rem;
+    color: #333;
 }
 
+/* 정보 그룹 전체 정렬 */
 .info-group {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
 }
 
+/* 각 항목 */
 .info-item {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #eee;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
     padding-bottom: 0.5rem;
 }
 
+/* 라벨 */
 .info-item strong {
     color: #555;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
+/* 값 */
 .info-value {
-    color: #333;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #222;
 }
 
-.btn-wrap {
-    text-align: center;
-    margin-top: 2.5rem;
-}
-
-.btn-delete {
-    padding: 10px 24px;
+/* 회원 탈퇴 버튼 */
+.delete-account-btn {
+    margin-top: 2rem;
     background-color: #dc3545;
     color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 8px;
+    font-size: 0.95rem;
     font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.confirm-modal {
+.delete-account-btn:hover {
+    background-color: #c82333;
+}
+
+/* 모달 */
+.modal {
+    display: none;
     position: fixed;
+    z-index: 999;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background: #fff;
+    width: 400px;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 10% auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.confirm-box {
-    background: white;
-    padding: 2rem 2.5rem;
-    border-radius: 12px;
-    text-align: center;
+.modal-header h3 {
+    margin: 0;
+    color: #dc3545;
+    font-size: 1.25rem;
 }
 
-.confirm-box p {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.confirm-box button {
-    padding: 8px 18px;
-    margin: 1rem 10px 0;
-    border-radius: 6px;
-    border: none;
+.close-btn {
+    font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
+    color: #333;
 }
 
-.btn-confirm {
-    background-color: #dc3545;
+.modal-body {
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.modal-footer button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
     color: white;
 }
 
-.btn-cancel {
-    background-color: #6c757d;
+.confirm-btn {
+    background-color: #dc3545;
     color: white;
 }

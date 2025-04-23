@@ -18,31 +18,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/js/app.js"></script>
-	<style>
-		.sidebar-submenu {
-			display: none;
-			padding-left: 1.5rem;
-		}
 
-		.sidebar-item.open > .sidebar-submenu {
-			display: block;
-		}
-
-		.submenu-toggle {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-
-		.submenu-icon {
-			font-size: 0.8rem;
-			transition: transform 0.3s ease;
-		}
-
-		.sidebar-item.open .submenu-icon {
-			transform: rotate(180deg);
-		}
-	</style>
 </head>
 <body>
 <div class="wrapper">
@@ -115,7 +91,9 @@
 			<div class="navbar-collapse collapse">
 				<ul class="navbar-nav navbar-align ms-auto">
 					<li class="nav-item">
-						<span class="nav-link"><i class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님</span>
+						<a class="nav-link" href="${pageContext.request.contextPath}/superadmin/mypage">
+							<i class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님
+						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="${pageContext.request.contextPath}/logout">

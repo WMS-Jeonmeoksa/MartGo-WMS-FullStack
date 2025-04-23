@@ -75,8 +75,8 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/confirm">임대 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="#">입고 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="#">출고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/approve">입고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/approve">출고 신청 목록</a></li>
                     </ul>
                 </li>
 
@@ -114,8 +114,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link"><i
-                                class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님</span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/superadmin/mypage">
+                            <i class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/logout">

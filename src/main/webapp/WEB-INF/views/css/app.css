@@ -4,6 +4,12 @@
  * Copyright 2023 AdminKit
  * Licensed under MIT (https://github.com/adminkit/adminkit/blob/master/LICENSE)
  */
+img.martgologo {
+    margin: 10px 20px 0px 0px;
+    width: 150px;
+    height: 40px;
+}
+
 :root, [data-bs-theme=light] {
     --bs-blue: #3b7ddd;
     --bs-indigo: #0a0a0a;

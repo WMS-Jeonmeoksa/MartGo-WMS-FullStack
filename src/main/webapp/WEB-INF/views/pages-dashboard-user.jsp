@@ -40,19 +40,19 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/product/register">
                         <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">제품 등록</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/select">
                         <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">입고 요청</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/select">
                         <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">출고 요청</span>
                     </a>
                 </li>
@@ -74,7 +74,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage">
+                            <i class="fas fa-user-circle"></i> <%= user.getUsername() %>님
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/logout">
