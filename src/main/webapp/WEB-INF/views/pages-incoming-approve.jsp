@@ -61,29 +61,27 @@
                         <li><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/approve">출고 신청 목록</a></li>
                     </ul>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
                         <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li>
-                            <a class="sidebar-link" href="#" onclick="document.getElementById('StockForm').submit(); return false;">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/stock/admin/">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
                         <li>
-                            <a class="sidebar-link" href="#" onclick="document.getElementById('StockHistoryForm').submit(); return false;">
+                            <a class="sidebar-link" href="/stock_history/admin">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 변경 이력</span>
                             </a>
                         </li>
                     </ul>
-                    <form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="post" style="display: none;"></form>
-                    <form id="StockHistoryForm" action="${pageContext.request.contextPath}/stock_history/admin/" method="post" style="display: none;"></form>
                 </li>
+
             </ul>
         </div>
     </nav>
@@ -154,7 +152,7 @@
                 </table>
 
                 <div class="button-group-full">
-                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href='/dashboard/admin'">
+                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href='/dashboard/general'">
                         <i class="fas fa-arrow-left"></i> 홈으로
                     </button>
                     <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
