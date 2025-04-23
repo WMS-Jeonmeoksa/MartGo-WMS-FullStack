@@ -26,7 +26,7 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/admin">
                 <img src="/img/MartGo_Logo.png" alt="a">
             </a>
 
@@ -73,7 +73,7 @@
                 </li>
 
                 <!-- 담당 창고 메뉴 -->
-                <li class="sidebar-item open">
+                <li class="sidebar-item">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
                         <i class="fas fa-chevron-down submenu-icon"></i>
