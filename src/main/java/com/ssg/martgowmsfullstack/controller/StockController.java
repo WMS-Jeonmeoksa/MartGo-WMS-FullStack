@@ -2,6 +2,7 @@ package com.ssg.martgowmsfullstack.controller;
 
 import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.StockDTO;
+import com.ssg.martgowmsfullstack.dto.UserDTO;
 import com.ssg.martgowmsfullstack.service.StockService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,21 @@ public class StockController {
 
     @GetMapping("/user")
     public String userStock(HttpSession session, Model model) {
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
+            return "redirect:/login";
+        }
+        if (!(loginInfo instanceof UserDTO)) {
+            return "redirect:/access-denied";
+        }
 
-        String user_id = (String) session.getAttribute("sessionUserId");
+        UserDTO userDTO = (UserDTO) loginInfo;
 
-        String cleanUserId = user_id.trim().replace("\"", "");
+        if(!"거래처".equals(userDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+
+        String cleanUserId = ((UserDTO) loginInfo).getUserid().trim().replace("\"", "");
 
         List<StockDTO> stockList = stockService.getUserStock(cleanUserId);
         model.addAttribute("stockList", stockList);
@@ -39,11 +51,22 @@ public class StockController {
 
     @GetMapping("/admin")
     public String adminStock(HttpSession session, Model model) {
+        Object loginInfo = session.getAttribute("loginInfo");
 
-        AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
-        String admin_id = adminDTO.getAdminId();
+        if (loginInfo == null) {
+            return "redirect:/login";
+        }
+        if (!(loginInfo instanceof AdminDTO)) {
+            return "redirect:/access-denied";
+        }
 
-        String cleanAdminId = admin_id.trim().replace("\"", "");
+        AdminDTO adminDTO = (AdminDTO) loginInfo;
+
+        if (!"창고관리자".equals(adminDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+
+        String cleanAdminId = adminDTO.getAdminId().trim().replace("\"", "");
         List<StockDTO> stockList = stockService.getAdminUserStock(cleanAdminId);
         model.addAttribute("stockList", stockList);
         model.addAttribute("admin_id", cleanAdminId);
@@ -58,22 +81,23 @@ public class StockController {
             return "redirect:/login";
         }
 
-        if (loginInfo instanceof AdminDTO) {
-            AdminDTO adminDTO = (AdminDTO) loginInfo;
-
-
-            if (!"총관리자".equals(adminDTO.getRole())) {
-                return "redirect:/access-denied";
-            }
-
-            String cleanAdminId = adminDTO.getAdminId().trim().replace("\"", "");
-            List<StockDTO> stockList = stockService.getGeneralStock(cleanAdminId);
-            model.addAttribute("stockList", stockList);
-            model.addAttribute("admin_id", cleanAdminId);
-            return "pages-stock-general";
+        if (!(loginInfo instanceof AdminDTO)) {
+            return "redirect:/access-denied";
         }
 
-        return "redirect:/access-denied";
+        AdminDTO adminDTO = (AdminDTO) loginInfo;
+
+
+        if (!"총관리자".equals(adminDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+
+        String cleanAdminId = adminDTO.getAdminId().trim().replace("\"", "");
+        List<StockDTO> stockList = stockService.getGeneralStock(cleanAdminId);
+        model.addAttribute("stockList", stockList);
+        model.addAttribute("admin_id", cleanAdminId);
+        return "pages-stock-general";
+
     }
 
 }

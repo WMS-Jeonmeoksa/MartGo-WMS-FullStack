@@ -25,10 +25,19 @@ public class StockHistoryController {
 
     @GetMapping("/general")
     public String generalStockHistory(HttpSession session, Model model) {
-        AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
-        String admin_id = adminDTO.getAdminId();
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
+            return "redirect:/login";
+        }
+        if(!(loginInfo instanceof AdminDTO)) {
+            return "redirect:/access-denied";
+        }
+        AdminDTO adminDTO = (AdminDTO) loginInfo;
 
-        String cleanAdminId = admin_id.trim().replace("\"", "");
+        if(!"총관리자".equals(adminDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+        String cleanAdminId = ((AdminDTO) loginInfo).getAdminId().trim().replace("\"", "");
         List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
         model.addAttribute("stockHistoryList", stockHistoryList);
         model.addAttribute("admin_id", cleanAdminId);
@@ -37,10 +46,19 @@ public class StockHistoryController {
 
     @GetMapping("/admin")
     public String adminStockHistory(HttpSession session, Model model) {
-        AdminDTO adminDTO = (AdminDTO) session.getAttribute("loginInfo");
-        String admin_id = adminDTO.getAdminId();
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
+            return "redirect:/login";
+        }
+        if(!(loginInfo instanceof AdminDTO)) {
+            return "redirect:/access-denied";
+        }
+        AdminDTO adminDTO = (AdminDTO) loginInfo;
 
-        String cleanAdminId = admin_id.trim().replace("\"", "");
+        if(!"창고관리자".equals(adminDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+        String cleanAdminId = adminDTO.getAdminId().trim().replace("\"", "");
         List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
         model.addAttribute("stockHistoryList", stockHistoryList);
         model.addAttribute("admin_id", cleanAdminId);

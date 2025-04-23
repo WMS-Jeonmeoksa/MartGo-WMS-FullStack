@@ -1,6 +1,8 @@
 package com.ssg.martgowmsfullstack.controller;
 
+import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.DashBoardDTO;
+import com.ssg.martgowmsfullstack.dto.UserDTO;
 import com.ssg.martgowmsfullstack.service.AdminDashBoardService;
 import com.ssg.martgowmsfullstack.service.UserDashBoardService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +24,19 @@ public class UserDashBoardController {
 
     @GetMapping("/user")
     public String userDashBoard(HttpSession session, Model model) {
-        if (session.getAttribute("loginInfo") == null) {
+        Object loginInfo = session.getAttribute("loginInfo");
+        if (loginInfo == null) {
             return "redirect:/login";
         }
-        String user_id = (String) session.getAttribute("sessionUserId");
+        if(!(loginInfo instanceof UserDTO)) {
+            return "redirect:/access-denied";
+        }
+        UserDTO userDTO = (UserDTO) loginInfo;
+
+        if(!"거래처".equals(userDTO.getRole())) {
+            return "redirect:/access-denied";
+        }
+        String user_id = userDTO.getUserid().trim().replace("\"", "");
 
         DashBoardDTO dashBoardList = userDashBoardService.getDashBoard(user_id);
         model.addAttribute("dashBoardList", dashBoardList);
