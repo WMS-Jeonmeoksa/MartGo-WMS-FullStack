@@ -1,5 +1,7 @@
 USE martgodb;
 
+
+
 DROP TRIGGER IF EXISTS insert_stock;
 DELIMITER $$
 CREATE TRIGGER insert_stock
