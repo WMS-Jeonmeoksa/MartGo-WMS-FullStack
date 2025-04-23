@@ -14,6 +14,7 @@
     <meta charset="UTF-8"/>
     <title>MartGo - 총 관리자 재고 목록</title>
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/margoLogo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/js/app.js"></script>
     <style>
@@ -48,7 +49,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/superadmin">
-                <span class="align-middle">MartGo</span>
+                <img src="/img/MartGo_Logo.png" alt="a">
             </a>
 
             <ul class="sidebar-nav">
