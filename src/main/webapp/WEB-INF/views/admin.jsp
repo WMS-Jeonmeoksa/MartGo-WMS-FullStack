@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
 <%
-    AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
-    if (admin == null) {
-        response.sendRedirect(request.getContextPath() + "/login");
-        return;
-    }
+	AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
+	if (admin == null) {
+		response.sendRedirect(request.getContextPath() + "/login");
+		return;
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,18 +21,19 @@
 </head>
 <body>
 <div class="wrapper">
-    <!-- 사이드바 -->
-    <nav id="sidebar" class="sidebar js-sidebar">
-        <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
-                <span class="align-middle">MartGo</span>
-            </a>
-            <ul class="sidebar-nav">
-                <li class="sidebar-header">창고관리자 메뉴</li>
+	<!-- 사이드바 -->
+	<nav id="sidebar" class="sidebar js-sidebar">
+		<div class="sidebar-content js-simplebar">
+			<a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
+				<span class="align-middle">MartGo</span>
+			</a>
+			<ul class="sidebar-nav">
+				<li class="sidebar-header">창고관리자 메뉴</li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/dashboard/admin/">
-                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">대시 보드</span>
+                        <i class="align-middle" data-feather="list"></i>
+                        <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
 
@@ -78,26 +79,28 @@
         </div>
     </nav>
 
-    <!-- 메인 -->
-    <div class="main">
-        <!-- 상단 네비가이션 -->
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
-            <a class="sidebar-toggle js-sidebar-toggle">
-                <i class="hamburger align-self-center"></i>
-            </a>
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav navbar-align ms-auto">
-                    <li class="nav-item">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">
-                            <i class="fas fa-sign-out-alt"></i> 로그아웃
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+	<!-- 메인 -->
+	<div class="main">
+		<!-- 상단 네비가이션 -->
+		<nav class="navbar navbar-expand navbar-light navbar-bg">
+			<a class="sidebar-toggle js-sidebar-toggle">
+				<i class="hamburger align-self-center"></i>
+			</a>
+			<div class="navbar-collapse collapse">
+				<ul class="navbar-nav navbar-align ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/admin/mypage">
+							<i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/logout">
+							<i class="fas fa-sign-out-alt"></i> 로그아웃
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
         <!-- 컨텐츠 -->
         <main class="content">

@@ -17,6 +17,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public AdminDTO getAdminById(String adminId) {
         AdminVO adminVO = adminMapper.findByAdminId(adminId);
+        if (adminVO == null) {
+            return null;
+        }
         return modelMapper.map(adminVO, AdminDTO.class);
     }
 }

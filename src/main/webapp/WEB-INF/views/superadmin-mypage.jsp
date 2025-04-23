@@ -11,112 +11,156 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>MartGo - 총관리자 마이페이지</title>
-	<link href="${pageContext.request.contextPath}/css/app.css" rel="stylesheet">
+	<title>MartGo - 총관리자 페이지</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superadmin.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superadmin_mypage.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-	<style>
-		body {
-			margin: 0;
-			font-family: 'Inter', sans-serif;
-			background-color: #f6f6f6;
-		}
-		header {
-			background-color: #fff;
-			padding: 1rem 2rem;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-		}
-		.logo a {
-			text-decoration: none;
-			font-size: 1.5rem;
-			font-weight: bold;
-			color: #333;
-		}
-		.auth-links {
-			font-size: 1rem;
-		}
-		.auth-links a {
-			margin-left: 1rem;
-			text-decoration: none;
-			color: #0d6efd;
-			font-weight: 500;
-		}
-		.profile-container {
-			max-width: 640px;
-			background: white;
-			margin: 3rem auto;
-			padding: 2.5rem;
-			border-radius: 16px;
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-		}
-		.profile-container h2 {
-			text-align: center;
-			margin-bottom: 2rem;
-			font-size: 1.8rem;
-		}
-		.profile-item {
-			display: flex;
-			justify-content: space-between;
-			padding: 0.9rem 0;
-			border-bottom: 1px solid #eee;
-		}
-		.profile-item span:first-child {
-			font-weight: 600;
-			color: #555;
-		}
-		.profile-item span:last-child {
-			color: #333;
-		}
-		.warehouse-box {
-			background-color: #fff8e1;
-			border: 2px solid #ffc107;
-			color: #856404;
-			padding: 1rem 1.2rem;
-			margin-top: 2rem;
-			text-align: center;
-			border-radius: 10px;
-			font-size: 1.2rem;
-			font-weight: bold;
-		}
-	</style>
+	<script src="${pageContext.request.contextPath}/js/app.js"></script>
 </head>
 <body>
+<div class="wrapper">
+	<!-- 사이드바 -->
+	<nav id="sidebar" class="sidebar js-sidebar">
+		<div class="sidebar-content js-simplebar">
+			<a class="sidebar-brand" href="${pageContext.request.contextPath}/superadmin">
+				<span class="align-middle">MartGo</span>
+			</a>
+			<ul class="sidebar-nav">
+				<li class="sidebar-header">총관리자 메뉴</li>
 
-<header>
-	<div class="logo">
-		<a href="${pageContext.request.contextPath}/superadmin">MartGo</a>
-	</div>
-	<div class="auth-links">
-		<%= admin.getAdminname() %>님 |
-		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
-	</div>
-</header>
+				<form id="SuperAdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/superadmin/" method="post" style="display: none;"></form>
 
-<div class="profile-container">
-	<h2>총관리자 마이페이지</h2>
+				<li class="sidebar-item">
+					<a class="sidebar-link" href="/dashboard/general/">
+						<i class="align-middle" data-feather="list"></i>
+						<span class="align-middle">대시 보드</span>
+					</a>
+				</li>
 
-	<div class="profile-item">
-		<span>아이디</span><span><%= admin.getAdminId() %></span>
-	</div>
-	<div class="profile-item">
-		<span>이름</span><span><%= admin.getAdminname() %></span>
-	</div>
-	<div class="profile-item">
-		<span>이메일</span><span><%= admin.getEmail() %></span>
-	</div>
-	<div class="profile-item">
-		<span>전화번호</span><span><%= admin.getPhone() %></span>
-	</div>
-	<div class="profile-item">
-		<span>권한</span><span><%= admin.getRole() %></span>
-	</div>
+				<li class="sidebar-item active">
+					<a class="sidebar-link" href="${pageContext.request.contextPath}/superadmin/mypage">
+						<i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
+					</a>
+				</li>
 
-	<div class="warehouse-box">
-		담당 창고: <%= admin.getWarehouse() != null ? admin.getWarehouse() : "전체 관리" %>
+				<li class="sidebar-item">
+					<a class="sidebar-link submenu-toggle" href="#">
+						<span><i class="align-middle" data-feather="clock"></i> 진행중</span>
+						<i class="fas fa-chevron-down submenu-icon"></i>
+					</a>
+					<ul class="sidebar-submenu">
+						<li><a class="sidebar-link" href="#">임대 신청 목록</a></li>
+						<li><a class="sidebar-link" href="#">입고 신청 목록</a></li>
+						<li><a class="sidebar-link" href="#">출고 신청 목록</a></li>
+					</ul>
+				</li>
+
+				<!-- 담당 창고 메뉴 -->
+				<li class="sidebar-item">
+					<a class="sidebar-link submenu-toggle" href="#">
+						<span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
+						<i class="fas fa-chevron-down submenu-icon"></i>
+					</a>
+					<ul class="sidebar-submenu">
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="#"
+							   onclick="document.getElementById('GeneralStockForm').submit(); return false;">
+								<i class="align-middle" data-feather="list"></i>
+								<span class="align-middle">재고 목록</span>
+							</a>
+						</li>
+						<form id="GeneralStockForm" action="${pageContext.request.contextPath}/stock/general/"
+							  method="post" style="display: none;"></form>
+
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="#"
+							   onclick="document.getElementById('GeneralStockHistoryForm').submit(); return false;">
+								<i class="align-middle" data-feather="list"></i>
+								<span class="align-middle">재고 변경 이력</span>
+							</a>
+						</li>
+						<form id="GeneralStockHistoryForm"
+							  action="${pageContext.request.contextPath}/stock_history/general/" method="post"
+							  style="display: none;"></form>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- 메인 -->
+	<div class="main">
+		<!-- 상단 네비게이션 -->
+		<nav class="navbar navbar-expand navbar-light navbar-bg">
+			<a class="sidebar-toggle js-sidebar-toggle">
+				<i class="hamburger align-self-center"></i>
+			</a>
+			<div class="navbar-collapse collapse">
+				<ul class="navbar-nav navbar-align ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/superadmin/mypage">
+							<i class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${pageContext.request.contextPath}/logout">
+							<i class="fas fa-sign-out-alt"></i> 로그아웃
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- 마이페이지 컨텐츠 -->
+		<main class="content">
+			<div class="container-fluid p-0">
+				<h2 class="h3 mb-4"><strong>총관리자 마이페이지</strong></h2>
+				<div class="card">
+					<div class="card-body">
+						<div class="profile-item"><span>아이디</span><span><%= admin.getAdminId() %></span></div>
+						<div class="profile-item"><span>이름</span><span><%= admin.getAdminname() %></span></div>
+						<div class="profile-item"><span>이메일</span><span><%= admin.getEmail() %></span></div>
+						<div class="profile-item"><span>전화번호</span><span><%= admin.getPhone() %></span></div>
+						<div class="profile-item"><span>권한</span><span><%= admin.getRole() %></span></div>
+						<div class="warehouse-box">담당 창고: <%= admin.getWarehouse() != null ? admin.getWarehouse() : "전체 관리" %></div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- 푸터 -->
+		<footer class="footer">
+			<div class="container-fluid">
+				<div class="row text-muted">
+					<div class="col-6 text-start">
+						<p class="mb-0"><strong>MartGo</strong> &copy;</p>
+					</div>
+					<div class="col-6 text-end">
+						<a class="text-muted" href="#">Support</a>
+					</div>
+				</div>
+			</div>
+		</footer>
 	</div>
 </div>
 
+<!-- Feather 아이콘 & 토글 스크립트 -->
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		feather.replace(); // 아이콘 초기화
+
+		const toggles = document.querySelectorAll(".submenu-toggle");
+		toggles.forEach(toggle => {
+			toggle.addEventListener("click", function (e) {
+				e.preventDefault();
+				const item = this.closest(".sidebar-item");
+				item.classList.toggle("open");
+			});
+		});
+	});
+</script>
 </body>
 </html>

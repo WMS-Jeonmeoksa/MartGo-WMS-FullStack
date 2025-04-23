@@ -8,8 +8,8 @@
     <select id="getWarehouseUsageRate" resultType="double">
         SELECT wh.FAR
         FROM warehouse wh
-        JOIN admin a
-        ON wh.warehouse_id = a.warehouse_id
+                 JOIN admin a
+                      ON wh.warehouse_id = a.warehouse_id
         WHERE admin_id = #{admin_id}
     </select>
 
@@ -17,11 +17,11 @@
         SELECT s.FAR AS FAR , s.sector_id AS sector_id, s.warehouse_id AS warehouse_id
         FROM sector s
         WHERE s.warehouse_id =
-        (SELECT wh.warehouse_id
-        FROM warehouse wh
-        JOIN admin a
-        ON wh.warehouse_id = a.warehouse_id
-        WHERE admin_id = #{admin_id})
+              (SELECT wh.warehouse_id
+               FROM warehouse wh
+                        JOIN admin a
+                             ON wh.warehouse_id = a.warehouse_id
+               WHERE admin_id = #{admin_id})
     </select>
 
     <select id="getTotalUserCount" resultType="int">
@@ -34,7 +34,7 @@
 
     <select id="getMonthlyRentTotal" resultType="com.ssg.martgowmsfullstack.domain.MonthlyRentVO">
         SELECT
-        DATE_FORMAT(approve_date, '%y-%m') AS month,
+            DATE_FORMAT(approve_date, '%y-%m') AS month,
         SUM(rent_price) AS total_rent
         FROM rent_history
         WHERE status = '완료'
@@ -49,8 +49,8 @@
     <select id="getUserAdminList" resultType="com.ssg.martgowmsfullstack.domain.UserAdminVO">
         SELECT a.admin_name AS admin_name, a.phone_num AS phone_num
         FROM user u
-        JOIN admin a
-        ON u.admin_id = a.admin_id
+                 JOIN admin a
+                      ON u.admin_id = a.admin_id
         WHERE u.user_id = #{user_id}
     </select>
 
@@ -63,18 +63,18 @@
     <select id="getRentSectorWarehouseList" resultType="com.ssg.martgowmsfullstack.domain.RentSectorWarehouseVO">
         SELECT r.sector_id AS sector_id, w.warehouse_name AS warehouse_name
         FROM rent_history r
-        JOIN warehouse w
-        ON r.warehouse_id = w.warehouse_id
+                 JOIN warehouse w
+                      ON r.warehouse_id = w.warehouse_id
         WHERE user_id = #{user_id}
     </select>
 
     <select id="getUserSectorUsage" resultType="com.ssg.martgowmsfullstack.domain.SectorUsageVO" parameterType="String">
         SELECT s.FAR AS FAR, s.sector_id AS sector_id, w.warehouse_id AS warehouse_id
         FROM rent_history r
-        JOIN sector s
-        ON s.sector_id = r.sector_id
-        JOIN warehouse w
-        ON s.warehouse_id = w.warehouse_id
+                 JOIN sector s
+                      ON s.sector_id = r.sector_id
+                 JOIN warehouse w
+                      ON s.warehouse_id = w.warehouse_id
         WHERE r.user_id = #{user_id}
     </select>
 

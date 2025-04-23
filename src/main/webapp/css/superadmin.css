@@ -1,0 +1,23 @@
+.sidebar-submenu {
+    display: none;
+    padding-left: 1.5rem;
+}
+
+.sidebar-item.open > .sidebar-submenu {
+    display: block;
+}
+
+.submenu-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.submenu-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-item.open .submenu-icon {
+    transform: rotate(180deg);
+}
