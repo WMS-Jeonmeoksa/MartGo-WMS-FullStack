@@ -198,7 +198,11 @@
                         alert('창고를 선택해주세요.');
                         return;
                     }
-
+                    const selectedWarehouse = warehouses.find(w => w.id === selectedWarehouseId);
+                    if (selectedWarehouse && selectedWarehouse.status === '사용불가') {
+                        alert('선택한 창고는 현재 모두 임대중입니다. 다른 창고를 선택해주세요.');
+                        return;
+                    }
                     const params = new URLSearchParams({
                         warehouseId: selectedWarehouseId,
                         warehouseName: selectedWarehouseName
