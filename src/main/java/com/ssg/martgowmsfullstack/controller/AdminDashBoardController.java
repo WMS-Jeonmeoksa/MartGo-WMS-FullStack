@@ -41,7 +41,7 @@ public class AdminDashBoardController {
         return "pages-dashboard-admin";
     }
 
-    @GetMapping("/general")
+    @GetMapping("/superadmin")
     public String generalDashBoard(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {

@@ -1,4 +1,5 @@
 USE martgodb;
+# SET GLOBAL log_bin_trust_function_creators = 1;
 -- 총관리자가 진행중 상태인 임대신청내역을 승인하면 상태를 완료로 수정하는 프로시저
 drop procedure if exists CompletedRentStatus;
 DELIMITER $$

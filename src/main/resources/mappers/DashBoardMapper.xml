@@ -79,4 +79,10 @@
         WHERE r.user_id = #{user_id}
     </select>
 
+    <update id="updateUserRole" parameterType="String">
+        UPDATE user
+        SET role = '회원'
+        WHERE user_id = #{user_id}
+    </update>
+
 </mapper>
