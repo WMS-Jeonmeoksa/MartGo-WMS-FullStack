@@ -15,10 +15,10 @@
     <meta charset="UTF-8">
     <title>MartGo</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_mypage.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/superadmin_mypage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/superadmin.css">
     <link rel="stylesheet" href="/css/margoLogo.css">
-    <link rel="stylesheet" href="/css/incoming_approve.css">
+    <link rel="stylesheet" href="/css/outgoing_approve.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -29,23 +29,23 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/superadmin">
                 <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">창고관리자 메뉴</li>
 
-                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post" style="display: none;"></form>
+                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/superadmin/" method="post" style="display: none;"></form>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/dashboard/admin/">
+                    <a class="sidebar-link" href="/dashboard/superadmin/">
                         <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/mypage">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/superadmin/mypage">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
@@ -56,11 +56,12 @@
                         <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/approve">임대 신청 목록</a></li>
-                        <li class="sidebar-item active"><a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/approve">입고 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/approve">출고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/finalization">임대 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/finalization">입고 신청 목록</a></li>
+                        <li class="sidebar-item active"><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/finalization">출고 신청 목록</a></li>
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
@@ -68,20 +69,19 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/stock/admin/">
+                            <a class="sidebar-link" href="/stock/superadmin/">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
                         <li>
-                            <a class="sidebar-link" href="/stock_history/admin">
+                            <a class="sidebar-link" href="/stock_history/superadmin">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 변경 이력</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-
             </ul>
         </div>
     </nav>
@@ -96,7 +96,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/mypage">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/superadmin/mypage">
                             <i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님
                         </a>
                     </li>
@@ -110,52 +110,52 @@
         </nav>
 
 
-        <form id="approveForm" action="/incoming/approve" method="post">
-            <input type="hidden" name="incomingNum" id="incomingNumInput" />
+        <form id="approveForm" action="/outgoing/finalization" method="post">
+            <input type="hidden" name="outgoingNum" id="selectedOutgoingNum" />
 
-            <div class="incoming-container">
+            <div class="outgoing-container">
                 <div class="header">
-                    <h1 class="incoming-h1">
-                        <i class="fas fa-check-circle"></i>&nbsp;입고 승인
+                    <h1 class="outgoing-h1">
+                        <i class="fas fa-check-circle"></i>&nbsp;출고 승인
                     </h1>
                 </div>
 
                 <div class="section-header">
-                    <h3 class="incoming-h3">
-                        <i class="fas fa-list-ul"></i>&nbsp;입고 신청 목록
+                    <h3 class="outgoing-h3">
+                        <i class="fas fa-list-ul"></i>&nbsp;출고 신청 목록
                     </h3>
                 </div>
 
-                <table class="incoming_table">
+                <table class="outgoing_table">
                     <thead>
                     <tr>
-                        <th>입고번호</th>
-                        <th>제품 ID</th>
+                        <th>출고번호</th>
+                        <th>재고번호</th>
                         <th>수량</th>
-                        <th>입고날짜</th>
+                        <th>출고날짜</th>
                         <th>회원 ID</th>
                         <th>상태</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="incoming" items="${incomingList}">
-                        <tr onclick="selectIncoming(this, '${incoming.incomingNum}')">
-                            <td>${incoming.incomingNum}</td>
-                            <td>${incoming.productId}</td>
-                            <td>${incoming.count}</td>
-                            <td><fmt:formatDate value="${incoming.incomingDate}" pattern="yyyy-MM-dd"/></td>
-                            <td>${incoming.userId}</td>
-                            <td>${incoming.status}</td>
+                    <c:forEach var="outgoing" items="${outgoingList}">
+                        <tr onclick="selectOutgoing(this, '${outgoing.outgoingNum}')">
+                            <td>${outgoing.outgoingNum}</td>
+                            <td>${outgoing.stockNum}</td>
+                            <td>${outgoing.count}</td>
+                            <td><fmt:formatDate value="${outgoing.outgoingDate}" pattern="yyyy-MM-dd"/></td>
+                            <td>${outgoing.userId}</td>
+                            <td>${outgoing.status}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
 
                 <div class="button-group-full">
-                    <button type="button" class="incoming_btn btn-back" onclick="window.location.href='/dashboard/general'">
+                    <button type="button" class="outgoing_btn btn-back" onclick="window.location.href='/dashboard/superadmin'">
                         <i class="fas fa-arrow-left"></i> 홈으로
                     </button>
-                    <button type="submit" class="incoming_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
+                    <button type="button" class="outgoing_btn btn-next" id="approveBtn" disabled onclick="approveOutgoing()">
                         승인 <i class="fas fa-check"></i>
                     </button>
                 </div>
@@ -163,21 +163,23 @@
         </form>
 
         <script>
-            let selectedIncomingId = null;
+            let selectedOutgoingId = null;
 
-            function selectIncoming(row, incomingId) {
+            function selectOutgoing(row, outgoingId) {
                 document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
                 row.classList.add('selected');
-                selectedIncomingId = incomingId;
-                document.getElementById("incomingNumInput").value = incomingId;
+                selectedOutgoingId = outgoingId;
+                document.getElementById('selectedOutgoingNum').value = outgoingId;
                 document.getElementById('approveBtn').disabled = false;
             }
 
-            function confirmApproval() {
-                if (selectedIncomingId) {
-                    return confirm(`${selectedIncomingId} 입고요청을 승인하겠습니까?`);
+            function approveOutgoing() {
+                if (selectedOutgoingId) {
+                    const confirmMsg = `해당 출고요청을 승인하겠습니까?`;
+                    if (confirm(confirmMsg)) {
+                        document.getElementById('approveForm').submit();
+                    }
                 }
-                return false;
             }
         </script>
 

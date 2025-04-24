@@ -23,14 +23,14 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/user">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/customer">
                 <img src="/img/MartGo_Logo.png" alt="MartGo_Logo">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">거래처 메뉴</li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/dashboard/user">
+                    <a class="sidebar-link" href="/dashboard/customer">
                         <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">대시 보드</span>
                     </a>
@@ -60,7 +60,7 @@
                     </a>
                 </li>
 
-                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
+                <form id="stockForm" action="${pageContext.request.contextPath}/stock/customer" method="post"
                       style="display: none;">
                 </form>
 
@@ -84,7 +84,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage">
+                            <i class="fas fa-user-circle"></i> <%= user.getUsername() %>님
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/logout">
