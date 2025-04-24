@@ -3,6 +3,7 @@ package com.ssg.martgowmsfullstack.mapper;
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
+import com.ssg.martgowmsfullstack.dto.WarehouseDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 @Mapper
 public interface RentMapper {
 
-    List<Map<String, Object>> getAllWarehouses();
+    List<WarehouseDTO> getAllWarehouses();
     List<String> getSectorStatus(@Param("warehouseId") int warehouseId);
     List<SectorDTO> getAllSectors(@Param("warehouseId") int warehouseId);
     List<CostInfoDTO> getCostInfo(@Param("warehouseId") int warehouseId,

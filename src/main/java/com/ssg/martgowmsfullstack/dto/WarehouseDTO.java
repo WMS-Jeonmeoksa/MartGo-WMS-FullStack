@@ -17,5 +17,6 @@ public class WarehouseDTO {
     private int height;
     private int width;
     private BigDecimal FAR;
+    private String status;
 
 }

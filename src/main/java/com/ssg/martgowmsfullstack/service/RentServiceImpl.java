@@ -4,6 +4,7 @@ package com.ssg.martgowmsfullstack.service;
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
+import com.ssg.martgowmsfullstack.dto.WarehouseDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,12 +30,10 @@ public class RentServiceImpl implements RentService {
     RentMapper rentMapper;
 
 
-    public List<Map<String, Object>> getAllWarehouses() {
-        List<Map<String, Object>> warehouses = rentMapper.getAllWarehouses();
-        for (Map<String, Object> wh : warehouses) {
-            Integer warehouseId = (Integer) wh.get("warehouse_id");
-            String status = getSectorStatus(warehouseId);
-            wh.put("status", status);
+    public List<WarehouseDTO> getAllWarehouses() {
+        List<WarehouseDTO> warehouses = rentMapper.getAllWarehouses();
+        for (WarehouseDTO warehouse : warehouses) {
+            warehouse.setStatus(getSectorStatus(warehouse.getWarehouseId()));
         }
         return warehouses;
     }
