@@ -65,4 +65,9 @@ public class DashBoardMapperTests {
     public void test8() {
         log.info(dashBoardMapper.getUserSectorUsage("seller01"));
     }
+
+
+    @Test
+    public void test9(){
+    }
 }

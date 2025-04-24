@@ -59,17 +59,11 @@
 					</a>
 				</li>
 
-				<form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="post"
-					  style="display: none;">
-				</form>
-
 				<li class="sidebar-item">
 					<a class="sidebar-link" href="/stock/customer">
 						<i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 조회</span>
 					</a>
 				</li>
-
-
 			</ul>
 		</div>
 	</nav>

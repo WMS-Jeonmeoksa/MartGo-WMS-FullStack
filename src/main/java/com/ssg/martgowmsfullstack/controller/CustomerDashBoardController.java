@@ -1,28 +1,26 @@
 package com.ssg.martgowmsfullstack.controller;
 
-import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.DashBoardDTO;
 import com.ssg.martgowmsfullstack.dto.UserDTO;
-import com.ssg.martgowmsfullstack.service.AdminDashBoardService;
-import com.ssg.martgowmsfullstack.service.UserDashBoardService;
+import com.ssg.martgowmsfullstack.mapper.DashBoardMapper;
+import com.ssg.martgowmsfullstack.service.CustomerDashBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/dashboard")
-public class UserDashBoardController {
+public class CustomerDashBoardController {
 
-    private final UserDashBoardService userDashBoardService;
+    private final CustomerDashBoardService userDashBoardService;
+    private final DashBoardMapper dashBoardMapper;
 
-    @GetMapping("/user")
+    @GetMapping("/customer")
     public String userDashBoard(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
@@ -33,6 +31,15 @@ public class UserDashBoardController {
         }
         UserDTO userDTO = (UserDTO) loginInfo;
 
+        Integer remainingDays = dashBoardMapper.getRemainingDays(userDTO.getUserid());
+        if (remainingDays == null || remainingDays == 0) {
+            dashBoardMapper.updateUserRole(userDTO.getUserid());
+            userDTO.setRole("회원");
+            session.setAttribute("loginInfo", userDTO);
+            session.setAttribute("role", "회원");
+            return "redirect:/user";
+        }
+
         if(!"거래처".equals(userDTO.getRole())) {
             return "redirect:/access-denied";
         }
@@ -41,6 +48,6 @@ public class UserDashBoardController {
         DashBoardDTO dashBoardList = userDashBoardService.getDashBoard(user_id);
         model.addAttribute("dashBoardList", dashBoardList);
         model.addAttribute("user_id", user_id);
-        return "pages-dashboard-user";
+        return "pages-dashboard-customer";
     }
 }
