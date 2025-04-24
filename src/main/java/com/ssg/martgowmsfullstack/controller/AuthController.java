@@ -22,7 +22,7 @@ public class AuthController {
     // --- 로그인 폼 ---
     @GetMapping("/login")
     public String loginForm() {
-        return "login"; // 공통 로그인 폼 (선택지 제공)
+        return "pages-login"; // 공통 로그인 폼 (선택지 제공)
     }
 
     @PostMapping("/login")
@@ -44,7 +44,7 @@ public class AuthController {
             if ("거래처".equals(user.getRole())) return "redirect:/customer";
 
             model.addAttribute("error", "허용되지 않은 사용자 권한입니다.");
-            return "login";
+            return "pages-login";
         }
 
         // 2. 관리자 로그인 시도
@@ -59,18 +59,18 @@ public class AuthController {
 
 
             model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
-            return "login";
+            return "pages-login";
         }
 
         // 3. 모두 실패
         model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
-        return "login";
+        return "pages-login";
     }
 
     // --- 회원가입 폼 ---
     @GetMapping("/register")
     public String registerForm() {
-        return "registerForm";
+        return "pages-registerForm";
     }
 
     // --- 회원가입 처리 ---
@@ -81,7 +81,7 @@ public class AuthController {
 
         if (userService.findByUserid(user.getUserid()) != null) {
             model.addAttribute("error", "이미 존재하는 아이디입니다.");
-            return "registerForm";
+            return "pages-registerForm";
         }
 
         String fullAddress = (user.getAddress() + " (" + addressDetail + ")").trim();
@@ -97,6 +97,6 @@ public class AuthController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "guest"; // 비회원 홈
+        return "pages-guest"; // 비회원 홈
     }
 }

@@ -36,6 +36,6 @@ public class CustomerHomeController {
         if(!"거래처".equals(userDTO.getRole())) {
             return "redirect:/access-denied";
         }
-        return "customer-mypage"; // /WEB-INF/views/customer-mypage.jsp
+        return "pages-customer-mypage"; // /WEB-INF/views/pages-customer-mypage.jsp
     }
 }
