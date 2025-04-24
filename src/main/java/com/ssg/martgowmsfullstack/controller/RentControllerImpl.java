@@ -30,7 +30,7 @@ public class RentControllerImpl implements RentController {
             return "redirect:/login";
         }
         model.addAttribute("warehouses", rentService.getAllWarehouses());
-        return "pages-warehouse";
+        return "pages-rent-warehouse";
     }
 
     @GetMapping("/sector")
@@ -46,7 +46,7 @@ public class RentControllerImpl implements RentController {
         model.addAttribute("warehouseId", warehouseId);
         model.addAttribute("warehouseName", warehouseName);
 
-        return "pages-sector";
+        return "pages-rent-sector";
     }
 
     @GetMapping("/period")
@@ -63,13 +63,13 @@ public class RentControllerImpl implements RentController {
         model.addAttribute("warehouseId", warehouseId);
         model.addAttribute("warehouseName", warehouseName);
         model.addAttribute("sectorId", sectorId);
-        return "pages-period";
+        return "pages-rent-period";
     }
 
     @GetMapping("/last")
     public String showRentSummary(@ModelAttribute RentSelectDTO rentSelectDTO, Model model) {
         model.addAttribute("rentSelectDTO", rentSelectDTO);
-        return "pages-last";
+        return "pages-rent-last";
     }
 
 
@@ -102,7 +102,7 @@ public class RentControllerImpl implements RentController {
     }
 
 
-    @GetMapping("/confirm")
+    @GetMapping("/finalization")
     public String inProgressRentList(Model model, HttpSession session) {
         String adminId = (String) session.getAttribute("sessionAdminId");
 
@@ -110,10 +110,10 @@ public class RentControllerImpl implements RentController {
 
         model.addAttribute("rentHistoryDTO", rentHistoryDTO);
 
-        return "pages-rent-confirm";
+        return "pages-rent-finalization";
     }
 
-    @PostMapping("/confirm")
+    @PostMapping("/finalization")
     public String confirmRentHistory(int rentNum, HttpSession session) {
         String adminId = (String) session.getAttribute("sessionAdminId");
 
