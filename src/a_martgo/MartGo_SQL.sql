@@ -168,3 +168,29 @@ ALTER TABLE cost_info
     ADD CONSTRAINT fk_sector_to_cost_info FOREIGN KEY (sector_id, warehouse_id)
         REFERENCES sector (sector_id, warehouse_id);
 
+UPDATE sector
+SET status = '사용가능'
+WHERE sector_id IN (
+    SELECT sector_id
+    FROM (
+             SELECT rh.sector_id
+             FROM rent_history rh
+                      JOIN (
+                 SELECT user_id, MAX(rent_end_date) AS max_rent_end_date
+                 FROM rent_history
+                 GROUP BY user_id
+             ) latest_rent ON rh.user_id = latest_rent.user_id AND rh.rent_end_date = latest_rent.max_rent_end_date
+             WHERE rh.rent_end_date < NOW()
+         ) AS recent_sector
+);
+
+UPDATE user u
+SET u.role = '회원',
+    u.admin_id = NULL
+WHERE u.role = '거래처'
+  AND NOT EXISTS (
+    SELECT 1
+    FROM rent_history rh
+    WHERE rh.user_id = u.user_id
+      AND rh.rent_end_date > NOW()
+);

@@ -20,12 +20,10 @@ public class UserServiceImpl implements UserService {
         UserVO dbUser = userMapper.findByUserid(userid);
 
         if (dbUser == null) {
-            System.out.println("아이디 없음");
             return false;
         }
 
         if (!"활성화".equals(dbUser.getStatus())) {
-            System.out.println("비활성 상태");
             return false;
         }
 

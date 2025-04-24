@@ -31,10 +31,10 @@
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">총관리자 메뉴</li>
 
-				<form id="SuperAdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/superadmin/" method="post" style="display: none;"></form>
+				<form id="SuperAdminDashBoardForm" action="${pageContext.request.contextPath}/superadmin" method="post" style="display: none;"></form>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="/dashboard/general/">
+					<a class="sidebar-link" href="/dashboard/superadmin">
 						<i class="align-middle" data-feather="list"></i>
 						<span class="align-middle">대시 보드</span>
 					</a>
@@ -52,9 +52,9 @@
 						<i class="fas fa-chevron-down submenu-icon"></i>
 					</a>
 					<ul class="sidebar-submenu">
-						<li><a class="sidebar-link" href="#">임대 신청 목록</a></li>
-						<li><a class="sidebar-link" href="#">입고 신청 목록</a></li>
-						<li><a class="sidebar-link" href="#">출고 신청 목록</a></li>
+						<li><a class="sidebar-link" href="/rent/confirm">임대 신청 목록</a></li>
+						<li><a class="sidebar-link" href="/incoming/approve">입고 신청 목록</a></li>
+						<li><a class="sidebar-link" href="/outgoing/approve">출고 신청 목록</a></li>
 					</ul>
 				</li>
 
@@ -66,25 +66,19 @@
 					</a>
 					<ul class="sidebar-submenu">
 						<li class="sidebar-item">
-							<a class="sidebar-link" href="#"
-							   onclick="document.getElementById('GeneralStockForm').submit(); return false;">
+							<a class="sidebar-link" href="/stock/superadmin">
 								<i class="align-middle" data-feather="list"></i>
 								<span class="align-middle">재고 목록</span>
 							</a>
 						</li>
-						<form id="GeneralStockForm" action="${pageContext.request.contextPath}/stock/general/"
-							  method="post" style="display: none;"></form>
 
 						<li class="sidebar-item">
-							<a class="sidebar-link" href="#"
-							   onclick="document.getElementById('GeneralStockHistoryForm').submit(); return false;">
+							<a class="sidebar-link" href="/stock_history/superadmin">
 								<i class="align-middle" data-feather="list"></i>
 								<span class="align-middle">재고 변경 이력</span>
 							</a>
 						</li>
-						<form id="GeneralStockHistoryForm"
-							  action="${pageContext.request.contextPath}/stock_history/general/" method="post"
-							  style="display: none;"></form>
+
 					</ul>
 				</li>
 			</ul>
