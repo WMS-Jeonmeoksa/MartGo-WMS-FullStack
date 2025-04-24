@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UserDashBoardService {
+public interface CustomerDashBoardService {
     DashBoardDTO getDashBoard(@Param("user_id") String user_id);
 }

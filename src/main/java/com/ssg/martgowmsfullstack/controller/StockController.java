@@ -24,7 +24,7 @@ public class StockController {
 
     private final StockService stockService;
 
-    @GetMapping("/user")
+    @GetMapping("/customer")
     public String userStock(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
@@ -45,7 +45,7 @@ public class StockController {
         List<StockDTO> stockList = stockService.getUserStock(cleanUserId);
         model.addAttribute("stockList", stockList);
         model.addAttribute("user_id", cleanUserId);
-        return "pages-stock-user";
+        return "pages-stock-customer";
     }
 
 
@@ -73,7 +73,7 @@ public class StockController {
         return "pages-stock-admin";
     }
 
-    @GetMapping("/general")
+    @GetMapping("/superadmin")
     public String generalStock(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
 
@@ -96,7 +96,7 @@ public class StockController {
         List<StockDTO> stockList = stockService.getGeneralStock(cleanAdminId);
         model.addAttribute("stockList", stockList);
         model.addAttribute("admin_id", cleanAdminId);
-        return "pages-stock-general";
+        return "pages-stock-superadmin";
 
     }
 

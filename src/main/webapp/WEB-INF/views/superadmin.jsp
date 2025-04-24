@@ -33,7 +33,7 @@
 				<li class="sidebar-header">총관리자 메뉴</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="/dashboard/general/">
+					<a class="sidebar-link" href="/dashboard/superadmin/">
 						<i class="align-middle" data-feather="list"></i>
 						<span class="align-middle">대시 보드</span>
 					</a>

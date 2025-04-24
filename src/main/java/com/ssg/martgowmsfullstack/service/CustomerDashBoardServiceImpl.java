@@ -9,7 +9,6 @@ import com.ssg.martgowmsfullstack.dto.SectorUsageDTO;
 import com.ssg.martgowmsfullstack.dto.UserAdminDTO;
 import com.ssg.martgowmsfullstack.mapper.DashBoardMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserDashBoardServiceImpl implements UserDashBoardService {
+public class CustomerDashBoardServiceImpl implements CustomerDashBoardService {
 
     private final DashBoardMapper dashBoardMapper;
 
@@ -49,8 +48,12 @@ public class UserDashBoardServiceImpl implements UserDashBoardService {
                         .build())
                 .collect(Collectors.toList());
 
+        Integer remainingDays = dashBoardMapper.getRemainingDays(user_id);
+        if(remainingDays == null || remainingDays == 0) {
+            remainingDays = 0;
+        }
         DashBoardDTO dashBoardDTO = DashBoardDTO.builder()
-                .remainingDays(dashBoardMapper.getRemainingDays(user_id))
+                .remainingDays(remainingDays)
                 .rentSectorWarehouseList(rentSectorWarehouseDTOList)
                 .userAdminList(userAdminDTOList)
                 .userSectorUsage(userSectorUsageDTOList)

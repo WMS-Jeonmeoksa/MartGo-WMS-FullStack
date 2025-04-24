@@ -23,7 +23,7 @@ public class StockHistoryController {
 
     private final StockService stockService;
 
-    @GetMapping("/general")
+    @GetMapping("/superadmin")
     public String generalStockHistory(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
@@ -41,7 +41,7 @@ public class StockHistoryController {
         List<StockHistoryDTO> stockHistoryList = stockService.getGeneralStockHistory(cleanAdminId);
         model.addAttribute("stockHistoryList", stockHistoryList);
         model.addAttribute("admin_id", cleanAdminId);
-        return "pages-stockhistory-general";
+        return "pages-stockhistory-superadmin";
     }
 
     @GetMapping("/admin")
