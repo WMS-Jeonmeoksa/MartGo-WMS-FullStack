@@ -31,7 +31,7 @@
 			<ul class="sidebar-nav">
 				<li class="sidebar-header">총관리자 메뉴</li>
 
-				<form id="SuperAdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/superadmin/" method="post" style="display: none;"></form>
+				<form id="SuperAdminDashBoardForm" action="${pageContext.request.contextPath}/superadmin" method="post" style="display: none;"></form>
 
 				<li class="sidebar-item">
 					<a class="sidebar-link" href="/dashboard/superadmin">

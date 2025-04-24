@@ -60,7 +60,7 @@ public class AdminDashBoardController {
         model.addAttribute("dashBoardList", dashBoardList);
         model.addAttribute("monthlyRentTotals", dashBoardList.getMonthlyRentTotalList());
         model.addAttribute("admin_id", admin_id);
-        return "pages-dashboard-general";
+        return "pages-dashboard-superadmin";
     }
 
 
