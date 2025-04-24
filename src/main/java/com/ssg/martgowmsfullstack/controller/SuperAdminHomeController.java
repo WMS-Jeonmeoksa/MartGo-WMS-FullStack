@@ -34,6 +34,6 @@ class SuperAdminHomeController {
         if (!"총관리자".equals(adminDTO.getRole())) {
             return "redirect:/access-denied";
         }
-        return "superadmin-mypage";
+        return "pages-superadmin-mypage";
     }
 }

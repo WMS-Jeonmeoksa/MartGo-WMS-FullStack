@@ -25,7 +25,7 @@
 	<!-- 사이드바 -->
 	<nav id="sidebar" class="sidebar js-sidebar">
 		<div class="sidebar-content js-simplebar">
-			<a class="sidebar-brand" href="${pageContext.request.contextPath}/superadmin">
+			<a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/superadmin">
 				<img src="/img/MartGo_Logo.png" alt="a">
 			</a>
 			<ul class="sidebar-nav">

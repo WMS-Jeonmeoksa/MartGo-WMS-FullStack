@@ -33,7 +33,7 @@ public class UserHomeController {
         if(!"회원".equals(userDTO.getRole())) {
             return "redirect:/access-denied";
         }
-        return "user"; // pages-user.jsp
+        return "pages-user"; // pages-user.jsp
     }
 
     // 👤 회원 마이페이지
@@ -51,7 +51,7 @@ public class UserHomeController {
         if(!"회원".equals(userDTO.getRole())) {
             return "redirect:/access-denied";
         }
-        return "user-mypage"; // /WEB-INF/views/pages-user-mypage.jsp
+        return "pages-user-mypage"; // /WEB-INF/views/pages-user-mypage.jsp
     }
 
     @PostMapping("/delete")
@@ -60,7 +60,7 @@ public class UserHomeController {
 
         if (user == null || !"회원".equals(user.getRole())) {
             model.addAttribute("error", "회원만 탈퇴할 수 있습니다.");
-            return "user-mypage";
+            return "pages-user-mypage";
         }
 
         userService.delete(user.getUserid());

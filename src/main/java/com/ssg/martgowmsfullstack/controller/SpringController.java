@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SpringController {
     @GetMapping("/")
     public String index() {
-        return "guest";
+        return "redirect:/guest";
     }
 
 }

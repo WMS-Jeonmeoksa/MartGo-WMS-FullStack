@@ -34,6 +34,6 @@ public class AdminHomeController {
         if (!"창고관리자".equals(adminDTO.getRole())) {
             return "redirect:/access-denied";
         }
-        return "admin-mypage"; // /WEB-INF/views/warehouseadmin-mypage.jsp
+        return "pages-admin-mypage"; // /WEB-INF/views/warehouseadmin-mypage.jsp
     }
 }
