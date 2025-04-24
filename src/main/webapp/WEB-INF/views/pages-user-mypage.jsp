@@ -84,9 +84,16 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-delete" onclick="openDeleteModal()">
-                    <i class="fas fa-user-minus"></i> 회원 탈퇴
-                </button>
+                <div class="btn-area">
+                    <button class="btn-delete" onclick="openDeleteModal()">
+                        <i class="fas fa-user-minus"></i> 회원 탈퇴
+                    </button>
+                    
+                    <button class="btn-edit" onclick="openEditModal()">
+                        <i class="fas fa-edit"></i> 회원정보 수정
+                    </button>
+                </div>
+
             </div>
         </div>
 
@@ -124,7 +131,103 @@
     </div>
 </div>
 
+<!-- 회원정보 수정 모달 -->
+<div id="editAccountModal" class="confirm-modal" style="display: none;">
+    <div class="confirm-box">
+        <div class="modal-header">
+            <h3>회원정보 수정</h3>
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <label>전화번호</label>
+            <input type="text" id="editPhone" class="form-control" value="<%= user.getPhone() %>" />
+
+            <label style="margin-top: 10px;">주소</label>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <input type="text" id="editAddress" class="form-control" value="<%= user.getAddress() %>" readonly />
+                <button type="button" onclick="execDaumPostcodeEdit()" class="btn btn-outline-secondary">주소 찾기</button>
+            </div>
+
+            <label>상세 주소</label>
+            <input type="text" id="editAddressDetail" class="form-control" placeholder="상세 주소를 입력하세요" />
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" onclick="closeEditModal()">취소</button>
+            <button type="button" class="btn-confirm" onclick="submitEdit()">저장</button>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+    function execDaumPostcodeEdit() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.getElementById("editAddress").value = data.roadAddress || data.jibunAddress;
+                document.getElementById("editAddressDetail").focus();  // 상세주소로 이동
+            }
+        }).open();
+    }
+
+    function openEditModal() {
+        document.getElementById("editAccountModal").style.display = "flex";
+    }
+
+    function closeEditModal() {
+        document.getElementById("editAccountModal").style.display = "none";
+    }
+
+    function submitEdit() {
+        console.log("저장 버튼 클릭됨");  // ← 이거 추가
+
+        const phone = document.getElementById("editPhone").value.trim();
+        const address = document.getElementById("editAddress").value.trim();
+        const addressDetail = document.getElementById("editAddressDetail").value.trim();
+
+        if (phone.length < 7) {
+            alert("전화번호는 7자리 이상 입력해주세요.");
+            return;
+        }
+        if (address === "") {
+            alert("주소를 입력해주세요.");
+            return;
+        }
+        if (addressDetail === "") {
+            alert("상세 주소를 입력해주세요.");
+            return;
+        }
+
+        const fullAddress = address + " (" + addressDetail + ")";
+        console.log("📦 전송할 데이터:", phone, fullAddress);  // ← 이것도 추가
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "${pageContext.request.contextPath}/user/update", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log("🔄 응답 상태:", xhr.status);  // ← 추가
+                try {
+                    const json = JSON.parse(xhr.responseText);
+                    alert(json.message);
+                    if (json.status === "success") {
+                        location.reload();
+                    }
+                } catch (e) {
+                    console.error("JSON 파싱 실패", xhr.responseText);
+                    alert("서버 응답 처리 중 오류 발생");
+                }
+            }
+        };
+        xhr.send("phone=" + encodeURIComponent(phone)
+            + "&address=" + encodeURIComponent(address)
+            + "&addressDetail=" + encodeURIComponent(addressDetail));
+    }
+
+
+
+
     function openDeleteModal() {
         document.getElementById("deleteAccountModal").style.display = "flex";
     }

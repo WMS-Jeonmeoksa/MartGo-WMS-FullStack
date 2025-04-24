@@ -43,4 +43,10 @@
         WHERE user_id = #{userid}
     </update>
 
+    <update id="updateUserInfo" parameterType="com.ssg.martgowmsfullstack.domain.UserVO">
+        UPDATE user
+        SET phone = #{phone},
+            address = #{address}
+        WHERE user_id = #{userid}
+    </update>
 </mapper>

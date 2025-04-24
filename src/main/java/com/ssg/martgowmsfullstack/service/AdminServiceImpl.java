@@ -36,6 +36,7 @@ public class AdminServiceImpl implements AdminService {
         }
         return AdminDTO.builder()
                 .adminId(adminVO.getAdminId())
+                .password(adminVO.getPassword())
                 .adminname(adminVO.getAdminname())
                 .phone(adminVO.getPhone())
                 .email(adminVO.getEmail())

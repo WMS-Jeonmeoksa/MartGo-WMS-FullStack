@@ -8,4 +8,5 @@ public interface UserService {
     void register(UserDTO newUser); //회원가입
     UserDTO findByUserid(String userid); //검증
     void delete(String userid); // 회원탈퇴 비활성화
+    void updateUserInfo(UserDTO user);
 }
