@@ -113,8 +113,6 @@
                 </table>
             </div>
 
-
-
             <h2>이용약관</h2>
             <div class="terms-box">
                 <p>제1조 (목적) 본 약관은 창고 임대 서비스를 제공하는 회사와 이용 고객 간의 권리와 의무를 규정함을 목적으로 합니다.</p>
@@ -125,11 +123,11 @@
 
             <div class="checkbox-container">
                 <input type="checkbox" id="termsAgree" onchange="checkSubmitState()">
-                <label for="termsAgree">이용약관에 동의합니다.</label>
+                <label for="termsAgree">(필수) 이용약관에 동의합니다.</label>
             </div>
             <div class="checkbox-container">
                 <input type="checkbox" id="infoAgree" onchange="checkSubmitState()">
-                <label for="infoAgree">입력 정보가 정확함을 확인했습니다.</label>
+                <label for="infoAgree">(필수) 입력 정보가 정확함을 확인했습니다.</label>
             </div>
             <div class="button-group">
                 <button class="btn btn-back" onclick="goToPreviousPage()">

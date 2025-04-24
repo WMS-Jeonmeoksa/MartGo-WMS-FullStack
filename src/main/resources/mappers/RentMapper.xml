@@ -24,10 +24,20 @@
         <result property="status" column="status"/>
         <result property="adminId" column="admin_id"/>
     </resultMap>
+    <resultMap id="WarehouseDTOResultMap" type="com.ssg.martgowmsfullstack.dto.WarehouseDTO">
+        <result property="warehouseId" column="warehouse_id"/>
+        <result property="warehouseName" column="warehouse_name"/>
+        <result property="location" column="location"/>
+        <result property="height" column="height"/>
+        <result property="width" column="width"/>
+        <result property="FAR" column="FAR"/>
+        <result property="status" column="status"/>
+    </resultMap>
 
-    <select id="getAllWarehouses" resultType="map">
+    <select id="getAllWarehouses" resultMap="WarehouseDTOResultMap">
         CALL GetAllWarehouses()
     </select>
+
     <select id="getSectorStatus" parameterType="int" resultType="String">
         CALL getSectorStatus(#{warehouseId})
     </select>
