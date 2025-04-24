@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssg.martgowmsfullstack.mapper.UserUpdateMapper">
+
+    <update id="updateExpiredUsers">
+        UPDATE user u
+        SET u.role = '회원',
+            u.admin_id = NULL
+        WHERE u.role = '거래처'
+          AND NOT EXISTS (
+            SELECT 1
+            FROM rent_history rh
+            WHERE rh.user_id = u.user_id
+              AND rh.rent_end_date &gt; NOW()
+        )
+    </update>
+
+</mapper>
