@@ -29,7 +29,7 @@
 				<li class="sidebar-header">거래처 메뉴</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="/dashboard/user/">
+					<a class="sidebar-link" href="/dashboard/customer">
 						<i class="align-middle" data-feather="list"></i>
 						<span class="align-middle">대시 보드</span>
 					</a>
@@ -42,19 +42,19 @@
 				</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="#">
+					<a class="sidebar-link" href="/product/register">
 						<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">제품 등록</span>
 					</a>
 				</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="#">
+					<a class="sidebar-link" href="/incoming/select">
 						<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">입고 요청</span>
 					</a>
 				</li>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="#">
+					<a class="sidebar-link" href="/outgoing/select">
 						<i class="align-middle" data-feather="log-out"></i> <span class="align-middle">출고 요청</span>
 					</a>
 				</li>
@@ -64,8 +64,7 @@
 				</form>
 
 				<li class="sidebar-item">
-					<a class="sidebar-link" href="#"
-					   onclick="document.getElementById('stockForm').submit(); return false;">
+					<a class="sidebar-link" href="/stock/customer">
 						<i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 조회</span>
 					</a>
 				</li>

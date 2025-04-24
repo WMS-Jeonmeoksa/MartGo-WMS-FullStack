@@ -57,6 +57,7 @@ public class AuthController {
             if ("창고관리자".equals(admin.getRole())) return "redirect:/admin";
             if ("총관리자".equals(admin.getRole())) return "redirect:/superadmin";
 
+
             model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
             return "login";
         }

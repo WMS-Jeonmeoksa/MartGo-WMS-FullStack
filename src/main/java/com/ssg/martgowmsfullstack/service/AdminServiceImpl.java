@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    private final ModelMapper modelMapper;
     private final AdminMapper adminMapper;
 
 
@@ -35,6 +34,14 @@ public class AdminServiceImpl implements AdminService {
         if (adminVO == null) {
             return null;
         }
-        return modelMapper.map(adminVO, AdminDTO.class);
+        return AdminDTO.builder()
+                .adminId(adminVO.getAdminId())
+                .adminname(adminVO.getAdminname())
+                .phone(adminVO.getPhone())
+                .email(adminVO.getEmail())
+                .address(adminVO.getAddress())
+                .role(adminVO.getRole())
+                .warehouse(adminVO.getWarehouse())
+                .build();
     }
 }
