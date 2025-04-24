@@ -55,7 +55,7 @@
         CALL GetCostInfo(#{warehouseId}, #{sectorId}, #{month})
     </select>
 
-    <insert id="saveDb" parameterType="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+    <insert id="saveDb" parameterType="com.ssg.martgowmsfullstack.domain.RentHistoryVO">
         CALL InsertRentHistory(
                 #{sectorId},
                 #{warehouseId},

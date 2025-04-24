@@ -1,5 +1,6 @@
 package com.ssg.martgowmsfullstack.mapper;
 
+import com.ssg.martgowmsfullstack.domain.RentHistoryVO;
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
@@ -21,7 +22,7 @@ public interface RentMapper {
     int getRentPrice(@Param("warehouseId") int warehouseId,
                      @Param("sectorId") String sectorId,
                      @Param("month") int month);
-    void saveDb(RentHistoryDTO rentHistory);
+    void saveDb(RentHistoryVO rentHistory);
     List<RentHistoryDTO> getHoldRentHistory(@Param("adminId") String adminId);
     void updateUserAdminId();
     void updateAdminId(@Param("rentNum") int rentNum,

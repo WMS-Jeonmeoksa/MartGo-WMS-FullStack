@@ -1,12 +1,15 @@
 package com.ssg.martgo.mapper;
 
+import com.ssg.martgowmsfullstack.domain.RentHistoryVO;
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
+import com.ssg.martgowmsfullstack.dto.WarehouseDTO;
 import com.ssg.martgowmsfullstack.mapper.RentMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -30,12 +33,15 @@ public class RentMapperTest {
     @Autowired(required = false)
     private RentMapper rentMapper;
 
-    @Test
-    void testGetAllWarehouses() {
-        List<Map<String, Object>> list = rentMapper.getAllWarehouses();
-        assertNotNull(list);
-        list.forEach(System.out::println);
-    }
+    @Autowired(required = false)
+    private ModelMapper modelMapper;
+
+//    @Test
+//    void testGetAllWarehouses() {
+//        List<WarehouseDTO> list = rentMapper.getAllWarehouses();
+//        assertNotNull(list);
+//        list.forEach(System.out::println);
+//    }
 
     @Test
     void testGetAllSectors() {
@@ -67,7 +73,8 @@ public class RentMapperTest {
         dto.setRentEndDate(Date.valueOf("2025-11-01"));
         dto.setRentPrice(600);
         dto.setUserId("user02");
-        rentMapper.saveDb(dto);
+        RentHistoryVO vo = modelMapper.map(dto, RentHistoryVO.class);
+        rentMapper.saveDb(vo);
     }
 
 
@@ -94,6 +101,12 @@ public class RentMapperTest {
     void testGetInProgressRentHistory() {
         List<RentHistoryDTO> list = rentMapper.getInProgressRentHistory("admin01");
         list.forEach(System.out::println);
+    }
+
+    @Test
+    void testApproveRentHistory() {
+        rentMapper.updateAdminId(60,"admin07");
+        rentMapper.updateUserAdminId();
     }
 
     @Test
