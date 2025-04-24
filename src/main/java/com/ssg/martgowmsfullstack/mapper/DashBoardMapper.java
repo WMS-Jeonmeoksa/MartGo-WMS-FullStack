@@ -26,7 +26,8 @@ public interface DashBoardMapper {
     List<WareHouseUsageVO> getAllWareHouseUsageList();
 
     List<UserAdminVO> getUserAdminList(@Param("user_id")String user_id);
-    int getRemainingDays(@Param("user_id")String user_id);
+    Integer getRemainingDays(@Param("user_id")String user_id);
     List<RentSectorWarehouseVO> getRentSectorWarehouseList(@Param("user_id")String user_id);
     List<SectorUsageVO> getUserSectorUsage(@Param("user_id") String user_id);
+    void updateUserRole(@Param("user_id") String user_id);
 }
