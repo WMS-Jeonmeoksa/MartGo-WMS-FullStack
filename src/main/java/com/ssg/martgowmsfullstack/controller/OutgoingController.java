@@ -111,4 +111,30 @@ public class OutgoingController {
 
         return "redirect:/outgoing/approve";
     }
+
+    @GetMapping("/finalization")
+    public String finalizationOutgoing(HttpSession session, Model model) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        String adminId = (String) session.getAttribute("sessionAdminId");
+        String role = incomingService.getAdminRoleById(adminId);
+        List<OutgoingDTO> outgoingList = outgoingService.getOutgoingByRole(adminId, role);
+
+        model.addAttribute("outgoingList", outgoingList);
+        return "pages-outgoing-finalization";
+    }
+
+    @PostMapping("/finalization")
+    public String finalizationOutgoing(HttpSession session,
+                                  @RequestParam("outgoingNum") int outgoingNum) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        String adminId = (String) session.getAttribute("sessionAdminId");
+        String role = incomingService.getAdminRoleById(adminId);
+        outgoingService.approveOutgoing(adminId, outgoingNum, role);
+
+        return "redirect:/outgoing/finalization";
+    }
 }

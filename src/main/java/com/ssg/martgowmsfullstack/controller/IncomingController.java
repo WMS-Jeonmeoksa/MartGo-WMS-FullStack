@@ -103,4 +103,30 @@ public class IncomingController {
 
         return "redirect:/incoming/approve";
     }
+
+    @GetMapping("/finalization")
+    public String showFinalizationList(HttpSession session, Model model) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        String adminId = (String) session.getAttribute("sessionAdminId");
+        String role = incomingService.getAdminRoleById(adminId);
+        List<IncomingDTO> incomingList = incomingService.getIncomingByRole(adminId, role);
+        model.addAttribute("incomingList", incomingList);
+
+        return "pages-incoming-finalization";
+    }
+
+    @PostMapping("/finalization")
+    public String finalizationIncoming(HttpSession session,
+                                  @RequestParam("incomingNum") int incomingNum) {
+        if (session.getAttribute("loginInfo") == null) {
+            return "redirect:/login";
+        }
+        String adminId = (String) session.getAttribute("sessionAdminId");
+        String role = incomingService.getAdminRoleById(adminId);
+        incomingService.approveIncoming(adminId, incomingNum, role);
+
+        return "redirect:/incoming/finalization";
+    }
 }
