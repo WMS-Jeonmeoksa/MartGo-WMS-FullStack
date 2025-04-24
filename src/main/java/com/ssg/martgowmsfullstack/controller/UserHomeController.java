@@ -33,7 +33,7 @@ public class UserHomeController {
         if(!"회원".equals(userDTO.getRole())) {
             return "redirect:/access-denied";
         }
-        return "user"; // user.jsp
+        return "user"; // pages-user.jsp
     }
 
     // 👤 회원 마이페이지
@@ -51,7 +51,7 @@ public class UserHomeController {
         if(!"회원".equals(userDTO.getRole())) {
             return "redirect:/access-denied";
         }
-        return "user-mypage"; // /WEB-INF/views/user-mypage.jsp
+        return "user-mypage"; // /WEB-INF/views/pages-user-mypage.jsp
     }
 
     @PostMapping("/delete")
