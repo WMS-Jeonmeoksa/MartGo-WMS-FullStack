@@ -29,7 +29,7 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/admin">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/admin">
                 <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
@@ -68,19 +68,21 @@
                         <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/stock/admin/">
+                        <li>
+                            <a class="sidebar-link" href="#" onclick="document.getElementById('StockForm').submit(); return false;">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
                         <li>
-                            <a class="sidebar-link" href="/stock_history/admin">
+                            <a class="sidebar-link" href="#" onclick="document.getElementById('StockHistoryForm').submit(); return false;">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 변경 이력</span>
                             </a>
                         </li>
                     </ul>
+                    <form id="StockForm" action="${pageContext.request.contextPath}/stock/admin/" method="post" style="display: none;"></form>
+                    <form id="StockHistoryForm" action="${pageContext.request.contextPath}/stock_history/admin/" method="post" style="display: none;"></form>
                 </li>
             </ul>
         </div>

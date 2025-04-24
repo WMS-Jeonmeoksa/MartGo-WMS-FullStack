@@ -15,8 +15,8 @@
     <meta charset="UTF-8">
     <title>MartGo</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_mypage.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/superadmin_mypage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/superadmin.css">
     <link rel="stylesheet" href="/css/margoLogo.css">
     <link rel="stylesheet" href="/css/outgoing_approve.css">
 
@@ -29,23 +29,23 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/admin">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/superadmin">
                 <img src="/img/MartGo_Logo.png" alt="a">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">창고관리자 메뉴</li>
 
-                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/admin/" method="post" style="display: none;"></form>
+                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/superadmin/" method="post" style="display: none;"></form>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/dashboard/admin/">
+                    <a class="sidebar-link" href="/dashboard/superadmin/">
                         <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/mypage">
+                    <a class="sidebar-link" href="${pageContext.request.contextPath}/superadmin/mypage">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">마이페이지</span>
                     </a>
                 </li>
@@ -56,9 +56,9 @@
                         <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/approve">임대 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/approve">입고 신청 목록</a></li>
-                        <li class="sidebar-item active"><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/approve">출고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/finalization">임대 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/incoming/finalization">입고 신청 목록</a></li>
+                        <li class="sidebar-item active"><a class="sidebar-link" href="${pageContext.request.contextPath}/outgoing/finalization">출고 신청 목록</a></li>
                     </ul>
                 </li>
 
@@ -69,13 +69,13 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/stock/admin/">
+                            <a class="sidebar-link" href="/stock/superadmin/">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
                         <li>
-                            <a class="sidebar-link" href="/stock_history/admin">
+                            <a class="sidebar-link" href="/stock_history/superadmin">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 변경 이력</span>
                             </a>
@@ -96,7 +96,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/mypage">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/superadmin/mypage">
                             <i class="fas fa-user-circle"></i> <%= admin.getAdminname() %>님
                         </a>
                     </li>
@@ -110,7 +110,7 @@
         </nav>
 
 
-        <form id="approveForm" action="/outgoing/approve" method="post">
+        <form id="approveForm" action="/outgoing/finalization" method="post">
             <input type="hidden" name="outgoingNum" id="selectedOutgoingNum" />
 
             <div class="outgoing-container">
@@ -152,7 +152,7 @@
                 </table>
 
                 <div class="button-group-full">
-                    <button type="button" class="outgoing_btn btn-back" onclick="window.location.href='/dashboard/admin'">
+                    <button type="button" class="outgoing_btn btn-back" onclick="window.location.href='/dashboard/superadmin'">
                         <i class="fas fa-arrow-left"></i> 홈으로
                     </button>
                     <button type="button" class="outgoing_btn btn-next" id="approveBtn" disabled onclick="approveOutgoing()">
