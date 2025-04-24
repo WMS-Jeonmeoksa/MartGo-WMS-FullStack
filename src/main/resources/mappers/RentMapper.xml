@@ -49,8 +49,8 @@
         CALL InsertRentHistory(
                 #{sectorId},
                 #{warehouseId},
-                #{rentStartDate},
-                #{rentEndDate},
+                #{rentStartDate,jdbcType=DATE},
+                #{rentEndDate,jdbcType=DATE},
                 #{rentPrice},
                 #{userId}
              )
