@@ -18,7 +18,7 @@ class SuperAdminHomeController {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
         }
-        return "redirect:/dashboard/general/";
+        return "redirect:/dashboard/superadmin";
     }
 
     @GetMapping("/mypage")
