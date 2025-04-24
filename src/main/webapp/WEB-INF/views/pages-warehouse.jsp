@@ -130,8 +130,8 @@
                 const warehouses = [
                     <c:forEach var="wh" items="${warehouses}" varStatus="loop">
                     {
-                        id: '${wh.warehouse_id}',
-                        name: '${wh.warehouse_name}',
+                        id: '${wh.warehouseId}',
+                        name: '${wh.warehouseName}',
                         location: '${wh.location}',
                         ratio: '${wh.FAR}%',
                         area: '${wh.width}㎡',

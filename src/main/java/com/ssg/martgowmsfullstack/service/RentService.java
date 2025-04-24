@@ -4,6 +4,7 @@ package com.ssg.martgowmsfullstack.service;
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
+import com.ssg.martgowmsfullstack.dto.WarehouseDTO;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface RentService {
-    List<Map<String, Object>> getAllWarehouses();
+    List<WarehouseDTO> getAllWarehouses();
 
     String getSectorStatus(int warehouseId);
 

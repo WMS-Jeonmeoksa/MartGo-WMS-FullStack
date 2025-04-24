@@ -111,8 +111,10 @@ CREATE TABLE warehouse
     height         INTEGER       NOT NULL,
     width          INTEGER       NOT NULL,
     FAR            DECIMAL(6, 2) NOT NULL,
+    status       ENUM ('사용가능','사용불가') NOT NULL DEFAULT '사용가능' COMMENT '사용가능,사용불가 중 하나여야 함',
     PRIMARY KEY (warehouse_id)
 );
+
 
 CREATE TABLE cost_info
 (

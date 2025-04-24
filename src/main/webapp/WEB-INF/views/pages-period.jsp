@@ -115,7 +115,7 @@
                     <p><strong>기간:</strong> <span id="selectedPeriod">-</span></p>
                     <p><strong>시작일:</strong> <span id="selectedStartDate">-</span></p>
                     <p><strong>종료일:</strong> <span id="selectedEndDate">-</span></p>
-                    <p><strong>총 임대료:</strong> <span id="totalPrice">-</span></p>
+                    <p><strong>월 임대료:</strong> <span id="totalPrice">-</span></p>
                 </div>
             </div>
 
