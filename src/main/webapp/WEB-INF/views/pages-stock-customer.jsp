@@ -27,7 +27,7 @@
                 <li class="sidebar-header">거래처 메뉴</li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/dashboard/user/">
+                    <a class="sidebar-link" href="/dashboard/customer/">
                         <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">대시 보드</span>
                     </a>
@@ -57,12 +57,8 @@
                     </a>
                 </li>
 
-                <form id="stockForm" action="${pageContext.request.contextPath}/stock/user" method="get"
-                      style="display: none;">
-                </form>
-
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="/stock/user/">
+                    <a class="sidebar-link" href="/stock/customer/">
                         <i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 조회</span>
                     </a>
                 </li>

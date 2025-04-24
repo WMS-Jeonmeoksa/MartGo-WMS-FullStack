@@ -56,7 +56,7 @@
                 <li class="sidebar-header">총관리자 메뉴</li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/dashboard/general">
+                    <a class="sidebar-link" href="/dashboard/superadmin">
                         <i class="align-middle" data-feather="list"></i>
                         <span class="align-middle">대시 보드</span>
                     </a>
@@ -75,9 +75,9 @@
                         <i class="fas fa-chevron-down submenu-icon"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/confirm">임대 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="/incoming/approve">입고 신청 목록</a></li>
-                        <li><a class="sidebar-link" href="/outgoing/approve">출고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="${pageContext.request.contextPath}/rent/finalization">임대 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="/incoming/finalization">입고 신청 목록</a></li>
+                        <li><a class="sidebar-link" href="/outgoing/finalization">출고 신청 목록</a></li>
                     </ul>
                 </li>
 
@@ -89,14 +89,14 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li class="sidebar-item active">
-                            <a class="sidebar-link" href="/stock/general">
+                            <a class="sidebar-link" href="/stock/superadmin">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/stock_history/general">
+                            <a class="sidebar-link" href="/stock_history/superadmin">
                                 <i class="align-middle" data-feather="list"></i>
                                 <span class="align-middle">재고 변경 이력</span>
                             </a>
