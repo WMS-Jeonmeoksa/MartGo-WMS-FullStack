@@ -38,17 +38,17 @@
 								<form action="${pageContext.request.contextPath}/register" method="post" onsubmit="return validateForm()">
 									<div class="mb-3">
 										<label class="form-label">아이디</label>
-										<input class="form-control form-control-lg" type="text" name="userid" id="userid" placeholder="아이디를 입력하세요" required/>
+										<input class="form-control form-control-lg" type="text" name="userid" id="userid" placeholder="아이디를 입력하세요 (영문 시작, 영문/숫자 4자 이상)" required/>
 									</div>
 
 									<div class="mb-3">
 										<label class="form-label">이름</label>
-										<input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="이름을 입력하세요" required/>
+										<input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="이름을 입력하세요 (한글)" required/>
 									</div>
 
 									<div class="mb-3">
 										<label class="form-label">비밀번호</label>
-										<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="비밀번호를 입력하세요" required/>
+										<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="비밀번호를 입력하세요 (4자 이상)" required/>
 									</div>
 
 									<div class="mb-3">
@@ -58,8 +58,35 @@
 
 									<div class="mb-3">
 										<label class="form-label">전화번호</label>
-										<input class="form-control form-control-lg" type="tel" name="phone" id="phone" placeholder="전화번호를 입력하세요" />
+										<div style="display: flex; gap: 10px;">
+											<!-- 앞자리 선택 -->
+											<div style="position: relative; flex: 1;">
+												<select id="phone1" name="phone1" class="form-control form-control-lg" style="width: 100%;">
+													<option value="010" selected>010</option>
+													<option value="011">011</option>
+													<option value="016">016</option>
+													<option value="017">017</option>
+													<option value="018">018</option>
+													<option value="019">019</option>
+												</select>
+												<span style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;">▼</span>
+											</div>
+
+
+											<!-- 가운데 -->
+											<input type="text" id="phone2" name="phone2" maxlength="4"
+												   class="form-control form-control-lg" placeholder="1234"
+												   style="flex: 1;" required
+												   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+											<!-- 끝자리 -->
+											<input type="text" id="phone3" name="phone3" maxlength="4"
+												   class="form-control form-control-lg" placeholder="5678"
+												   style="flex: 1;" required
+												   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+										</div>
 									</div>
+
 
 									<div class="mb-3">
 										<label class="form-label">이메일</label>
@@ -111,17 +138,20 @@
 		const username = document.getElementById("username").value.trim();
 		const password = document.getElementById("password").value.trim();
 		const confirmPassword = document.getElementById("confirmPassword").value.trim();
-		const phone = document.getElementById("phone").value.trim();
+		const phone1 = document.getElementById("phone1").value.trim();
+		const phone2 = document.getElementById("phone2").value.trim();
+		const phone3 = document.getElementById("phone3").value.trim();
 		const email = document.getElementById("email").value.trim();
 		const address = document.getElementById("address").value.trim();
 		const addressDetail = document.getElementById("addressDetail").value.trim();
 
-		const useridRegex = /^[a-zA-Z0-9]{4,}$/;  // 영어+숫자, 4글자 이상
-		const usernameRegex = /^[가-힣]+$/;        // 한글만
-		const emailRegex = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/; // 이메일 기본 패턴
+		const useridRegex = /^[a-zA-Z][a-zA-Z0-9]{3,}$/;
+		const usernameRegex = /^[가-힣]+$/;
+		const emailRegex = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
+		const phoneRegex = /^[0-9]+$/;
 
 		if (!useridRegex.test(userid)) {
-			alert("아이디는 영어와 숫자 조합으로 4자 이상 입력하세요.");
+			alert("아이디는 영문자로 시작하며, 영문자 또는 숫자로 4자 이상 입력하세요.");
 			return false;
 		}
 
@@ -139,10 +169,19 @@
 			alert("비밀번호가 일치하지 않습니다.");
 			return false;
 		}
-		if (phone.length < 7) {
-			alert("전화번호는 7자리 이상 입력해주세요.");
+
+		if (!phoneRegex.test(phone2) || !phoneRegex.test(phone3)) {
+			alert("전화번호는 숫자만 입력 가능합니다.");
 			return false;
 		}
+
+		if (phone2.length < 3 || phone3.length < 4) {
+			alert("전화번호 형식이 올바르지 않습니다.");
+			return false;
+		}
+
+		const fullPhone = `${phone1}-${phone2}-${phone3}`;
+
 		if (email && !emailRegex.test(email)) {
 			alert("이메일 형식이 올바르지 않습니다.");
 			return false;
@@ -158,10 +197,9 @@
 			return false;
 		}
 
-
-
 		return true;
 	}
+
 
 
 </script>
@@ -178,7 +216,6 @@
 		}).open();
 	}
 </script>
-
 
 
 

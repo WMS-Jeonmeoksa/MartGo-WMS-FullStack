@@ -21,7 +21,7 @@ public class CustomerDashBoardController {
     private final DashBoardMapper dashBoardMapper;
 
     @GetMapping("/customer")
-    public String userDashBoard(HttpSession session, Model model) {
+    public String customerDashBoard(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
             return "redirect:/login";

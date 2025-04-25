@@ -6,33 +6,54 @@
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.UserUpdateMapper">
 
     <update id="resetSectorStatus">
-        UPDATE sector
-        SET status = '사용가능'
-        WHERE sector_id IN (
-            SELECT sector_id
-            FROM (
-                     SELECT rh.sector_id
-                     FROM rent_history rh
-                              JOIN (
-                         SELECT user_id, MAX(rent_end_date) AS max_rent_end_date
-                         FROM rent_history
-                         GROUP BY user_id
-                     ) latest_rent ON rh.user_id = latest_rent.user_id AND rh.rent_end_date = latest_rent.max_rent_end_date
-                     WHERE rh.rent_end_date &lt; NOW()
-                 ) AS recent_sector
-        )
+        <![CDATA[
+    UPDATE sector
+    SET status = '사용가능'
+    WHERE sector_id IN (
+        SELECT sector_id
+        FROM (
+            SELECT rh.sector_id
+            FROM rent_history rh
+                     JOIN (
+                 SELECT user_id, MAX(rent_end_date) AS max_rent_end_date
+                 FROM rent_history
+                 GROUP BY user_id
+             ) latest_rent
+             ON rh.user_id = latest_rent.user_id
+                AND rh.rent_end_date = latest_rent.max_rent_end_date
+            WHERE rh.rent_end_date < NOW()
+              AND rh.status = '완료'
+              AND NOT EXISTS (
+                SELECT 1
+                FROM rent_history r2
+                WHERE r2.sector_id = rh.sector_id
+                  AND r2.status = '완료'
+                  AND r2.rent_start_date > NOW()
+              )
+              AND NOT EXISTS (
+                SELECT 1
+                FROM rent_history r3
+                WHERE r3.sector_id = rh.sector_id
+                  AND r3.status = '완료'
+                  AND NOW() BETWEEN r3.rent_start_date AND r3.rent_end_date
+              )
+        ) AS recent_sector
+    )
+    ]]>
     </update>
+
+
 
     <update id="updateExpiredUsers">
         UPDATE user u
         SET u.role = '회원',
-            u.admin_id = NULL
+        u.admin_id = NULL
         WHERE u.role = '거래처'
-          AND NOT EXISTS (
-            SELECT 1
-            FROM rent_history rh
-            WHERE rh.user_id = u.user_id
-              AND rh.rent_end_date &gt; NOW()
+        AND NOT EXISTS (
+        SELECT 1
+        FROM rent_history rh
+        WHERE rh.user_id = u.user_id
+        AND rh.rent_end_date > NOW()
         )
     </update>
 
