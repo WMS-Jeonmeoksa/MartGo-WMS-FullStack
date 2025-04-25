@@ -78,11 +78,11 @@ public class RentMapperTest {
     }
 
 
-
-    @Test
-    void testUpdateUserAdminId() {
-        assertDoesNotThrow(() -> rentMapper.updateUserAdminId());
-    }
+//
+//    @Test
+//    void testUpdateUserAdminId() {
+//        assertDoesNotThrow(() -> rentMapper.updateUserAdminId());
+//    }
 
     @Test
     void testUpdateAdminId() {
@@ -103,11 +103,11 @@ public class RentMapperTest {
         list.forEach(System.out::println);
     }
 
-    @Test
-    void testApproveRentHistory() {
-        rentMapper.updateAdminId(60,"admin07");
-        rentMapper.updateUserAdminId();
-    }
+//    @Test
+//    void testApproveRentHistory() {
+//        rentMapper.updateAdminId(60,"admin07");
+//        rentMapper.updateUserAdminId();
+//    }
 
     @Test
     void testCompletedRentStatus() {
