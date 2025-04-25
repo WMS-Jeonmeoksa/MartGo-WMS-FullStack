@@ -21,7 +21,7 @@ public class CustomerDashBoardController {
     private final DashBoardMapper dashBoardMapper;
 
     @GetMapping("/customer")
-    public String userDashBoard(HttpSession session, Model model) {
+    public String customerDashBoard(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
             return "redirect:/login";
@@ -30,15 +30,6 @@ public class CustomerDashBoardController {
             return "redirect:/access-denied";
         }
         UserDTO userDTO = (UserDTO) loginInfo;
-
-        Integer remainingDays = dashBoardMapper.getRemainingDays(userDTO.getUserid());
-        if (remainingDays == null || remainingDays == 0) {
-            dashBoardMapper.updateUserRole(userDTO.getUserid());
-            userDTO.setRole("회원");
-            session.setAttribute("loginInfo", userDTO);
-            session.setAttribute("role", "회원");
-            return "redirect:/user";
-        }
 
         if(!"거래처".equals(userDTO.getRole())) {
             return "redirect:/access-denied";
