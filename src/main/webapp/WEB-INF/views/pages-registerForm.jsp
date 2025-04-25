@@ -111,6 +111,7 @@
 		const username = document.getElementById("username").value.trim();
 		const password = document.getElementById("password").value.trim();
 		const confirmPassword = document.getElementById("confirmPassword").value.trim();
+		const phone = document.getElementById("phone").value.trim();
 		const email = document.getElementById("email").value.trim();
 		const address = document.getElementById("address").value.trim();
 		const addressDetail = document.getElementById("addressDetail").value.trim();
@@ -138,7 +139,10 @@
 			alert("비밀번호가 일치하지 않습니다.");
 			return false;
 		}
-
+		if (phone.length < 7) {
+			alert("전화번호는 7자리 이상 입력해주세요.");
+			return false;
+		}
 		if (email && !emailRegex.test(email)) {
 			alert("이메일 형식이 올바르지 않습니다.");
 			return false;

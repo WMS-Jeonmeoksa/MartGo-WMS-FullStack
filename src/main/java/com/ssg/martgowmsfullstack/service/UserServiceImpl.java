@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
         // 수동으로 DTO 구성 (password는 제외)
         return UserDTO.builder()
                 .userid(userVO.getUserid())
+                .password(userVO.getPassword())
                 .username(userVO.getUsername())
                 .email(userVO.getEmail())
                 .phone(userVO.getPhone())
@@ -63,5 +64,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(String userid) {
         userMapper.disableUser(userid);
+    }
+
+    @Override
+    public void updateUserInfo(UserDTO user) {
+        UserVO userVO = modelMapper.map(user, UserVO.class);
+        userMapper.updateUserInfo(userVO);
     }
 }
