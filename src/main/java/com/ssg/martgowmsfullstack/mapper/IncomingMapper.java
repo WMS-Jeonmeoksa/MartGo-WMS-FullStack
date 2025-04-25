@@ -5,6 +5,7 @@ import com.ssg.martgowmsfullstack.dto.IncomingDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -28,4 +29,6 @@ public interface IncomingMapper {
     String getAdminIdByIncomingNumNext(@Param("incomingNum") int incomingNum);
 
     int getIncomingCountByAdminId(@Param("adminId") String adminId);
+
+    Date getRentStartDate(@Param("userId") String userId);
 }

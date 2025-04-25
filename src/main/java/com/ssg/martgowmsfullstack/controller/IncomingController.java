@@ -37,6 +37,9 @@ public class IncomingController {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
         }
+        String userId = (String) session.getAttribute("sessionUserId");
+        Date rentStartDate = incomingService.getRentStartDate(userId);
+        model.addAttribute("rentStartDate", rentStartDate);
         model.addAttribute("productId", productId);
         return "pages-incoming-detail";
     }
