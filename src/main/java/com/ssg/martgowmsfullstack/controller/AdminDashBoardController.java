@@ -42,7 +42,7 @@ public class AdminDashBoardController {
     }
 
     @GetMapping("/superadmin")
-    public String generalDashBoard(HttpSession session, Model model) {
+    public String superAdminDashBoard(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
             return "redirect:/login";

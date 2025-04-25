@@ -25,7 +25,7 @@ public class StockController {
     private final StockService stockService;
 
     @GetMapping("/customer")
-    public String userStock(HttpSession session, Model model) {
+    public String customerStock(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
             return "redirect:/login";
@@ -74,7 +74,7 @@ public class StockController {
     }
 
     @GetMapping("/superadmin")
-    public String generalStock(HttpSession session, Model model) {
+    public String superAdminStock(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
 
         if (loginInfo == null) {

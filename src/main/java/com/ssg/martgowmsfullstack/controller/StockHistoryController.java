@@ -24,7 +24,7 @@ public class StockHistoryController {
     private final StockService stockService;
 
     @GetMapping("/superadmin")
-    public String generalStockHistory(HttpSession session, Model model) {
+    public String superAdminStockHistory(HttpSession session, Model model) {
         Object loginInfo = session.getAttribute("loginInfo");
         if (loginInfo == null) {
             return "redirect:/login";
