@@ -2,7 +2,9 @@ package com.ssg.martgowmsfullstack.service;
 
 import com.ssg.martgowmsfullstack.dto.IncomingDTO;
 import com.ssg.martgowmsfullstack.dto.ProductDTO;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IncomingService {
@@ -12,4 +14,5 @@ public interface IncomingService {
     void approveIncoming(String adminId, int incomingNum, String role);
     String getAdminRoleById(String adminId);
     int getIncomingCount(String adminId);
+    Date getRentStartDate(String userId);
 }

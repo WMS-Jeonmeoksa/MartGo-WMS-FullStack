@@ -9,7 +9,7 @@ import com.ssg.martgowmsfullstack.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -65,5 +65,10 @@ public class IncomingServiceImpl implements IncomingService {
     @Override
     public String getAdminRoleById(String adminId) {
         return incomingMapper.getAdminRoleById(adminId);
+    }
+
+    @Override
+    public Date getRentStartDate(String userId) {
+        return incomingMapper.getRentStartDate(userId);
     }
 }

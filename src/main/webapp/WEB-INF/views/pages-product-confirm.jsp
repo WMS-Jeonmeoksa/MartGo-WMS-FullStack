@@ -148,7 +148,7 @@
             }
 
             function goToMain() {
-                window.location.href = "${pageContext.request.contextPath}/dashboard/user";
+                window.location.href = "${pageContext.request.contextPath}/dashboard/customer";
             }
         </script>
 

@@ -122,11 +122,12 @@
 					<input type="number" name="count" id="count" placeholder="입고할 수량을 입력하세요" min="1" required>
 				</div>
 
+				<fmt:formatDate value="${rentStartDate}" pattern="yyyy-MM-dd" var="formattedStart" />
 				<div class="incoming-form-group">
 					<label for="incomingDate">
 						<i class="fas fa-calendar-alt"></i>&nbsp;입고 희망일
 					</label>
-					<input type="date" name="incomingDate" id="incomingDate" required>
+					<input type="date" name="incomingDate" id="incomingDate" required min="${formattedStart}">
 				</div>
 
 				<div class="button-group-full">
@@ -139,12 +140,6 @@
 				</div>
 			</div>
 		</form>
-
-		<script>
-			const today = new Date();
-			document.getElementById("incomingDate").min = today.toISOString().split("T")[0];
-		</script>
-
 
 
 		<footer class="footer">

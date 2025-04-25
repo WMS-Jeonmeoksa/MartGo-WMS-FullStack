@@ -11,4 +11,5 @@ public interface OutgoingService {
     List<OutgoingDTO> getOutgoingByRole(String adminId, String role);
     void approveOutgoing(String adminId, int outgoingNum, String role);
     int getOutgoingCount(String adminId);
+    int getCountByStockNum(int stockNum);
 }

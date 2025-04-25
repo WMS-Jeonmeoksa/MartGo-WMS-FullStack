@@ -95,7 +95,9 @@
                 <i class="fas fa-cube"></i>&nbsp;제품 등록
             </h1>
         </div>
-
+        <c:if test="${not empty errorMessage}">
+            <div class="product-error">${errorMessage}</div>
+        </c:if>
         <form action="${pageContext.request.contextPath}/product/register" method="post" onsubmit="return prepareCategoryValue()">
             <div class="product-form-group">
                 <label for="productId">제품 ID</label>
@@ -104,7 +106,7 @@
 
             <div class="product-form-group">
                 <label for="productName">제품명</label>
-                <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고" required>
+                <input type="text" id="productName" name="productName" placeholder="예: 비스포크 냉장고" value="${product.productName}" required>
             </div>
 
             <div class="product-form-group">
@@ -125,22 +127,22 @@
 
             <div class="product-form-group">
                 <label for="height">제품 높이 (cm)</label>
-                <input type="number" id="height" name="height" placeholder="예: 180" min="0" required>
+                <input type="number" id="height" name="height" placeholder="예: 180" min="0" value="${product.height}" required>
             </div>
 
             <div class="product-form-group">
-                <label for="width">제품 면적 (㎡)</label>
-                <input type="number" id="width" name="width" placeholder="예: 20" min="0" step="0.01" required>
+                <label for="width">제품 면적 (c㎡)</label>
+                <input type="number" id="width" name="width" placeholder="예: 20" min="0" step="0.01" value="${product.width}" required>
             </div>
 
             <div class="product-form-group">
                 <label for="price">제품 가격 (원)</label>
-                <input type="number" id="price" name="price" placeholder="예: 500000" min="0" required>
+                <input type="number" id="price" name="price" placeholder="예: 500000" min="0" value="${product.price}" required>
             </div>
 
             <div class="product-form-group">
                 <label for="manufacturer">제조사</label>
-                <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자" required>
+                <input type="text" id="manufacturer" name="manufacturer" placeholder="예: 삼성전자" value="${product.manufacturer}" required>
             </div>
 
             <div class="button-group-full">

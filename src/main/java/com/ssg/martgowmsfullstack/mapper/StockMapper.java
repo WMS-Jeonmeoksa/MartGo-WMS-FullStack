@@ -16,5 +16,6 @@ public interface StockMapper {
     List<StockVO> checkAdminUserStock(@Param("admin_id") String admin_id);
     // 총 관리자가 담당하고 있는 창고의 재고 목록 확인
     List<StockVO> checkGeneralStock(@Param("admin_id") String admin_id);
-
+    // 재고번호에 따른 재고갯수 확인
+    int getCountByStockNum(@Param("stockNum") int stockNum);
 }

@@ -86,4 +86,12 @@
           AND IF(a.role = '총관리자', i.status = '완료', i.status IN ('진행중', '완료'))
     </select>
 
+    <select id="getRentStartDate" parameterType="string" resultType="java.util.Date">
+        SELECT rent_start_date
+        FROM rent_history
+        WHERE user_id = #{userId}
+        ORDER BY rent_start_date DESC
+            LIMIT 1
+    </select>
+
 </mapper>

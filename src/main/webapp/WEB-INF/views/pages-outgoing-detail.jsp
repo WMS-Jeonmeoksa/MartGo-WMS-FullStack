@@ -120,7 +120,8 @@
                     <label for="count">
                         <i class="fas fa-hashtag"></i></i>&nbsp;출고 수량
                     </label>
-                    <input type="number" id="count" name="count" placeholder="출고할 수량을 입력하세요" min="1" required>
+                    <input type="number" id="count" name="count" placeholder="출고할 수량을 입력하세요" min="1" max="${stockCount}" required>
+                    <span class="info-text">* 최대 ${stockCount}개까지 출고 가능합니다.</span>
                 </div>
 
                 <div class="outgoing-form-group">

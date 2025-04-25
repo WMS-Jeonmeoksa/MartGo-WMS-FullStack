@@ -115,3 +115,10 @@ body {
     box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
     outline: none;
 }
+
+.product-error {
+    font-size: 15px;
+    color: #bf0000;
+    font-weight: bold;
+    margin: 5px 10px 5px 0;
+}
