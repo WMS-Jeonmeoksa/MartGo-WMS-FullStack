@@ -6,6 +6,7 @@ import com.ssg.martgowmsfullstack.dto.StockDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -29,4 +30,6 @@ public interface OutgoingMapper {
     String getAdminIdByOutgoingNumNext(@Param("outgoingNum") int outgoingNum);
 
     int getOutgoingCountByAdminId(@Param("adminId") String adminId);
+
+    Date getChangeDateByStockNum(@Param("stockNum") int stockNum);
 }

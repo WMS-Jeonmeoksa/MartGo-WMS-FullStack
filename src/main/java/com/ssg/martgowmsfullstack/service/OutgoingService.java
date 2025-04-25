@@ -3,6 +3,7 @@ package com.ssg.martgowmsfullstack.service;
 import com.ssg.martgowmsfullstack.dto.OutgoingDTO;
 import com.ssg.martgowmsfullstack.dto.StockDTO;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OutgoingService {
@@ -12,4 +13,5 @@ public interface OutgoingService {
     void approveOutgoing(String adminId, int outgoingNum, String role);
     int getOutgoingCount(String adminId);
     int getCountByStockNum(int stockNum);
+    Date getChangeDateByStockNum(int stockNum);
 }
