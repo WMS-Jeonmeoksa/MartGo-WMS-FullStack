@@ -32,5 +32,12 @@
 		<a href="${pageContext.request.contextPath}/register">회원가입</a>
 	</div>
 </div>
+
+<c:if test="${param.joined eq 'true'}">
+	<script>
+		alert("회원가입이 완료되었습니다.");
+	</script>
+</c:if>
+
 </body>
 </html>
