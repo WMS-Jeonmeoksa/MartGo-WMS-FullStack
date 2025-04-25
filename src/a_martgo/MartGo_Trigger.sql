@@ -136,6 +136,7 @@ BEGIN
     DECLARE v_count INT;
     DECLARE v_incoming_num INT;
     DECLARE v_stock_num INT;
+    DECLARE v_incoming_date DATE;
 
     -- 제품 아이디, 수량, 유저 아이디 불러오기
     SELECT product_id, count, user_id
@@ -157,11 +158,12 @@ BEGIN
     LIMIT 1;
 
     -- 입고 번호 들고오기
-    SELECT incoming_num
-    INTO v_incoming_num
+    SELECT incoming_num, incoming_date
+    INTO v_incoming_num, v_incoming_date
     FROM incoming
     WHERE user_id = v_user_id
       AND status = '완료'
+    ORDER BY incoming_date DESC
     LIMIT 1;
 
 
@@ -177,7 +179,7 @@ BEGIN
     INSERT INTO stock_history
     (product_id, sector_id, count, change_date,
      change_type, admin_id, stock_num, incoming_num, outgoing_num)
-    VALUES (v_product_id,v_sector_id,v_count,SYSDATE(),
+    VALUES (v_product_id,v_sector_id,v_count,v_incoming_date,
             '입고',v_admin_id,v_stock_num,v_incoming_num, null);
 
 END $$
@@ -198,6 +200,8 @@ BEGIN
     DECLARE v_incoming_num INT;
     DECLARE v_outgoing_num INT;
     DECLARE v_stock_num INT;
+    DECLARE v_incoming_date DATE;
+    DECLARE v_outgoing_date DATE;
 
     -- NEW 값을 이용해 정확한 행의 제품 아이디, 유저 아이디, 재고 번호 지정
     SET v_product_id = NEW.product_id;
@@ -221,40 +225,42 @@ BEGIN
         -- 입고인 경우
         SET v_change = NEW.count - OLD.count;
 
-        SELECT incoming_num
-        INTO v_incoming_num
+        SELECT incoming_num, incoming_date
+        INTO v_incoming_num, v_incoming_date
         FROM incoming i
         WHERE NOT EXISTS (
             SELECT 1
             FROM stock_history sh
             WHERE sh.incoming_num = i.incoming_num
         )
+        ORDER BY incoming_date DESC
         LIMIT 1;
 
         INSERT INTO stock_history
         (product_id, sector_id, count, change_date, change_type, admin_id,
          stock_num, incoming_num, outgoing_num)
-        VALUES (v_product_id, v_sector_id, v_change, NOW(),
+        VALUES (v_product_id, v_sector_id, v_change, v_incoming_date,
                 '입고', v_admin_id, v_stock_num, v_incoming_num, NULL);
 
     ELSEIF NEW.count < OLD.count THEN
         -- 출고인 경우
         SET v_change = OLD.count - NEW.count;
 
-        SELECT outgoing_num
-        INTO v_outgoing_num
+        SELECT outgoing_num, outgoing_date
+        INTO v_outgoing_num, v_outgoing_date
         FROM outgoing o
         WHERE NOT EXISTS (
             SELECT 1
             FROM stock_history sh
             WHERE sh.outgoing_num = o.outgoing_num
         )
+        ORDER BY outgoing_date DESC
         LIMIT 1;
 
         INSERT INTO stock_history
         (product_id, sector_id, count, change_date, change_type, admin_id,
          stock_num, incoming_num, outgoing_num)
-        VALUES (v_product_id, v_sector_id, v_change, NOW(),
+        VALUES (v_product_id, v_sector_id, v_change, v_outgoing_date,
                 '출고', v_admin_id, v_stock_num, NULL, v_outgoing_num);
     END IF;
 END $$
