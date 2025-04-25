@@ -122,17 +122,20 @@ END//
 delimiter ;
 
 -- 임대 내역테이블에 adminid가 추가되면(진행중으로 승인되면) user테이블에 해당 adminid저장
-drop procedure if exists updateUserAdminid;
-delimiter //
-create procedure updateUserAdminid()
+DROP PROCEDURE IF EXISTS updateUserAdminid;
+DELIMITER //
+CREATE PROCEDURE updateUserAdminid(
+    IN p_rent_num   INT,
+    IN p_admin_id   VARCHAR(100)
+)
 BEGIN
-    UPDATE `user` u
-        JOIN rent_history rh ON u.user_id = rh.user_id
-    SET u.admin_id = rh.admin_id
-    WHERE rh.admin_id IS NOT NULL
-      AND u.user_id = rh.user_id;
-END//
-delimiter ;
+    UPDATE `user` AS u
+        JOIN rent_history AS rh
+        ON u.user_id = rh.user_id
+    SET  u.admin_id = p_admin_id
+    WHERE rh.rent_num = p_rent_num;
+END //
+DELIMITER ;
 
 drop procedure if exists GetMonthlyPerformance;
 create procedure GetMonthlyPerformance(IN input_admin_id varchar(100))
