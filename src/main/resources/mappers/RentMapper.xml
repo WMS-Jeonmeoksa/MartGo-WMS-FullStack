@@ -71,7 +71,7 @@
     </select>
 
     <update id="updateUserAdminId">
-        CALL updateUserAdminid()
+        CALL updateUserAdminid(#{rentNum}, #{adminId})
     </update>
 
     <update id="updateAdminId">

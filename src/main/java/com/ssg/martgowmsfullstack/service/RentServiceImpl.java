@@ -81,7 +81,7 @@ public class RentServiceImpl implements RentService {
 
     public void approveRentHistory(int rentNum, String adminId) {
         rentMapper.updateAdminId(rentNum, adminId);
-        rentMapper.updateUserAdminId();
+        rentMapper.updateUserAdminId(rentNum, adminId);
 
     }
 
