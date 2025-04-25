@@ -119,7 +119,7 @@ public class RentController {
 
         rentService.confirmRentHistory(rentNum,adminId);
 
-        return "redirect:/dashboard/general";
+        return "redirect:/dashboard/superadmin";
     }
 
 }

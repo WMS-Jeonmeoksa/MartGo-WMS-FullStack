@@ -6,21 +6,26 @@
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.UserUpdateMapper">
 
     <update id="resetSectorStatus">
-        UPDATE sector
-        SET status = '사용가능'
-        WHERE sector_id IN (
-            SELECT sector_id
-            FROM (
-                     SELECT rh.sector_id
-                     FROM rent_history rh
-                              JOIN (
-                         SELECT user_id, MAX(rent_end_date) AS max_rent_end_date
-                         FROM rent_history
-                         GROUP BY user_id
-                     ) latest_rent ON rh.user_id = latest_rent.user_id AND rh.rent_end_date = latest_rent.max_rent_end_date
-                     WHERE rh.rent_end_date &lt; NOW()
-                 ) AS recent_sector
-        )
+        UPDATE sector AS s
+            JOIN (
+                SELECT
+                    rh2.user_id,
+                    rh2.sector_id,
+                    rh2.warehouse_id,
+                    MAX(rh2.rent_end_date) AS max_end_date
+                FROM rent_history AS rh2
+                         JOIN `user` AS u2
+                              ON rh2.user_id = u2.user_id
+                                  AND u2.role = '거래처'
+                WHERE rh2.rent_end_date &lt; NOW()
+                GROUP BY rh2.user_id
+            ) AS latest
+            ON s.sector_id    = latest.sector_id
+                AND s.warehouse_id = latest.warehouse_id
+            JOIN rent_history AS rh
+            ON rh.user_id       = latest.user_id
+                AND rh.rent_end_date = latest.max_end_date
+        SET s.status = '사용가능';
     </update>
 
     <update id="updateExpiredUsers">

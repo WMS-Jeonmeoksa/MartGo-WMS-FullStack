@@ -13,7 +13,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>MartGo</title>
+    <title>MartGo - 임대 승인</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_mypage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
@@ -85,6 +85,7 @@
             </ul>
         </div>
     </nav>
+
 
     <!-- 메인 -->
     <div class="main">
@@ -175,6 +176,7 @@
         </footer>
     </div> <!-- /.main -->
 </div> <!-- /.wrapper -->
+<script src="https://unpkg.com/feather-icons"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -203,23 +205,5 @@
             : false;
     }
 </script>
-
-
-        <!-- Feather 아이콘 & 토글 스크립트 -->
-        <script src="https://unpkg.com/feather-icons"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                feather.replace(); // 아이콘 활성화
-
-                const toggles = document.querySelectorAll(".submenu-toggle");
-                toggles.forEach(toggle => {
-                    toggle.addEventListener("click", function (e) {
-                        e.preventDefault();
-                        const item = this.closest(".sidebar-item");
-                        item.classList.toggle("open");
-                    });
-                });
-            });
-        </script>
 </body>
 </html>
