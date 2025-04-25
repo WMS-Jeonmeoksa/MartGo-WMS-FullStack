@@ -133,3 +133,13 @@ body {
     background-color: #d1d5db;
     cursor: not-allowed;
 }
+ /* 기본 상태: submenu 숨김 */
+ .sidebar-submenu {
+     display: none;
+     padding-left: 1rem; /* 들여쓰기 */
+ }
+
+ /* open 클래스 붙으면 보이기 */
+ .sidebar-item.open > .sidebar-submenu {
+     display: block;
+ }

@@ -13,12 +13,13 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>MartGo</title>
+    <title>MartGo - 임대 최종 승인</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_mypage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
     <link rel="stylesheet" href="/css/margoLogo.css">
     <link rel="stylesheet" href="/css/rent_approve.css">
+    <script src="${pageContext.request.contextPath}/js/app.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -29,13 +30,13 @@
     <!-- 사이드바 -->
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/superadmin/">
+            <a class="sidebar-brand" href="${pageContext.request.contextPath}/dashboard/superadmin">
                 <img src="/img/MartGo_Logo.png" alt="a">
             </a>
+            <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/superadmin/" method="post" style="display: none;"></form>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">창고관리자 메뉴</li>
 
-                <form id="AdminDashBoardForm" action="${pageContext.request.contextPath}/dashboard/superadmin/" method="post" style="display: none;"></form>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/dashboard/superadmin/">
@@ -154,7 +155,6 @@
                     <button type="button" class="rent_btn btn-back" onclick="window.location.href='/dashboard/superadmin'">
                         <i class="fas fa-arrow-left"></i> 홈으로
                     </button>
-                    </button>
                     <button type="submit" class="rent_btn btn-next" id="approveBtn" disabled onclick="return confirmApproval()">
                         승인 <i class="fas fa-check"></i>
                     </button>
@@ -176,6 +176,7 @@
         </footer>
     </div> <!-- /.main -->
 </div> <!-- /.wrapper -->
+<script src="https://unpkg.com/feather-icons"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -206,21 +207,6 @@
 </script>
 
 
-        <!-- Feather 아이콘 & 토글 스크립트 -->
-        <script src="https://unpkg.com/feather-icons"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                feather.replace(); // 아이콘 활성화
 
-                const toggles = document.querySelectorAll(".submenu-toggle");
-                toggles.forEach(toggle => {
-                    toggle.addEventListener("click", function (e) {
-                        e.preventDefault();
-                        const item = this.closest(".sidebar-item");
-                        item.classList.toggle("open");
-                    });
-                });
-            });
-        </script>
 </body>
 </html>
