@@ -5,6 +5,7 @@ import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.dto.LoginDTO;
 import com.ssg.martgowmsfullstack.service.UserService;
 import com.ssg.martgowmsfullstack.service.AdminService;
+import com.ssg.martgowmsfullstack.util.Encrypt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,13 +51,18 @@ public class AuthController {
         // 2. 관리자 로그인 시도
         if (adminService.login(userid, password)) {
             AdminDTO admin = adminService.getAdminById(userid);
+
+            if ("0".equals(admin.getPassword())) {
+                session.setAttribute("tempAdminId", admin.getAdminId()); // 임시 세션 저장
+                return "redirect:/admin/set-password";
+            }
+
             session.setAttribute("loginInfo", admin);
             session.setAttribute("role", admin.getRole());
             session.setAttribute("sessionAdminId", admin.getAdminId());
 
             if ("창고관리자".equals(admin.getRole())) return "redirect:/admin";
             if ("총관리자".equals(admin.getRole())) return "redirect:/superadmin";
-
 
             model.addAttribute("error", "허용되지 않은 관리자 권한입니다.");
             return "pages-login";
@@ -66,6 +72,57 @@ public class AuthController {
         model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
         return "pages-login";
     }
+
+
+    @GetMapping("/admin/set-password")
+    public String setAdminPasswordForm() {
+        return "pages-admin-set-password";
+    }
+
+    @PostMapping("/admin/set-password")
+    public String setAdminPassword(@RequestParam String newPassword,
+                                   HttpSession session,
+                                   Model model) {
+        String adminId = (String) session.getAttribute("tempAdminId");
+        if (adminId == null) return "redirect:/login";
+
+        String salt = Encrypt.getSalt();
+        String hash = Encrypt.getEncrypt(newPassword, salt);
+
+        adminService.updatePassword(adminId, hash, salt); // 새 메서드 필요
+
+        session.removeAttribute("tempAdminId"); // 임시 세션 제거
+        return "redirect:/login?pwResetSuccess=true";
+    }
+
+    @PostMapping("/admin/update-password")
+    public String updateAdminPassword(
+            @RequestParam String adminId,
+            @RequestParam String newPassword,
+            HttpSession session,
+            Model model) {
+
+        // 1. 비밀번호 유효성 체크 (4자리 이상인지 등)
+        if (newPassword.length() < 4) {
+            model.addAttribute("error", "비밀번호는 4자리 이상이어야 합니다.");
+            return "pages-admin-set-password";
+        }
+
+        // 2. salt 생성
+        String salt = Encrypt.getSalt();
+        String hashedPw = Encrypt.getEncrypt(newPassword, salt);
+
+        // 3. 비밀번호 업데이트
+        adminService.updatePassword(adminId, hashedPw, salt);
+
+        // 4. 세션 초기화 후 로그인 페이지로
+        session.invalidate();
+        return "redirect:/login?message=passwordChanged";
+    }
+
+
+
+
 
     // --- 회원가입 폼 ---
     @GetMapping("/register")
@@ -89,6 +146,7 @@ public class AuthController {
 
         String fullAddress = (user.getAddress() + " (" + addressDetail + ")").trim();
         String fullPhone = phone1 + "-" + phone2 + "-" + phone3;
+
 
         user.setAddress(fullAddress);
         user.setPhone(fullPhone);

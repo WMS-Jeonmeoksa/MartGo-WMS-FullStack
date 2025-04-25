@@ -30,6 +30,7 @@
 					<div class="text-center mt-4">
 						<h1 class="h2">회원가입</h1>
 						<p class="lead">계정을 생성하고 시작해보세요!</p>
+						<p class="text-muted" style="font-size: 0.9rem;"> <span style="color: red;">*</span> : 필수 작성 항목입니다.</p>
 					</div>
 
 					<div class="card">
@@ -37,27 +38,27 @@
 							<div class="m-sm-3">
 								<form action="${pageContext.request.contextPath}/register" method="post" onsubmit="return validateForm()">
 									<div class="mb-3">
-										<label class="form-label">아이디</label>
+										<label class="form-label">아이디<span style="color: red;">*</span></label>
 										<input class="form-control form-control-lg" type="text" name="userid" id="userid" placeholder="아이디를 입력하세요 (영문 시작, 영문/숫자 4자 이상)" required/>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">이름</label>
+										<label class="form-label">이름<span style="color: red;">*</span></label>
 										<input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="이름을 입력하세요 (한글)" required/>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">비밀번호</label>
+										<label class="form-label">비밀번호<span style="color: red;">*</span></label>
 										<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="비밀번호를 입력하세요 (4자 이상)" required/>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">비밀번호 확인</label>
+										<label class="form-label">비밀번호 확인<span style="color: red;">*</span></label>
 										<input class="form-control form-control-lg" type="password" name="confirmPassword" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required/>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">전화번호</label>
+										<label class="form-label">전화번호<span style="color: red;">*</span></label>
 										<div style="display: flex; gap: 10px;">
 											<!-- 앞자리 선택 -->
 											<div style="position: relative; flex: 1;">
@@ -95,7 +96,7 @@
 
 									<!-- 주소 -->
 									<div class="mb-3">
-										<label class="form-label">주소</label>
+										<label class="form-label">주소<span style="color: red;">*</span></label>
 										<div style="display: flex; gap: 10px;">
 											<input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="주소 찾기 클릭" readonly required />
 											<button type="button" onclick="execDaumPostcode()" class="btn btn-outline-secondary" style="white-space: nowrap;">주소 찾기</button>
