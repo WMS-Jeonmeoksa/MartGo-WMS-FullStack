@@ -75,7 +75,7 @@ public class IncomingController {
         String userId = (String) session.getAttribute("sessionUserId");
         incomingDTO.setUserId(userId);
         incomingService.requestIncoming(incomingDTO);
-        return "redirect:/dashboard/user";
+        return "redirect:/dashboard/customer";
     }
 
     @GetMapping("/approve")

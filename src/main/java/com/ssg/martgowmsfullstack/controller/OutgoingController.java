@@ -41,7 +41,9 @@ public class OutgoingController {
         if (session.getAttribute("loginInfo") == null) {
             return "redirect:/login";
         }
+        int stockCount = outgoingService.getCountByStockNum(stockNum);
         model.addAttribute("stockNum", stockNum);
+        model.addAttribute("stockCount", stockCount);
         model.addAttribute("productId", productId);
         return "pages-outgoing-detail";
     }
@@ -83,7 +85,7 @@ public class OutgoingController {
         String userId = (String) session.getAttribute("sessionUserId");
         outgoingDTO.setUserId(userId);
         outgoingService.requestOutgoing(outgoingDTO);
-        return "redirect:/dashboard/user";
+        return "redirect:/dashboard/customer";
     }
 
     @GetMapping("/approve")

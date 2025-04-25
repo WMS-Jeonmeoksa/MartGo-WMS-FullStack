@@ -25,4 +25,10 @@
         WHERE warehouse.warehouse_id = admin.warehouse_id
     </select>
 
+    <select id="getCountByStockNum" parameterType="int" resultType="int">
+        SELECT count
+        FROM stock
+        WHERE stock_num = #{stockNum}
+    </select>
+
 </mapper>

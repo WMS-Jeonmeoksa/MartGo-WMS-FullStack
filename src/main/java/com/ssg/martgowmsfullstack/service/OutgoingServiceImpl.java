@@ -4,6 +4,7 @@ import com.ssg.martgowmsfullstack.domain.OutgoingVO;
 import com.ssg.martgowmsfullstack.dto.OutgoingDTO;
 import com.ssg.martgowmsfullstack.dto.StockDTO;
 import com.ssg.martgowmsfullstack.mapper.OutgoingMapper;
+import com.ssg.martgowmsfullstack.mapper.StockMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class OutgoingServiceImpl implements OutgoingService {
 
     private final ModelMapper modelMapper;
     private final OutgoingMapper outgoingMapper;
+    private final StockMapper stockMapper;
 
     @Override
     public int getOutgoingCount(String adminId) {
@@ -57,5 +59,10 @@ public class OutgoingServiceImpl implements OutgoingService {
             else if (role.equals("총관리자")) newStatus = "완료";
             outgoingMapper.updateOutgoingStatus(outgoingNum, newStatus);
         }
+    }
+
+    @Override
+    public int getCountByStockNum(int stockNum) {
+        return stockMapper.getCountByStockNum(stockNum);
     }
 }
