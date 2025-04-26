@@ -1,7 +1,9 @@
 package com.ssg.martgowmsfullstack.service;
 
 
+import com.ssg.martgowmsfullstack.domain.CostInfoVO;
 import com.ssg.martgowmsfullstack.domain.RentHistoryVO;
+import com.ssg.martgowmsfullstack.domain.SectorVO;
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
@@ -35,6 +37,7 @@ public class RentServiceImpl implements RentService {
         warehouses.forEach(warehouse -> {
             warehouse.setStatus(getSectorStatus(warehouse.getWarehouseId()));
         });
+
         return warehouses;
     }
 
@@ -46,14 +49,14 @@ public class RentServiceImpl implements RentService {
     }
 
     public List<SectorDTO> getAllSector(int warehouseId) {
-        List<SectorDTO> vo = rentMapper.getAllSectors(warehouseId);
+        List<SectorVO> vo = rentMapper.getAllSectors(warehouseId);
         return vo.stream()
                 .map(i -> modelMapper.map(i,SectorDTO.class))
                 .collect(Collectors.toList());
     }
 
     public List<CostInfoDTO> getAllCostInfo(int wareHouseId, String sectorId) {
-        List<CostInfoDTO> vo = rentMapper.getCostInfo(wareHouseId, sectorId);
+        List<CostInfoVO> vo = rentMapper.getCostInfo(wareHouseId, sectorId);
         return vo.stream()
                 .map(i -> modelMapper.map(i, CostInfoDTO.class))
                 .collect(Collectors.toList());
@@ -66,14 +69,14 @@ public class RentServiceImpl implements RentService {
     }
 
     public List<RentHistoryDTO> holdRentList(String adminId) {
-        List<RentHistoryDTO> vo = rentMapper.getHoldRentHistory(adminId);
+        List<RentHistoryVO> vo = rentMapper.getHoldRentHistory(adminId);
         return vo.stream()
                 .map(i -> modelMapper.map(i, RentHistoryDTO.class))
                 .collect(Collectors.toList());
     }
 
     public List<RentHistoryDTO> inProgressRentList(String adminId) {
-        List<RentHistoryDTO> vo = rentMapper.getInProgressRentHistory(adminId);
+        List<RentHistoryVO> vo = rentMapper.getInProgressRentHistory(adminId);
         return vo.stream()
                 .map(i -> modelMapper.map(i, RentHistoryDTO.class))
                 .collect(Collectors.toList());
