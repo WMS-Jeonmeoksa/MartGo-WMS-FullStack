@@ -173,3 +173,4 @@ SET admin_pw = '0'
 WHERE role IN ('창고관리자', '총관리자');
 
 ALTER TABLE admin ADD COLUMN salt VARCHAR(255);
+ALTER TABLE admin ADD salt VARCHAR(255);

@@ -1,7 +1,9 @@
 package com.ssg.martgowmsfullstack.domain;
 
 import lombok.*;
+import org.apache.ibatis.type.Alias;
 
+@Alias("UserVO")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,5 +19,6 @@ public class UserVO {
     private String role;
     private String adminid;
     private String status;
+    private String salt;
 
 }

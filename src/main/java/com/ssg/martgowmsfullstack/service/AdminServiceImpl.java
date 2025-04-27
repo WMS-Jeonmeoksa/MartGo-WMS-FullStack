@@ -19,14 +19,23 @@ public class AdminServiceImpl implements AdminService {
         AdminVO adminVO = adminMapper.findByAdminId(adminId);
 
         if (adminVO == null) {
-            System.out.println("관리자 ID 없음");
             return false;
         }
 
-        boolean match = adminVO.getPassword().equals(password);
-        System.out.println("관리자 비밀번호 일치 여부: " + match);
+        // 초기 비밀번호가 "0"인 경우
+        if ("0".equals(adminVO.getPassword())) {
+            if ("0".equals(password)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // 일반 비밀번호 매칭
+        boolean match = adminVO.getPassword().equals(password); // 나중에 암호화 비교로 변경 예정
         return match;
     }
+
 
     @Override
     public AdminDTO getAdminById(String adminId) {
@@ -45,4 +54,11 @@ public class AdminServiceImpl implements AdminService {
                 .warehouse(adminVO.getWarehouse())
                 .build();
     }
+
+    @Override
+    public void updatePassword(String adminId, String newPw, String salt) {
+        adminMapper.updateAdminPassword(adminId, newPw, salt);
+    }
+
+
 }

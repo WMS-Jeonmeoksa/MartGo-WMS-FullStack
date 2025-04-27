@@ -89,7 +89,13 @@
             </div>
         </nav>
 
+        <fmt:formatDate value="${changeDate}" pattern="yyyy-MM-dd" var="formattedChangeDate" />
+        <jsp:useBean id="now" class="java.util.Date" />
+        <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="formattedToday" />
 
+        <!-- hidden 필드로 JS에서 접근할 수 있도록 전달 -->
+        <input type="hidden" id="formattedChangeDate" value="${formattedChangeDate}" />
+        <input type="hidden" id="formattedToday" value="${formattedToday}" />
 
         <form action="/outgoing/confirm" method="post">
             <div class="outgoing-container">
@@ -118,9 +124,10 @@
 
                 <div class="outgoing-form-group">
                     <label for="count">
-                        <i class="fas fa-hashtag"></i></i>&nbsp;출고 수량
+                        <i class="fas fa-hashtag"></i>&nbsp;출고 수량
                     </label>
-                    <input type="number" id="count" name="count" placeholder="출고할 수량을 입력하세요" min="1" max="${stockCount}" required>
+                    <input type="number" id="count" name="count" placeholder="출고할 수량을 입력하세요"
+                           min="1" max="${stockCount}" required>
                     <span class="info-text">* 최대 ${stockCount}개까지 출고 가능합니다.</span>
                 </div>
 
@@ -143,12 +150,21 @@
         </form>
 
         <script>
-            // 오늘 날짜 이후만 선택 가능
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById("outgoingDate").min = today;
+            window.addEventListener("DOMContentLoaded", function () {
+                const changeDateStr = document.getElementById("formattedChangeDate").value;
+                const todayStr = document.getElementById("formattedToday").value;
+
+                const changeDate = new Date(changeDateStr);
+                const today = new Date(todayStr);
+
+                // 오늘 이후면서, 입고일 이후여야 하므로 두 날짜 중 큰 값을 선택
+                const finalMinDate = changeDate > today ? changeDate : today;
+
+                // yyyy-MM-dd 포맷으로 세팅
+                const formattedFinalMinDate = finalMinDate.toISOString().split("T")[0];
+                document.getElementById("outgoingDate").setAttribute("min", formattedFinalMinDate);
+            });
         </script>
-
-
 
         <footer class="footer">
             <div class="container-fluid">
