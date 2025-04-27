@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -42,6 +43,9 @@ public class OutgoingController {
             return "redirect:/login";
         }
         int stockCount = outgoingService.getCountByStockNum(stockNum);
+        Date changeDate = outgoingService.getChangeDateByStockNum(stockNum);
+
+        model.addAttribute("changeDate", changeDate);
         model.addAttribute("stockNum", stockNum);
         model.addAttribute("stockCount", stockCount);
         model.addAttribute("productId", productId);
