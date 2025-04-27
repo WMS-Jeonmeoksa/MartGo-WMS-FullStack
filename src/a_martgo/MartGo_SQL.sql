@@ -167,3 +167,9 @@ ALTER TABLE rent_history
 ALTER TABLE cost_info
     ADD CONSTRAINT fk_sector_to_cost_info FOREIGN KEY (sector_id, warehouse_id)
         REFERENCES sector (sector_id, warehouse_id);
+
+UPDATE admin
+SET admin_pw = '0'
+WHERE role IN ('창고관리자', '총관리자');
+
+ALTER TABLE admin ADD COLUMN salt VARCHAR(255);
