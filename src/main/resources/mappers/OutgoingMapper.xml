@@ -89,4 +89,12 @@
           AND IF(a.role = '총관리자', o.status = '완료', o.status IN ('진행중', '완료'))
     </select>
 
+    <select id="getChangeDateByStockNum" parameterType="int" resultType="java.util.Date">
+        SELECT change_date
+        FROM stock_history
+        WHERE stock_num = #{stockNum}
+            AND change_type = '입고'
+        ORDER BY change_date ASC
+        LIMIT 1;
+    </select>
 </mapper>
