@@ -13,7 +13,7 @@
     <meta charset="UTF-8"/>
     <title>MartGo - 창고 임대 신청</title>
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/period.css" rel="stylesheet">
+    <link href="/css/rent_period.css" rel="stylesheet">
     <link href="/css/margoLogo.css" rel="stylesheet">
 
 
@@ -62,7 +62,7 @@
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/mypage">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
+                            <i class="fas fa-user-circle"></i> <%= user.getUsername() %>님
                         </a>
                     </li>
                     <li class="nav-item">
@@ -72,6 +72,7 @@
                     </li>
                 </ul>
             </div>
+
         </nav>
 
 
@@ -151,10 +152,16 @@
                 document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
                 row.classList.add('selected');
 
+
                 // 달력 섹션 보여주기 + 요약 갱신
                 document.getElementById('calendarSection').classList.add('show');
                 updateSummary();
                 checkNextButton();
+
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
             }
 
             // 시작일 변경 시 요약 다시 계산
@@ -209,6 +216,17 @@
                 });
                 window.location.href = '/rent/last?' + qs;
             }
+
+            const startInput = document.getElementById('startDate');
+
+            // input 클릭 시 무조건 달력 팝업
+            startInput.addEventListener('click', () => {
+                if (startInput.showPicker) {
+                    startInput.showPicker();  // Chrome, Edge 등
+                } else {
+                    startInput.focus();       // 기타 브라우저
+                }
+            });
         </script>
         <!-- 푸터 -->
         <footer class="footer">

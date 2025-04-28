@@ -5,6 +5,7 @@ import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
 import com.ssg.martgowmsfullstack.dto.WarehouseDTO;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
@@ -22,8 +23,8 @@ public interface RentService {
 
     void saveRentHistory(RentHistoryDTO rentHistoryDTO);
 
-    List<RentHistoryDTO> holdRentList(String adminId);
-    List<RentHistoryDTO> inProgressRentList(String adminId);
+    PagedListHolder<RentHistoryDTO> holdRentList(String adminId, int page, int size);
+    PagedListHolder<RentHistoryDTO> inProgressRentList(String adminId, int page, int size);
     void approveRentHistory(int rentNum, String adminId);
     void confirmRentHistory(int rentNum, String adminId);
 }

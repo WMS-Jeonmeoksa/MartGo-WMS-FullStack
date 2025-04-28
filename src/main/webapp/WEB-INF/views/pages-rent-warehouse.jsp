@@ -18,7 +18,7 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/margoLogo.css" rel="stylesheet">
     <script src="/js/app.js"></script>
-    <link href="/css/warehouse.css" rel="stylesheet">
+    <link href="/css/rent_warehouse.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -76,8 +76,7 @@
 
         <div class="rent-container">
             <div id="mapWrapper">
-                <div id="map1" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
-                <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
+                <div id="map1" style="width:100%;height:100%"></div>
             </div>
             <div class="header">
                 <h1>창고 임대 신청</h1>
@@ -190,16 +189,16 @@
                                 sessionStorage.setItem('selectedWarehouseName', selectedWarehouseName);
 
                                 document.getElementById('nextBtn').disabled = false;
-                            });
+                                window.scrollTo({
+                                    top: document.body.scrollHeight,
+                                    behavior: 'smooth'
+                                });
+                                });
                         }
                     });
                 });
 
                 document.getElementById('nextBtn').addEventListener('click', () => {
-                    if (!selectedWarehouseId) {
-                        alert('창고를 선택해주세요.');
-                        return;
-                    }
                     const selectedWarehouse = warehouses.find(w => w.id === selectedWarehouseId);
                     if (selectedWarehouse && selectedWarehouse.status === '사용불가') {
                         alert('선택한 창고는 현재 모두 임대중입니다. 다른 창고를 선택해주세요.');

@@ -1,6 +1,8 @@
 package com.ssg.martgo.mapper;
 
+import com.ssg.martgowmsfullstack.domain.CostInfoVO;
 import com.ssg.martgowmsfullstack.domain.RentHistoryVO;
+import com.ssg.martgowmsfullstack.domain.SectorVO;
 import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
 import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
 import com.ssg.martgowmsfullstack.dto.SectorDTO;
@@ -45,14 +47,14 @@ public class RentMapperTest {
 
     @Test
     void testGetAllSectors() {
-        List<SectorDTO> list = rentMapper.getAllSectors(1);
+        List<SectorVO> list = rentMapper.getAllSectors(1);
         assertNotNull(list);
         list.forEach(System.out::println);
     }
 
     @Test
     void testGetCostInfo() {
-        List<CostInfoDTO> list = rentMapper.getCostInfo(1, "1A");
+        List<CostInfoVO> list = rentMapper.getCostInfo(1, "1A");
         assertNotNull(list);
         list.forEach(System.out::println);
     }
@@ -92,14 +94,14 @@ public class RentMapperTest {
 
     @Test
     void testGetHoldRentHistory() {
-        List<RentHistoryDTO> list = rentMapper.getHoldRentHistory("admin01");
+        List<RentHistoryVO> list = rentMapper.getHoldRentHistory("admin01");
         list.forEach(System.out::println);
     }
 
 
     @Test
     void testGetInProgressRentHistory() {
-        List<RentHistoryDTO> list = rentMapper.getInProgressRentHistory("admin01");
+        List<RentHistoryVO> list = rentMapper.getInProgressRentHistory("admin01");
         list.forEach(System.out::println);
     }
 
