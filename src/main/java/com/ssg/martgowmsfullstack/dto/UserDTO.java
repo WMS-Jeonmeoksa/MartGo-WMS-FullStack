@@ -19,4 +19,5 @@ public class UserDTO {
     private String role; // enum이지만 String으로 받는 게 일반적
     private String adminid;
     private String status;
+    private String salt;
 }

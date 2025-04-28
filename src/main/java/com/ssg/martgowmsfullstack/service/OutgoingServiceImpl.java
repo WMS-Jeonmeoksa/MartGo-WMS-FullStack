@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -64,5 +65,10 @@ public class OutgoingServiceImpl implements OutgoingService {
     @Override
     public int getCountByStockNum(int stockNum) {
         return stockMapper.getCountByStockNum(stockNum);
+    }
+
+    @Override
+    public Date getChangeDateByStockNum(int stockNum) {
+        return outgoingMapper.getChangeDateByStockNum(stockNum);
     }
 }

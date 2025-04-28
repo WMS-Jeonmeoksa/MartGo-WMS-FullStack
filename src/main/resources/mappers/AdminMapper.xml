@@ -24,8 +24,17 @@
             phone_num AS phone,
             email,
             role,
-            warehouse_id AS warehouse
+            warehouse_id AS warehouse,
+            salt
         FROM admin
         WHERE admin_id = #{adminId}
     </select>
+
+
+    <update id="updateAdminPassword">
+        UPDATE admin
+        SET admin_pw = #{newPw}, salt = #{salt}
+        WHERE admin_id = #{adminId}
+    </update>
+
 </mapper>

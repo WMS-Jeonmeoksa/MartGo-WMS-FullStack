@@ -24,16 +24,9 @@
     </select>
 
     <!-- 회원가입용 삽입 -->
-    <insert id="insertUser" parameterType="com.ssg.martgowmsfullstack.domain.UserVO">
-        INSERT INTO user (
-            user_id, user_name, user_pw,
-            phone, email, address,
-            role, admin_id, status
-        ) VALUES (
-                     #{userid}, #{username}, #{password},
-                     #{phone}, #{email}, #{address},
-                     #{role}, #{adminid}, #{status}
-                 )
+    <insert id="insertUser" parameterType="UserVO">
+        INSERT INTO user (user_id, user_name, user_pw, salt, phone, email, address, role, status, admin_id)
+        VALUES (#{userid}, #{username}, #{password}, #{salt}, #{phone}, #{email}, #{address}, #{role}, #{status}, #{adminid})
     </insert>
 
     <!-- 사용자 비활성화 -->

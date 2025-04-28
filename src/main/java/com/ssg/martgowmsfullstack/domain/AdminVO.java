@@ -16,4 +16,5 @@ public class AdminVO {
     private String address;
     private String role;
     private String warehouse;
+    private String salt;
 }

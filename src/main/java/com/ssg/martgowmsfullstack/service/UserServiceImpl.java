@@ -3,6 +3,7 @@ package com.ssg.martgowmsfullstack.service;
 import com.ssg.martgowmsfullstack.domain.UserVO;
 import com.ssg.martgowmsfullstack.dto.UserDTO;
 import com.ssg.martgowmsfullstack.mapper.UserMapper;
+import com.ssg.martgowmsfullstack.util.Encrypt;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -27,15 +28,26 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        boolean match = dbUser.getPassword().equals(password);
-        System.out.println("비밀번호 일치 여부: " + match);
-        return match;
+        String hashed = Encrypt.getEncrypt(password, dbUser.getSalt());
+
+        return hashed.equals(dbUser.getPassword());
     }
 
 
 
     @Override
     public void register(UserDTO userDTO) {
+        // 1. Salt 생성
+        String salt = Encrypt.getSalt();
+
+        // 2. 비밀번호 암호화
+        String hashedPw = Encrypt.getEncrypt(userDTO.getPassword(), salt);
+
+        // 3. 암호화된 비밀번호와 salt 설정
+        userDTO.setSalt(salt);
+        userDTO.setPassword(hashedPw);
+
+        // 4. DTO → VO 변환 후 DB 저장
         UserVO userVO = modelMapper.map(userDTO, UserVO.class);
         userMapper.insertUser(userVO);
     }
