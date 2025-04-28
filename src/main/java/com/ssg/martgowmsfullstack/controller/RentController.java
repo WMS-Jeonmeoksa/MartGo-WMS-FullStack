@@ -1,17 +1,14 @@
 package com.ssg.martgowmsfullstack.controller;
 
-import com.ssg.martgowmsfullstack.dto.CostInfoDTO;
-import com.ssg.martgowmsfullstack.dto.RentHistoryDTO;
-import com.ssg.martgowmsfullstack.dto.RentSelectDTO;
-import com.ssg.martgowmsfullstack.dto.SectorDTO;
+import com.ssg.martgowmsfullstack.dto.*;
 import com.ssg.martgowmsfullstack.service.RentService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -51,17 +48,18 @@ public class RentController {
 
     @GetMapping("/period")
     public String getSectorCostInfo(
-            @RequestParam("warehouseId") int warehouseId,
-            @RequestParam("warehouseName") String warehouseName,
+//            @RequestParam("warehouseId") int warehouseId,
+//            @RequestParam("warehouseName") String warehouseName,
+            @ModelAttribute WarehouseDTO warehouseDTO,
             @RequestParam("sectorId") String sectorId,
             Model model
     ) {
         List<CostInfoDTO> costInfo =
-                rentService.getAllCostInfo(warehouseId, sectorId);
+                rentService.getAllCostInfo(warehouseDTO.getWarehouseId(), sectorId);
 
         model.addAttribute("costInfo", costInfo);
-        model.addAttribute("warehouseId", warehouseId);
-        model.addAttribute("warehouseName", warehouseName);
+        model.addAttribute("warehouseId", warehouseDTO.getWarehouseId());
+        model.addAttribute("warehouseName", warehouseDTO.getWarehouseName());
         model.addAttribute("sectorId", sectorId);
         return "pages-rent-period";
     }
@@ -83,12 +81,16 @@ public class RentController {
     }
 
     @GetMapping("/approve")
-    public String holdRentList(Model model, HttpSession session) {
+    public String holdRentList(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model,
+            HttpSession session) {
+
         String adminId = (String) session.getAttribute("sessionAdminId");
+        PagedListHolder<RentHistoryDTO> pagedList = rentService.holdRentList(adminId, page, size);
 
-        List<RentHistoryDTO> rentHistoryDTO = rentService.holdRentList(adminId);
-        model.addAttribute("rentHistoryDTO", rentHistoryDTO);
-
+        model.addAttribute("pagedList", pagedList);
         return "pages-rent-approve";
     }
 
@@ -98,18 +100,21 @@ public class RentController {
 
         rentService.approveRentHistory(rentNum,adminId);
 
-        return "redirect:/dashboard/admin";
+        return "redirect:/rent/approve";
     }
 
 
     @GetMapping("/finalization")
-    public String inProgressRentList(Model model, HttpSession session) {
+    public String inProgressRentList(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model,
+            HttpSession session) {
+
         String adminId = (String) session.getAttribute("sessionAdminId");
+        PagedListHolder<RentHistoryDTO> paged = rentService.inProgressRentList(adminId, page, size);
 
-        List<RentHistoryDTO> rentHistoryDTO = rentService.inProgressRentList(adminId);
-
-        model.addAttribute("rentHistoryDTO", rentHistoryDTO);
-
+        model.addAttribute("pagedList", paged);
         return "pages-rent-finalization";
     }
 
@@ -119,7 +124,7 @@ public class RentController {
 
         rentService.confirmRentHistory(rentNum,adminId);
 
-        return "redirect:/dashboard/superadmin";
+        return "redirect:/rent/finalization";
     }
 
 }

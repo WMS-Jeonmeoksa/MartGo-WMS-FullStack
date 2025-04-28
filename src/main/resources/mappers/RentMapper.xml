@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssg.martgowmsfullstack.mapper.RentMapper">
-    <resultMap id="SectorDTOResultMap" type="com.ssg.martgowmsfullstack.dto.SectorDTO">
+    <resultMap id="SectorVOResultMap" type="com.ssg.martgowmsfullstack.domain.SectorVO">
         <result property="sectorId" column="sector_id"/>
         <result property="warehouseId" column="warehouse_id"/>
         <result property="height" column="height"/>
@@ -12,7 +12,7 @@
         <result property="FAR" column="FAR"/>
         <result property="status" column="status"/>
     </resultMap>
-    <resultMap id="RentHistoryDTOResultMap" type="com.ssg.martgowmsfullstack.dto.RentHistoryDTO">
+    <resultMap id="RentHistoryVOResultMap" type="com.ssg.martgowmsfullstack.domain.RentHistoryVO">
         <result property="rentNum" column="rent_num"/>
         <result property="sectorId" column="sector_id"/>
         <result property="warehouseId" column="warehouse_id"/>
@@ -42,12 +42,12 @@
         CALL getSectorStatus(#{warehouseId})
     </select>
 
-    <select id="getAllSectors" parameterType="int" resultMap="SectorDTOResultMap" statementType="CALLABLE">
+    <select id="getAllSectors" parameterType="int" resultMap="SectorVOResultMap" statementType="CALLABLE">
         CALL GetAllSectors(#{warehouseId})
     </select>
 
 
-    <select id="getCostInfo" resultType="com.ssg.martgowmsfullstack.dto.CostInfoDTO">
+    <select id="getCostInfo" resultType="com.ssg.martgowmsfullstack.domain.CostInfoVO">
         CALL GetCostInfoSector(#{warehouseId}, #{sectorId})
     </select>
 
@@ -66,7 +66,7 @@
              )
     </insert>
 
-    <select id="getHoldRentHistory" resultMap="RentHistoryDTOResultMap">
+    <select id="getHoldRentHistory" resultMap="RentHistoryVOResultMap">
         CALL GetHoldRentHistory(#{adminId})
     </select>
 
@@ -78,7 +78,7 @@
         CALL UpdateAdminId(#{rentNum}, #{adminId})
     </update>
 
-    <select id="getInProgressRentHistory" resultMap="RentHistoryDTOResultMap">
+    <select id="getInProgressRentHistory" resultMap="RentHistoryVOResultMap">
         CALL GetInProgressRentHistory(#{adminId})
     </select>
 

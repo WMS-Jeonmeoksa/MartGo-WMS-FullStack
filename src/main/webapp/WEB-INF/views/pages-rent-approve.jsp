@@ -136,7 +136,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="rentHistory" items="${rentHistoryDTO}">
+                    <c:forEach var="rentHistory" items="${pagedList.pageList}">
                         <tr onclick="selectRent(this, '${rentHistory.rentNum}')">
                             <td>${rentHistory.rentNum}</td>
                             <td>${rentHistory.sectorId}</td>
@@ -150,6 +150,25 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                <div class="pagination">
+                    <!-- 이전 페이지 -->
+                    <c:if test="${!pagedList.firstPage}">
+                        <a href="?page=${pagedList.page}&size=${pagedList.pageSize}">이전</a>
+                    </c:if>
+
+                    <!-- 페이지 번호 -->
+                    <c:forEach begin="1" end="${pagedList.pageCount}" var="i">
+                        <a href="?page=${i}&size=${pagedList.pageSize}"
+                           class="${(pagedList.page + 1) == i ? 'current' : ''}">
+                                ${i}
+                        </a>
+                    </c:forEach>
+
+                    <!-- 다음 페이지 -->
+                    <c:if test="${!pagedList.lastPage}">
+                        <a href="?page=${pagedList.page + 2}&size=${pagedList.pageSize}">다음</a>
+                    </c:if>
+                </div>
 
                 <div class="button-group-full">
                     <button type="button" class="rent_btn btn-back" onclick="window.location.href='/dashboard/admin'">
@@ -191,6 +210,7 @@
         });
     });
 
+
     let selectedRentId = null;
     function selectRent(row, rentNum) {
         document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('selected'));
@@ -198,6 +218,11 @@
         selectedRentId = rentNum;
         document.getElementById("rentNumInput").value = rentNum;
         document.getElementById('approveBtn').disabled = false;
+
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
     }
     function confirmApproval() {
         return selectedRentId

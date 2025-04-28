@@ -12,7 +12,7 @@
     <meta charset="UTF-8"/>
     <title>MartGo - 창고 임대 신청</title>
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/sector.css" rel="stylesheet">
+    <link href="/css/rent_sector.css" rel="stylesheet">
     <link href="/css/margoLogo.css" rel="stylesheet">
 
 
@@ -61,7 +61,7 @@
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/mypage">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
+                            <i class="fas fa-user-circle"></i> <%= user.getUsername() %>님
                         </a>
                     </li>
                     <li class="nav-item">
@@ -71,6 +71,7 @@
                     </li>
                 </ul>
             </div>
+
         </nav>
 
 
@@ -163,7 +164,6 @@
         window.location.href = '/rent/warehouse';
     });
 
-    // 다음 버튼: 선택한 창고·섹터를 쿼리스트링으로 넘겨요
     document.getElementById('next-btn').addEventListener('click', () => {
         const sectorId = sessionStorage.getItem('selectedSectorId');
         const params = new URLSearchParams({

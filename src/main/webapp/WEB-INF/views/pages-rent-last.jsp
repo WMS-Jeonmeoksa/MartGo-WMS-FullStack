@@ -13,7 +13,7 @@
     <meta charset="UTF-8"/>
     <title>MartGo - 창고 임대 신청</title>
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/last.css" rel="stylesheet">
+    <link href="/css/rent_last.css" rel="stylesheet">
     <link href="/css/margoLogo.css" rel="stylesheet">
 
 
@@ -62,7 +62,7 @@
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/mypage">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
+                            <i class="fas fa-user-circle"></i> <%= user.getUsername() %>님
                         </a>
                     </li>
                     <li class="nav-item">
@@ -72,8 +72,8 @@
                     </li>
                 </ul>
             </div>
-        </nav>
 
+        </nav>
 
         <div class="container">
             <h1>창고 임대 신청</h1>
