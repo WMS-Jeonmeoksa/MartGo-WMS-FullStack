@@ -30,7 +30,7 @@
                 <li class="sidebar-item active">
                     <a class="sidebar-link" href="/dashboard/customer/">
                         <i class="align-middle" data-feather="list"></i>
-                        <span class="align-middle">대시 보드</span>
+                        <span class="align-middle">거래처 대시 보드</span>
                     </a>
                 </li>
 
@@ -91,7 +91,6 @@
 
         <main class="content">
             <div class="container-fluid p-0">
-                <h1 class="h3 mb-3"><strong>Dashboard</strong></h1>
                 <div class="row mb-4">
                     <div class="row mb-4">
                         <div class="col-md-6 d-flex">
@@ -150,7 +149,7 @@
                     <div class="col-md-6 d-flex">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">${dashBoardList.userSectorUsage[0].sector_id} Usage</h5>
+                                <h5 class="card-title mb-0">${dashBoardList.userSectorUsage[0].sector_id} 섹터 용적률</h5>
                             </div>
                             <div class="card-body d-flex flex-column align-items-center justify-content-center"
                                  style="height: 250px;">

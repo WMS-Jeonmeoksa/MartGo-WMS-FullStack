@@ -12,7 +12,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>MartGo - General Dashboard</title>
+    <title>MartGo - SuperAdmin Dashboard</title>
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/css/margoLogo.css">
@@ -130,13 +130,12 @@
 
         <main class="content">
             <div class="container-fluid p-0">
-                <h1 class="h3 mb-3"><strong>General Dashboard</strong></h1>
 
                 <div class="row">
                     <div class="col-xl-6 col-xxl-7">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Monthly Rent</h5>
+                                <h5 class="card-title mb-0">월별 실적</h5>
                             </div>
                             <div class="card-body py-3" style="height: 370px; padding-bottom: 20px;">
                                 <div class="chart chart-sm">
@@ -148,7 +147,7 @@
                     <div class="col-xl-6 col-xxl-5">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">FAR by WareHouse</h5>
+                                <h5 class="card-title mb-0">창고별 용적률</h5>
                             </div>
                             <div class="card-body w-100" style="height: 370px; padding-bottom: 20px;">
                                 <div class="chart chart-lg" style="height: 100%;">
@@ -165,7 +164,7 @@
                             <div class="col-12 col-md-6 col-xl-3 d-flex mb-4">
                                 <div class="card flex-fill w-100">
                                     <div class="card-header">
-                                        <h5 class="card-title mb-0">${sector.sector_id} Usage</h5>
+                                        <h5 class="card-title mb-0">${sector.sector_id} 섹터 용적률</h5>
                                     </div>
                                     <div class="card-body d-flex">
                                         <div class="align-self-center w-100">
@@ -245,7 +244,7 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: "Monthly Rent Total",
+                    label: "월별 실적",
                     fill: true,
                     backgroundColor: gradient,
                     borderColor: window.theme.primary,
@@ -306,7 +305,7 @@
             data: {
                 labels: warehouseLabels,
                 datasets: [{
-                    label: "Warehouse Usage",
+                    label: "창고별 용적률",
                     backgroundColor: barColors,
                     borderColor: barColors,
                     hoverBackgroundColor: barColors,
