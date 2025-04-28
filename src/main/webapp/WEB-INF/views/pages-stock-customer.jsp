@@ -21,15 +21,14 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/customer/">
-                <img src="/img/MartGo_Logo.png" alt="a">
+                <img src="/img/MartGo_Logo.png" alt="MartGo Logo">
             </a>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">거래처 메뉴</li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/dashboard/customer/">
-                        <i class="align-middle" data-feather="list"></i>
-                        <span class="align-middle">대시 보드</span>
+                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">대시 보드</span>
                     </a>
                 </li>
 
@@ -70,11 +69,15 @@
     <div class="main">
         <!-- 상단 네비게이션 -->
         <nav class="navbar navbar-expand navbar-light navbar-bg">
-            <a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i></a>
+            <a class="sidebar-toggle js-sidebar-toggle">
+                <i class="hamburger align-self-center"></i>
+            </a>
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= user.getUsername() %>님</span>
+                        <span class="nav-link">
+                            <i class="fas fa-user-circle"></i> <%= user.getUsername() %>님
+                        </span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/logout">
@@ -90,7 +93,7 @@
                 <h1 class="h3 mb-3"><strong>재고</strong> 목록</h1>
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-hover">
+                        <table id="stock-table" class="table table-hover">
                             <thead>
                             <tr>
                                 <th>재고 번호</th>
@@ -116,15 +119,26 @@
                             </c:forEach>
                             </tbody>
                         </table>
+
+                        <!-- 페이징 버튼 영역 -->
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button id="prev-btn" class="btn btn-primary me-2">이전</button>
+                            <span id="current-page">1</span> / <span id="total-pages">1</span>
+                            <button id="next-btn" class="btn btn-primary ms-2">다음</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <!-- 푸터 -->
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row text-muted">
                     <div class="col-6 text-start">
-                        <p class="mb-0"><strong>MartGo</strong> &copy;</p>
+                        <p class="mb-0">
+                            <strong>MartGo</strong> &copy;
+                        </p>
                     </div>
                     <div class="col-6 text-end">
                         <a class="text-muted" href="#">Support</a>
@@ -134,5 +148,47 @@
         </footer>
     </div>
 </div>
+
+<!-- 프론트 페이징 스크립트 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const stocks = [...document.querySelectorAll("#stock-table tbody tr")];
+        const rowsPerPage = 10;
+        let currentPage = 1;
+        const totalPages = Math.ceil(stocks.length / rowsPerPage);
+
+        function displayPage(page) {
+            stocks.forEach((row, index) => {
+                row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+            });
+            updatePagination();
+        }
+
+        function updatePagination() {
+            document.getElementById('current-page').innerText = currentPage;
+            document.getElementById('total-pages').innerText = totalPages;
+            document.getElementById('prev-btn').disabled = (currentPage === 1);
+            document.getElementById('next-btn').disabled = (currentPage === totalPages);
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+
+        // 초기 표시
+        displayPage(currentPage);
+    });
+</script>
+
 </body>
 </html>

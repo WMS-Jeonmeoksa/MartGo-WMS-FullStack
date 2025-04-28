@@ -22,22 +22,18 @@
             display: none;
             padding-left: 1.5rem;
         }
-
         .sidebar-item.open > .sidebar-submenu {
             display: block;
         }
-
         .submenu-toggle {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .submenu-icon {
             font-size: 0.8rem;
             transition: transform 0.3s ease;
         }
-
         .sidebar-item.open .submenu-icon {
             transform: rotate(180deg);
         }
@@ -49,7 +45,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/superadmin">
-                <img src="/img/MartGo_Logo.png" alt="a">
+                <img src="/img/MartGo_Logo.png" alt="MartGo Logo">
             </a>
 
             <ul class="sidebar-nav">
@@ -90,15 +86,13 @@
                     <ul class="sidebar-submenu">
                         <li class="sidebar-item active">
                             <a class="sidebar-link" href="/stock/superadmin">
-                                <i class="align-middle" data-feather="list"></i>
-                                <span class="align-middle">재고 목록</span>
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 목록</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/stock_history/superadmin">
-                                <i class="align-middle" data-feather="list"></i>
-                                <span class="align-middle">재고 변경 이력</span>
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">재고 변경 이력</span>
                             </a>
                         </li>
                     </ul>
@@ -116,8 +110,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link"><i
-                                class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님</span>
+                        <span class="nav-link">
+                            <i class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님
+                        </span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/logout">
@@ -127,12 +122,13 @@
                 </ul>
             </div>
         </nav>
+
         <main class="content">
             <div class="container-fluid p-0">
                 <h1 class="h3 mb-3"><strong>총 관리자</strong> - 유저 재고 목록</h1>
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-hover">
+                        <table id="stock-table" class="table table-hover">
                             <thead>
                             <tr>
                                 <th>재고 번호</th>
@@ -158,10 +154,18 @@
                             </c:forEach>
                             </tbody>
                         </table>
+
+                        <!-- 페이징 버튼 추가 -->
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button id="prev-btn" class="btn btn-primary me-2">이전</button>
+                            <span id="current-page">1</span> / <span id="total-pages">1</span>
+                            <button id="next-btn" class="btn btn-primary ms-2">다음</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
+
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row text-muted">
@@ -176,6 +180,8 @@
         </footer>
     </div>
 </div>
+
+<!-- 사이드바 토글 스크립트 -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const toggles = document.querySelectorAll(".submenu-toggle");
@@ -188,5 +194,47 @@
         });
     });
 </script>
+
+<!-- 프론트 페이징 스크립트 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const stocks = [...document.querySelectorAll("#stock-table tbody tr")];
+        const rowsPerPage = 10;
+        let currentPage = 1;
+        const totalPages = Math.ceil(stocks.length / rowsPerPage);
+
+        function displayPage(page) {
+            stocks.forEach((row, index) => {
+                row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+            });
+            updatePagination();
+        }
+
+        function updatePagination() {
+            document.getElementById('current-page').innerText = currentPage;
+            document.getElementById('total-pages').innerText = totalPages;
+            document.getElementById('prev-btn').disabled = (currentPage === 1);
+            document.getElementById('next-btn').disabled = (currentPage === totalPages);
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+
+        // 초기 표시
+        displayPage(currentPage);
+    });
+</script>
+
 </body>
 </html>
