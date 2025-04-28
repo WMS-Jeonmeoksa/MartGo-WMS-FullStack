@@ -10,14 +10,13 @@
 	<link href="${pageContext.request.contextPath}/css/registerForm.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/margoLogo.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
 </head>
 <body>
 
-<!-- ✅ 상단 로고 추가 -->
+<!-- 상단 로고 -->
 <div class="header">
 	<div class="logo">
-		<a href="guest"><img src="/img/MartGo_Logo_Black.png" alt="a"></a>
+		<a href="guest"><img src="/img/MartGo_Logo_Black.png" alt="MartGo Logo"></a>
 	</div>
 </div>
 
@@ -30,36 +29,41 @@
 					<div class="text-center mt-4">
 						<h1 class="h2">회원가입</h1>
 						<p class="lead">계정을 생성하고 시작해보세요!</p>
+						<p class="text-muted" style="font-size: 0.9rem;"><span style="color: red;">*</span> : 필수 작성 항목입니다.</p>
 					</div>
 
 					<div class="card">
 						<div class="card-body">
 							<div class="m-sm-3">
 								<form action="${pageContext.request.contextPath}/register" method="post" onsubmit="return validateForm()">
+
 									<div class="mb-3">
-										<label class="form-label">아이디</label>
-										<input class="form-control form-control-lg" type="text" name="userid" id="userid" placeholder="아이디를 입력하세요 (영문 시작, 영문/숫자 4자 이상)" required/>
+										<label class="form-label">아이디<span style="color: red;">*</span></label>
+										<div style="display: flex; gap: 10px;">
+											<input class="form-control form-control-lg" type="text" name="userid" id="userid" placeholder="아이디를 입력하세요 (4자 이상)" required/>
+											<button type="button" onclick="checkDuplicate()" class="btn btn-outline-secondary">ID 중복체크</button>
+										</div>
+										<small id="checkResult" class="text-muted"></small>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">이름</label>
+										<label class="form-label">이름<span style="color: red;">*</span></label>
 										<input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="이름을 입력하세요 (한글)" required/>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">비밀번호</label>
+										<label class="form-label">비밀번호<span style="color: red;">*</span></label>
 										<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="비밀번호를 입력하세요 (4자 이상)" required/>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">비밀번호 확인</label>
+										<label class="form-label">비밀번호 확인<span style="color: red;">*</span></label>
 										<input class="form-control form-control-lg" type="password" name="confirmPassword" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required/>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label">전화번호</label>
+										<label class="form-label">전화번호<span style="color: red;">*</span></label>
 										<div style="display: flex; gap: 10px;">
-											<!-- 앞자리 선택 -->
 											<div style="position: relative; flex: 1;">
 												<select id="phone1" name="phone1" class="form-control form-control-lg" style="width: 100%;">
 													<option value="010" selected>010</option>
@@ -72,41 +76,27 @@
 												<span style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;">▼</span>
 											</div>
 
-
-											<!-- 가운데 -->
-											<input type="text" id="phone2" name="phone2" maxlength="4"
-												   class="form-control form-control-lg" placeholder="1234"
-												   style="flex: 1;" required
-												   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-											<!-- 끝자리 -->
-											<input type="text" id="phone3" name="phone3" maxlength="4"
-												   class="form-control form-control-lg" placeholder="5678"
-												   style="flex: 1;" required
-												   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+											<input type="text" id="phone2" name="phone2" maxlength="4" class="form-control form-control-lg" placeholder="1234" style="flex: 1;" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+											<input type="text" id="phone3" name="phone3" maxlength="4" class="form-control form-control-lg" placeholder="5678" style="flex: 1;" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 										</div>
 									</div>
 
-
 									<div class="mb-3">
 										<label class="form-label">이메일</label>
-										<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="이메일을 입력하세요" />
+										<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="이메일을 입력하세요"/>
 									</div>
 
-									<!-- 주소 -->
 									<div class="mb-3">
-										<label class="form-label">주소</label>
+										<label class="form-label">주소<span style="color: red;">*</span></label>
 										<div style="display: flex; gap: 10px;">
-											<input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="주소 찾기 클릭" readonly required />
+											<input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="주소 찾기 클릭" readonly required/>
 											<button type="button" onclick="execDaumPostcode()" class="btn btn-outline-secondary" style="white-space: nowrap;">주소 찾기</button>
 										</div>
 									</div>
 
-									<!-- 상세 주소 -->
 									<div class="mb-3">
 										<input type="text" name="addressDetail" id="addressDetail" class="form-control form-control-lg" placeholder="상세 주소를 입력하세요" required/>
 									</div>
-
 
 									<c:if test="${not empty error}">
 										<div class="alert alert-danger">${error}</div>
@@ -115,6 +105,7 @@
 									<div class="d-grid gap-2 mt-3">
 										<button type="submit" class="btn btn-lg btn-primary">회원가입</button>
 									</div>
+
 								</form>
 							</div>
 						</div>
@@ -133,6 +124,8 @@
 <script src="${pageContext.request.contextPath}/js/app.js"></script>
 
 <script>
+	let duplicateChecked = false; // 중복 체크 완료 여부
+
 	function validateForm() {
 		const userid = document.getElementById("userid").value.trim();
 		const username = document.getElementById("username").value.trim();
@@ -152,6 +145,11 @@
 
 		if (!useridRegex.test(userid)) {
 			alert("아이디는 영문자로 시작하며, 영문자 또는 숫자로 4자 이상 입력하세요.");
+			return false;
+		}
+
+		if (!duplicateChecked) {
+			alert("아이디 중복 체크를 완료해 주세요.");
 			return false;
 		}
 
@@ -180,8 +178,6 @@
 			return false;
 		}
 
-		const fullPhone = `${phone1}-${phone2}-${phone3}`;
-
 		if (email && !emailRegex.test(email)) {
 			alert("이메일 형식이 올바르지 않습니다.");
 			return false;
@@ -200,8 +196,40 @@
 		return true;
 	}
 
+	function checkDuplicate() {
+		const userid = document.getElementById("userid").value.trim();
 
+		if (userid.length < 4) {
+			document.getElementById("checkResult").innerText = "아이디는 4자 이상이어야 합니다.";
+			document.getElementById("checkResult").style.color = "red";
+			duplicateChecked = false;
+			return;
+		}
 
+		fetch("${pageContext.request.contextPath}/checkUserid?userid=" + encodeURIComponent(userid))
+				.then(response => response.text())
+				.then(result => {
+					if (result === "EXISTS") {
+						document.getElementById("checkResult").innerText = "이미 존재하는 아이디입니다.";
+						document.getElementById("checkResult").style.color = "red";
+						duplicateChecked = false;
+					} else if (result === "OK") {
+						document.getElementById("checkResult").innerText = "사용 가능한 아이디입니다.";
+						document.getElementById("checkResult").style.color = "green";
+						duplicateChecked = true;
+					} else {
+						document.getElementById("checkResult").innerText = "오류가 발생했습니다.";
+						document.getElementById("checkResult").style.color = "red";
+						duplicateChecked = false;
+					}
+				})
+				.catch(error => {
+					console.error(error);
+					document.getElementById("checkResult").innerText = "오류가 발생했습니다.";
+					document.getElementById("checkResult").style.color = "red";
+					duplicateChecked = false;
+				});
+	}
 </script>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -209,15 +237,12 @@
 	function execDaumPostcode() {
 		new daum.Postcode({
 			oncomplete: function(data) {
-				// 사용자가 선택한 주소를 입력란에 넣음
 				document.getElementById("address").value = data.roadAddress || data.jibunAddress;
-				document.getElementById("addressDetail").focus();  // 상세주소 입력으로 자동 이동
+				document.getElementById("addressDetail").focus();
 			}
 		}).open();
 	}
 </script>
-
-
 
 </body>
 </html>
