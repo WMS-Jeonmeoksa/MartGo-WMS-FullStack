@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.ssg.martgowmsfullstack.dto.AdminDTO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%
     AdminDTO admin = (AdminDTO) session.getAttribute("loginInfo");
     if (admin == null) {
@@ -12,7 +14,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8"/>
-    <title>MartGo - 총 관리자 재고 목록</title>
+    <title>MartGo - 총 관리자 재고 변경 이력</title>
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/margoLogo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -22,22 +24,18 @@
             display: none;
             padding-left: 1.5rem;
         }
-
         .sidebar-item.open > .sidebar-submenu {
             display: block;
         }
-
         .submenu-toggle {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .submenu-icon {
             font-size: 0.8rem;
             transition: transform 0.3s ease;
         }
-
         .sidebar-item.open .submenu-icon {
             transform: rotate(180deg);
         }
@@ -49,7 +47,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="${pageContext.request.contextPath}/superadmin">
-                <img src="/img/MartGo_Logo.png" alt="a">
+                <img src="/img/MartGo_Logo.png" alt="MartGo Logo">
             </a>
 
             <ul class="sidebar-nav">
@@ -68,7 +66,6 @@
                     </a>
                 </li>
 
-                <!-- 진행중 메뉴 -->
                 <li class="sidebar-item">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="clock"></i> 진행중</span>
@@ -81,7 +78,6 @@
                     </ul>
                 </li>
 
-                <!-- 담당 창고 메뉴 -->
                 <li class="sidebar-item open">
                     <a class="sidebar-link submenu-toggle" href="#">
                         <span><i class="align-middle" data-feather="package"></i> 담당 창고</span>
@@ -107,83 +103,91 @@
         </div>
     </nav>
 
-    <!-- 메인 콘텐츠 영역 -->
+    <!-- 메인 콘텐츠 -->
     <div class="main">
-        <div class="main">
-            <nav class="navbar navbar-expand navbar-light navbar-bg">
-                <a class="sidebar-toggle js-sidebar-toggle">
-                    <i class="hamburger align-self-center"></i>
-                </a>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav navbar-align ms-auto">
-                        <li class="nav-item">
-                        <span class="nav-link"><i
-                                class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님</span>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/logout">
-                                <i class="fas fa-sign-out-alt"></i> 로그아웃
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <main class="content">
-                <div class="container-fluid p-0">
-                    <h1 class="h3 mb-3"><strong>총 관리자</strong> - 유저 재고 목록</h1>
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-hover">
-                                <thead>
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle">
+                <i class="hamburger align-self-center"></i>
+            </a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav navbar-align ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link"><i class="fas fa-user-circle"></i> <%= admin.getAdminname() %> 총관리자님</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">
+                            <i class="fas fa-sign-out-alt"></i> 로그아웃
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3"><strong>총 관리자</strong> - 유저 재고 변경 이력</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <table id="stock-table" class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>재고 변경 번호</th>
+                                <th>제품ID</th>
+                                <th>섹터ID</th>
+                                <th>수량</th>
+                                <th>변경 날짜</th>
+                                <th>변경 사유</th>
+                                <th>관리자ID</th>
+                                <th>재고 번호</th>
+                                <th>입고 번호</th>
+                                <th>출고 번호</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="stockhistory" items="${stockHistoryList}">
                                 <tr>
-                                    <th>재고 변경 번호</th>
-                                    <th>제품ID</th>
-                                    <th>섹터ID</th>
-                                    <th>수량</th>
-                                    <th>변경 날짜</th>
-                                    <th>변경 사유</th>
-                                    <th>관리자ID</th>
-                                    <th>재고 번호</th>
-                                    <th>입고 번호</th>
-                                    <th>출고 번호</th>
+                                    <td>${stockhistory.history_num}</td>
+                                    <td>${stockhistory.product_id}</td>
+                                    <td>${stockhistory.sector_id}</td>
+                                    <td>${stockhistory.count}</td>
+                                    <td><fmt:formatDate value="${stockhistory.change_date}" pattern="yyyy-MM-dd" /></td>
+                                    <td>${stockhistory.change_type}</td>
+                                    <td>${stockhistory.admin_id}</td>
+                                    <td>${stockhistory.stock_num}</td>
+                                    <td>${stockhistory.incoming_num}</td>
+                                    <td>${stockhistory.outgoing_num}</td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="stockhistory" items="${stockHistoryList}">
-                                    <tr>
-                                        <td>${stockhistory.history_num}</td>
-                                        <td>${stockhistory.product_id}</td>
-                                        <td>${stockhistory.sector_id}</td>
-                                        <td>${stockhistory.count}</td>
-                                        <td>${stockhistory.change_date}</td>
-                                        <td>${stockhistory.change_type}</td>
-                                        <td>${stockhistory.admin_id}</td>
-                                        <td>${stockhistory.stock_num}</td>
-                                        <td>${stockhistory.incoming_num}</td>
-                                        <td>${stockhistory.outgoing_num}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+
+                        <!-- 페이징 버튼 -->
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <button id="prev-btn" class="btn btn-primary me-2">이전</button>
+                            <span id="current-page">1</span> / <span id="total-pages">1</span>
+                            <button id="next-btn" class="btn btn-primary ms-2">다음</button>
                         </div>
                     </div>
                 </div>
-            </main>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-start">
-                            <p class="mb-0"><strong>MartGo</strong> &copy;</p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <a class="text-muted" href="#">Support</a>
-                        </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row text-muted">
+                    <div class="col-6 text-start">
+                        <p class="mb-0"><strong>MartGo</strong> &copy;</p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a class="text-muted" href="#">Support</a>
                     </div>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     </div>
 </div>
+
+<!-- 사이드바 토글 스크립트 -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const toggles = document.querySelectorAll(".submenu-toggle");
@@ -194,6 +198,47 @@
                 item.classList.toggle("open");
             });
         });
+    });
+</script>
+
+<!-- 프론트 페이징 스크립트 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const stocks = [...document.querySelectorAll("#stock-table tbody tr")];
+        const rowsPerPage = 10;
+        let currentPage = 1;
+        const totalPages = Math.ceil(stocks.length / rowsPerPage);
+
+        function displayPage(page) {
+            stocks.forEach((row, index) => {
+                row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+            });
+            updatePagination();
+        }
+
+        function updatePagination() {
+            document.getElementById('current-page').innerText = currentPage;
+            document.getElementById('total-pages').innerText = totalPages;
+            document.getElementById('prev-btn').disabled = (currentPage === 1);
+            document.getElementById('next-btn').disabled = (currentPage === totalPages);
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+
+        // 초기 표시
+        displayPage(currentPage);
     });
 </script>
 
