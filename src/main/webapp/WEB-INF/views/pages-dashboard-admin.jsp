@@ -124,7 +124,6 @@
 
         <main class="content">
             <div class="container-fluid p-0">
-                <h1 class="h3 mb-3"><strong>Dashboard</strong></h1>
 
                 <!-- 대시보드 카드 -->
                 <div class="row mb-4">
@@ -181,7 +180,7 @@
                             <div class="col-12 col-md-6 col-xl-3 d-flex mb-4">
                                 <div class="card flex-fill w-100">
                                     <div class="card-header">
-                                        <h5 class="card-title mb-0">${sector.sector_id} Usage</h5>
+                                        <h5 class="card-title mb-0">${sector.sector_id} 섹터 용적률</h5>
                                     </div>
                                     <div class="card-body d-flex">
                                         <div class="align-self-center w-100">
