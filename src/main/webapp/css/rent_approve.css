@@ -143,3 +143,20 @@ body {
  .sidebar-item.open > .sidebar-submenu {
      display: block;
  }
+ .pagination {
+     text-align: center;
+     margin: 1rem 0;
+ }
+ .pagination a {
+     margin: 0 0.25rem;
+     padding: 0.5rem 0.75rem;
+     text-decoration: none;
+     border: 1px solid #ddd;
+     border-radius: 4px;
+ }
+ .pagination a.current {
+     background-color: #007bff;
+     color: white;
+     border-color: #007bff;
+ }
+

@@ -13,12 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
-
-
 
 @Service
 @Log4j2
@@ -68,18 +67,28 @@ public class RentServiceImpl implements RentService {
         rentMapper.saveDb(rentHistoryVO);
     }
 
-    public List<RentHistoryDTO> holdRentList(String adminId) {
-        List<RentHistoryVO> vo = rentMapper.getHoldRentHistory(adminId);
-        return vo.stream()
-                .map(i -> modelMapper.map(i, RentHistoryDTO.class))
+    public PagedListHolder<RentHistoryDTO> holdRentList(String adminId, int page, int size) {
+        List<RentHistoryVO> voList = rentMapper.getHoldRentHistory(adminId);
+        List<RentHistoryDTO> dtoList = voList.stream()
+                .map(v -> modelMapper.map(v, RentHistoryDTO.class))
                 .collect(Collectors.toList());
+
+        PagedListHolder<RentHistoryDTO> pagedList = new PagedListHolder<>(dtoList);
+        pagedList.setPageSize(size);
+        pagedList.setPage(page - 1);
+        return pagedList;
     }
 
-    public List<RentHistoryDTO> inProgressRentList(String adminId) {
+    public PagedListHolder<RentHistoryDTO> inProgressRentList(String adminId, int page, int size) {
         List<RentHistoryVO> vo = rentMapper.getInProgressRentHistory(adminId);
-        return vo.stream()
+        List<RentHistoryDTO> dto = vo.stream()
                 .map(i -> modelMapper.map(i, RentHistoryDTO.class))
                 .collect(Collectors.toList());
+
+        PagedListHolder<RentHistoryDTO> paged = new PagedListHolder<>(dto);
+        paged.setPageSize(size);
+        paged.setPage(page - 1);  // 0-based
+        return paged;
     }
 
     public void approveRentHistory(int rentNum, String adminId) {
