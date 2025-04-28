@@ -126,7 +126,9 @@
                     </h3>
                 </div>
 
-                <table class="outgoing_table">
+
+                <!-- 출고 신청 목록 테이블 -->
+                <table id="outgoing-table" class="outgoing_table">
                     <thead>
                     <tr>
                         <th>출고번호</th>
@@ -150,6 +152,13 @@
                     </c:forEach>
                     </tbody>
                 </table>
+
+                <!-- 🔵 페이징 버튼 영역 추가 -->
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <button id="prev-btn" class="btn btn-primary me-2" type="button">이전</button>
+                    <span id="current-page">1</span> / <span id="total-pages">1</span>
+                    <button id="next-btn" class="btn btn-primary ms-2" type="button">다음</button>
+                </div>
 
                 <div class="button-group-full">
                     <button type="button" class="outgoing_btn btn-back" onclick="window.location.href='/dashboard/superadmin'">
@@ -181,6 +190,46 @@
                     }
                 }
             }
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const outgoings = [...document.querySelectorAll("#outgoing-table tbody tr")];
+                const rowsPerPage = 10;
+                let currentPage = 1;
+                const totalPages = Math.ceil(outgoings.length / rowsPerPage);
+
+                function displayPage(page) {
+                    outgoings.forEach((row, index) => {
+                        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+                    });
+                    updatePagination();
+                }
+
+                function updatePagination() {
+                    document.getElementById('current-page').innerText = currentPage;
+                    document.getElementById('total-pages').innerText = totalPages;
+                    document.getElementById('prev-btn').disabled = (currentPage === 1);
+                    document.getElementById('next-btn').disabled = (currentPage === totalPages);
+                }
+
+                document.getElementById('prev-btn').addEventListener('click', function() {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayPage(currentPage);
+                    }
+                });
+
+                document.getElementById('next-btn').addEventListener('click', function() {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        displayPage(currentPage);
+                    }
+                });
+
+                // 페이지 처음 로딩 시 초기 표시
+                displayPage(currentPage);
+            });
         </script>
 
         <!-- Feather 아이콘 & 토글 스크립트 -->
