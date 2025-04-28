@@ -3,6 +3,7 @@ package com.ssg.martgowmsfullstack.service;
 import com.ssg.martgowmsfullstack.domain.AdminVO;
 import com.ssg.martgowmsfullstack.dto.AdminDTO;
 import com.ssg.martgowmsfullstack.mapper.AdminMapper;
+import com.ssg.martgowmsfullstack.util.Encrypt;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,14 @@ public class AdminServiceImpl implements AdminService {
             }
         }
 
-        // 일반 비밀번호 매칭
-        boolean match = adminVO.getPassword().equals(password); // 나중에 암호화 비교로 변경 예정
-        return match;
+        // salt가 있을 때 암호화해서 비교
+        if (adminVO.getSalt() != null) {
+            String encryptedInputPw = Encrypt.getEncrypt(password, adminVO.getSalt());
+            boolean match = encryptedInputPw.equals(adminVO.getPassword());
+            return match;
+        }
+
+        return adminVO.getPassword().equals(password);
     }
 
 

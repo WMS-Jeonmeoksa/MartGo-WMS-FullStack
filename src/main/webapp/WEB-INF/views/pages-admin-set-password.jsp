@@ -19,6 +19,7 @@
 
             <form method="post" action="${pageContext.request.contextPath}/admin/update-password"
                   onsubmit="return validatePasswordForm();">
+
                 <div class="mb-3">
                     <label for="newPassword" class="form-label">새 비밀번호</label>
                     <input type="password" class="form-control" id="newPassword" name="newPassword" required>
@@ -29,7 +30,6 @@
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                 </div>
 
-                <!-- ✅ 수정된 부분 -->
                 <input type="hidden" name="adminId" value="${sessionScope.tempAdminId}"/>
 
                 <c:if test="${not empty error}">
@@ -61,6 +61,14 @@
 
         return true;
     }
+
+    // ✅ 비밀번호 변경 성공 후 alert 띄우기
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            alert('비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.');
+        }
+    };
 </script>
 
 </body>

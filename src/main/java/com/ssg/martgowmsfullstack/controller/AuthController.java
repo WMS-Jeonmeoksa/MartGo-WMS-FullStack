@@ -23,7 +23,7 @@ public class AuthController {
     // --- 로그인 폼 ---
     @GetMapping("/login")
     public String loginForm() {
-        return "pages-login"; // 공통 로그인 폼 (선택지 제공)
+        return "pages-login"; // 공통 로그인 폼
     }
 
     @PostMapping("/login")
@@ -34,7 +34,7 @@ public class AuthController {
         String userid = loginDTO.getUserid();
         String password = loginDTO.getPassword();
 
-        // 1. 사용자 로그인 시도
+        // 사용자 로그인
         if (userService.login(userid, password)) {
             UserDTO user = userService.findByUserid(userid);
             session.setAttribute("loginInfo", user);
@@ -48,12 +48,12 @@ public class AuthController {
             return "pages-login";
         }
 
-        // 2. 관리자 로그인 시도
+        // 관리자 로그인
         if (adminService.login(userid, password)) {
             AdminDTO admin = adminService.getAdminById(userid);
 
             if ("0".equals(admin.getPassword())) {
-                session.setAttribute("tempAdminId", admin.getAdminId()); // 임시 세션 저장
+                session.setAttribute("tempAdminId", admin.getAdminId());
                 return "redirect:/admin/set-password";
             }
 
@@ -68,11 +68,10 @@ public class AuthController {
             return "pages-login";
         }
 
-        // 3. 모두 실패
+        // 모두 실패
         model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
         return "pages-login";
     }
-
 
     @GetMapping("/admin/set-password")
     public String setAdminPasswordForm() {
@@ -89,40 +88,28 @@ public class AuthController {
         String salt = Encrypt.getSalt();
         String hash = Encrypt.getEncrypt(newPassword, salt);
 
-        adminService.updatePassword(adminId, hash, salt); // 새 메서드 필요
-
-        session.removeAttribute("tempAdminId"); // 임시 세션 제거
+        adminService.updatePassword(adminId, hash, salt);
+        session.removeAttribute("tempAdminId");
         return "redirect:/login?pwResetSuccess=true";
     }
 
     @PostMapping("/admin/update-password")
-    public String updateAdminPassword(
-            @RequestParam String adminId,
-            @RequestParam String newPassword,
-            HttpSession session,
-            Model model) {
-
-        // 1. 비밀번호 유효성 체크 (4자리 이상인지 등)
+    public String updateAdminPassword(@RequestParam String adminId,
+                                      @RequestParam String newPassword,
+                                      HttpSession session,
+                                      Model model) {
         if (newPassword.length() < 4) {
             model.addAttribute("error", "비밀번호는 4자리 이상이어야 합니다.");
             return "pages-admin-set-password";
         }
 
-        // 2. salt 생성
         String salt = Encrypt.getSalt();
         String hashedPw = Encrypt.getEncrypt(newPassword, salt);
 
-        // 3. 비밀번호 업데이트
         adminService.updatePassword(adminId, hashedPw, salt);
-
-        // 4. 세션 초기화 후 로그인 페이지로
         session.invalidate();
-        return "redirect:/login?message=passwordChanged";
+        return "redirect:/login?success=true";
     }
-
-
-
-
 
     // --- 회원가입 폼 ---
     @GetMapping("/register")
@@ -139,7 +126,8 @@ public class AuthController {
                            @RequestParam("phone3") String phone3,
                            Model model) {
 
-        if (userService.findByUserid(user.getUserid()) != null) {
+        if (userService.findByUserid(user.getUserid()) != null ||
+                adminService.getAdminById(user.getUserid()) != null) {
             model.addAttribute("error", "이미 존재하는 아이디입니다.");
             return "pages-registerForm";
         }
@@ -147,16 +135,12 @@ public class AuthController {
         String fullAddress = (user.getAddress() + " (" + addressDetail + ")").trim();
         String fullPhone = phone1 + "-" + phone2 + "-" + phone3;
 
-
         user.setAddress(fullAddress);
         user.setPhone(fullPhone);
         user.setRole("회원");
         user.setStatus("활성화");
 
         userService.register(user);
-
-
-
         return "redirect:/login?joined=true";
     }
 
@@ -164,6 +148,19 @@ public class AuthController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "pages-guest"; // 비회원 홈
+        return "pages-guest";
+    }
+
+    // --- 아이디 중복 체크 ---
+    @GetMapping("/checkUserid")
+    @ResponseBody
+    public String checkUserid(@RequestParam String userid) {
+        boolean userExists = userService.findByUserid(userid) != null;
+        boolean adminExists = adminService.getAdminById(userid) != null;
+
+        if (userExists || adminExists) {
+            return "EXISTS"; // 이미 존재
+        }
+        return "OK"; // 사용 가능
     }
 }
