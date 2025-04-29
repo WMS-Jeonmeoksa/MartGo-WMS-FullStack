@@ -733,3 +733,88 @@ VALUES (3, '2025-07-01', '대기', 'user41', 1),
 # INSERT INTO stock_history (product_id, sector_id, count, change_date, change_type, admin_id, stock_num, incoming_num,
 #                            outgoing_num)
 # VALUES
+DELETE FROM martgodb.rent_history WHERE rent_num = 84 AND sector_id LIKE '1A' ESCAPE '#' AND warehouse_id = 1 AND user_id LIKE 'user54' ESCAPE '#';
+DELETE FROM martgodb.rent_history WHERE rent_num = 83 AND sector_id LIKE '1A' ESCAPE '#' AND warehouse_id = 1 AND user_id LIKE 'user46' ESCAPE '#';
+
+UPDATE martgodb.user t SET t.role = '회원', t.admin_id = null WHERE t.user_id LIKE 'user46' ESCAPE '#';
+UPDATE martgodb.user t SET t.role = '회원', t.admin_id = null WHERE t.user_id LIKE 'user56' ESCAPE '#';
+
+DELETE FROM martgodb.incoming WHERE incoming_num = 18;
+DELETE FROM martgodb.incoming WHERE incoming_num = 26;
+DELETE FROM martgodb.incoming WHERE incoming_num = 42;
+DELETE FROM martgodb.incoming WHERE incoming_num = 6;
+DELETE FROM martgodb.incoming WHERE incoming_num = 50;
+
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 18;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 26;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 6;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 42;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 50;
+
+DELETE FROM martgodb.stock WHERE stock_num = 38;
+DELETE FROM martgodb.stock WHERE stock_num = 30;
+DELETE FROM martgodb.stock WHERE stock_num = 9;
+DELETE FROM martgodb.stock WHERE stock_num = 17;
+UPDATE martgodb.stock t SET t.sector_id = '1C' WHERE t.stock_num = 1;
+UPDATE martgodb.stock t SET t.sector_id = '1C' WHERE t.stock_num = 2;
+
+DELETE FROM martgodb.rent_history WHERE rent_num = 123 AND sector_id LIKE '4B' ESCAPE '#' AND warehouse_id = 4 AND user_id LIKE 'user41' ESCAPE '#';
+DELETE FROM martgodb.rent_history WHERE rent_num = 107 AND sector_id LIKE '3A' ESCAPE '#' AND warehouse_id = 3 AND user_id LIKE 'user41' ESCAPE '#';
+DELETE FROM martgodb.rent_history WHERE rent_num = 90 AND sector_id LIKE '1C' ESCAPE '#' AND warehouse_id = 1 AND user_id LIKE 'user41' ESCAPE '#';
+
+UPDATE martgodb.user t SET t.role = '회원', t.admin_id = null WHERE t.user_id LIKE 'user41' ESCAPE '#';
+
+DELETE FROM martgodb.incoming WHERE incoming_num = 1;
+DELETE FROM martgodb.incoming WHERE incoming_num = 12;
+DELETE FROM martgodb.incoming WHERE incoming_num = 11;
+DELETE FROM martgodb.incoming WHERE incoming_num = 37;
+
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 11;
+
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 1;
+
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 12;
+
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 37;
+
+DELETE FROM martgodb.stock WHERE stock_num = 25;
+DELETE FROM martgodb.stock WHERE stock_num = 1;
+DELETE FROM martgodb.stock WHERE stock_num = 3;
+DELETE FROM martgodb.stock WHERE stock_num = 2;
+;
+DELETE FROM martgodb.stock WHERE stock_num = 41;
+UPDATE martgodb.user t SET t.role = '회원', t.admin_id = null WHERE t.user_id LIKE 'user42' ESCAPE '#';
+DELETE FROM martgodb.rent_history WHERE rent_num = 90 AND sector_id LIKE '1C' ESCAPE '#' AND warehouse_id = 1 AND user_id LIKE 'user41' ESCAPE '#';
+DELETE FROM martgodb.rent_history WHERE rent_num = 107 AND sector_id LIKE '3A' ESCAPE '#' AND warehouse_id = 3 AND user_id LIKE 'user41' ESCAPE '#';
+DELETE FROM martgodb.rent_history WHERE rent_num = 123 AND sector_id LIKE '4B' ESCAPE '#' AND warehouse_id = 4 AND user_id LIKE 'user41' ESCAPE '#';
+DELETE FROM martgodb.incoming WHERE incoming_num = 53;
+DELETE FROM martgodb.incoming WHERE incoming_num = 2;
+DELETE FROM martgodb.incoming WHERE incoming_num = 13;
+DELETE FROM martgodb.incoming WHERE incoming_num = 14;
+DELETE FROM martgodb.incoming WHERE incoming_num = 38;
+DELETE FROM martgodb.incoming WHERE incoming_num = 29;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 53;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 2;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 13;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 14;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 29;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 38;
+DELETE FROM martgodb.stock WHERE stock_num = 20;
+DELETE FROM martgodb.stock WHERE stock_num = 4;
+DELETE FROM martgodb.stock WHERE stock_num = 26;
+DELETE FROM martgodb.stock WHERE stock_num = 5;
+
+DELETE FROM martgodb.rent_history WHERE rent_num = 82 AND sector_id LIKE '1A' ESCAPE '#' AND warehouse_id = 1 AND user_id LIKE 'user44' ESCAPE '#';
+UPDATE martgodb.user t SET t.role = '회원', t.admin_id = null WHERE t.user_id LIKE 'user44' ESCAPE '#';
+UPDATE martgodb.user t SET t.role = '거래처' WHERE t.user_id LIKE 'user44' ESCAPE '#';
+DELETE FROM martgodb.incoming WHERE incoming_num = 40;
+DELETE FROM martgodb.incoming WHERE incoming_num = 16;
+DELETE FROM martgodb.incoming WHERE incoming_num = 4;
+DELETE FROM martgodb.incoming WHERE incoming_num = 55;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 40;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 4;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 16;
+DELETE FROM martgodb.outgoing WHERE outgoing_num = 55;
+DELETE FROM martgodb.stock WHERE stock_num = 7;
+DELETE FROM martgodb.stock WHERE stock_num = 28;
+DELETE FROM martgodb.stock WHERE stock_num = 43;
