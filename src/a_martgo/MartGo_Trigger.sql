@@ -305,10 +305,10 @@ BEGIN
     SET product_volume_change = (NEW.count - OLD.count) *
                                 (SELECT height * width FROM product WHERE product_id = NEW.product_id);
     UPDATE sector
-    SET FAR = current_sector_far + (product_volume_change / sector_total_volume) * 100
+    SET FAR = current_sector_far + (product_volume_change * 0.01 / sector_total_volume) * 100
     WHERE sector_id = NEW.sector_id AND warehouse_id = NEW.warehouse_id;
     UPDATE warehouse
-    SET FAR = current_warehouse_far + (product_volume_change / warehouse_total_volume) * 100
+    SET FAR = current_warehouse_far + (product_volume_change * 0.01 / warehouse_total_volume) * 100
     WHERE warehouse_id = NEW.warehouse_id;
 END;
 //
@@ -377,11 +377,11 @@ BEGIN
                                 (SELECT height * width FROM product WHERE product_id = NEW.product_id);
 
     UPDATE sector
-    SET FAR = current_sector_far + (product_volume_change / sector_total_volume) * 100
+    SET FAR = current_sector_far + (product_volume_change * 0.01 / sector_total_volume) * 100
     WHERE sector_id = NEW.sector_id AND warehouse_id = NEW.warehouse_id;
 
     UPDATE warehouse
-    SET FAR = current_warehouse_far + (product_volume_change / warehouse_total_volume) * 100
+    SET FAR = current_warehouse_far + (product_volume_change * 0.01 / warehouse_total_volume) * 100
     WHERE warehouse_id = NEW.warehouse_id;
 END//
 
