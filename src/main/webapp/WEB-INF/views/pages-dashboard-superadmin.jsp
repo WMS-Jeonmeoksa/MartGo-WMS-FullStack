@@ -291,7 +291,7 @@
         ];
 
         var barColors = warehouseData.map(function (far) {
-            if (far > 100) {
+            if (far > 80) {
                 return '#d12345';
             } else if (far <= 30) {
                 return '#5db261';
